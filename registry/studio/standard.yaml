@@ -124,13 +124,13 @@ master:
   delivery: open      # streaming about -14 LUFS; broadcast -23; film as the venue asks
 
 desks:                 # the house that mixes; the same set, the same slots, four sounds (the Music Room's fourth output)
-  # Plugin names to confirm in Live's own list once the SSL and iZotope installs are done (Live rescans).
-  # SSL, 20 Oct 00:5x, on disk (VST3; to activate, then Live's scan): Native Channel Strip 2, X-Saturator v6, FlexVerb are there
-  # (Sherlock ignores a version tag); Native Bus Compressor 2 is not (also there: G3 MultiBusComp, X-Comp v6, Fusion's five).
+  # The names as Live lists them (its plugin database, 20 Oct 02:1x: SSL's 22 and UAD's 30 scanned; iZotope not yet).
+  # SSL: Native Bus Compressor 2 is not the author's, so the glue is G3 MultiBusComp (SSL's G-series bus compressor
+  # in three bands; Copilot's pick, the author: "you pick"); X-Saturator installs as "v6" (Sherlock ignores a version tag).
   houses:
-    ssl:     {strip: SSL Native Channel Strip 2, glue: SSL Native Bus Compressor 2, colour: SSL Native X-Saturator, hall: SSL Native FlexVerb, master: Ozone 9}
+    ssl:     {strip: SSL Native Channel Strip 2, glue: SSL G3 MultiBusComp, colour: SSL Native X-Saturator, hall: SSL Native FlexVerb, master: Ozone 9}
     izotope: {strip: Neutron 3, glue: Neutron 3 Compressor, colour: Neutron 3 Exciter, hall: open, master: Ozone 9}
-    uad:     {strip: API Vision Channel Strip, glue: API 2500, colour: Studer A800, hall: Lexicon 224, master: Ozone 9}
+    uad:     {strip: UADx API Vision Channel Strip, glue: UADx API 2500 Bus Compressor, colour: UADx Studer A800 Tape Recorder, hall: UADx Lexicon 224 Digital Reverb, master: Ozone 9}
     live:    {strip: [Channel EQ, Compressor], glue: Glue Compressor, colour: Saturator, hall: Hybrid Reverb, master: [Glue Compressor, Limiter]}
   default: ssl
   rule: >-
@@ -138,7 +138,7 @@ desks:                 # the house that mixes; the same set, the same slots, fou
     receive the audio and only the selected ones sound (Live 12 manual, Racks: chain select zones), so the
     desks not chosen are turned off, not only unselected. The Live desk needs no licence: anyone with Live
     opens it.
-  installed: {ssl: "on disk, to activate (20 Oct); Bus Compressor 2 missing", izotope: to install (owned), uad: yes (19 Oct), live: "yes"}
+  installed: {ssl: "yes (20 Oct, 22 in Live)", izotope: to install (owned), uad: "yes (30 in Live)", live: "yes"}
 
 budget:                # H-AL, 19 Oct (the author's earlier decisions): what the machine can carry
   live_sources: 16-24  # Serum 2 or Phase Plant instances playing at once

@@ -244,22 +244,22 @@ def self_test(standard: dict) -> int:
     head = [("Serum 2", True), ("Snap Heap", False), ("Snap Heap", False), ("Modular FX", False)]
     std = head + [("SSL Native Channel Strip 2", True)]
     desk_rack = ("rack:Desk", True, [[("SSL Native Channel Strip 2", True)], [("Neutron 3", False)],
-                                     [("API Vision Channel Strip", False)], [("live:ChannelEq", False), ("live:Compressor2", False)]])
+                                     [("UADx API Vision Channel Strip", False)], [("live:ChannelEq", False), ("live:Compressor2", False)]])
     cases = {
         "a standard track (the SSL desk)": ([("MidiTrack", "Violins I", std)], 0, 0),
         "the UAD desk's strip": ([("MidiTrack", "Violas", head + [("UADx API Vision Channel Strip", True)])], 0, 0),
         "the Live desk: Channel EQ, then Compressor": ([("MidiTrack", "Flute", head + [("live:ChannelEq", True), ("live:Compressor2", True)])], 0, 0),
-        "two desks on": ([("MidiTrack", "Horns", std + [("API Vision Channel Strip", True)])], 1, 0),
+        "two desks on": ([("MidiTrack", "Horns", std + [("UADx API Vision Channel Strip", True)])], 1, 0),
         "the four desks in a rack, one on": ([("MidiTrack", "Celli", head + [desk_rack])], 0, 0),
         "a Snap Heap missing, a Valhalla added": ([("MidiTrack", "Celli", std[:2] + std[3:] + [("ValhallaRoom", True)])], 1, 1),
         "the strip before the source": ([("MidiTrack", "Horns", [std[4]] + std[:4])], 1, 0),
         "the Atmosphere's Pad: Phase Plant the source": ([("MidiTrack", "Pad", [("Phase Plant", True)] + std[1:])], 0, 0),
-        "a group to standard": ([("GroupTrack", "Violins A", [("Snap Heap", True), ("SSL Native Bus Compressor 2", True), ("SSL Native X-Saturator", False)])], 0, 0),
-        "a group without its state": ([("GroupTrack", "Brass Low", [("SSL Native Bus Compressor 2", True), ("SSL Native X-Saturator", False)])], 1, 0),
-        "SSL's names as installed (a version tag)": ([("GroupTrack", "Choir", [("Snap Heap", True), ("SSL Native Bus Compressor 2", True), ("SSL Native X-Saturator v6", False)])], 0, 0),
+        "a group to standard": ([("GroupTrack", "Violins A", [("Snap Heap", True), ("SSL G3 MultiBusComp", True), ("SSL Native X-Saturator", False)])], 0, 0),
+        "a group without its state": ([("GroupTrack", "Brass Low", [("SSL G3 MultiBusComp", True), ("SSL Native X-Saturator", False)])], 1, 0),
+        "SSL's names as installed (a version tag)": ([("GroupTrack", "Choir", [("Snap Heap", True), ("SSL G3 MultiBusComp", True), ("SSL Native X-Saturator v6", False)])], 0, 0),
         "the master: Ozone 9": ([("MainTrack", "Main", [("Ozone 9", True)])], 0, 0),
         "the master, the Live desk": ([("MainTrack", "Main", [("live:GlueCompressor", True), ("live:Limiter", True)])], 0, 0),
-        "the hall: UAD's Lexicon 224": ([("ReturnTrack", "Space", [("Lexicon 224", True)])], 0, 0),
+        "the hall: UAD's Lexicon 224": ([("ReturnTrack", "Space", [("UADx Lexicon 224 Digital Reverb", True)])], 0, 0),
         "a designed space: Live's Hybrid Reverb": ([("ReturnTrack", "Designed space", [("live:Hybrid", True)])], 0, 0),
     }
     fails = 0
