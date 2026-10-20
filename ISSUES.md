@@ -6626,3 +6626,28 @@ four, never the one who decides.
 - [ ] AUTHOR: H-AL's and MOTHER's versions: NotebookLM's login has expired (19 Oct 22:4x): `notebooklm login`
       in apps/instrument/mother/.venv, then `python sherlock/writers.py ask televator-forward --author hal`
       (and mother); your own versions: author.<level>.md in Me/writers/televator-forward (or by voice). Then pick.
+## ISS-124: The hook: a theme from the author's own voice, developed by the emotional score — OPEN
+
+{{Tags area.instrument, area.art}}
+{{Fields date.created=2026-10-20, date.start=2026-10-20, date.end=, epic=}}
+
+Author, 20 Oct 2026 (Me/chats/tmp/MusicalSeeds.md, "my thoughts from the sleep"): the score has everything but
+"the catchy tune that defines it ... the bit the lawyers argue about"; "once you have the hook, the rest flows". A
+question and its answer, two lines each; the words give the rhythm (word-setting, the antecedent and consequent
+phrase), the voice the contour (Janacek's speech melodies, Reich's Different Trains); the tour's own text, read by
+the author, seeds each stop's theme (a leitmotif per place). The pipeline broken down: 1 the theme (the author's
+voice into Live, Convert Melody to New MIDI Track, or Melodyne); 2 the development (the emotional score transforms
+the theme instead of inventing notes); 3 the orchestration and the printed score; 4 the sound (Live, ISS-120).
+
+- [x] (20 Oct 13:3x: the author's decision) reMIDI 4 is the author's hands-on tool in Live only; its licence (1.1)
+      forbids automated systems on its library: Me/music's options.py retired with its outputs; orchestra
+      `--themes` maps a section to the author's own MIDI (Me/music/bld/mine/themes.yaml); the deck's lead offers his
+      own MIDI only.
+- [ ] A tour through the 21 levels (level 1 Quantum Foam upward), each stop a question and an answer (Copilot's
+      text, the author's voice). The first stop, the foam: the text given to the author 20 Oct.
+- [ ] AUTHOR, in Live: the foam's four lines recorded twice (spoken; half-sung), each converted to MIDI, exported
+      to Me/music/bld/mine (foam-spoken.mid, foam-sung.mid); the recordings kept (they prove the theme is his).
+- [ ] Step 2: the theme developed by the emotional score (fear fragments it, grief augments and darkens it,
+      curiosity inverts it, awe spreads it into canon), one movement on the foam's theme; MIDI and MusicXML; heard in Live.
+- [ ] AUTHOR: is the hook the author's method only, or a feature for users (18 Oct: the Soma Machine generates no
+      notes for others; its free output is information about music)?
