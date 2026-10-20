@@ -6527,7 +6527,9 @@ Monday it's symphonic orchestration". The rule, kept in docs/agent/CURRENT.md an
       (G3 MultiBusComp for an hour); Sherlock's self-test on Live's names, 15 of 15) The desks' plugin names
       as Live lists them, once the SSL and iZotope installs are done and Live has
       rescanned (Live's plugin database: the names Sherlock matches).
-- [ ] iZotope's names (Neutron 3, Ozone 9) and Softube LoadIR, once installed and in Live's list. 20 Oct 00:5x: SSL's 22 VST3s on disk, none
+- [x] (20 Oct 03:0x: iZotope in Live's list, the standard's names exact (Neutron 3, Neutron 3 Compressor, Neutron 3
+      Exciter, Ozone 9): the four desks confirmed. Softube LoadIR is not on disk (the author cannot find it; not part of
+      Amplifiers): the designed spaces are Live's Hybrid Reverb, its convolution side) iZotope's names (Neutron 3, Ozone 9) and Softube LoadIR, once installed and in Live's list. 20 Oct 00:5x: SSL's 22 VST3s on disk, none
       in Live's list yet (they need activating; Live's scanner was running); Native Bus Compressor 2 (the SSL
       desk's glue) not on disk; X-Saturator installs as "v6" (Sherlock now ignores a version tag; a self-test
       case); no SSL NKS files found yet (ProgramData, Documents, Program Files).

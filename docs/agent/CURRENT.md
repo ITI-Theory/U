@@ -16,7 +16,7 @@ the F1 (the deck). A poke reaches every screen (`npm run check:poke`). The Soma 
 name (one Serum 2 per instrument), Serum 2's Macros 1-8 in the rig; the SSL targets narrowed (fear: the strings;
 safety: the low instruments; the author, "narrow sounds better"). Installed in Live's User Library: Live reads it
 at its next start. Live's list: SSL's 23 (Bus Compressor 2 the SSL glue) and UAD's 30, by Live's own names in the
-standard; iZotope and LoadIR not yet. Serum 2's full NKS in OneDrive\lib\NKS\Xfer (the console index: 59 plugins).
+standard; iZotope's too (20 Oct 03:00): the four desks confirmed. The designed spaces: Live's Hybrid Reverb (LoadIR not on disk). Serum 2's full NKS in OneDrive\lib\NKS\Xfer (the console index: 59 plugins).
 
 **Rule (author, 19 Oct 19:5x): music is made in Ableton Live, never outside it.** No renderer, sampler
 or synth of our own makes the sound (Me/music's render.py and preview.py retired); Live plays and
