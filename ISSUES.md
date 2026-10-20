@@ -6647,7 +6647,14 @@ the theme instead of inventing notes); 3 the orchestration and the printed score
       text, the author's voice). The first stop, the foam: the text given to the author 20 Oct.
 - [ ] AUTHOR, in Live: the foam's four lines recorded twice (spoken; half-sung), each converted to MIDI, exported
       to Me/music/bld/mine (foam-spoken.mid, foam-sung.mid); the recordings kept (they prove the theme is his).
-- [ ] Step 2: the theme developed by the emotional score (fear fragments it, grief augments and darkens it,
+- [x] (20 Oct 14:xx, Me/music: hook.py, hooks.yaml, `make hook-*`; the author: "we just taught Sherlock to sing,
+      legally") The three cuts (the author, 20 Oct: read, read again over a version "more like a tune", a third to
+      finish): each cut tidied into the guide for the next (one key, octave slips and blips mended, a grid; then the
+      question in two bars ending open, the answer in two coming home; repeated for the speech-to-song illusion);
+      cut 3 the theme (four bars); the proof (each take's sha-256 and date, how the theme follows them). His take
+      wins; `--key` when his ear disagrees; MIDI only. Self-test 15 of 15.
+- [x] (20 Oct 14:xx: orchestra --themes, `all`: the whole piece on one theme; a synthetic theme through the composer:
+      stated, quickened, inverted, lowered, fragmented by the feelings) Step 2: the theme developed by the emotional score (fear fragments it, grief augments and darkens it,
       curiosity inverts it, awe spreads it into canon), one movement on the foam's theme; MIDI and MusicXML; heard in Live.
 - [ ] AUTHOR: is the hook the author's method only, or a feature for users (18 Oct: the Soma Machine generates no
       notes for others; its free output is information about music)?
