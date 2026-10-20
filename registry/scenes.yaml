@@ -1,15 +1,19 @@
 # The scenes (ISS-125): one per place, recorded once, used everywhere. The author, 20 Oct 2026: "for each screen
-# view ... we need text and speech, and we just string it together ... reusable, rather than just for this film".
-# A scene is a place in the app (its view) with its words for each user (registry/users.yaml: u, scientist,
-# rooted), its evidence label, and for U its hook (a question and its answer, two lines each: the scene's own
-# theme, Me/music/hook.py). The author's spoken takes are private (OneDrive\prj\Voice\takes, named by scene). A
-# tour step says `scene: <id>` (its view, say and label come from here; `user:` on the tour picks the words, U by
-# default); a film is a tour of scenes, paced by the takes once they exist.
+# view ... we need text and speech, and we just string it together ... reusable, rather than just for this film";
+# "for each level we need a few: U, rooted, academic ... focus on U".
 #
-# The zoom (the author, 20 Oct): when we change the zoom we should feel that we ARE that size: its "now" (the
-# level's response time, registry/levels: how long it takes to answer) and its neighbour (what it couples to).
-# The levels' facts are the level files'; a scene's words say them for a listener and must agree with them.
-# Status: draft (Copilot's words, 20 Oct); the author corrects every scene before he records it.
+# A scene: a place in the app (its view), its words for each user (registry/users.yaml: u, scientist, rooted), its
+# evidence label and source, how to say it, a cue (what the screen and the music do), and for U its hook (a question
+# and its answer, two lines each: the scene's own theme, Me/music/hook.py). A tour step `scene: <id>` takes the view,
+# the words and the label (U by default); a film is a tour of scenes, timed by the author's takes once they exist.
+# The narrator's script (docs/narration, `make -C docs/narration`) lays the scenes out for reading aloud.
+#
+# The words are written to be SPOKEN: one breath to a line; `/` a short pause, `//` a longer one; *a word* is
+# stressed. (The app's subtitles drop the marks.) The register for U (the author, 20 Oct): OpenStax's (Astronomy 2e,
+# its first chapter a tour of the scales; Biology 2e, Psychology 2e): one concrete comparison, how we know, plain
+# words; its facts checked against the pages named in `source` (CC BY 4.0, credited). The zoom: we try to BE each
+# size: its now (the level's response time, registry/levels) and its neighbour. Status: draft (Copilot's words,
+# 20 Oct); the author corrects every scene before he records it.
 schema_version: 1
 users: [u, scientist, rooted]
 scenes:
@@ -19,19 +23,25 @@ scenes:
     status: draft
     u:
       label: interpretive
-      say: >-
-        When I see a picture of a man, or a picture of a mountain, the pictures may be the same size, but in my
-        head I see two different scales. Seeing a picture of a mountain is different again from standing at its
-        foot, or sitting on its summit. Yet even on the summit I don't feel the mountain next door the way I feel
-        a person sitting next to me. I have climbed, but my eyes are still the size they were. So in this film,
-        when we change size, we try to BE that size: to feel how long its moment lasts, and who its neighbour is.
+      source: "the author's own words (20 Oct 2026), lightly edited"
+      how: "Your own voice, unhurried, thinking aloud. Not a performance; you, telling a friend what you noticed."
+      cue: {screen: "The worlds: the instrument at rest, glass domes from the quantum to the cosmos.", music: "A low pedal under you; the first notes of the theme only after you finish."}
+      say: |
+        When I see a picture of a man, / or a picture of a mountain,
+        the pictures may be the *same* size,
+        but in my head / I see two different scales.
+        Seeing a picture of a mountain / is different again
+        from standing at its foot, / or sitting on its summit.
+        Yet even on the summit,
+        I don't feel the mountain next door
+        the way I feel a person / sitting next to me.
+        I have climbed, / but my eyes are still the size they were. //
+        So in this film, / when we change size,
+        we try to *be* that size:
+        to feel how long its moment lasts, / and who its neighbour is.
       hook:
-        question:
-          - "Can I be the size of the thing I see?"
-          - "Can my now grow long, or shrink to a spark?"
-        answer:
-          - "Only if my eyes forget their own size,"
-          - "and I feel what the next one of me feels."
+        question: ["Can I be the size of the thing I see?", "Can my now grow long, or shrink to a spark?"]
+        answer: ["Only if my eyes forget their own size,", "and I feel what the next one of me feels."]
     scientist: open
     rooted: open
   - id: you-are-here
@@ -39,18 +49,21 @@ scenes:
     status: draft
     u:
       label: interpretive
-      say: >-
-        Start here, at your own size: about a metre or two, a body with a brain on top. Your "now" is about ten
-        seconds: a breath or two, a sentence, the time it takes something to reach you and for you to answer it.
-        Your neighbour is the person beside you. Remember how that feels. Every size we visit has a now and a
-        neighbour of its own.
+      source: "registry/levels/human-vertebrate.yaml (response time 10^1 s)"
+      how: "Close and quiet, as if the listener is sitting right beside you."
+      cue: {screen: "The jellyfish human: a body, its fields, a brain on top.", music: "The heartbeat pulse alone."}
+      say: |
+        Start here, / at your own size.
+        A metre or two. / A body, / with a brain on top.
+        Your *now* / is about ten seconds:
+        a breath or two, / a sentence,
+        the time it takes something to reach you, / and for you to answer it.
+        Your *neighbour* / is the person beside you.
+        Remember how that feels. //
+        Every size we visit / has a now, / and a neighbour, / of its own.
       hook:
-        question:
-          - "How long is now, for someone my size?"
-          - "Who is the one beside me, breathing too?"
-        answer:
-          - "A breath or two, a sentence, a turn of the head;"
-          - "you, and the warmth of you, close."
+        question: ["How long is now, for someone my size?", "Who is the one beside me, breathing too?"]
+        answer: ["A breath or two, a sentence, a turn of the head;", "you, and the warmth of you, close."]
     scientist: open
     rooted: open
   # ---------------------------------------------------------------- out: be the size
@@ -59,18 +72,22 @@ scenes:
     status: draft
     u:
       label: empirical-result
-      say: >-
-        Now be the flock. Thousands of birds, no leader, and no group mind; each one only watches a few
-        neighbours. And yet the flock turns as one: a wave of heading crosses it faster than copying, bird by
-        bird, could carry it. As a flock your now is about a second. Your neighbour is the next flock, or the
-        hawk.
+      source: "registry/levels/animal-swarm.yaml (a group pattern, not a group mind; response time 10^0 s); the turning wave as in the cell-to-cosmos tour"
+      how: "Lighter and a little quicker; let \"one\" land, then slow down for the hawk."
+      cue: {screen: "The flock, turning.", music: "Strings flicker and turn with the birds; they settle as you speak."}
+      say: |
+        Now, / *be* the flock.
+        Thousands of birds, / and no leader.
+        Each one watches / only a few neighbours.
+        And yet the flock turns / as *one*:
+        a wave of turning crosses it
+        faster than copying, bird by bird, / could carry it.
+        There is no group mind here, / only a group pattern.
+        As a flock, / your now is about a second.
+        Your neighbour / is the next flock, // or the hawk.
       hook:
-        question:
-          - "Who decides when a thousand wings turn?"
-          - "Is there a leader I cannot see?"
-        answer:
-          - "No one decides: the turn runs through us all,"
-          - "faster than any one of us could tell."
+        question: ["Who decides when a thousand wings turn?", "Is there a leader I cannot see?"]
+        answer: ["No one decides: the turn runs through us all,", "faster than any one of us could tell."]
     scientist: open
     rooted: open
   - id: be-the-city
@@ -78,18 +95,23 @@ scenes:
     status: draft
     u:
       label: interpretive
-      say: >-
-        Be the city: a few kilometres of streets, rules, habits and people, all connected. A change in a city,
-        a rumour, a fashion, a fear, spreads along its connections, and the streets and networks shape where it
-        can go. A city's now is long: about ten days for a change to run through it. Its neighbour is the next
-        city, trading with it, copying it, competing.
+      source: "registry/levels/society-city.yaml (habits and information spreading through urban connections; response time 10^6 s, about eleven days)"
+      how: "Conversational, a little wry; the list of things is quick, the \"ten days\" is slow."
+      cue: {screen: "The city: its streets and connections lit.", music: "A busy, low murmur under you; a pulse that speeds and slows."}
+      say: |
+        Be the city.
+        A few kilometres / of streets, / rules, / habits, / and people,
+        all connected.
+        A change in a city / — a rumour, / a fashion, / a fear —
+        runs along those connections,
+        and the roads and the networks / decide where it can go.
+        A city is *slow* to answer:
+        about ten days, / for a change to reach every street.
+        Its neighbour / is the next city,
+        trading with it, / copying it, / competing.
       hook:
-        question:
-          - "How does a city hear the news?"
-          - "How long before every street has heard?"
-        answer:
-          - "Along the roads, the wires, the friends of friends:"
-          - "ten days, and the whole town knows."
+        question: ["How does a city hear the news?", "How long before every street has heard?"]
+        answer: ["Along the roads, the wires, the friends of friends:", "ten days, and the whole town knows."]
     scientist: open
     rooted: open
   - id: be-the-rock
@@ -97,17 +119,23 @@ scenes:
     status: draft
     u:
       label: empirical-result
-      say: >-
-        Be the rock: plates and faults hundreds of kilometres long. Rock holds stress for an enormously long
-        time, and a quake is the moment the stored stress moves at once. Your now is hundreds of thousands of
-        years. Your neighbour is the plate you grind against.
+      source: "OpenStax Astronomy 2e, 8.2 (about a dozen plates, a jigsaw; plate tectonics as the planet's cooling system); registry/levels/geological.yaml (response time 10^13 s)"
+      how: "Slow and heavy, like the rock. Leave space before \"and an earthquake\"."
+      cue: {screen: "The plates and their faults.", music: "Deep, slow brass far below you; one low hit after \"lets go\"."}
+      say: |
+        Be the rock.
+        Earth's crust is cracked / into about a dozen plates,
+        fitted together / like the pieces of a jigsaw.
+        Heat from deep inside / moves them, / very slowly:
+        the plates are the planet's *cooling* system.
+        Where two plates grind,
+        rock holds the strain / for an enormously long time, //
+        and an earthquake / is the moment it lets go.
+        Your now / is hundreds of thousands of years.
+        Your neighbour / is the plate you push against.
       hook:
-        question:
-          - "What does the mountain carry in its stone?"
-          - "How long can it hold before it moves?"
-        answer:
-          - "Every push it never answered, held;"
-          - "then, in a minute, all of it, at once."
+        question: ["What does the mountain carry in its stone?", "How long can it hold before it moves?"]
+        answer: ["Every push it never answered, held;", "then, in a minute, all of it, at once."]
     scientist: open
     rooted: open
   - id: be-the-planet
@@ -115,18 +143,22 @@ scenes:
     status: draft
     u:
       label: empirical-result
-      say: >-
-        Be the planet: thousands of kilometres of rock, metal, ocean and air, with a magnetic field around it.
-        Strike it hard enough, as a great earthquake does, and the whole Earth rings like a bell for days; its
-        deepest note takes nearly an hour. These are physical feedbacks, not feelings. Your neighbour is the
-        Moon, pulling the tides up and down your sides twice a day.
+      source: "OpenStax Astronomy 2e, 1.6 (Earth about 13,000 km across, two thirds water; the Moon a quarter of Earth's size); the ringing as in the cell-to-cosmos tour; registry/levels/planetary.yaml"
+      how: "Wonder, not drama. \"Like a bell\" is the picture; let it ring a moment."
+      cue: {screen: "The whole Earth, slowly turning.", music: "A single low bell note after \"like a bell\", left to ring under you."}
+      say: |
+        Be the planet.
+        Thirteen thousand kilometres across,
+        two thirds of your skin / water.
+        Strike it hard enough, / as a great earthquake does,
+        and the whole Earth / rings like a *bell* / for days.
+        Its deepest note / takes nearly an hour.
+        These are physical feedbacks, / not feelings.
+        Your neighbour / is the Moon, / a quarter of your size,
+        pulling the oceans / up and down your sides, / twice a day.
       hook:
-        question:
-          - "If you strike the whole Earth, does it sing?"
-          - "How long before the ringing dies?"
-        answer:
-          - "For days it rings, its deepest note an hour,"
-          - "and the Moon keeps pulling at the sea."
+        question: ["If you strike the whole Earth, does it sing?", "How long before the ringing dies?"]
+        answer: ["For days it rings, its deepest note an hour,", "and the Moon keeps pulling at the sea."]
     scientist: open
     rooted: open
   - id: be-the-orbits
@@ -134,17 +166,21 @@ scenes:
     status: draft
     u:
       label: empirical-result
-      say: >-
-        Be the system of orbits: planets and moons falling around each other, forever missing. Each mass bends
-        the paths of the others. Your now is months: the time for a world to swing round. Your neighbours are
-        all of you at once, every body pulling every other.
+      source: "OpenStax Astronomy 2e, 1.6 (Earth's orbital speed about 110,000 km per hour; light takes slightly more than 8 minutes from the Sun)"
+      how: "Amused by the paradox: so fast, and you feel nothing. A small smile on \"nothing\"."
+      cue: {screen: "The orbits, swinging round.", music: "A slow, wide waltz under you."}
+      say: |
+        Be the system of orbits.
+        Planets and moons, / falling around each other, / and always *missing*.
+        To stay in orbit,
+        the Earth races round the Sun / at a hundred and ten thousand kilometres an hour, //
+        and you feel / nothing.
+        Light takes eight minutes / to reach us from the Sun:
+        the latest news from our star / is always eight minutes old.
+        Your now / is months: / the time for a world to swing round.
       hook:
-        question:
-          - "Why does the falling never end?"
-          - "Why does the Moon not reach the ground?"
-        answer:
-          - "Because it is always falling past;"
-          - "we are all falling, and always missing."
+        question: ["Why does the falling never end?", "Why does the Moon not reach the ground?"]
+        answer: ["Because it is always falling past;", "we are all falling, and always missing."]
     scientist: open
     rooted: open
   - id: be-the-star
@@ -152,18 +188,23 @@ scenes:
     status: draft
     u:
       label: empirical-result
-      say: >-
-        Be the star: a ball of hot plasma, held together by gravity and held up by its own pressure. Here is a
-        surprise. A star is a hundred times wider than the Earth, but its now is short: the Sun's surface rises
-        and falls every five minutes, and from those ripples we map the inside of the Sun. Being big is not the
-        same as being slow.
+      source: "OpenStax Astronomy 2e, 1.6 (the basketball and the apple seed), 16.4 (the Sun's pulsations, about 5 minutes a cycle; helioseismology)"
+      how: "Lead up to the surprise; \"The Sun breathes\" is the moment. Then plain again."
+      cue: {screen: "The Sun, close up, its surface moving.", music: "Under you, a soft swell and fall every few seconds, like breathing."}
+      say: |
+        Be the star.
+        Shrink the Sun to a basketball,
+        and the Earth / is an apple seed / thirty metres away.
+        And here is a surprise. //
+        The Sun *breathes*.
+        Its surface rises and falls, / in thousands of patches,
+        each cycle / about five minutes long.
+        From those ripples / we read the Sun's insides,
+        the way earthquakes tell us / about the inside of the Earth.
+        Being big / is not the same / as being slow.
       hook:
-        question:
-          - "Can something so vast be quick to answer?"
-          - "What is the Sun doing every five minutes?"
-        answer:
-          - "It breathes, it rings, it ripples on its skin,"
-          - "and we read its heart from the sound."
+        question: ["Can something so vast be quick to answer?", "What is the Sun doing every five minutes?"]
+        answer: ["It breathes, it rings, it ripples on its skin,", "and we read its heart from the sound."]
     scientist: open
     rooted: open
   - id: be-the-remnant
@@ -171,17 +212,23 @@ scenes:
     status: draft
     u:
       label: empirical-result
-      say: >-
-        Be what is left when a big star dies: a neutron star, or a black hole, matter crushed beyond anything on
-        Earth. Disturb it, and it rings down like a struck bell, in a few thousandths of a second. The densest
-        things answer fastest. Your neighbour may be another one, spiralling in, until the two become one.
+      source: "OpenStax Astronomy 2e, chapter 1 introduction (a collapsed star: every human being on Earth squeezed into a single raindrop); registry/levels/compact-object.yaml (ring-down, 10^-3 s)"
+      how: "Hushed for the raindrop; crisp and quick for \"the densest things answer fastest\"."
+      cue: {screen: "The collapsed star, ringing down.", music: "A struck bell, very high and short, then silence under you."}
+      say: |
+        Be what is left / when a great star dies.
+        A collapsed star, / so dense
+        that to match its insides
+        you would have to squeeze every human being on Earth
+        into a single *raindrop*.
+        Disturb it, / and it rings down / like a struck bell,
+        in a few thousandths of a second.
+        The densest things / answer fastest.
+        Your neighbour / may be another one, / spiralling in,
+        until the two / become one.
       hook:
-        question:
-          - "What is left when the great fire is gone?"
-          - "How fast does the heaviest thing reply?"
-        answer:
-          - "A bell of crushed light, struck once;"
-          - "a thousandth of a second, and still."
+        question: ["What is left when the great fire is gone?", "How fast does the heaviest thing reply?"]
+        answer: ["A bell of crushed light, struck once;", "a thousandth of a second, and still."]
     scientist: open
     rooted: open
   - id: be-the-galaxy
@@ -189,18 +236,23 @@ scenes:
     status: draft
     u:
       label: empirical-result
-      say: >-
-        Be the galaxy: a turning disc of a hundred billion stars, gas and dust. Waves of density sweep round it
-        like traffic jams, lighting new stars where they pass. Your now is one turn of the disc, a couple of
-        hundred million years. Your neighbour is Andromeda, coming towards you; in a few billion years you will
-        meet.
+      source: "OpenStax Astronomy 2e, 1.6 (hundreds of billions of stars; the disc 100,000 light-years across; the Sun somewhat less than 30,000 light-years from the centre), 1.7 (Andromeda, a little more than 2 million light-years); registry/levels/galactic-disc.yaml (10^16 s)"
+      how: "Spacious. \"Nothing much to distinguish it\" is gently funny; say it straight."
+      cue: {screen: "The Milky Way's disc from above, turning.", music: "The full orchestra, very soft and very wide."}
+      say: |
+        Be the galaxy.
+        Hundreds of billions of stars,
+        in a disc / a hundred thousand light-years across.
+        Our Sun / is one of them,
+        somewhat less than thirty thousand light-years from the centre,
+        in a place / with nothing much to distinguish it.
+        Your now / is one turn of the disc:
+        a couple of hundred million years.
+        Your nearest large neighbour / is Andromeda,
+        a spiral much like you, / a little more than two million light-years away.
       hook:
-        question:
-          - "How long is a day for a turning sea of stars?"
-          - "Who is coming, slowly, across the dark?"
-        answer:
-          - "One turn, two hundred million years;"
-          - "and Andromeda, our neighbour, on her way."
+        question: ["How long is a day for a turning sea of stars?", "Who is out there, so like me, across the dark?"]
+        answer: ["One turn, two hundred million years;", "and Andromeda, our neighbour, shining back."]
     scientist: open
     rooted: open
   - id: be-the-halo
@@ -208,17 +260,20 @@ scenes:
     status: draft
     u:
       label: open-hypothesis
-      say: >-
-        Be the halo: the wide, unseen region around the galaxy. Galaxies spin too fast for the matter we can
-        see; something holds them together, and we know it only from how stars move and how light bends. The
-        programme offers its own reading of what that is; it is a proposal, and it is labelled so.
+      source: "OpenStax Astronomy 2e, 1.6 (dark matter: known by the pull of its gravity; what it is made of remains a mystery); the programme's reading is a proposal (registry/model.yaml)"
+      how: "Honest and careful; slow down for \"remains a mystery\". The last sentence matter-of-fact, not apologetic."
+      cue: {screen: "The halo: contours around the galaxy.", music: "Something low and unresolved, never landing."}
+      say: |
+        Be the halo: / the wide, / unseen region / around the galaxy.
+        There is more to a galaxy / than meets the eye, / or the telescope.
+        We know something is there
+        from the pull its gravity has / on the stars we *can* see.
+        What it is made of / remains a mystery.
+        The programme offers / its own reading of what it might be. //
+        That is a proposal, / and it is labelled so.
       hook:
-        question:
-          - "What holds the spinning stars from flying free?"
-          - "What is the dark that has a weight?"
-        answer:
-          - "We see it only by how the bright things move:"
-          - "a shape we feel, and do not see."
+        question: ["What holds the spinning stars from flying free?", "What is the dark that has a weight?"]
+        answer: ["We see it only by how the bright things move:", "a shape we feel, and do not see."]
     scientist: open
     rooted: open
   - id: be-the-cluster
@@ -226,16 +281,22 @@ scenes:
     status: draft
     u:
       label: empirical-result
-      say: >-
-        Be the cluster: hundreds or thousands of galaxies held in one shared field of gravity. Here the
-        neighbours are whole galaxies, falling through one another. Your now is billions of years.
+      source: "OpenStax Astronomy 2e, 1.7 (the Local Group, more than 50 galaxies; clusters of thousands; the Virgo Supercluster, 110 million light-years across)"
+      how: "Building, one step bigger each line; then settle on \"billions of years\"."
+      cue: {screen: "The cluster: galaxies like a swarm.", music: "The orchestra grows a little at each step, then thins as you finish."}
+      say: |
+        Be the cluster.
+        Galaxies, / like towns, / gather into groups.
+        Ours, / with Andromeda, / is a small cluster of more than fifty galaxies:
+        the Local Group.
+        Farther out, / clusters of *thousands*.
+        And the clusters gather / into superclusters;
+        ours stretches / more than a hundred million light-years.
+        Here your neighbours / are whole galaxies,
+        and your now / is billions of years.
       hook:
-        question:
-          - "When galaxies are neighbours, how do they meet?"
-          - "Do they collide, or pass like ghosts?"
-        answer:
-          - "Their stars slip by, so far apart they never touch;"
-          - "only the gas and the gravity collide."
+        question: ["When galaxies are neighbours, how do they meet?", "Do they collide, or pass like ghosts?"]
+        answer: ["Their stars slip by, so far apart they never touch;", "only the gas and the gravity collide."]
     scientist: open
     rooted: open
   - id: be-the-filaments
@@ -243,17 +304,21 @@ scenes:
     status: draft
     u:
       label: empirical-result
-      say: >-
-        Be the threads: giant filaments where galaxies and dark matter gather, with vast empty voids between
-        them. They still carry the pattern of tiny differences from when the universe was young. Your now is
-        billions of years, and your memory is older still.
+      source: "registry/levels/cosmic-filaments.yaml (threads where galaxies and dark matter gather, carrying earlier density patterns); OpenStax Astronomy 2e, 1.7 (superclusters)"
+      how: "Quiet wonder; \"your memory is older still\" is the line to keep."
+      cue: {screen: "The threads, galaxies strung along them.", music: "Long held notes, a web of them."}
+      say: |
+        Be the threads.
+        On the largest maps, / galaxies are not scattered evenly.
+        They gather / along giant threads,
+        with vast, / nearly empty spaces / in between.
+        The threads still carry the pattern / of tiny differences
+        from when the universe was young.
+        Your now / is billions of years, //
+        and your memory / is older still.
       hook:
-        question:
-          - "Where do the galaxies gather, and why there?"
-          - "What is the web remembering?"
-        answer:
-          - "Along the threads the first small ripples drew;"
-          - "the young universe, still in the old."
+        question: ["Where do the galaxies gather, and why there?", "What is the web remembering?"]
+        answer: ["Along the threads the first small ripples drew;", "the young universe, still in the old."]
     scientist: open
     rooted: open
   - id: be-the-universe
@@ -261,17 +326,21 @@ scenes:
     status: draft
     u:
       label: empirical-result
-      say: >-
-        Be everything we can see: the largest region from which light has had time to reach us. It is
-        expanding; it was once hot; and it is still faintly ringing, in the microwave glow left over from its
-        youth. This is cosmic structure, not a mind in space.
+      source: "OpenStax Astronomy 2e, 1.7 (quasars 10 billion light-years away or more, seen 10 billion years in the past; the afterglow of creation from all directions)"
+      how: "The biggest moment of act one; awe, but not loud. \"The afterglow of creation\" slowly."
+      cue: {screen: "Everything we can see.", music: "The theme, high and far away, once; then the pulse under you."}
+      say: |
+        Be everything / we can see.
+        The farthest beacons, / the quasars,
+        are ten billion light-years away or more,
+        so we see them / as they were / ten billion years ago.
+        Beyond them, / coming from every direction,
+        is the faint glow / of the beginning itself: //
+        the *afterglow* of creation.
+        This is cosmic structure, / not a mind in space.
       hook:
-        question:
-          - "How far can the oldest light have come?"
-          - "Is the whole of it still ringing?"
-        answer:
-          - "From the edge of all that we can see,"
-          - "the first glow, cooling, faintly humming still."
+        question: ["How far can the oldest light have come?", "Is the whole of it still ringing?"]
+        answer: ["From the edge of all that we can see,", "the first glow, cooling, faintly humming still."]
     scientist: open
     rooted: open
   - id: be-the-web
@@ -279,17 +348,21 @@ scenes:
     status: draft
     u:
       label: empirical-result
-      say: >-
-        Be the web: the largest pattern there is, galaxies, threads and empty spaces, mapped from end to end.
-        It is a structure we can map, not a living thing. And here the zoom turns round: at this size, you
-        cannot see yourself at all. So let's go back, and then go in.
+      source: "OpenStax Astronomy 2e, 1.8 (the universe fantastically empty; places as dense as the human body tremendously rare); registry/levels/cosmic-web.yaml"
+      how: "A turning point. Slow down after \"rare\"; \"So let's go back\" is warm, an invitation."
+      cue: {screen: "The cosmic web, end to end; then the zoom turns.", music: "Everything stops after \"at all\"; one breath of silence; the turn."}
+      say: |
+        Be the web: / the largest pattern there is.
+        Galaxies, / threads, / and empty spaces, / mapped from end to end.
+        It is a structure we can map, / not a living thing.
+        The universe / is fantastically empty:
+        places as dense as a human body / are tremendously *rare*.
+        And here / the zoom turns round. //
+        At this size, / you cannot see yourself / at all.
+        So let's go back, // and then go in.
       hook:
-        question:
-          - "At the largest size of all, where am I?"
-          - "Can the web of everything see me?"
-        answer:
-          - "Too small to find, and still a part of it;"
-          - "turn round, and go back in."
+        question: ["At the largest size of all, where am I?", "Can the web of everything see me?"]
+        answer: ["Too small to find, and still a part of it;", "turn round, and go back in."]
     scientist: open
     rooted: open
   # ---------------------------------------------------------------- in: be the size
@@ -298,17 +371,23 @@ scenes:
     status: draft
     u:
       label: open-hypothesis
-      say: >-
-        Back to you, and in. Be your brain: billions of nerve cells signalling at once, making a pattern of
-        electrical activity we can measure. Its now is about a tenth of a second: a glance, a flicker. Whether
-        that shared pattern is part of what you experience is a hypothesis, and the app labels it so.
+      source: "OpenStax Psychology 2e, 3.2 (neurons, about 100 billion at birth); registry/levels/whole-brain-cemi.yaml (a measurable pattern; consciousness claims labelled as hypotheses; response time 10^-1 s)"
+      how: "Back home, closer and warmer. Careful on the last sentence; honest, not hedging."
+      cue: {screen: "The glass brain, its signals lighting.", music: "The heartbeat again, and a faint shimmer above it."}
+      say: |
+        Back to you, / and in.
+        Be your brain.
+        About a hundred billion nerve cells,
+        signalling, / all at once,
+        making a pattern of electrical activity
+        we can measure / from outside the head.
+        Its now / is about a tenth of a second:
+        a glance, / a flicker.
+        Whether that shared pattern / is part of what you *experience*
+        is a hypothesis, / and the app says so.
       hook:
-        question:
-          - "How quick is a thought, from the inside?"
-          - "What do a billion signals make, together?"
-        answer:
-          - "A tenth of a second, a glance;"
-          - "a pattern, and maybe more: we ask, we do not know."
+        question: ["How quick is a thought, from the inside?", "What do a billion signals make, together?"]
+        answer: ["A tenth of a second, a glance;", "a pattern, and maybe more: we ask, we do not know."]
     scientist: open
     rooted: open
   - id: be-the-cell
@@ -316,17 +395,22 @@ scenes:
     status: draft
     u:
       label: empirical-result
-      say: >-
-        Be one nerve cell. Small nudges arrive from your neighbours; below a threshold they fade away, above it
-        you fire, all or nothing, a spike about a thousandth of a second long. Your neighbour is the next cell,
-        across a gap called a synapse.
+      source: "OpenStax Biology 2e, 35.2 (resting potential about minus 70 millivolts; a threshold; the action potential); registry/levels/cellular-synaptic.yaml (10^-3 s)"
+      how: "Tense and patient below the threshold; \"you fire\" sharp; then easy again."
+      cue: {screen: "One nerve cell; a spike runs along it.", music: "A held tension under you; a single bright pizzicato on \"fire\"."}
+      say: |
+        Be one nerve cell.
+        At rest, / your inside sits
+        seventy thousandths of a volt / below the outside.
+        Small nudges arrive / from your neighbours.
+        Below a threshold, / they fade away.
+        Above it, / you *fire*:
+        all or nothing,
+        a spike / about a thousandth of a second long.
+        Your neighbour / is the next cell, / across a tiny gap: / the synapse.
       hook:
-        question:
-          - "How much must I be pushed before I speak?"
-          - "What happens to the whispers below?"
-        answer:
-          - "Enough, and I fire, all of me, at once;"
-          - "the rest fades, quietly, and is gone."
+        question: ["How much must I be pushed before I speak?", "What happens to the whispers below?"]
+        answer: ["Enough, and I fire, all of me, at once;", "the rest fades, quietly, and is gone."]
     scientist: open
     rooted: open
   - id: be-the-molecule
@@ -334,16 +418,21 @@ scenes:
     status: draft
     u:
       label: empirical-result
-      say: >-
-        Be a molecule: atoms joined into a shape. A molecule's work is its shape; change the shape and you
-        change what it does. Your bonds vibrate in about a tenth of a millionth of a millionth of a second.
+      source: "OpenStax Astronomy 2e, 1.8 (a molecule the smallest particle that keeps its chemical properties; water; about 10^19 atoms in each cubic centimetre of air); registry/levels/molecular.yaml (10^-13 s)"
+      how: "Curious and playful; \"ten billion billion\" with relish."
+      cue: {screen: "A molecule, its bonds shivering.", music: "Quick, light woodwind figures, far under you."}
+      say: |
+        Be a molecule:
+        the smallest piece of anything / that still behaves like itself.
+        Water / is two hydrogen atoms / and one oxygen, / held together.
+        Even the air, / which we think of as empty,
+        holds about ten billion billion atoms / in every cubic centimetre.
+        A molecule's work / is its *shape*:
+        change the shape, / and you change what it does.
+        Your bonds / shiver / in a tenth of a millionth of a millionth of a second.
       hook:
-        question:
-          - "What does a molecule do with its shape?"
-          - "What happens if the shape is bent?"
-        answer:
-          - "Its shape is its work, its key, its word;"
-          - "bend it, and it says something else."
+        question: ["What does a molecule do with its shape?", "What happens if the shape is bent?"]
+        answer: ["Its shape is its work, its key, its word;", "bend it, and it says something else."]
     scientist: open
     rooted: open
   - id: be-the-atom
@@ -351,17 +440,23 @@ scenes:
     status: draft
     u:
       label: empirical-result
-      say: >-
-        Be an atom: a tiny nucleus in a cloud of electrons. Nudge it with light and it answers only at certain
-        colours, the lines of its spectrum, measured with great precision. Your neighbour is the next atom;
-        share electrons with it, and together you become a molecule.
+      source: "OpenStax Astronomy 2e, 1.8 (the electrons typically 100,000 times the nucleus's size away; an atom far emptier than the solar system out to Neptune); the spectrum's lines as in the cell-to-cosmos tour"
+      how: "Gentle surprise on \"mostly space\". The last two lines are a small gift; warm."
+      cue: {screen: "The atom, its spectrum lines beside it.", music: "A few clear, pure notes, the atom's own lines."}
+      say: |
+        Be an atom.
+        A tiny nucleus, / and around it, / a cloud of electrons,
+        a hundred thousand times wider / than the nucleus itself.
+        A typical atom / is far emptier
+        than the solar system / out to Neptune.
+        Even solid things / are mostly *space*.
+        Nudge an atom with light, / and it answers only at certain colours:
+        its notes, / measured with great precision.
+        Your neighbour / is the next atom:
+        share electrons with it, / and together / you become a molecule.
       hook:
-        question:
-          - "Why does an atom answer only certain light?"
-          - "What happens when two atoms share?"
-        answer:
-          - "It has its notes, like a string;"
-          - "and two that share become something new."
+        question: ["Why does an atom answer only certain light?", "What happens when two atoms share?"]
+        answer: ["It has its notes, like a string;", "and two that share become something new."]
     scientist: open
     rooted: open
   - id: be-the-nucleus
@@ -369,16 +464,21 @@ scenes:
     status: draft
     u:
       label: empirical-result
-      say: >-
-        Be the nucleus, the atom's heart: particles bound by forces that reach only the tiniest distance. A
-        nudge here fades almost before it starts. Your now is far shorter than anything we can imagine.
+      source: "OpenStax Astronomy 2e, 1.8 (the nucleus holds the bulk of the atom's matter, protons and neutrons bound tightly in a very small space; four forces, two of them acting at the nuclear level)"
+      how: "Firm and compact; the four forces as a short, clear list."
+      cue: {screen: "The nucleus, bound tight.", music: "Low strings, short and tight; almost nothing moving."}
+      say: |
+        Be the nucleus: / the atom's heart.
+        Protons and neutrons, / bound tightly together / in a very small space.
+        Almost all of the atom's matter / is here.
+        Everything in the universe / runs on just four forces:
+        gravity, / electromagnetism,
+        and two / that act only / at this size.
+        Their grip / hardly reaches / past the nucleus itself.
+        A nudge here / fades / almost before it starts.
       hook:
-        question:
-          - "How far can the strongest grip reach out?"
-          - "How long does a nudge last, in here?"
-        answer:
-          - "Hardly past itself, it holds what it can touch;"
-          - "and gone before it can be felt."
+        question: ["How far can the strongest grip reach out?", "How long does a nudge last, in here?"]
+        answer: ["Hardly past itself, it holds what it can touch;", "and gone before it can be felt."]
     scientist: open
     rooted: open
   - id: be-the-boundary
@@ -386,17 +486,18 @@ scenes:
     status: draft
     u:
       label: open-hypothesis
-      say: >-
-        Below that, the pictures become models rather than photographs. Some physics imagines tiny vibrating
-        strings beneath the particles. This is a model boundary, not something anyone has seen, and the app
-        says so.
+      source: "registry/levels/string-boundary.yaml (a theoretical boundary picture, not an observed object)"
+      how: "Quiet and honest; slow on \"not something anyone has seen\"."
+      cue: {screen: "The boundary: the picture becomes a drawing.", music: "Almost nothing: a single high harmonic."}
+      say: |
+        Below that, / the pictures become *models*, / not photographs.
+        Some physics imagines / tiny vibrating strings / beneath the particles.
+        This is a model boundary,
+        not something anyone has seen, //
+        and the app says so.
       hook:
-        question:
-          - "What lies beneath the smallest thing we know?"
-          - "Is it real, or the shape of our maths?"
-        answer:
-          - "A model, played like a string, not seen;"
-          - "we draw the edge, and say it is an edge."
+        question: ["What lies beneath the smallest thing we know?", "Is it real, or the shape of our maths?"]
+        answer: ["A model, played like a string, not seen;", "we draw the edge, and say it is an edge."]
     scientist: open
     rooted: open
   - id: foam
@@ -404,28 +505,37 @@ scenes:
     status: draft
     u:
       label: open-hypothesis
-      say: >-
-        And at the very bottom, the smallest size we can talk about at all, space itself may not be smooth. A
-        cautious picture: a foam of possibilities, never seen directly. Here your now would be shorter than any
-        clock could tick. This is where the climb begins.
+      source: "registry/levels/quantum-foam.yaml (a cautious picture of quantum fluctuations, not a claim we can watch them; response time 10^-44 s)"
+      how: "Softest of all, the end of the dive. \"This is where the climb begins\" lifts: a beginning, not an end."
+      cue: {screen: "The foam, flickering.", music: "Silence under you; after you finish, the foam's own theme, once."}
+      say: |
+        And at the very bottom,
+        the smallest size / we can talk about at all,
+        space itself / may not be smooth.
+        A cautious picture:
+        a foam of possibilities, / never seen directly.
+        Here, / your now / would be shorter / than any clock could tick. //
+        This is where the *climb* begins.
       hook:
-        question:
-          - "What is there, before there is a where?"
-          - "Smaller than small, where space has no floor?"
-        answer:
-          - "Only a foam of maybes, rising and gone:"
-          - "the first sea the field will be written on."
+        question: ["What is there, before there is a where?", "Smaller than small, where space has no floor?"]
+        answer: ["Only a foam of maybes, rising and gone:", "the first sea the field will be written on."]
     scientist: open
     rooted: open
-  # ---------------------------------------------------------------- the main screens (drafts from the grand tour's words)
+  # ---------------------------------------------------------------- the main screens
   - id: the-worlds
     view: level=human-vertebrate&voyage=worlds&dim=11&phi=0.5
     status: draft
     u:
       label: interpretive
-      say: >-
-        This is the instrument itself. The worlds: every size we just visited, as glass domes, from the quantum
-        to the cosmos. One field runs through them all. Next, through the glass, into the human.
+      source: "the grand tour's words (registry/tours/grand-tour.yaml)"
+      how: "A guide opening a door; brisk and welcoming."
+      cue: {screen: "The worlds: the glass domes.", music: "The theme returns in the strings as you finish."}
+      say: |
+        This is the instrument itself.
+        The worlds: / every size we just visited, / as glass domes,
+        from the quantum / to the cosmos.
+        One field / runs through them all.
+        Next, / through the glass, / into the human.
     scientist: open
     rooted: open
   - id: the-jellyfish
@@ -433,9 +543,14 @@ scenes:
     status: draft
     u:
       label: interpretive
-      say: >-
-        The jellyfish human, the home view: a body, its fields, a brain on top. Raise the field and watch it
-        respond. Next, the chest: into the heart.
+      source: "the grand tour's words"
+      how: "Friendly, showing something you like."
+      cue: {screen: "The jellyfish human; the field rises.", music: "A swell as the field rises."}
+      say: |
+        The jellyfish human: / the home view.
+        A body, / its fields, / a brain on top.
+        Raise the field, / and watch it *respond*.
+        Next, / the chest: / into the heart.
     scientist: open
     rooted: open
   - id: the-heart
@@ -443,9 +558,14 @@ scenes:
     status: draft
     u:
       label: interpretive
-      say: >-
-        The heart, the left atrium: the body's hub, and the beat that gives the music its tempo. Next, the way
-        in: through the valve and up the arteries.
+      source: "the grand tour's words"
+      how: "Warm; \"the beat\" in time with the heartbeat if you can hear it."
+      cue: {screen: "The heart, the left atrium.", music: "The heartbeat comes forward; the orchestra keeps its time."}
+      say: |
+        The heart: / the left atrium, / the body's hub,
+        and the *beat* / that gives the music its tempo.
+        Next, / the way in:
+        through the valve, / and up the arteries.
     scientist: open
     rooted: open
   - id: the-way-in
@@ -453,9 +573,13 @@ scenes:
     status: draft
     u:
       label: interpretive
-      say: >-
-        The way in: a flight through the arteries to the brain, the first of the inside views. Next, the great
-        hall.
+      source: "the grand tour's words"
+      how: "Short; then let the flight speak."
+      cue: {screen: "The flight through the arteries to the brain.", music: "After your words, a show passage: the flight, the orchestra at full."}
+      say: |
+        The way in:
+        a flight through the arteries / to the brain,
+        the first of the inside views.
     scientist: open
     rooted: open
   - id: the-great-hall
@@ -463,9 +587,14 @@ scenes:
     status: draft
     u:
       label: interpretive
-      say: >-
-        The great hall, the brain's own cave under water, with doorways all round. Each doorway leads to a
-        different way of seeing the same field. Next, down into the cathedral.
+      source: "the grand tour's words"
+      how: "Hushed, as on entering a cathedral or a cave."
+      cue: {screen: "The great hall under water, doorways all round.", music: "Low, wide, echoing."}
+      say: |
+        The great hall: / the brain's own cave, / under water,
+        with doorways / all round.
+        Each doorway / leads to a different way of seeing / the same field.
+        Next, / down into the cathedral.
     scientist: open
     rooted: open
   - id: the-cathedral
@@ -473,9 +602,13 @@ scenes:
     status: draft
     u:
       label: interpretive
-      say: >-
-        The cathedral: the brain's ventricles, neon in the stone. Raise the field and the stone lights up. Next,
-        up to the palace.
+      source: "the grand tour's words"
+      how: "Delighted on \"lights up\"."
+      cue: {screen: "The ventricles, neon in the stone; the field rises and the stone lights.", music: "Choir and organ-like strings rise with the light, after you speak."}
+      say: |
+        The cathedral: / the brain's ventricles, / neon in the stone.
+        Raise the field, / and the stone *lights up*.
+        Next, / up to the palace.
     scientist: open
     rooted: open
   - id: the-mind-palace
@@ -483,9 +616,14 @@ scenes:
     status: draft
     u:
       label: interpretive
-      say: >-
-        The mind palace: twenty-one floors, one for each size we visited, an old memory method made into a
-        building. Next, through the limbic gate.
+      source: "the grand tour's words"
+      how: "Inviting, a little mysterious."
+      cue: {screen: "The mind palace, its floors.", music: "A rising figure, floor by floor."}
+      say: |
+        The mind palace:
+        twenty-one floors, / one for each size we visited,
+        an old memory method / made into a building.
+        Next, / through the limbic gate.
     scientist: open
     rooted: open
   - id: the-limbic-hinge
@@ -493,9 +631,14 @@ scenes:
     status: draft
     u:
       label: interpretive
-      say: >-
-        The limbic hinge: the body below, the mind above, and the feelings at the joint between them. Next, the
-        mind chamber, where thoughts arise.
+      source: "the grand tour's words"
+      how: "Steady and clear; this is the hinge of the whole film."
+      cue: {screen: "The limbic hinge: body below, mind above.", music: "The pulse slows; one long chord."}
+      say: |
+        The limbic hinge:
+        the body below, / the mind above,
+        and the *feelings* / at the joint between them.
+        Next, / the mind chamber, / where thoughts arise.
     scientist: open
     rooted: open
   - id: the-mind-chamber
@@ -503,9 +646,15 @@ scenes:
     status: draft
     u:
       label: interpretive
-      say: >-
-        The mind chamber. Below the gold plane the field is real but not felt; when a swell rises through it,
-        it becomes a thought. Next, the course a thought takes.
+      source: "the grand tour's words"
+      how: "Slow; \"it becomes a thought\" as if one is forming."
+      cue: {screen: "The mind chamber, the gold plane; a swell rises through it.", music: "A swell rises through the orchestra as the thought forms."}
+      say: |
+        The mind chamber.
+        Below the gold plane, / the field is real, / but not felt.
+        When a swell rises through it, //
+        it becomes a *thought*.
+        Next, / the course a thought takes.
     scientist: open
     rooted: open
   - id: the-course
@@ -513,9 +662,14 @@ scenes:
     status: draft
     u:
       label: interpretive
-      say: >-
-        The course: should I do it? Each consideration is a ripple across the sea, and the ripples meet. Next,
-        the landscape underneath it all.
+      source: "the grand tour's words"
+      how: "Weighing it up; a real question in your voice."
+      cue: {screen: "The course: ripples across the sea.", music: "Two figures in the strings, answering each other."}
+      say: |
+        The course: / *should* I do it?
+        Each consideration / is a ripple across the sea,
+        and the ripples meet.
+        Next, / the landscape underneath it all.
     scientist: open
     rooted: open
   - id: the-landscape
@@ -523,9 +677,14 @@ scenes:
     status: draft
     u:
       label: interpretive
-      say: >-
-        The landscape, as mini golf: six basins, the moods we settle into, and the ways between them. A push
-        can roll you from one to the next, or not quite.
+      source: "the grand tour's words"
+      how: "Light, almost playful; \"or not quite\" with a smile."
+      cue: {screen: "The landscape as mini golf: six basins.", music: "A ball rolling: a light figure that runs down and stops."}
+      say: |
+        The landscape, / as mini golf:
+        six basins, / the moods we settle into,
+        and the ways between them.
+        A push / can roll you from one to the next, // or not quite.
     scientist: open
     rooted: open
   # ---------------------------------------------------------------- the close
@@ -535,9 +694,15 @@ scenes:
     status: draft
     u:
       label: simulated
-      say: >-
-        The poke: something touches you. Watch the response run out through the field, and then come back to
-        rest: impulse, response, return. The same three steps, at every size we visited.
+      source: "the app's poke (impulse, response, return; ISS-108)"
+      how: "Say \"something touches you\" just before the poke lands. Then name the three steps slowly."
+      cue: {screen: "The poke lands; the response runs out and returns.", music: "One hit with the poke; the orchestra answers, then comes back to rest."}
+      say: |
+        The poke: / something *touches* you.
+        Watch the response / run out through the field,
+        and then / come back to rest:
+        impulse, // response, // return.
+        The same three steps, / at every size we visited.
     scientist: open
     rooted: open
   - id: back-to-you
@@ -545,16 +710,20 @@ scenes:
     status: draft
     u:
       label: interpretive
-      say: >-
-        So we come back to your own size, a metre or two, a now of ten seconds, and the person beside you. But
-        perhaps you feel it a little differently now: the flock you are part of, the city you are a street of,
-        and the cells, each with its own small now, that make the moment you are in.
+      source: "the film's own close"
+      how: "The end; warm and slow. Let the last line hang."
+      cue: {screen: "The worlds again, at rest.", music: "The theme, whole, for the first time, after your last word."}
+      say: |
+        So we come back / to your own size:
+        a metre or two, / a now of ten seconds,
+        and the person beside you.
+        But perhaps / you feel it a little differently now:
+        the flock you are part of,
+        the city / you are a street of,
+        and the cells, / each with its own small now,
+        that make / the moment you are in.
       hook:
-        question:
-          - "Now that I have been so large and so small,"
-          - "what size am I, here, again?"
-        answer:
-          - "Exactly this size: one now among the nows,"
-          - "with someone beside me, breathing too."
+        question: ["Now that I have been so large and so small,", "what size am I, here, again?"]
+        answer: ["Exactly this size: one now among the nows,", "with someone beside me, breathing too."]
     scientist: open
     rooted: open

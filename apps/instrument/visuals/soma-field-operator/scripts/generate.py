@@ -1307,6 +1307,13 @@ def load_reminders() -> list[dict[str, Any]]:
     return remind.read_author_steps(REPO_ROOT / "ISSUES.md")
 
 
+def spoken_text(say: Any) -> str:
+    """A scene's words as subtitles: the reading marks dropped (a lone `/` or `//` a pause, `*word*` stressed),
+    the breath lines joined."""
+    s = re.sub(r"(?<!\S)/{1,2}(?!\S)", " ", str(say or ""))
+    return " ".join(s.replace("*", "").split())
+
+
 def load_scenes(ids: dict[str, set], errors: list[str]) -> dict[str, dict[str, Any]]:
     """registry/scenes.yaml (ISS-125): one scene per place, its words per user, recorded once and used by any tour.
     Checked: unique ids, a valid view, each user's words open or {say, label}, a hook of two lines and two lines."""
@@ -1418,7 +1425,7 @@ def load_tours(questions: list[dict[str, Any]], models: list[dict[str, Any]], er
         if not isinstance(words, dict):
             errors.append(f"{where}: scene {step['scene']!r} has no words for {user!r} yet")
             return step
-        out = {"view": sc["view"], "say": " ".join(str(words.get("say", "")).split()), "label": words.get("label")}
+        out = {"view": sc["view"], "say": spoken_text(words.get("say", "")), "label": words.get("label")}
         if sc.get("poke"):
             out["poke"] = sc["poke"]
         out.update({k: v for k, v in step.items() if k != "user"})

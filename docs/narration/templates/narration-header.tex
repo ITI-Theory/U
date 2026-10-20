@@ -1,0 +1,14 @@
+% The narrator's script (docs/narration, ISS-125): large words, wide lines, quiet cues.
+\usepackage[most]{tcolorbox}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{4pt}
+\newtcolorbox{cuebox}{enhanced, colback=gray!6, colframe=gray!45, boxrule=0.3pt, arc=1mm,
+  left=2mm, right=2mm, top=1mm, bottom=1mm, fontupper=\small\sffamily, before skip=6pt, after skip=6pt}
+\newtcolorbox{howbox}{enhanced, colback=NavyBlue!5, colframe=NavyBlue!70, boxrule=0pt, leftrule=2.5pt, arc=0mm,
+  left=3mm, right=2mm, top=1.5mm, bottom=1.5mm, fontupper=\itshape, before skip=6pt, after skip=10pt}
+\newtcolorbox{hookbox}{enhanced, colback=Goldenrod!8, colframe=Goldenrod!70!black, boxrule=0.4pt, arc=1mm,
+  left=3mm, right=2mm, top=1.5mm, bottom=1.5mm, before skip=12pt, after skip=6pt}
+\newenvironment{words}{\par\large\linespread{1.65}\selectfont\leftskip=4mm}{\par}
+\newenvironment{sourcenote}{\par\vfill\footnotesize\color{gray!80!black}}{\par}
+\newcommand{\pausemark}{\textcolor{gray!70}{\,/\,}}
+\newcommand{\longpause}{\textcolor{gray!70}{\,//\,}}

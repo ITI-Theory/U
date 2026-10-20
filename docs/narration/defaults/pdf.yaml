@@ -1,0 +1,15 @@
+defaults:
+  - ../../lib/defaults/base-pdf.yaml
+to: latex
+toc: false
+include-in-header:
+  - templates/narration-header.tex
+variables:
+  documentclass: article
+  classoption: []
+  geometry: a4paper,top=20mm,bottom=20mm,left=24mm,right=22mm
+  fontsize: 12pt
+  sansfont: TeX Gyre Heros
+filters:
+  - filters/narrator.lua
+  - ../../lib/format/unicode-glyphs.lua
