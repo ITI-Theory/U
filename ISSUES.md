@@ -6522,8 +6522,12 @@ Monday it's symphonic orchestration". The rule, kept in docs/agent/CURRENT.md an
       lanes and the budget.
 - [ ] AUTHOR: approve or change version 2 (the strip's standard settings; the groups' members; the desks'
       devices; the delivery loudness).
-- [ ] The desks' plugin names as Live lists them, once the SSL and iZotope installs are done and Live has
-      rescanned (Live's plugin database: the names Sherlock matches). 20 Oct 00:5x: SSL's 22 VST3s on disk, none
+- [x] (20 Oct 02:1x: SSL's 22 and UAD's 30 in Live's list; the standard's desks use Live's names (UAD's are long:
+      "UADx API 2500 Bus Compressor"); SSL Native Bus Compressor 2 is not the author's: the SSL glue is SSL G3 MultiBusComp,
+      Copilot's pick (the author: "you pick"); Sherlock's self-test on Live's names, 15 of 15) The desks' plugin names
+      as Live lists them, once the SSL and iZotope installs are done and Live has
+      rescanned (Live's plugin database: the names Sherlock matches).
+- [ ] iZotope's names (Neutron 3, Ozone 9) and Softube LoadIR, once installed and in Live's list. 20 Oct 00:5x: SSL's 22 VST3s on disk, none
       in Live's list yet (they need activating; Live's scanner was running); Native Bus Compressor 2 (the SSL
       desk's glue) not on disk; X-Saturator installs as "v6" (Sherlock now ignores a version tag; a self-test
       case); no SSL NKS files found yet (ProgramData, Documents, Program Files).
