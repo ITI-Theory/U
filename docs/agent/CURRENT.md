@@ -6,16 +6,17 @@ in git history and in `CURRENT-2026-10-01-to-06.md.OBSOLETE`; open items live
 in [ISSUES.md](../../ISSUES.md); how we work is in [README.md](../../README.md);
 the other working documents are listed in [docs/agent/README.md](README.md).
 
-## Now (20 Oct 2026, 02:00)
+## Now (20 Oct 2026, 03:00)
 
-**20 Oct, after midnight (branch `audio`):** the console (ISS-120: `console.js`, from the Music Room's
-OPEN THE CONSOLE; `npm run check:console`, 25 checks): the CHANNEL (a standard track's chain over the eight
-sections with each plugin's NKS controls), the DESK (groups, returns, master as strips), two virtual Twisters
-(bank 1 the app's, bank 2 the channel's sixteen jobs, a proposal). The Soma script now moves every device of a
-name (one Serum 2 per instrument: a feeling reaches them all), with Serum 2's Macros 1-8 in the rig
-(`make live-test`; installed, Live reads it at its next start). SSL: 22 VST3s on disk, not yet activated nor
-in Live's list; Native Bus Compressor 2 (the SSL desk's glue) not on disk; Sherlock ignores a version tag
-("X-Saturator v6").
+**20 Oct, after midnight (branch `audio`, off the release line):** the console (ISS-120: `console.js`, from the
+Music Room's OPEN THE CONSOLE; `npm run check:console`, 29 checks): the CHANNEL (a standard track's chain over the
+eight sections with each plugin's NKS controls), the DESK (groups, returns, master as strips), two virtual Twisters
+(bank 1 the app's, bank 2 the channel's sixteen jobs: the author, "you pick"), the M32 (the section clicked) and
+the F1 (the deck). A poke reaches every screen (`npm run check:poke`). The Soma script moves every device of a
+name (one Serum 2 per instrument), Serum 2's Macros 1-8 in the rig; the SSL targets narrowed (fear: the strings;
+safety: the low instruments; the author, "narrow sounds better"). Installed in Live's User Library: Live reads it
+at its next start. Live's list: SSL's 23 (Bus Compressor 2 the SSL glue) and UAD's 30, by Live's own names in the
+standard; iZotope and LoadIR not yet. Serum 2's full NKS in OneDrive\lib\NKS\Xfer (the console index: 59 plugins).
 
 **Rule (author, 19 Oct 19:5x): music is made in Ableton Live, never outside it.** No renderer, sampler
 or synth of our own makes the sound (Me/music's render.py and preview.py retired); Live plays and
