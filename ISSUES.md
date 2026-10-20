@@ -6533,13 +6533,17 @@ Monday it's symphonic orchestration". The rule, kept in docs/agent/CURRENT.md an
       in Live's list yet (they need activating; Live's scanner was running); Native Bus Compressor 2 (the SSL
       desk's glue) not on disk; X-Saturator installs as "v6" (Sherlock now ignores a version tag; a self-test
       case); no SSL NKS files found yet (ProgramData, Documents, Program Files).
-- [ ] (20 Oct 03:0x, the author: "I'll get Convolver") Kilohearts Convolver, the designed spaces' device once installed
+- [x] (20 Oct 03:1x: installed, in Live's list as "kHs Convolver"; the standard's designed space, Hybrid Reverb the alternative) (20 Oct 03:0x, the author: "I'll get Convolver") Kilohearts Convolver, the designed spaces' device once installed
       (a Snapin: inside Snap Heap or Phase Plant the space bends with the feelings; the impulse Phase Plant shapes is
       played there, no resampling); Hybrid Reverb stays its alternative (Live's own, no licence). Every other device
       the standard names is in Live's list (Multipass a proposal only).
 - [x] (20 Oct 03:1x) Sherlock's name match: Live's own short names ("Compressor", "Saturator", "Limiter") matched
       plugins ending in them (kHs Compressor passed as the Live desk's Compressor); now Live's names match only
       exactly. Two self-test cases, 17 of 17.
+- [ ] (20 Oct 03:1x: Sherlock read the author's first saved set, OneDrive\prj\Music\Soma\Soma Standard Project: 33 tracks,
+      the River Film's and two MIDI tracks, not yet built to the standard (159 slots missing); Serum 2 and Phase Plant
+      found; Scaler 3 and Scaler Detector undeclared) AUTHOR: Scaler's place in the standard (a MIDI effect before the
+      source, or off the standard tracks).
 - [ ] AUTHOR, in Live: the standard as Live's own (a track preset or rack "Soma Standard" in the User
       Library, a template set).
 - [x] (19 Oct 23:4x: sherlock/studio.py, `make -C sherlock studio [SET=<set.als>] [TRACKS=<regex>]`: reads a Live set (gzipped

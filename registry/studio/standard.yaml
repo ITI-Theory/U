@@ -111,12 +111,13 @@ returns:
   - {name: Space, role: the hall, desk: hall}
   - name: Designed space
     role: the designed spaces (any impulse response)
-    device: Hybrid Reverb   # Live's own: its convolution side loads any impulse response (a WAV dropped on it); no licence
+    device: kHs Convolver   # Kilohearts' (installed 20 Oct): a Snapin, so inside Snap Heap or Phase Plant the space bends with the feelings
+    or: [Hybrid Reverb]     # Live's own: its convolution side loads any impulse response; no licence (the Live desk)
     # (20 Oct: Softube LoadIR, named in the 19 Oct installs, is not on disk nor in Softube's Amplifiers: dropped)
     proposal: >-
       Phase Plant as the designer of spaces (the author: "Phase Plant as the IR manipulator"): an impulse played
       through Phase Plant's Snapins on a track of its own, resampled in Live into a new impulse response, which
-      Hybrid Reverb plays. The sound stays Live's.
+      Convolver plays (on the same Snapin chain, no resampling needed). The sound stays Live's.
 
 master:
   slots:
@@ -151,4 +152,4 @@ versions:              # one session; a version is the same slots with other set
   asd: as cptsd
   adhd: as cptsd
   bounce: "per version and desk, stems per group (how, and per section or not: HAL, uat/RC3/hal-live-workflow-2026-10-19.md)"
-installed: {Serum 2: "yes", Phase Plant: "yes", Snap Heap: "yes (in Live, 20 Oct)", Multipass: no (a proposal), Softube Modular FX: "yes (13 add-ons, 19 Oct)"}
+installed: {Serum 2: "yes", Phase Plant: "yes", Snap Heap: "yes (in Live, 20 Oct)", Multipass: no (a proposal), kHs Convolver: "yes (in Live, 20 Oct)", Softube Modular FX: "yes (13 add-ons, 19 Oct)"}
