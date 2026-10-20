@@ -2742,7 +2742,10 @@ if (screenRole === 'level') createGallery();
 if (screenRole === 'level') createRooms();
 // The console (ISS-120), from the Music Room
 if (screenRole === 'level') createConsole();
-function firePoke(strength = state.limbic) {
+function firePoke(strength = state.limbic, { remote = false } = {}) {
+  // a poke reaches every screen (ISS-120): sent on the screens' channel; one heard is fired here, never sent on
+  if (!remote) screens?.poke(strength);
+  document.body.dataset.pokes = String(Number(document.body.dataset.pokes ?? 0) + 1);
   // the three phases drawn plain over the view (ISS-108): impulse, response, return
   const mech = mechanismsOn() ? mechanisms.filter(m => state.selectedMechanisms.has(m.id)).map(m => m.name).join(' + ') : '';
   pokeFx?.fire({ strength: 0.5 + 0.5 * (Number(strength) || 0), mech });
@@ -3043,6 +3046,7 @@ screens = createScreens({
     // In the mind explorer the FX bar is the limbic field Phi.
     explorer.setPhi(fx);
   },
+  poke: strength => firePoke(strength, { remote: true }),
 });
 addEventListener('soma-tour-step', event => screens.step(event.detail));
 addEventListener('soma-tour-end', () => screens.tourEnd());

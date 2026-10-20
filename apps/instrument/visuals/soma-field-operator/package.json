@@ -14,7 +14,8 @@
     "check:explorer": "node scripts/explorer-check.mjs",
     "check:televator": "node scripts/televator-check.mjs",
     "check:rooms": "node scripts/rooms-check.mjs",
-    "check:console": "node scripts/console-check.mjs"
+    "check:console": "node scripts/console-check.mjs",
+    "check:poke": "node scripts/poke-check.mjs"
   },
   "dependencies": {
     "@codemirror/lang-markdown": "^6.5.2",

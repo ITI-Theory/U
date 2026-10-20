@@ -152,7 +152,18 @@ export function createScreens(hooks) {
     } else if (data.type === 'camera' && screenRole === 'cockpit') {
       cameraMode = data.mode;
       hooks.setCameraMode(cameraMode);
+    } else if (data.type === 'poke') {
+      hooks.poke?.(Number(data.strength));
+      flash();
     }
+  }
+  // every window answers a poke visibly, whatever it shows (the engine room too): its edge flashes
+  function flash() {
+    document.body.classList.remove('screen-poked');
+    void document.body.offsetWidth;
+    document.body.classList.add('screen-poked');
+    clearTimeout(flash.t);
+    flash.t = setTimeout(() => document.body.classList.remove('screen-poked'), 900);
   }
 
   // Full screen at the display's full resolution: F, or the button in the corner.
@@ -194,6 +205,8 @@ export function createScreens(hooks) {
   return {
     publish,
     // The tour player reports each stop, so cockpit windows can show H-AL's line.
+    // a poke: to every other screen (the channel, the relay); this window flashes too
+    poke: strength => { post({ type: 'poke', strength: Number(strength) || 0 }); flash(); },
     step: data => post({ type: 'step', ...data }),
     tourEnd: () => post({ type: 'tour-end' }),
     setFx: value => {

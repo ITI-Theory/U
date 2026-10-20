@@ -6614,7 +6614,9 @@ Monday it's symphonic orchestration". The rule, kept in docs/agent/CURRENT.md an
       the turnover; the deliverables), each checked by Sherlock; the standard is the first.
 - [ ] Post as a stage: per track inside it (the strip), per group the stems, the master to a delivery
       spec.
-- [ ] POKE everywhere: a poke reaches every screen (the screens share state, not events: send it on
+- [x] (20 Oct 02:4x, branch audio (kept off the release line): screens.js sends a poke on the screens' channel and the
+      relay; every other window fires the same poke, once, never sent on (no echo); every window's edge flashes, the
+      engine room's too; `npm run check:poke`: three windows, 6 checks, PASS) POKE everywhere: a poke reaches every screen (the screens share state, not events: send it on
       their channel) and every place answers it visibly.
 
 **Housekeeping**
