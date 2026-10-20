@@ -122,7 +122,7 @@ try {
   const strips = await page.locator('.console__strip h3').allInnerTexts();
   ok(strips.length === 12 && strips[0] === 'Violins A' && strips.includes('Space') && strips.at(-1) === 'MASTER', `the desk: ${strips.length} strips (${strips.join(', ')})`);
   const va = await text(page, '.console__strip >> nth=0');
-  ok(va.includes('Snap Heap') && va.includes('SSL Native Bus Compressor 2') && va.includes('SSL Native X-Saturator'), 'a group: its state, the desk\'s glue and colour');
+  ok(va.includes('Snap Heap') && va.includes('SSL G3 MultiBusComp') && va.includes('SSL Native X-Saturator'), 'a group: its state, the desk\'s glue and colour');
   ok((await text(page, '.console__strip >> nth=-1')).includes('Ozone 9'), 'the master: Ozone 9');
   await page.locator('.console').screenshot({ path: path.join(out, 'console-4-desk.png') });
   await page.keyboard.press('Escape');

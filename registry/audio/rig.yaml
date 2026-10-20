@@ -39,6 +39,8 @@ targets:
   - {channel: daw-feeling-macros, mode: L, cc: 25, device: "Serum 2", param: "Macro 6", range: [0.0, 1.0]}
   - {channel: daw-feeling-macros, mode: PV, cc: 26, device: "Serum 2", param: "Macro 7", range: [0.0, 1.0]}
   - {channel: daw-feeling-macros, mode: PHI, cc: 29, device: "Serum 2", param: "Macro 8", range: [0.0, 1.0]}
-  - {channel: daw-fear-dynamics, mode: F, cc: 21, device: "SSL Native Channel Strip 2", nks: [Compressor, Threshold], range: [0.75, 0.3]}
-  - {channel: daw-safety-low, mode: S, cc: 20, device: "SSL Native Channel Strip 2", nks: [LF, Low Gain], range: [0.45, 0.65]}
+  # narrowed (the author, 20 Oct: "narrow sounds better"; Copilot's choice of tracks): fear tightens the strings,
+  # safety warms the low instruments. On another desk these find no SSL strip and do nothing.
+  - {channel: daw-fear-dynamics, mode: F, cc: 21, device: "SSL Native Channel Strip 2", nks: [Compressor, Threshold], range: [0.75, 0.3], tracks: "^(Violins|Violas|Celli|Contrabasses|Strings)"}
+  - {channel: daw-safety-low, mode: S, cc: 20, device: "SSL Native Channel Strip 2", nks: [LF, Low Gain], range: [0.45, 0.65], tracks: "^(Celli|Contrabasses|Bassoon|Tuba|Sub Bass)$"}
   - {channel: daw-poc-modular, mode: A, cc: 23, device: "Modular", param_index: 1, range: [0.0, 1.0]}

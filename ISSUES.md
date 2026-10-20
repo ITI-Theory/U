@@ -6545,7 +6545,8 @@ Monday it's symphonic orchestration". The rule, kept in docs/agent/CURRENT.md an
       Macros 1-8 on CC 20-26 and 29 beside Phase Plant's (Live's names "Macro 1".. unconfirmed: soma-devices.json
       once a set with Serum 2 runs the script). `make live-test` passes; `make live-rig` 19 targets, 10 checked
       against NKS; installed (`make live-install`; Live reads it at its next start).
-- [ ] AUTHOR: the 18 Oct rig's SSL targets (fear: the strip's compressor threshold; safety: its low shelf) now move
+- [x] (20 Oct 02:2x, the author: "narrow sounds better": fear on the strings, safety on Celli, Contrabasses, Bassoon,
+      Tuba, Sub Bass; Copilot's choice of tracks) AUTHOR: the 18 Oct rig's SSL targets (fear: the strip's compressor threshold; safety: its low shelf) now move
       every SSL Native Channel Strip 2 in the set (one per track): keep (the whole orchestra tightens with fear),
       narrow them (`tracks:`), or drop them (the patch decides the sound).
 - [ ] The test of one track, by the author's hands: a violin to standard (Serum 2, Snap Heap, the desk's
@@ -6596,7 +6597,7 @@ Monday it's symphonic orchestration". The rule, kept in docs/agent/CURRENT.md an
       turns on this track with this desk (the SSL strip's NKS names); LISTEN lights a knob turned or pushed, and
       its section. The Twister has no touch sensing (push switches only): it lights on a turn or push. The console
       shows and listens; it sends nothing (Live does the sound). The F1 and M32 are not drawn yet.
-- [ ] AUTHOR: bank 2's sixteen jobs (registry/audio/console.yaml `twister`), a proposal: EQ low, low mid, high
+- [x] (20 Oct, the author: "you pick": the proposal stands) AUTHOR: bank 2's sixteen jobs (registry/audio/console.yaml `twister`), a proposal: EQ low, low mid, high
       mid, high; threshold, ratio, release, gate; the state's amount, how wrong, modular, width; the two sends,
       pan, level. Then mapped in Live (MIDI Map, or the Soma script on the selected track).
 - [x] (19 Oct 23:5x, on the audio branch: registry/audio/console.yaml, the rules (public): sections in order, patterns on an NKS
