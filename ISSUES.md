@@ -6798,6 +6798,13 @@ quieter, pulsing background ... that would show the field working".
       the pause) and writes the voice map; 28.6 minutes, 12 spoken.
 - [x] (20 Oct, Me/music) orchestra --voice <timeline>: the music written around the voice (the low strings, muted
       strings, pad and sub, soft; a heart on the Pulse; the tune, brass and choir wait; the bar after swells back).
+- [x] (20 Oct 16:xx: the author: "openstax seemed to get it right in the astronomy book"; "actor scripts ... these
+      are the words, this is how you ...; output to pdf, A4; not everything as one-line paragraphs") The 21 sizes
+      rewritten in OpenStax's register (one concrete comparison, how we know; the facts checked against Astronomy 2e
+      1.6, 1.7, 1.8, 8.2, 16.4, Biology 2e 35.2, Psychology 2e 3.2; CC BY 4.0, credited per scene); every U scene in
+      breath lines with pauses and stresses, HOW to say it and a cue (screen, music). The narrator's script:
+      docs/narration (`make -C docs/narration`: A4, a running order with times, a scene to a page), Be the size 37
+      pages, about 30:37; a copy in OneDrive\prj\Voice\scripts.
 - [ ] AUTHOR: read and correct the scenes' words (U), then record each scene (Me/voice/record.ps1, the take named
       by the scene's id), then `transcribe.py`; the film compiles from the takes (`--takes`).
 - [ ] The film's emotional score (the author's: what the film proposes, attested, ISS-115); river-film stands in.
