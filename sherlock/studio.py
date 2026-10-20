@@ -46,6 +46,7 @@ LIVE_NAMES = {"ChannelEq": "Channel EQ", "Compressor2": "Compressor", "GlueCompr
               "InstrumentVector": "Wavetable", "MxDeviceAudioEffect": "Max Audio Effect", "MxDeviceInstrument": "Max Instrument",
               "MxDeviceMidiEffect": "Max MIDI Effect"}
 RACKS = {"AudioEffectGroupDevice", "InstrumentGroupDevice", "MidiEffectGroupDevice", "DrumGroupDevice"}
+NATIVE = {norm(n) for n in LIVE_NAMES.values()}
 OPEN = re.compile(r"\bopen\b")
 
 
@@ -53,6 +54,8 @@ def same(device: str, slot: str) -> bool:
     """A device in Live is the standard's slot if the names agree, ignoring case, spaces, a maker's prefix
     ("Modular FX" is "Softube Modular FX") and a version tag ("SSL Native X-Saturator v6": SSL's files, 20 Oct)."""
     a, b = (re.sub(r"v\d+$", "", norm(n)) for n in (device, slot))
+    if a in NATIVE or b in NATIVE:  # Live's own names are short words ("Compressor", "Saturator"): only exactly
+        return a == b
     return bool(a) and bool(b) and (a == b or a.endswith(b) or b.endswith(a))
 
 
@@ -257,6 +260,8 @@ def self_test(standard: dict) -> int:
         "a group to standard": ([("GroupTrack", "Violins A", [("Snap Heap", True), ("SSL Native Bus Compressor 2", True), ("SSL Native X-Saturator", False)])], 0, 0),
         "a group without its state": ([("GroupTrack", "Brass Low", [("SSL Native Bus Compressor 2", True), ("SSL Native X-Saturator", False)])], 1, 0),
         "SSL's names as installed (a version tag)": ([("GroupTrack", "Choir", [("Snap Heap", True), ("SSL Native Bus Compressor 2", True), ("SSL Native X-Saturator v6", False)])], 0, 0),
+        "an SSL X-Saturator on is SSL's colour, not also Live's Saturator": ([("GroupTrack", "Woodwinds", [("Snap Heap", True), ("SSL Native Bus Compressor 2", True), ("SSL Native X-Saturator v6", True)])], 0, 0),
+        "kHs Compressor is not Live's Compressor (the Live desk's strip half there)": ([("MidiTrack", "Tuba", head + [("live:ChannelEq", True), ("kHs Compressor", True)])], 1, 2),
         "the master: Ozone 9": ([("MainTrack", "Main", [("Ozone 9", True)])], 0, 0),
         "the master, the Live desk": ([("MainTrack", "Main", [("live:GlueCompressor", True), ("live:Limiter", True)])], 0, 0),
         "the hall: UAD's Lexicon 224": ([("ReturnTrack", "Space", [("UADx Lexicon 224 Digital Reverb", True)])], 0, 0),
