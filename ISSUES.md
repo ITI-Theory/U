@@ -6658,3 +6658,36 @@ the theme instead of inventing notes); 3 the orchestration and the printed score
       curiosity inverts it, awe spreads it into canon), one movement on the foam's theme; MIDI and MusicXML; heard in Live.
 - [ ] AUTHOR: is the hook the author's method only, or a feature for users (18 Oct: the Soma Machine generates no
       notes for others; its free output is information about music)?
+
+## ISS-125: Scenes, recorded once: the 30-minute film "Be the size" and the tours from the same scenes — OPEN
+
+{{Tags area.instrument, area.art, area.books}}
+{{Fields date.created=2026-10-20, date.start=2026-10-20, date.end=, epic=}}
+
+Author, 20 Oct 2026: "a 10 minute movie is too small as a demo, 90 min too long: a 30 minute tour/demo/movie ...
+we follow a tour of all the main screens ... focus on zoom first"; "when we change zoom we have to feel that we are
+that size ... we are the crowd: how does the crowd think, and the crowd next door"; "for each screen view we need
+text and speech, and we just string it together ... reusable, rather than just for this film"; "for each level we
+need a few: U, rooted, academic ... focus on U"; "mix getting the facts over, and viewing cool graphics with over
+dramatic philharmonic orchestra"; "then I talk: do we duck this, or is the composition in sync so it goes to a
+quieter, pulsing background ... that would show the field working".
+
+- [x] (20 Oct, branch audio) registry/scenes.yaml: one scene per place (its view, its words per user: u, scientist,
+      rooted; its label; for U a hook of two lines and two), 35 drafted for U (Copilot's words): the 21 sizes to BE,
+      each with its now (the level's response time: big is not slow, a star rings every five minutes) and its
+      neighbour; the main screens (from the grand tour's words); the poke; back to you. A tour step `scene: <id>`.
+- [x] (20 Oct, branch audio) registry/tours/film-be-the-size.yaml: the film as a tour of scenes in three acts;
+      compile-film.mjs times a narrated film by its words (a breath, the speech: the author's take when one exists,
+      the pause) and writes the voice map; 28.6 minutes, 12 spoken.
+- [x] (20 Oct, Me/music) orchestra --voice <timeline>: the music written around the voice (the low strings, muted
+      strings, pad and sub, soft; a heart on the Pulse; the tune, brass and choir wait; the bar after swells back).
+- [ ] AUTHOR: read and correct the scenes' words (U), then record each scene (Me/voice/record.ps1, the take named
+      by the scene's id), then `transcribe.py`; the film compiles from the takes (`--takes`).
+- [ ] The film's emotional score (the author's: what the film proposes, attested, ISS-115); river-film stands in.
+- [ ] Show passages: music forward, no narration, on the views with the best pictures (a spectacle rating per
+      scene from renders; the author picks); the views ranked.
+- [ ] The scientist's and Rooted's words for each scene; the scenes the other tours' steps become (323 steps in 24
+      tours, one scene each place).
+- [ ] The somagram per scene (SNAP) for the Gallery and the book; the film recorded (`make film-render`, 4K).
+- [ ] The recorder shows a scene's words and direction (`record.py --scene <id>`), and a direction per take (a
+      feeling: the wav base labelled by the seven).
