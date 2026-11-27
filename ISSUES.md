@@ -7379,6 +7379,14 @@ cites the prompts it comes from, so Sherlock can write its affidavit against the
       cite sections and lines instead of prompts (Chat model: a `section` locator beside `prompts`); (3) the LLM
       pass writes the affidavits, Part I first (the origin), a few sessions' work; (4) chronicle reads them.
       AUTHOR: whether they join Me/chats/Inbox (then they count in the triage) or stay beside it.
+- [x] (27 Nov) Done: Me/chats/scripts/split_phasedot.py (`make -C Me/chats phasedot`) cuts Part I into its 11
+      dated conversations (a conversation starts at a dated section; the 51 undated sections are pasted
+      material inside it), Me/chats/phase-dot/; chats.parse reads their format (a prompt is the line before a
+      bare date line: 152 prompts in 6; the other 5 kept none); 11 affidavits written, Me/chats/affidavits/
+      phase-dot/ (beside the triage until the author decides), checked (vocabulary, statuses, prompt ranges,
+      every implemented ref exists). chronicle reads them: 301 threads; the Origins chapter now has 1 April
+      (OpenCyc in Lean), 6 May ([T]'s names, Sheer Luck as a VS Code or Neovim plug-in, emotions as a field)
+      and 16 May (the first abstract and README). privacy.py: 0 leaks.
 - [ ] Layer 2: the narrative of each period, written from the chronicle, every paragraph citing its prompts.
 - [ ] Triage feeds it: 216 of the 285 threads are not yet triaged; each routed thread changes its line.
 - [ ] AUTHOR (desk): the title. Copilot's opinion, 27 Nov: "[T]-Theory: The Evolution" (the spine carries

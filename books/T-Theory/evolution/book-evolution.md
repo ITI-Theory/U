@@ -50,9 +50,10 @@ and the tools that check everything else).
 
 # Origins: to May 2026
 
-The beginning lies mostly in conversations that are not yet in the record: the transcripts of April and
-May 2026 that open Phase Dot. Until the compiler reads them, this chapter holds only the few threads the
-exported chats keep from that time (ISS-133).
+The beginning is in the eleven conversations of April and May 2026 that open Phase Dot, pasted by hand
+from the assistant's history before any chat was exported, and in the few exported chats from that time.
+The compiler reads them as it reads the later chats; where a pasted conversation kept no prompts, its
+threads name the conversation alone.
 
 ::: {.chronicle to="202605"}
 :::

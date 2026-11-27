@@ -60,7 +60,7 @@ local function item(t)
   line:extend(inlines(t.topic))
   line:extend { pandoc.Str(";"), pandoc.Space() }
   line:extend(fate(t))
-  local where = "chat " .. t.chat
+  local where = (t.origin == "Phase Dot" and "Phase Dot " or "chat ") .. t.chat
   if #t.prompts == 2 then
     local a, b = string.format("%d", t.prompts[1]), string.format("%d", t.prompts[2])  -- JSON numbers decode as floats
     where = where .. (a == b and (", prompt " .. a) or (", prompts " .. a .. "–" .. b))

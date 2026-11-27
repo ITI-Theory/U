@@ -51,6 +51,8 @@ STAMP = re.compile(r"(\d{4}-\d\d-\d\dT\d\d:\d\d(?::\d\d)?(?:\.\d+)?Z?|\d{4}-\d\d
 # A prompt holding Markdown is exported under a heading: "### **Your prompt:**".
 PROMPT = re.compile(r"^(?:#+[ \t]*)?\*\*Your prompt:\*\*[ \t]*$", re.M)
 RESPONSE = re.compile(r"^(?:#+[ \t]*)?\*\*Search(?:'|&#39;)s response:\*\*[ \t]*$", re.M)
+PASTED_DATE = re.compile(r"^(\d{1,2} (?:January|February|March|April|May|June|July|August|September|October|November|"
+                         r"December) 20\d\d)[ \t]*$", re.M)
 ACTION = re.compile(r'<ActionUnit query="([^"]*)"')
 STATUS = {"pursued": ".pursued", "deferred": ".deferred", "drifted": ".drifted", "unexplored_fork": ".unexploredFork"}
 DISPOSITIONS = ("implemented", "queued", "parked", "discarded", "untriaged")
@@ -118,6 +120,13 @@ def parse(path: Path) -> dict:
                     q = clean(q)
                     if k and not any(o["after"] == k and o["text"] == q for o in offers):
                         offers.append({"after": k, "text": q})
+    elif text.startswith("<!-- Phase Dot"):
+        # Phase Dot's conversations (Me/chats/phase-dot; ISS-133): Google's activity, pasted. A prompt is the line
+        # just before a bare date line ("28 April 2026"); the answer follows the date.
+        for m in PASTED_DATE.finditer(text):
+            before = text[:m.start()].rstrip("\n")
+            cut = before.rfind("\n") + 1
+            add(before[cut:], m.group(1), cut)
     else:
         # One turn per heading (VS Code, Copilot, NotebookLM) or per USER:/MODEL: line; the brainstorm
         # dumps have no speakers, so no prompts (their affidavits are read from the text).
@@ -506,8 +515,10 @@ def chronicle() -> int:
     import yaml
     months: dict[str, list] = {}
     private = ops = 0
-    for path in sorted(AFF.glob("*.aff")):
-        if not re.match(r"\d{8}_", path.stem):
+    # The chats, and Phase Dot's conversations (Me/chats/affidavits/phase-dot: the origin, April-May 2026).
+    sources = [(a, "chat") for a in sorted(AFF.glob("*.aff"))] + [(a, "Phase Dot") for a in sorted((AFF / "phase-dot").glob("*.aff"))]
+    for path, origin in sources:
+        if not (stamp := re.match(r"\d{8}_\d+", path.stem)):
             continue
         aff = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
         for th in aff.get("threads") or []:
@@ -529,7 +540,7 @@ def chronicle() -> int:
             elif isinstance(d, str) and " " in d:
                 d, ref = d.split(" ", 1)
             months.setdefault(path.stem[:6], []).append({
-                "date": f"{path.stem[:4]}-{path.stem[4:6]}-{path.stem[6:8]}", "chat": path.stem[:15],
+                "date": f"{path.stem[:4]}-{path.stem[4:6]}-{path.stem[6:8]}", "chat": stamp[0], "origin": origin,
                 "thread": th.get("id", ""), "topic": " ".join(str(th.get("topic", "")).split()),
                 "product": product, "status": th.get("status", ""), "disposition": d, "ref": str(ref or th.get("ref", "") or ""),
                 "concepts": sorted((own or cs) - PRIVATE), "prompts": [ps[0], ps[-1]] if ps else []})
