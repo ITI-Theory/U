@@ -164,8 +164,31 @@ local function cite(span)
   return out
 end
 
+-- ::: {.chronicle-totals} ::: : the record's totals in one generated paragraph (the closing chapter).
+local function totals()
+  local n, by, fate, first, last = 0, {}, {}, nil, nil
+  for _, m in ipairs(data.months) do
+    for _, t in ipairs(m.threads) do
+      n = n + 1
+      by[t.product] = (by[t.product] or 0) + 1
+      fate[t.disposition] = (fate[t.disposition] or 0) + 1
+    end
+    first = first or m.month
+    last = m.month
+  end
+  local text = string.format(
+    "From %s to %s the record holds %d threads in the three products (%d on the theory, %d on the Soma Machine, %d on the compiler). "
+    .. "%d are done, %d queued to an issue, %d parked, %d dropped with a reason, and %d not yet triaged. %d personal threads are counted "
+    .. "and not listed, and %d practical ones are left out.",
+    month_name(first), month_name(last), n, by.USF or 0, by.USM or 0, by.USC or 0,
+    fate.implemented or 0, fate.queued or 0, fate.parked or 0, fate.discarded or 0, fate.untriaged or 0,
+    data.private_counted or 0, data.ops_left_out or 0)
+  return pandoc.Blocks { pandoc.Para(inlines(text)) }
+end
+
 return {
   { Meta = function(meta) load(meta) end },
   { Span = cite },
+  { Div = function(div) if div.classes:includes("chronicle-totals") then return totals() end end },
   { Div = function(div) if div.classes:includes("chronicle") then return render(div) end end },
 }

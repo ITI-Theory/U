@@ -158,6 +158,20 @@ is the compiler's account of that month, and this book is its first product.
 ::: {.chronicle from="202611" to="202611"}
 :::
 
+# Where it stands
+
+::: {.chronicle-totals}
+:::
+
+By the end of November 2026 the work had become three products released as one: the theory in its papers and
+books, the Soma Machine that shows it, and the compiler that checks both, in an editor's tab and in Neovim
+[as the release plan has it]{.chat ref="20261127_033130" p="30"}. The compiler had checked its own write-up
+and compiled the conversations that made it, and this book is one of the things it made from them.
+
+The treasure is not this book's to judge: that is for the papers' readers, the reviewers and the measurements
+still to come. What the record can show is the journey, and that most of what was said along the way was
+either done, put on a list, or set aside with a reason. The rest is the next chapter's agenda, below.
+
 # What is still open {.unnumbered}
 
 Every thread that is not yet triaged, or is queued to an issue, month by month: the agenda the journey
