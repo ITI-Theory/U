@@ -7030,6 +7030,13 @@ directly or through a core; 26 Nov, USC as Sherlock and MTC, the `{{usc:...}}` t
       prompt of every routed thread (its disposition and ref on the tag; idempotent; a file whose prompts would
       change is left alone): 30 threads, 70 tags in 11 chats; the grammar's own examples in the 26 Nov chat are
       ignored by id. Routing a thread (`chats.py route`) and then `tag` keeps the originals and the model in step.
+- [x] (27 Nov 15:55, author: "your review are actually examples of a chat that needs the usc treatment ... a list of
+      loose ends, good ideas, and maybe a few other general ways to classify this spaghetti") The classes: IDEA,
+      LOOSE_END, DECISION, QUESTION (usc_tags.ebnf; Tag.classes; TagQueries lists the untriaged by class, a broken
+      ref fails). Tags written in the chat itself, on their own lines, carried into the export and kept across
+      re-exports (usc_keep). This session's chat given the treatment: 20 tags at its loose ends, decisions and ideas;
+      its affidavit to the end (20 threads). `chats.py ideas` now classifies (loose ends, drift, pursued not yet
+      routed, tags not yet triaged) and searches (`--grep WORD --by kind|product|date`).
 - [x] (27 Nov) The filter for every build: `lib/format/usc-tags.lua` drops the tags after any Markdown reader has
       parsed them (with or without +smart; a paragraph of tags goes, a tag between two lines leaves one paragraph);
       tested to Markdown and LaTeX.
