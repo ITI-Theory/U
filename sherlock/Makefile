@@ -16,7 +16,7 @@ NEXTKB_URL := https://www.qrg.northwestern.edu/nextkb/nextkb_files_20190107.zip
 NEXTKB_ZIP := $(RAW)/nextkb_files_20190107.zip
 NEXTKB_SHA := 5489856b64c9db1c69965ecb6a9a82382ddffd3fdf76c571b8bbde97405d7b79
 
-.PHONY: writers studio help fetch lean-gen lean affidavits all clean check ledger delta rules-gen types towers readings readings-lean skyline clinical level-types leakage grammar impact presence model rivals bofh standalone gallery privacy provenance features views
+.PHONY: chats writers studio help fetch lean-gen lean affidavits all clean check ledger delta rules-gen types towers readings readings-lean skyline clinical level-types leakage grammar impact presence model rivals bofh standalone gallery privacy provenance features views
 
 help:
 	$(info Sherlock (ISS-055), outputs in bld/sherlock/)
@@ -38,6 +38,7 @@ help:
 	$(info   bofh        the BOFH: feelings on levels that cannot feel; jargon with no bridge for the general reader (ISS-094))
 	$(info   standalone  every cheat sheet stands on its own: identity, its own words, its own references)
 	$(info   gallery     every picture in A Gallery of Thoughts is the programme's own (ISS-097))
+	$(info   chats       the chats as Lean models: Me/chats and their affidavits (FILES="..." limits it); private, built in bld/)
 	$(info   privacy     what is private stays private: Phase Dot, H-AL's answers, the film notes (needs Me; ISS-116))
 	$(info   provenance  whose emotions a score carries, and whether the author has attested it (ISS-115))
 	$(info   features    every Soma Machine feature tagged science or show, and the author's approvals (ISS-095))
@@ -165,6 +166,11 @@ standalone:
 
 gallery:
 	$(PYTHON) gallery_sources.py
+
+# The chats as Lean models (USC iteration 1): Me/chats and their affidavits in Me/chats/affidavits.
+chats:
+	$(PYTHON) chats.py lean $(FILES)
+	lake build Chat Chats ChatQueries
 
 privacy:
 	$(PYTHON) privacy.py

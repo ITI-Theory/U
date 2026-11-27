@@ -36,3 +36,16 @@ name = "Queries"
 # Sherlock affidavits: a document's claims typed against OpenCyc.
 [[lean_lib]]
 name = "Affidavits"
+
+# Chats as Lean models (USC iteration 1): the model (committed).
+[[lean_lib]]
+name = "Chat"
+
+# The chats, generated from Me/chats and their affidavits (private; make -C sherlock chats).
+[[lean_lib]]
+name = "Chats"
+srcDir = "../bld/sherlock/lean"
+
+# Questions to the chats, and the acceptance test of iteration 1.
+[[lean_lib]]
+name = "ChatQueries"
