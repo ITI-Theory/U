@@ -20,6 +20,9 @@ alike: read its "Working on this repo" section and follow it (start order,
 - **Save as you go:** `HAL copilot save` at milestones and before long-running
   work, so a sudden break loses nothing.
 - **Ignore `*.OBSOLETE`** files and directories: kept for history only.
+- **Line endings are LF** in every file and repo (`.gitattributes` `eol=lf`; BUILD.md rule 7). From
+  PowerShell never write files with `Set-Content`/`Out-File` (they write CRLF): use Python with
+  `newline="\n"` or `[IO.File]::WriteAllText` with `\n`.
 - **Builds** follow `docs/BUILD.md`: Make, pandoc and Lua; scripts never write
   markup. Commit messages end with the trailer
   `Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>`.
