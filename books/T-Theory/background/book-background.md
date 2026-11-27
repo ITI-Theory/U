@@ -159,10 +159,61 @@ enough: Adler's equation $\dot\varphi = \Delta\omega - K\sin\varphi$ has a fixed
 difference between two people's rhythms, and that $K$ grows with the coupling the theory names. Label
 `open-hypothesis`; not medical advice.
 
+## Dwell times and the clinical operators {#sec:bg-dwell}
+
+**The idea.** With noise $D = 1/\beta$, the time spent in a well of depth $W$ grows as $e^{\beta W}$
+(Arrhenius and Kramers; see the entry on Kramers in the physics chapter): colder means longer in the same well, not a deeper one.
+
+**In [T]-Theory.** The summary sheet's clinical operators: autism with C-PTSD as "high $\beta$, deeper wells",
+ADHD as a flat landscape at high temperature.
+
+**The method's verdict.** `COID-CLIN-1`: exploratory, S1, two open assumptions: the readings themselves
+(interpretive), and "deeper wells", which the formula does not give (a higher $\beta$ lengthens the stay in a
+well of the same depth). A model and a reading, not medical advice. Label `interpretive`.
+
 **Where it was discussed.** The conversations' threads on these ideas, as the record has them now:
 
 ::: {.chronicle concept="Clinical,Teaching" flat="true"}
 :::
+
+# Groups, games and the Earth
+
+The ideas the theory borrows for many bodies at once: networks, games, and the statistics of earthquakes.
+The conversations discussed them under the theory's own name, so their record is in the first chapter.
+
+## Consensus on a network: Fiedler {#sec:bg-fiedler}
+
+**The idea.** On a network with diffusive coupling, how fast the members come to agree is set by the second
+smallest eigenvalue $\lambda_2$ of the network's Laplacian, its algebraic connectivity [@fiedler1973algebraic].
+
+**In [T]-Theory.** The social quotient SQ as a community's synchronisation rate.
+
+**The method's verdict.** `COID-SQ-1`: exploratory, S1, two open assumptions: that SQ means $\lambda_2$ (the
+summary sheet writes $\lambda_1$, which is $\lambda_2$ only when the count starts at $\lambda_0$), and that a
+community's trust network is such a graph. Label `open-hypothesis`.
+
+## Equilibria as minima: potential games {#sec:bg-nash}
+
+**The idea.** In an exact potential game every player's gain is the change of one shared function, and its
+maxima are Nash equilibria [@monderer1996potential].
+
+**In [T]-Theory.** Game theory as attractor dynamics: the equilibria as the minima of the field's energy, the
+potential with its sign turned.
+
+**The method's verdict.** `COID-NASH-1`: exploratory, S1, one open assumption: that the social game has an
+exact potential, which needs symmetric couplings. Label `open-hypothesis`.
+
+## Earthquakes: Gutenberg and Richter {#sec:bg-gr}
+
+**The idea.** The number of earthquakes of magnitude at least $M$ falls as $\log N = a - bM$, with $b$ close to
+1 [@gutenberg1944frequency]. Since the seismic moment grows as $10^{1.5M}$, a moment law $N \propto
+M_0^{-\beta}$ gives $b = 1.5\beta$, so $b = 1$ needs $\beta = 2/3$.
+
+**In [T]-Theory.** $b \approx 1$, claimed as derived from the field at a critical point.
+
+**The method's verdict.** `COID-GR-1`: exploratory, S1, two open assumptions: that the crust's universality
+class has $\beta = 2/3$, and that $b$ grows with the gap $\Delta\lambda$; but $b \to 0$ as the gap closes, so
+the book's two premises conflict at the critical point itself. Label `open-hypothesis`.
 
 # Philosophy and history
 

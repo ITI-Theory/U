@@ -7453,8 +7453,10 @@ the chats are full of, and what a course reader lacks.
       potential, Klein-Gordon and memory, Kaluza-Klein, the cosmological budget, tunnelling, Kramers, Einstein
       1905) and the clinic (Adler's locking): each the standard idea with its reference (seven added to the
       bibliography), its role in [T]-Theory, and the method's verdict with its label. 27 pp.
-- [ ] More entries: Fiedler and Nash (society), Gutenberg-Richter (geophysics), the clinical operators; then
-      philosophy, music, knowledge; Sherlock's affidavit for the book.
+- [x] (27 Nov) More entries: the clinical operators (dwell times), and a chapter "Groups, games and the Earth"
+      (Fiedler, potential games, Gutenberg-Richter); Sherlock's affidavit for the book (ttheory-background, 436
+      checks with it).
+- [ ] Next entries: philosophy, music, knowledge (from their threads; no method rows yet).
 - [ ] The entries (layer 2): the view by concept (the affidavits' concepts,
       Me/chats/affidavits/concepts.yaml) instead of by month; each entry: the standard idea (cited, not from
       the chats), its role in [T]-Theory (the papers, the Lean, the method's row if there is one), where it
