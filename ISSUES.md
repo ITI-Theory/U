@@ -7091,6 +7091,10 @@ its two signs (ISS-126) are exactly the error this would catch.
       kappa (31); Ω_Λ = 7/11 in P21 (cosmological-constant-derivation.md:144, 360), P22 (dark-matter-spatial-
       vacuum.md:466), the cheatsheet (15), the philosophy book (208, 899) and the physics book (160, 214). The list
       of places to edit, in bld/sherlock/equations.md; papers are not edited in place (new versions).
+- [x] (27 Nov) Four more: SQ ≡ λ₁ in the cheatsheet (171, 190); N(M) ∝ M^{-b} in soma-geophysics (131); the scale
+      range 10⁻³⁵ m → 10²⁶ m in the cheatsheet (7); the memory kernel's decay e^{-τ/τₘ} in P10 (163, 178, 180,
+      240), P14 (usf-euclidean-qft.md:287), the cheatsheet (40) and the philosophy book (166, 583, 729). 58 places,
+      12 Lean witnesses, in bld/sherlock/equations.md.
 - [ ] The match, equation by equation: the Lean states operators pointwise (f'' + (2/r) f' ± k² f), the documents
       as ∇² ± k²; a normal form for both, then a mismatch is an error.
 - [ ] The cheatsheet first; then the papers through their affidavits.

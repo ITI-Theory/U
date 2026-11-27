@@ -8,6 +8,9 @@ import Fishing.KaluzaKlein
 import Fishing.Kramers
 import Fishing.WKB
 import Fishing.Cosmology
+import Fishing.Networks
+import Fishing.Seismic
+import Fishing.Scales
 import UniversalSomaticField
 
 /-!
@@ -36,7 +39,11 @@ def witnesses : List (String × List Lean.Name) :=
    -- The catches, wherever an equation repeats them: the witness is the theorem that shows the problem.
    ("kramers-no-friction", [``Fishing.Kramers.narrower_faster]),
    ("wkb-no-mass", [``Fishing.WKB.cheatsheet_drops_mass]),
-   ("omega-7-11", [``Fishing.Cosmology.published_misses])]
+   ("omega-7-11", [``Fishing.Cosmology.published_misses]),
+   ("sq-lambda1", [``Fishing.Networks.lowest_is_zero]),
+   ("gr-power-law", [``Fishing.Seismic.not_power_law]),
+   ("scale-10-26", [``Fishing.Scales.top_scale]),
+   ("memory-decay", [``Fishing.KleinGordon.kernel_not_mode])]
 
 def ofClass (c : String) : List (String × Nat × Bool × String × String) := all.filter (·.2.2.2.2 == c)
 
@@ -58,5 +65,9 @@ def files (c : String) : List String := ((ofClass c).map fun e => (e.1.splitOn "
 #latex Fishing.Kramers.narrower_faster
 #latex Fishing.WKB.cheatsheet_drops_mass
 #latex Fishing.Cosmology.published_misses
+#latex Fishing.Networks.lowest_is_zero
+#latex Fishing.Seismic.not_power_law
+#latex Fishing.Scales.top_scale
+#latex Fishing.KleinGordon.kernel_not_mode
 
 end Fishing.Equations
