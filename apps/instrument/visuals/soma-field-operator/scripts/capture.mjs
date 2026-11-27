@@ -14,6 +14,9 @@
 //                                         # (written to atlas-plates-portrait/)
 //   npm run capture -- --levels quantum-foam,human-vertebrate --settle 3000
 //   npm run capture -- --out <dir> --width 1920 --height 1080 --scale 2
+//   npm run capture -- --only audit --levels human-vertebrate --out ../../../../bld/app-audit
+//                                         # USC's visual audit (ISS-127): per level x 4D/8D/11D, the
+//                                         # screenshot, the DOM's visible text with boxes and the render
 
 import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
@@ -58,7 +61,7 @@ function parseArgs(argv) {
     else if (key === 'levels' || key === 'paths' || key === 'plates') args[key] = new Set(value.split(','));
     else args[key] = key === 'out' ? path.resolve(value) : value;
   }
-  if (!['all', 'plates', 'console', 'print', 'questions', 'atlas-plates', 'voyage', 'gallery', 'rooted'].includes(args.only)) throw new Error('--only must be all, plates, console, print, questions, atlas-plates, voyage, or gallery');
+  if (!['all', 'plates', 'console', 'print', 'questions', 'atlas-plates', 'voyage', 'gallery', 'rooted', 'audit'].includes(args.only)) throw new Error('--only must be all, plates, console, print, questions, atlas-plates, voyage, or gallery');
   return args;
 }
 
@@ -287,6 +290,48 @@ async function main() {
     }
   }
 
+
+  if (args.only === 'audit') {
+    // USC's visual audit (ISS-127, the author's design of 26 Nov): the black box (the screenshot, read by
+    // OCR in sherlock/appaudit.py) and the white box (the DOM's visible text with boxes, the render state).
+    await mkdir(path.join(args.out, 'audit'), { recursive: true });
+    manifest.audit = [];
+    const ids = args.levels ? [...args.levels] : data.levels.map(level => level.id);
+    for (const levelId of ids) {
+      const level = levelById.get(levelId);
+      if (!level) continue;
+      for (const dim of [4, 8, 11]) {
+        await show(`level=${levelId}&dim=${dim}&reader=${args.reader}`);
+        const buffer = await page.screenshot({ type: 'png', timeout: 180000 });
+        const stem = `audit/${levelId}--${dim}D`;
+        await writeFile(path.join(args.out, `${stem}.png`), buffer);
+        const dom = await page.evaluate(() => {
+          const out = [];
+          const seen = new Set();
+          for (const el of document.querySelectorAll('body *')) {
+            if (el.closest('script,style,noscript')) continue;
+            const own = [...el.childNodes].filter(n => n.nodeType === 3).map(n => n.textContent).join(' ').replace(/\s+/g, ' ').trim();
+            if (!own) continue;
+            const r = el.getBoundingClientRect();
+            const cs = getComputedStyle(el);
+            const visible = r.width > 0 && r.height > 0 && cs.visibility !== 'hidden' && cs.display !== 'none' && Number(cs.opacity) > 0.05
+              && r.bottom > 0 && r.right > 0 && r.top < innerHeight && r.left < innerWidth && !el.closest('[hidden]');
+            if (!visible) continue;
+            const key = `${own}@${Math.round(r.x)},${Math.round(r.y)}`;
+            if (seen.has(key)) continue;
+            seen.add(key);
+            out.push({ text: own, tag: el.tagName.toLowerCase(), id: el.id || null, cls: el.className && typeof el.className === 'string' ? el.className.split(' ')[0] : null,
+              box: [Math.round(r.x), Math.round(r.y), Math.round(r.width), Math.round(r.height)] });
+          }
+          return { render: window.__somaLastRender ?? null, tTheory: document.querySelector('#t-theory-toggle')?.getAttribute('aria-pressed') ?? null, items: out };
+        });
+        await writeFile(path.join(args.out, `${stem}.dom.json`), JSON.stringify(dom, null, 1));
+        manifest.audit.push(record(level, { dim, file: `${stem}.png`, dom: `${stem}.dom.json`, rendered: dom.render, sha256: sha256(buffer) }));
+        process.stdout.write(`audit   ${stem} (${dom.items.length} text items, rendered ${dom.render?.dimension ?? '?'}D)\n`);
+      }
+    }
+  }
+
   if (args.only === 'questions') {
     await mkdir(path.join(args.out, 'questions'), { recursive: true });
     for (const question of data.questions ?? []) {
@@ -353,7 +398,7 @@ async function main() {
     }
   }
 
-  if (args.only !== 'plates' && args.only !== 'print' && args.only !== 'questions' && args.only !== 'atlas-plates' && args.only !== 'voyage' && args.only !== 'gallery' && args.only !== 'rooted') {
+  if (args.only !== 'plates' && args.only !== 'print' && args.only !== 'questions' && args.only !== 'atlas-plates' && args.only !== 'voyage' && args.only !== 'gallery' && args.only !== 'rooted' && args.only !== 'audit') {
     for (const route of data.paths) {
       if (args.paths && !args.paths.has(route.id)) continue;
       await mkdir(path.join(args.out, 'console', route.id), { recursive: true });

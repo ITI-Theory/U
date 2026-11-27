@@ -6971,11 +6971,27 @@ everything it should do in books and papers." The seeds in the chats (tagged in 
 options there"); 20 Nov (the Soma Machine as the development environment); 21 Nov (the Fantastic Voyage:
 the body's vessels by the Televator); 26 Nov (the visual audit: USC on the app's screens).
 
-- [ ] The model: `sherlock/Usm`, the app's features as layers from 4D up (the 11D decomposition of the
-      cheatsheet IV as the order), each with its option, what it requires, and the papers and books it
-      shows; generated from the app's settings and a registry, never copied by hand.
-- [ ] Coverage, both ways: what the papers and books claim that nothing shows, and what the app shows
-      that no document claims.
+- [x] (27 Nov) The model: `sherlock/Usm` (`make -C sherlock usm`), generated from the page's controls
+      (index.html), main.js's start and the registry (each level's physical, field and mind rows at 4D,
+      8D and 11D, the field and mind rows behind T-THEORY, their claims and papers) and Dist/PAPERS.yaml.
+      Proved: turning a feature on never hides a row (`Usm.visible_mono`). Guarded: the 4D start shows only
+      physical rows, none interpretive. Findings: the app starts in 11D with T-Theory on (93 rows, 31
+      interpretive, from the first screen); the 4D ladder is 31, 31, 62, 93. Of the switches the author
+      named on 26 Nov (M-Theory, T-Theory, philosophy, clinical psychiatry) only T-THEORY exists; the page's
+      other ten are lens, style, contours and developer switches.
+- [ ] The options in the app (AUTHOR to confirm): start at `start4D`; the missing switches (M-Theory,
+      philosophy, clinical psychiatry) as gates in the model first, then in the page.
+- [x] (27 Nov) Coverage, first pass (levels and the concept registry): 14 of 27 papers reach the
+      screen; none of P4, P6, P7, P8, P12, P15, P17, P18, P23, P24, P25, SH1, P26 does; every level cites a
+      paper. Questions, paths and models still to count; the books next.
+- [x] (27 Nov) USC on the visuals, the author's design of 26 Nov (thread visual-audit): `npm run capture
+      -- --only audit` (screenshot and the page's visible text, per level and 4D, 8D, 11D), Windows' own OCR
+      (sherlock/Tools/ocr.ps1), the rules from main.js and the registry (`sherlock/appaudit.py`), and Lean
+      decides (`sherlock/App`, `AppQueries`: missing, leaking, and where screen and page disagree);
+      `make -C sherlock app-audit` (LEVELS="..."). First catch, Human/Vertebrate: at 4D and 8D the 3D
+      scene shows INTERPRETIVE (the place plate, drawn, not in the page) while the page's claim is
+      SOURCED; the unselected dimension buttons and, at 8D, the field row's SOURCED badge are in the page
+      but not readable on screen. The app shows the master equation as (∇² + k²)G = δ (ISS-126's sign).
 - [ ] The options in the app: start in a 4D world, as now, and turn the features on one by one
       (theoretical physics on or off, ...); other theories' models (philosophy) as alternatives.
 - [ ] USC on the visuals: the visual audit (26 Nov), the screens checked against the model.

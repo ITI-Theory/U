@@ -81,3 +81,26 @@ srcDir = "../bld/sherlock/lean"
 
 [[lean_lib]]
 name = "TagQueries"
+
+# The Soma Machine audited against what it should show (ISS-127): the model (committed), the rules and the
+# screens (generated: make -C sherlock app-audit) and the findings.
+[[lean_lib]]
+name = "App"
+
+[[lean_lib]]
+name = "AppAudit"
+srcDir = "../bld/sherlock/lean"
+
+[[lean_lib]]
+name = "AppQueries"
+
+# The USM as a model (ISS-127): options from 4D up, the levels' rows, the papers they show.
+[[lean_lib]]
+name = "Usm"
+
+[[lean_lib]]
+name = "UsmData"
+srcDir = "../bld/sherlock/lean"
+
+[[lean_lib]]
+name = "UsmQueries"
