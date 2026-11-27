@@ -69,3 +69,15 @@ srcDir = "../bld/sherlock/lean"
 
 [[lean_lib]]
 name = "IssueQueries"
+
+# The {{usc:...}} tags (usc_tags.ebnf): the model (committed), the tags in the originals (generated,
+# private: the chats'; make -C sherlock tags) and the questions.
+[[lean_lib]]
+name = "Tag"
+
+[[lean_lib]]
+name = "Tags"
+srcDir = "../bld/sherlock/lean"
+
+[[lean_lib]]
+name = "TagQueries"

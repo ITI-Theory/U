@@ -1,0 +1,41 @@
+(* The {{usc:...}} tags of the Universal Semantic Compiler (ISS-126).
+
+   The grammar is the author's AI Mode chat of 26 Nov 2026 (Me/chats, thread usc-tags, prompts 33-34),
+   verbatim except for the marked 27 Nov extension: the keys disp, note and opts, and the status IDEA, so
+   that a good idea or a stray remark can be tagged and triaged where it was said ("tag the originals, we
+   have git", author, 27 Nov). Scanner and checks: sherlock/usctags.py. Builds strip the tags
+   (lib/format/visualize-reader.lua). *)
+
+usc_tag        = "{{" , ws* , "usc:" , tag_kind , ( ws+ , attribute )* , ws* , "}}" ;
+tag_kind       = "begin"      (* Starts a prose/equation span *)
+               | "end"        (* Closes a matching span by id *)
+               | "fork"       (* Declares a decision or chance node *)
+               | "branch"     (* Marks an option or realized path from a fork *)
+               | "jump" ;     (* Marks an unpredicted / stochastic tangent *)
+attribute      = attr_key , ws* , "=" , ws* , attr_value ;
+attr_key       = "id"         (* Unique node identifier, e.g., "CHAT-042" *)
+               | "ref"        (* Parent fork/node ID this attaches to; with disp, the witness *)
+               | "status"     (* Epistemic or realization state *)
+               | "domain"     (* One of the 14 academic fields *)
+               | "lean"       (* Target Lean 4 theorem/definition name *)
+               | "choice"     (* Which option was taken, or "*" for wildcard *)
+               | "prob"       (* Optional prior weight/probability, e.g., "0.4" *)
+               | "opts"       (* A fork's options, e.g. "A,B,*"; 27 Nov: used in the 26 Nov examples *)
+               | "disp"       (* 27 Nov: implemented | queued | parked | discarded *)
+               | "note" ;     (* 27 Nov: a short remark *)
+attr_value     = '"' , { char_no_quote } , '"' ;
+
+(* Standard status vocabulary *)
+status_val     = "ESTABLISHED"
+               | "LEAN_VERIFIED"
+               | "PEER_REVIEWED"
+               | "EMPIRICAL_SIM"
+               | "PREPRINT"
+               | "SPECULATIVE_BRIDGE"
+               | "REALIZED"         (* Path actually taken in dialogue/derivation *)
+               | "COUNTERFACTUAL"   (* Offered/valid branch not yet taken *)
+               | "WILDCARD"         (* Unpredicted jump outside declared options *)
+               | "IDEA" ;           (* 27 Nov: a good idea or remark worth keeping *)
+
+ws             = " " | "\t" | "\n" | "\r" ;
+char_no_quote  = ? any Unicode character except '"' ? ;

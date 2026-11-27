@@ -6923,6 +6923,15 @@ directly or through a core; 26 Nov, USC as Sherlock and MTC, the `{{usc:...}}` t
       0 for every network, so SQ must be the Fiedler value λ₂ (positive iff connected). Fishing/Scales:
       the Lean's names and lengths agree only at levels 0 and 1 (the brain named 10⁻¹ m, placed at
       10⁻¹⁴ m), and the named scales step unevenly, 1 to 17 decades, so no single zoom ratio maps them.
+- [x] (27 Nov 05:53, author: "re your questions... can they wait or just pick the best?") Provisional
+      decisions (Copilot's; each stands until the author overrules it; no paper or book edited):
+      the sign: Klein-Gordon, k a mass (k = n/R from D8), and the stationary form's k renamed ω/v;
+      bulk or brane: the walls carry EM and matter, D8 carries gravity and the limbic field, and the
+      mind side reads D5-11 as state coordinates; the fractions are today's values (they evolve as in
+      ΛCDM), with 15/22 pre-registered as an open hypothesis; SQ is λ₂, the Fiedler value; b ≈ 1 is
+      an empirical input until a class with β = 2/3 is named ("derived" dropped); Kramers' formula
+      gets its friction γ back; trauma wells are "deep", not "deep narrow". These are the cheatsheet
+      corrections to make when the booklet is next revised (books/T-Theory/booklet/booklet_body.md).
 - [ ] Physics fishing, further catches from the cheatsheet (the method's rows; the Lean decides).
 - [x] (27 Nov, author: "compile ISSUES.md as well, heavily linked to chats already") ISSUES.md as a
       Lean model: `sherlock/Issue` (statuses, boxes, AUTHOR steps, the header's rules as functions),
@@ -6933,5 +6942,71 @@ directly or through a core; 26 Nov, USC as Sherlock and MTC, the `{{usc:...}}` t
       (ISS-002 to 026, 036, 077, 088: before the fields); ISS-063, 121 and 122 live with every box
       settled (close them or give them a next step); 16 AUTHOR steps open in live issues, some stale
       (ISS-120's "push today's commits", 19 Oct).
-- [ ] The `{{usc:...}}` tags (26 Nov: the EBNF) and their Lua filter.
+- [x] (27 Nov) The `{{usc:...}}` tags (author: "tag the originals, we have git"): the grammar
+      `sherlock/usc_tags.ebnf` (26 Nov's, plus disp, note, opts and the status IDEA, so a good idea or a
+      stray remark is triaged where it was said); `sherlock/usctags.py` (check, lean, strip; a tag stands
+      alone on its line, an inline one is a mention; tags only in the chats and ISSUES.md until every
+      reader strips them); the model `sherlock/Tag` and `TagQueries` (every idea triaged, its issue
+      exists); `make -C sherlock tags` (`chats` runs it). The builds' reader drops them
+      (lib/format/visualize-reader.lua). The exporters that rewrite a chat in place carry the tags over
+      or refuse (Me/chats/scripts/usc_keep.py). First tags: five ideas in four chats, queued to ISS-127,
+      128 and 129; the chats' prompts unchanged by them.
+- [ ] Tags in the papers and books: first every build's reader strips them (half the defaults read
+      plain markdown: books/T-Theory/defaults, paper/defaults/pdf-2col, omnibus, lean-appendix).
+- [x] (27 Nov) The list of things to do from the chats (author: "all in chats should be on some new
+      list"): `python sherlock/chats.py ideas` writes Me/chats/ideas.md, every untriaged thread by
+      product (325: USC 110, USM 92, USF 59, Ops 64; personal threads counted, not listed).
 - [x] (27 Nov) USF, USM and USC in the naming standard (T.Ops `docs/standards/naming.md`).
+
+## ISS-127: USM as a model: what the Soma Machine shows, and its options from 4D up — OPEN
+{{Tags area.app, area.sherlock, area.visualize, project.soma-field-operator}}
+{{Fields date.created=2026-11-27, date.start=, date.end=, epic=}}
+
+**Author, 27 Nov 05:52:** "the USM is really the visualizer for T-theory, would be nice to even support
+diff models for say philosophy. what we need though, is to run usc on it, including the visuals ... and
+concentrate on the settings->options. to be able to start with a 4d world, as we have it now, and
+incrementally turn on features... eg theoretical physics on/off ... so lets model usm so its visualizes
+everything it should do in books and papers." The seeds in the chats (tagged in the originals, ISS-126):
+6 Oct (write_a_book: "in settings, lets have a rice (or ricing) on/off, then all my weird stuff can be
+options there"); 20 Nov (the Soma Machine as the development environment); 21 Nov (the Fantastic Voyage:
+the body's vessels by the Televator); 26 Nov (the visual audit: USC on the app's screens).
+
+- [ ] The model: `sherlock/Usm`, the app's features as layers from 4D up (the 11D decomposition of the
+      cheatsheet IV as the order), each with its option, what it requires, and the papers and books it
+      shows; generated from the app's settings and a registry, never copied by hand.
+- [ ] Coverage, both ways: what the papers and books claim that nothing shows, and what the app shows
+      that no document claims.
+- [ ] The options in the app: start in a 4D world, as now, and turn the features on one by one
+      (theoretical physics on or off, ...); other theories' models (philosophy) as alternatives.
+- [ ] USC on the visuals: the visual audit (26 Nov), the screens checked against the model.
+- [ ] The Fantastic Voyage (21 Nov, threads body-voyage, shrink-by-zoom): biology at the finest level.
+
+## ISS-128: Equations: every Pandoc equation matched to its Lean — OPEN
+{{Tags area.sherlock, area.proofs, area.papers}}
+{{Fields date.created=2026-11-27, date.start=, date.end=, epic=}}
+
+**Author, 27 Nov:** "see chat about adding all pandoc latex equations to lua that extracts from lean". The
+chat is AI Mode, 23 Nov (NextKB): "how do I prove that the equation that I've written is actually
+correct": parse the Pandoc LaTeX into a typed form, render the Lean back to LaTeX, compare; Lean's
+checker as the gate, not a language model's reading. The cheatsheet's master equation is the first test:
+its two signs (ISS-126) are exactly the error this would catch.
+
+- [ ] A Lua filter that lists every display equation with its file, line and id (no script writes markup).
+- [ ] A Lean-to-LaTeX printer for named definitions and theorems, and the match, equation by equation.
+- [ ] The cheatsheet first; then the papers through their affidavits.
+
+## ISS-129: Neovim as the front end: the Soma Machine as an Emacs, chats at chat time — OPEN
+{{Tags area.app, area.sherlock, area.ops}}
+{{Fields date.created=2026-11-27, date.start=, date.end=, epic=}}
+
+**Author, 27 Nov:** "we can see the models in the usm already... we need neovim setup so the whole usm is
+like an emacs ... and neovim used for chats too... so can do at chat time". The chats: 26 Jul (Neovim as
+the main UI, a Kanban of tasks and chats in plain files), 29 Aug (the barebone Neovim, U.Dot/nvim), 20 Nov
+(the Soma Machine as the development environment; MOTHER's chat in Neovim with a live outline). Also VS
+Code and Neovim plugins (18 Nov).
+
+- [ ] One USC server, two thin clients: a language server whose diagnostics are the fishing (errors first,
+      then warnings: open assumptions, untriaged threads, malformed tags), for VS Code and Neovim alike.
+- [ ] Chats in Neovim at chat time: tag as you go (`{{usc:...}}`, usc_tags.ebnf), the model rebuilt.
+- [ ] The Soma Machine's shell (MOTHER `/shell`) as the editor's home, the models one key away.
+

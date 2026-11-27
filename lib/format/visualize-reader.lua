@@ -44,9 +44,16 @@ local function protect(text)
   return table.concat(out)
 end
 
+-- The {{usc:...}} tags (sherlock/usc_tags.ebnf) are for USC, not the reader: a tag alone on its line is
+-- dropped with its line; elsewhere the tag is dropped and the prose kept.
+local function strip_usc(text)
+  text = text:gsub("\n[ \t]*{{%s*usc:%w+[^}]*}}[ \t]*\n", "\n\n")
+  return (text:gsub("{{%s*usc:%w+[^}]*}}", ""))
+end
+
 function Reader(input, opts)
   local parts = {}
-  for _, source in ipairs(input) do parts[#parts + 1] = protect(source.text) end
+  for _, source in ipairs(input) do parts[#parts + 1] = protect(strip_usc(source.text)) end
   return pandoc.read(table.concat(parts, "\n\n"), FORMAT, opts)
 end
 

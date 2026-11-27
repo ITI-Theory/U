@@ -11,7 +11,8 @@ the file breaks them); `#eval` for the findings, the issues' loose ends.
 open Issue
 
 -- The model holds what the file holds.
-#guard Issues.all.length == 126
+-- The issues are numbered 1 to n, with no gap and no number used twice (ISS-016 stands before ISS-015 in the file).
+#guard (List.range Issues.all.length).all fun n => (Issues.all.map (·.id)).contains (n + 1)
 #guard (Issue.find Issues.all 126).map (·.status) == some Status.inProgress
 #guard Issue.parseRef "ISS-126 (the bait)" == some 126
 
