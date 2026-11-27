@@ -109,3 +109,11 @@ name = "UsmQueries"
 [[lean_lib]]
 name = "EquationsData"
 srcDir = "../bld/sherlock/lean"
+
+# The linker (ISS-126): papers, issues, chats and rows in one graph (generated, private: make -C sherlock links).
+[[lean_lib]]
+name = "Links"
+srcDir = "../bld/sherlock/lean"
+
+[[lean_lib]]
+name = "LinkQueries"

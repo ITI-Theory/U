@@ -16,7 +16,7 @@ NEXTKB_URL := https://www.qrg.northwestern.edu/nextkb/nextkb_files_20190107.zip
 NEXTKB_ZIP := $(RAW)/nextkb_files_20190107.zip
 NEXTKB_SHA := 5489856b64c9db1c69965ecb6a9a82382ddffd3fdf76c571b8bbde97405d7b79
 
-.PHONY: issues tags app-audit usm equations method backtests fishing chats writers studio help fetch lean-gen lean affidavits all clean check ledger delta rules-gen types towers readings readings-lean skyline clinical level-types leakage grammar impact presence model rivals bofh standalone gallery privacy provenance features views
+.PHONY: issues tags links app-audit usm equations method backtests fishing chats writers studio help fetch lean-gen lean affidavits all clean check ledger delta rules-gen types towers readings readings-lean skyline clinical level-types leakage grammar impact presence model rivals bofh standalone gallery privacy provenance features views
 
 help:
 	$(info Sherlock (ISS-055), outputs in bld/sherlock/)
@@ -43,6 +43,7 @@ help:
 	$(info   equations   every equation of the papers, books and levels, classed and matched to its Lean (ISS-128; minutes))
 	$(info   usm         the USM as a model: options from 4D up, what each shows, which papers nothing shows (ISS-127))
 	$(info   app-audit   USC on the Soma Machine: screenshots, OCR, the page's text, checked in Lean (LEVELS="..."; Windows OCR; ISS-127))
+	$(info   links       the linker: papers, issues, chats and the method's rows in one graph; what nothing links to (ISS-126))
 	$(info   chats       the chats as Lean models: Me/chats and their affidavits (FILES="..." limits it); private, built in bld/)
 	$(info   method      the method's model: P3's co-identification rows, scope labels and the loop (Method/, MethodQueries; ISS-126))
 	$(info   backtests   the system on known history first: Einstein 1905 (backtests/, Lean with U's Mathlib; ISS-126))
@@ -219,6 +220,11 @@ app-audit:
 	$(PYTHON) appaudit.py ocr
 	$(PYTHON) appaudit.py lean
 	lake build App AppAudit AppQueries
+
+# The linker (ISS-126): the models put together, directly.
+links: tags
+	$(PYTHON) links.py
+	lake build Links LinkQueries
 
 # The chats as Lean models (USC iteration 1): Me/chats and their affidavits in Me/chats/affidavits.
 chats: tags
