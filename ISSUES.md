@@ -6842,6 +6842,16 @@ directly or through a core; 26 Nov, USC as Sherlock and MTC, the `{{usc:...}}` t
       answers what grep did for USC, putting the models together and Einstein). The 70 chats of the
       Takeout read by the LLM pass (affidavits in Me/chats/affidavits): 39 fail the triage, 12 open
       threads.
+- [x] (27 Nov, overnight) Triage by Copilot where the evidence was checked: 29 threads routed (the triage's
+      witness suggestions read against each issue; four loose ends that tonight's work took up; Benchmark.lean
+      as the Hopfield test's witness), each then tagged in its original (`chats.py tag`): 96 tags; the ideas
+      list 296 threads; the triage 3 suggestions, 16 loose ends.
+- [ ] AUTHOR: the 16 loose ends (Me/chats/triage.md). Copilot's suggestion: an issue each for real-quantum (QUANT-EXP-1
+      on hardware) and local-rag (an offline H-AL over the books); queue conditions-in-music and
+      score-to-definition to the audio work (ISS-118/120); park the art (exhibition, eiger-drones, eiger-laser,
+      north-face-concerto, wand-cube) together under one issue for the shows; discard or park the rest
+      (diagnosis-proof, semantic-db, body-double-tool, swarm-flows, future-domains, ttheory-in-the-sky,
+      theory-areas) as the author sees fit.
 - [ ] AUTHOR: route the threads of the chats that fail the triage (implemented, queued, parked,
       discarded).
 - [x] (27 Nov) Iteration 2: every export format parsed (Copilot, USER:/MODEL:, old non-UTF-8 dumps;
