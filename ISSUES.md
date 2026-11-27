@@ -7435,3 +7435,36 @@ the chats are full of, and what a course reader lacks.
       without the domain template); the course points to it as well; in the volumes it opens Vol I only if
       Lulu's 800 pages allow, else it stands alone. The Evolution stays outside the series (history, not
       theory). AUTHOR: confirm.
+
+## ISS-135: Ideas from the chats waiting for a home (the loose ends no issue covered) — OPEN
+{{Tags area.sherlock}}
+{{Fields date.created=2026-11-27, date.start=, date.end=, epic=}}
+
+`chats.py triage`, 27 Nov: 16 loose ends (a fork not taken, an idea deferred) that no issue covered. Queued
+here so that none is lost and each is decided once: give it an issue of its own, fold it into one, park it
+or drop it with a reason (AUTHOR; `chats.py route STAMP THREAD DISPOSITION [REF]` moves the thread). Each
+appears, with its fate, in The Evolution's open points (ISS-133).
+
+USF:
+- [ ] Migrant flows related to the swarm and estuary work in the papers: a new paper? (20260801_144037, swarm-flows)
+- [ ] Run the tunnelling code tested on a simulated quantum computer on a real one (20260930_221057, real-quantum)
+- [ ] The Eiger North Face as the mirror for a laser measuring the valley's wobble (20261101_161018, eiger-laser)
+- [ ] Complexity theory, information theory (20261118_215825, theory-areas)
+
+USM:
+- [ ] A bash CLI that plays the body double, with text to speech (20260614_191425, body-double-tool)
+- [ ] A portaledge on the Eiger's North Face, 196 speaker drones as the orchestra; the line for a paper (20260718_203907, eiger-drones)
+- [ ] The 20 zoom levels as projected scenes with equation-driven sound: an exhibition, '[T]-Theory: from foam to field' (20260825_025816, exhibition)
+- [ ] A virtual wand (a 6D mouse) in a 2.5 m holo-gauze cube; the wand as a camera into the fractal body, other physics per scale (20260830_150157, wand-cube)
+- [ ] Seeing GR in action; T-Theory's stronger fluctuation towards the edge of the universe; cosmic 'trauma' (systems reorganising after a collision) for the app's poke (20261031_232755, ttheory-in-the-sky)
+- [ ] The valley as strings and the North Face as the soundboard: the cosmos and the Eiger as instruments; the North Face concerto (20261101_161018, north-face-concerto)
+- [ ] Separate the music from its abstract emotional definition; reverse-engineer the definition from a film score (Pulp Fiction's surf music) (20261109_001116, score-to-definition)
+- [ ] Inject the papers' C-PTSD, autism and ADHD field changes into the generated music (from poetry) (20261109_001116, conditions-in-music)
+
+USC:
+- [ ] A doctor's diagnosis as a proof from states and facts (20260511_020410, diagnosis-proof)
+- [ ] What the semantic database does (20260515_235128, semantic-db)
+- [ ] A local AI model (RAG) over the 20 books, e.g. to ask how the theory differs from Einstein's; parked for the GPU prices (20261106_112758, local-rag)
+
+Ops:
+- [ ] 25-50 new domains as future work (marketing, journalism, vet, sales, acting) (20260817_173527, future-domains)
