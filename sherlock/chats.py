@@ -12,6 +12,8 @@ chats are queried in Lean (Chat/Query.lean) instead of grepped.
     python sherlock/chats.py parse FILE ...     # the prompts and offers found, as JSON
     python sherlock/chats.py lean [FILE ...]    # -> bld/sherlock/lean/Chats/*.lean and Chats.lean
     python sherlock/chats.py todo [FILE ...]    # the chats with no affidavit yet
+    python sherlock/chats.py triage             # fishing: errors (witnesses that do not hold), warnings
+                                                # (possible witnesses, loose ends), links -> Me/chats/triage.md
     python sherlock/chats.py route STAMP THREAD DISPOSITION [REF]   # the author's triage of a thread
         (STAMP: the chat's time stamp, e.g. 20261126_140957; DISPOSITION: implemented REF (a path or
         commit), queued REF (ISS-NNN), parked, discarded REF (the reason), untriaged)
@@ -229,6 +231,127 @@ def route(stamp: str, thread: str, disposition: str, ref: str) -> int:
     return 0
 
 
+STOP = set("""the and for with from that this into over what when where which their there then than them they have has had
+not but are was were its his her him our your you all any can could would should will about after before between through
+under also only just more most other such some very each every both same one two three how why who whose does done like
+""".split())
+REPOS = [U, U.parent / "T", U.parent / "T.Ops", U.parent / "T.Dot", U.parent / "U.Dot", U.parent / "Dist", ME]
+
+
+def words(text: str) -> list[str]:
+    return [w for w in re.findall(r"[a-z][a-z0-9-]{2,}", text.lower()) if w not in STOP]
+
+
+def issues() -> dict[str, dict]:
+    """U's issues: id -> title, status and words (title weighted three times)."""
+    text = (U / "ISSUES.md").read_text(encoding="utf-8")
+    found = {}
+    parts = re.split(r"(?m)^## (ISS-\d+): (.*?) — (\w[\w-]*(?: \([^)]*\))?)\s*$", text)
+    for i in range(1, len(parts) - 3, 4):
+        iid, title, status, body = parts[i], parts[i + 1], parts[i + 2], parts[i + 3]
+        found[iid] = {"title": title, "status": status, "words": words(title) * 3 + words(body[:4000])}
+    return found
+
+
+def witness_holds(ref: str) -> bool:
+    """A ref is a witness if some part of it exists: an issue, a commit or tag, a path in a repo."""
+    import subprocess
+    known = issues()
+    for token in re.findall(r"ISS-\d+", ref):
+        if token in known:
+            return True
+    for token in re.findall(r"\b[0-9a-f]{7,40}\b", ref):
+        for repo in REPOS:
+            if (repo / ".git").exists() and subprocess.run(["git", "-C", str(repo), "cat-file", "-e", token + "^{commit}"],
+                                                           capture_output=True).returncode == 0:
+                return True
+    for token in re.findall(r"tag ([\w.-]+)", ref):
+        for repo in REPOS:
+            if (repo / ".git").exists() and subprocess.run(["git", "-C", str(repo), "rev-parse", "-q", "--verify", f"refs/tags/{token}"],
+                                                           capture_output=True).returncode == 0:
+                return True
+    for token in re.findall(r"[\w.-]+/[\w./-]+", ref):
+        if any((repo / token).exists() for repo in REPOS):
+            return True
+    return False
+
+
+def triage() -> int:
+    """Go fishing: errors first (a witness that does not hold), then warnings (an untriaged thread that looks
+    like an issue: a possible witness; a loose end no issue covers), then links (one idea in several chats).
+    Suggestions only: nothing is routed (the author routes, `route`). Report: Me/chats/triage.md."""
+    import math
+    from collections import Counter
+    known = issues()
+    threads = []
+    for path in sorted(AFF.glob("*.aff")):
+        lines = path.read_text(encoding="utf-8").splitlines()
+        aff = yaml.safe_load("\n".join(lines)) or {}
+        for t in aff.get("threads") or []:
+            line = next((i + 1 for i, l in enumerate(lines) if re.search(r"\{id: " + re.escape(str(t.get("id"))) + ",", l)), 1)
+            threads.append({"aff": path, "line": line, "stamp": path.stem[:15], **t,
+                            "words": words(t.get("topic", "")) + [c.lower() for c in t.get("concepts") or []]})
+    docs = [t["words"] for t in threads] + [i["words"] for i in known.values()]
+    df = Counter(w for d in docs for w in set(d))
+    n = len(docs)
+
+    def vec(ws):
+        tf = Counter(ws)
+        v = {w: c * math.log(n / df[w]) for w, c in tf.items() if df[w]}
+        norm = math.sqrt(sum(x * x for x in v.values())) or 1.0
+        return {w: x / norm for w, x in v.items()}
+
+    def cos(a, b):
+        return sum(x * b.get(w, 0.0) for w, x in a.items())
+
+    ivec = {iid: vec(i["words"]) for iid, i in known.items()}
+    for t in threads:
+        t["vec"] = vec(t["words"])
+    errors, warnings, loose = [], [], []
+    for t in threads:
+        where = f"{t['aff'].name}:{t['line']}"
+        disp, ref = t.get("disposition", "untriaged"), str(t.get("ref", ""))
+        if disp in ("implemented", "queued") and not witness_holds(ref):
+            errors.append(f"{where}: error: {t['id']}: {disp}, but the witness does not hold: {ref!r}")
+        for iid in re.findall(r"ISS-\d+", ref):
+            if disp == "queued" and iid in known and known[iid]["status"] == "CLOSED":
+                warnings.append(f"{where}: warning: {t['id']}: queued on {iid}, which is CLOSED: implemented now?")
+        if disp != "untriaged":
+            continue
+        best = sorted(((cos(t["vec"], v), iid) for iid, v in ivec.items()), reverse=True)[:2]
+        if best and best[0][0] >= 0.25:
+            score, iid = best[0]
+            guess = "implemented" if known[iid]["status"] == "CLOSED" else "queued"
+            warnings.append(f"{where}: warning: {t['id']}: untriaged; witness? {iid} ({known[iid]['status']}, {score:.2f}) "
+                            f"\"{known[iid]['title'][:70]}\" -> {guess} {iid}")
+        elif t.get("status") in ("unexplored_fork", "deferred"):
+            loose.append(f"{where}: warning: {t['id']}: a loose end no issue covers ({t['status']}): {t.get('topic', '')[:90]}")
+    # links: the same idea in several chats
+    links, seen = [], set()
+    for i, a in enumerate(threads):
+        if i in seen:
+            continue
+        group = [j for j in range(i + 1, len(threads)) if j not in seen and threads[j]["stamp"] != a["stamp"]
+                 and cos(a["vec"], threads[j]["vec"]) >= 0.45]
+        if len(group) >= 1:
+            seen.update(group)
+            links.append([a] + [threads[j] for j in group])
+    out = ["# Chat triage (fishing)", "", f"Generated by `python sherlock/chats.py triage` from {len(threads)} threads and "
+           f"{len(known)} issues. Suggestions only: the author routes (`chats.py route`).", "",
+           f"## Errors ({len(errors)}): a witness that does not hold", ""] + [f"- {e}" for e in errors] + [
+           "", f"## Warnings ({len(warnings)}): an untriaged thread that looks like an issue", ""] + [f"- {w}" for w in warnings] + [
+           "", f"## Loose ends ({len(loose)}): deferred or unexplored, and no issue covers them", ""] + [f"- {w}" for w in loose] + [
+           "", f"## Links ({len(links)}): one idea in several chats", ""]
+    for g in sorted(links, key=len, reverse=True):
+        out.append(f"- {len(g)} chats: " + "; ".join(f"{t['stamp']} {t['id']}" for t in g))
+    (ME / "chats" / "triage.md").write_text("\n".join(out) + "\n", encoding="utf-8", newline="\n")
+    for e in errors:
+        print(e)
+    print(f"triage: {len(errors)} errors, {len(warnings)} possible witnesses, {len(loose)} loose ends, "
+          f"{len(links)} links -> {ME / 'chats' / 'triage.md'}")
+    return 1 if errors else 0
+
+
 def chat_files(given: list[str]) -> list[Path]:
     return [Path(f).resolve() for f in given] if given else sorted(INBOX.glob("*.md"))
 
@@ -236,9 +359,11 @@ def chat_files(given: list[str]) -> list[Path]:
 def main() -> int:
     sys.stdout.reconfigure(encoding="utf-8")
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
-    ap.add_argument("command", choices=["parse", "lean", "todo", "route"])
+    ap.add_argument("command", choices=["parse", "lean", "todo", "route", "triage"])
     ap.add_argument("files", nargs="*")
     a = ap.parse_args()
+    if a.command == "triage":
+        return triage()
     if a.command == "route":
         if len(a.files) not in (3, 4):
             print("usage: chats.py route STAMP THREAD DISPOSITION [REF]")
