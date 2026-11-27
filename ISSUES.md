@@ -7533,9 +7533,13 @@ use this as a concrete use case".
      prompts) as the context, so the answer is the record plus the prose.
 2. **Browse: "I'm sure there was something else."** A dialogue that narrows: what was it for (the app, a book,
    the theory: the products), which kind (an idea, a loose end, a decision), then a short list.
-   - [ ] A picker in Neovim (vim.ui.select, no model): product, then kind, then the threads and tagged ideas.
-   - [ ] "Sort by cool": the author's own rating, a `rank` on a thread or tag (1-3 stars), set in one key;
-     the list sorts by it.
+   - [x] (27 Nov) A picker in Neovim, no model: `:UscBrowse` (usc.nvim) asks what it was for (the theory, the app,
+     the compiler, the practical, personal), which kind (a loose end, an offer left, talked through, queued), then
+     lists them; the chat opens where the thread starts (`usc.py browse`, `usc.py where`). 320 open threads.
+     Tested headless (the app, an offer left, the 5 Jun art project: opened at its line).
+   - [x] (27 Nov) "Sort by cool": `usc.py rank STAMP THREAD 0-3` keeps the author's rating in the affidavit; the
+     picker lists the highest first. None set: the rating is the author's (AUTHOR: rate as you browse).
+   - [ ] One key in the picker to rate the item it shows.
    - [ ] A model only where it helps: the picker is instant and exact; a fast local model (or NotebookLM
      through the bridge, slower) can phrase the questions.
 3. **See: thoughts are code, so show them as code is shown.** An outline (the chat's threads, like a class's

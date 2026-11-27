@@ -4,6 +4,9 @@
     python sherlock/usc.py check     # -> bld/sherlock/usc.txt, and printed
     python sherlock/usc.py ideas ... # the ideas list (chats.py ideas, same flags)
     python sherlock/usc.py recall WORD ...   # "didn't I think about ...?": every thread, any state, best first
+    python sherlock/usc.py browse            # "there was something else": what is still open, as JSON for a picker
+    python sherlock/usc.py where STAMP THREAD # the chat file and line where a thread starts
+    python sherlock/usc.py rank STAMP THREAD N # the author's own rating, 0-3 ("sort by cool"); browse puts it first
 
 Each finding is one line, `path:line: error|warning: message`, the form VS Code's problem matchers,
 Vim's quickfix list and the extension (apps/vscode) read. Errors: the {{usc:...}} tags that break the
@@ -123,9 +126,92 @@ def recall(query: list[str], top: int = 12) -> int:
     return 0
 
 
+KINDS = {"unexplored_fork": "a loose end", "deferred": "a loose end", "drifted": "an offer left", "pursued": "talked through"}
+
+
+def browse() -> int:
+    """I'm sure there was something else (ISS-136): every open thread (not yet triaged, or queued to an issue) with
+    its product and kind, for a picker that narrows: what was it for, which kind, then the list. JSON on stdout."""
+    import json
+    import yaml
+    import chats
+    items = []
+    for a in chats.all_affs():
+        aff = yaml.safe_load(a.read_text(encoding="utf-8")) or {}
+        for t in aff.get("threads") or []:
+            d = t.get("disposition", "untriaged")
+            if d not in ("untriaged", "queued"):
+                continue
+            own = set(t.get("concepts") or [])
+            cs = own | set(aff.get("concepts") or [])
+            product = next((k for k, v in chats.PRODUCTS.items() if own & v), None) or next(
+                (k for k, v in chats.PRODUCTS.items() if cs & v), "Ops")
+            if own & chats.PRIVATE:
+                product = "Personal"
+            kind = f"queued ({t.get('ref', '')})" if d == "queued" else KINDS.get(t.get("status"), "talked through")
+            st = chats.stamp_of(a.stem)
+            items.append({"product": product, "kind": kind, "date": f"{st[:4]}-{st[4:6]}-{st[6:8]}", "stamp": st,
+                          "thread": t.get("id", ""), "topic": " ".join(str(t.get("topic", "")).split()),
+                          "rank": t.get("rank", 0)})
+    items.sort(key=lambda i: (-int(i["rank"] or 0), i["date"]), reverse=False)
+    print(json.dumps(items, ensure_ascii=False))
+    return 0
+
+
+def where(stamp: str, thread: str) -> int:
+    """The chat file and the line of a thread's first prompt (for an editor to open)."""
+    import yaml
+    import chats
+    for a in chats.all_affs():
+        if chats.stamp_of(a.stem) != stamp:
+            continue
+        aff = yaml.safe_load(a.read_text(encoding="utf-8")) or {}
+        t = next((t for t in aff.get("threads") or [] if t.get("id") == thread), None)
+        if not t:
+            continue
+        f = chats.chat_for(a)
+        ps = t.get("prompts") or []
+        line = 1
+        if ps and f.exists():
+            prompts = chats.parse(f)["prompts"]
+            if 1 <= ps[0] <= len(prompts):
+                line = prompts[ps[0] - 1]["line"]
+        print(f"{f.as_posix()}:{line}")
+        return 0
+    print(f"usc: no thread {thread} in {stamp}", file=sys.stderr)
+    return 1
+
+
+def rank(stamp: str, thread: str, n: str) -> int:
+    """Sort by cool (ISS-136): the author's rating of a thread, 0 to 3, kept in its affidavit (`rank: N`)."""
+    import chats
+    if n not in ("0", "1", "2", "3"):
+        print("usage: usc.py rank STAMP THREAD 0-3")
+        return 2
+    for a in chats.all_affs():
+        if chats.stamp_of(a.stem) != stamp:
+            continue
+        L = a.read_text(encoding="utf-8").split("\n")
+        for i, l in enumerate(L):
+            if re.search(r"\{id: " + re.escape(thread) + ",", l):
+                l = re.sub(r",\s*rank:\s*\d", "", l)
+                L[i] = l[:l.rindex("}")].rstrip() + (f", rank: {n}" if n != "0" else "") + "}"
+                a.write_text("\n".join(L), encoding="utf-8", newline="\n")
+                print(f"{a.name}: {thread} rank {n}")
+                return 0
+    print(f"usc: no thread {thread} in {stamp}", file=sys.stderr)
+    return 1
+
+
 def main() -> int:
     if len(sys.argv) >= 2 and sys.argv[1] == "recall":
         return recall(sys.argv[2:])
+    if len(sys.argv) >= 2 and sys.argv[1] == "browse":
+        return browse()
+    if len(sys.argv) == 5 and sys.argv[1] == "rank":
+        return rank(sys.argv[2], sys.argv[3], sys.argv[4])
+    if len(sys.argv) == 4 and sys.argv[1] == "where":
+        return where(sys.argv[2], sys.argv[3])
     if len(sys.argv) < 2 or sys.argv[1] not in ("check", "ideas"):
         print(__doc__)
         return 2

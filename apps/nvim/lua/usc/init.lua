@@ -19,6 +19,7 @@
 --                       or discarded, ref an ISS-NNN, a path or a commit
 --   :UscIdeas           the list of things to do from the chats (Me/chats/ideas.md)
 --   :UscRecall {words}  didn't I think about ...? every thread of every chat, any state, best first, in a split
+--   :UscBrowse          there was something else: what was it for, which kind, then the list; opens the chat there
 --
 -- The app opens on a local dev server when one runs (make app-start), else the public site.
 -- On a local page a tower floor has PROVE: the MOTHER bridge (make mother-bridge) runs Lean.
@@ -300,6 +301,49 @@ function M.recall(words)
   return lines
 end
 
+-- I'm sure there was something else (ISS-136): narrow by product, then kind, then pick; the chat opens there.
+local PRODUCT_NAMES = { USF = "the theory (USF)", USM = "the Soma Machine (USM)", USC = "the compiler (USC)",
+                        Ops = "the practical (Ops)", Personal = "personal" }
+
+function M.browse()
+  local r = root()
+  if not r then return vim.notify("USC: not inside the U repository (set $USC_U)", vim.log.levels.WARN) end
+  local out = vim.system({ "python", "sherlock/usc.py", "browse" }, { cwd = r, text = true, env = { PYTHONIOENCODING = "utf-8" } }):wait()
+  local ok, items = pcall(vim.json.decode, out.stdout or "")
+  if not ok or type(items) ~= "table" then return vim.notify("USC: browse failed", vim.log.levels.ERROR) end
+  local function count(key, val) local n = 0 for _, i in ipairs(items) do if i[key] == val then n = n + 1 end end return n end
+  local products = {}
+  for _, p in ipairs({ "USF", "USM", "USC", "Ops", "Personal" }) do
+    if count("product", p) > 0 then products[#products + 1] = p end
+  end
+  vim.ui.select(products, { prompt = "What was it for?", format_item = function(p) return PRODUCT_NAMES[p] .. " (" .. count("product", p) .. ")" end },
+    function(product)
+      if not product then return end
+      local kinds, seen = {}, {}
+      for _, i in ipairs(items) do
+        local k = i.kind:match("^queued") and "queued to an issue" or i.kind
+        if i.product == product and not seen[k] then seen[k] = true; kinds[#kinds + 1] = k end
+      end
+      table.sort(kinds)
+      vim.ui.select(kinds, { prompt = "Which kind?" }, function(kind)
+        if not kind then return end
+        local list = {}
+        for _, i in ipairs(items) do
+          local k = i.kind:match("^queued") and "queued to an issue" or i.kind
+          if i.product == product and k == kind then list[#list + 1] = i end
+        end
+        vim.ui.select(list, { prompt = "Which one?", format_item = function(i)
+          return i.date .. "  " .. i.topic .. (i.kind:match("^queued") and ("  [" .. i.kind .. "]") or "") end },
+          function(it)
+            if not it then return end
+            local w = vim.system({ "python", "sherlock/usc.py", "where", it.stamp, it.thread }, { cwd = r, text = true }):wait()
+            local file, line = (w.stdout or ""):match("^(.+):(%d+)%s*$")
+            if file then vim.cmd("edit +" .. line .. " " .. vim.fn.fnameescape(file)) end
+          end)
+      end)
+    end)
+end
+
 function M.setup(opts)
   M.app_url = (opts or {}).app_url or M.app_url
   local cmd = vim.api.nvim_create_user_command
@@ -314,6 +358,7 @@ function M.setup(opts)
   cmd("UscIdea", function(a) M.idea(a.line1, a.line2, a.fargs) end, { nargs = "*", range = true })
   cmd("UscIdeas", M.ideas, {})
   cmd("UscRecall", function(a) M.recall(a.fargs) end, { nargs = "+" })
+  cmd("UscBrowse", M.browse, {})
   vim.api.nvim_create_autocmd("BufReadPost", {
     group = vim.api.nvim_create_augroup("sherlock", { clear = true }),
     callback = function(ev)

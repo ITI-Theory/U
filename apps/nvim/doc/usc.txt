@@ -14,6 +14,9 @@ COMMANDS                                                        *usc-commands*
 :UscIdeas            The ideas list from the chats (Me/chats/ideas.md).
 :UscRecall {words}   Didn't I think about ...? Every thread of every chat, whatever became of it,
                      best match first, with its date, chat, prompts and fate, in a split.
+:UscBrowse           I'm sure there was something else: what was it for (the theory, the app,
+                     the compiler), which kind (a loose end, an offer left, queued), then the
+                     list; the chat opens where the thread starts.
 :SherlockLoad        Sherlock's findings (bld/sherlock/ledger.txt) as diagnostics.
 :SherlockQuickfix    The same findings in the quickfix list.
 :SherlockCheck       Rerun Sherlock's ledger (slow: Lean judges every cited name).
