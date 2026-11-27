@@ -20,6 +20,7 @@
 --   :UscIdeas           the list of things to do from the chats (Me/chats/ideas.md)
 --   :UscRecall {words}  didn't I think about ...? every thread of every chat, any state, best first, in a split
 --   :UscBrowse          there was something else: what was it for, which kind, then the list; opens the chat there
+--   :UscRank {0-3}      rate the thread :UscBrowse last opened (sort by cool)
 --
 -- The app opens on a local dev server when one runs (make app-start), else the public site.
 -- On a local page a tower floor has PROVE: the MOTHER bridge (make mother-bridge) runs Lean.
@@ -336,12 +337,21 @@ function M.browse()
           return i.date .. "  " .. i.topic .. (i.kind:match("^queued") and ("  [" .. i.kind .. "]") or "") end },
           function(it)
             if not it then return end
+            M.last_item = it
             local w = vim.system({ "python", "sherlock/usc.py", "where", it.stamp, it.thread }, { cwd = r, text = true }):wait()
             local file, line = (w.stdout or ""):match("^(.+):(%d+)%s*$")
             if file then vim.cmd("edit +" .. line .. " " .. vim.fn.fnameescape(file)) end
           end)
       end)
     end)
+end
+
+-- Sort by cool (ISS-136): rate the thread :UscBrowse last opened, 0 to 3 (the picker lists the highest first).
+function M.rank(n)
+  local r, it = root(), M.last_item
+  if not (r and it) then return vim.notify("USC: browse to a thread first (:UscBrowse)", vim.log.levels.WARN) end
+  local w = vim.system({ "python", "sherlock/usc.py", "rank", it.stamp, it.thread, tostring(n) }, { cwd = r, text = true }):wait()
+  vim.notify(vim.trim(w.stdout or w.stderr or ""))
 end
 
 function M.setup(opts)
@@ -359,6 +369,7 @@ function M.setup(opts)
   cmd("UscIdeas", M.ideas, {})
   cmd("UscRecall", function(a) M.recall(a.fargs) end, { nargs = "+" })
   cmd("UscBrowse", M.browse, {})
+  cmd("UscRank", function(a) M.rank(a.args) end, { nargs = 1, complete = function() return { "0", "1", "2", "3" } end })
   vim.api.nvim_create_autocmd("BufReadPost", {
     group = vim.api.nvim_create_augroup("sherlock", { clear = true }),
     callback = function(ev)

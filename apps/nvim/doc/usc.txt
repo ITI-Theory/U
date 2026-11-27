@@ -17,6 +17,7 @@ COMMANDS                                                        *usc-commands*
 :UscBrowse           I'm sure there was something else: what was it for (the theory, the app,
                      the compiler), which kind (a loose end, an offer left, queued), then the
                      list; the chat opens where the thread starts.
+:UscRank {0-3}       Rate the thread :UscBrowse last opened; the picker lists the highest first.
 :SherlockLoad        Sherlock's findings (bld/sherlock/ledger.txt) as diagnostics.
 :SherlockQuickfix    The same findings in the quickfix list.
 :SherlockCheck       Rerun Sherlock's ledger (slow: Lean judges every cited name).

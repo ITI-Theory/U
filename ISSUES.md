@@ -7539,7 +7539,7 @@ use this as a concrete use case".
      Tested headless (the app, an offer left, the 5 Jun art project: opened at its line).
    - [x] (27 Nov) "Sort by cool": `usc.py rank STAMP THREAD 0-3` keeps the author's rating in the affidavit; the
      picker lists the highest first. None set: the rating is the author's (AUTHOR: rate as you browse).
-   - [ ] One key in the picker to rate the item it shows.
+   - [x] (27 Nov) `:UscRank 0-3` rates the thread `:UscBrowse` last opened (tested headless, then reverted).
    - [ ] A model only where it helps: the picker is instant and exact; a fast local model (or NotebookLM
      through the bridge, slower) can phrase the questions.
 3. **See: thoughts are code, so show them as code is shown.** An outline (the chat's threads, like a class's
