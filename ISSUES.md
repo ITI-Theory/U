@@ -6969,6 +6969,15 @@ directly or through a core; 26 Nov, USC as Sherlock and MTC, the `{{usc:...}}` t
       exponentially, so "high β ⇒ deeper trauma wells" should read "the same wells hold longer"; ADHD's flat
       landscape (all barriers ≤ D) traps nothing (the Kramers factor at most e, and outside Kramers' regime);
       Anti-Freeze is Arrhenius, consistent. 16 rows.
+- [x] (27 Nov, round 8, a consistency catch, from the Lean itself) The cheatsheet says ω² = k/m "is derived (not
+      postulated) as the lowest-order term of the Calabi-Yau moduli metric" (IV) and that the couplings k(σ) are
+      derived from "the Calabi-Yau moduli geometry" (V). In the Lean, ω² = k/m is physlib's harmonic oscillator
+      (MTheoryIsomorphism, `trajectory_equationOfMotion`, `ω_sq`), with no Calabi-Yau metric anywhere in
+      paper/proofs; the only moduli space is BRECVEMAVariational's, behind the axiom `moduli_space_is_G2_homotopy`
+      ("THE open problem"). And the compact space is named three ways: Calabi-Yau (IV, V), G₂ (VIII, the papers)
+      and, in the Lean, a flat ℝ³ × ℝ × ℝ³ (`X7_is_7D_product`). Calabi-Yau threefolds are 6-dimensional (10D
+      string theory); M-theory's seven compact dimensions call for G₂. Suggested wording: "derived" becomes
+      "modelled by the harmonic oscillator (physlib)", and Calabi-Yau becomes G₂ (open), flat in the Lean.
 - [ ] Physics fishing, further catches from the cheatsheet (the method's rows; the Lean decides).
 - [x] (27 Nov, author: "compile ISSUES.md as well, heavily linked to chats already") ISSUES.md as a
       Lean model: `sherlock/Issue` (statuses, boxes, AUTHOR steps, the header's rules as functions),
