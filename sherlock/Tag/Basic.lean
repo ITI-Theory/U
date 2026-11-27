@@ -30,8 +30,18 @@ structure Tag where
   note : String := ""
   deriving Repr
 
+/-- The classes of what a chat leaves behind (27 Nov): a good idea, a loose end, a decision for the author,
+    an open question. -/
+def classes : List String := ["IDEA", "LOOSE_END", "DECISION", "QUESTION"]
+
+/-- The spans of one class. -/
+def ofClass (c : String) (ts : List Tag) : List Tag := ts.filter fun t => t.kind == .begin && t.status == c
+
+/-- Every classed span. -/
+def classed (ts : List Tag) : List Tag := ts.filter fun t => t.kind == .begin && classes.contains t.status
+
 /-- Ideas: spans marked IDEA. -/
-def ideas (ts : List Tag) : List Tag := ts.filter fun t => t.kind == .begin && t.status == "IDEA"
+def ideas (ts : List Tag) : List Tag := ofClass "IDEA" ts
 
 /-- An idea is triaged when it carries a disposition (with a ref where one is required). -/
 def Tag.triaged (t : Tag) : Bool :=

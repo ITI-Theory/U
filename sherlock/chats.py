@@ -491,7 +491,8 @@ def tag_routed() -> int:
             ln = prompts[th["prompts"][0]] - 1
             start = next((j for j in range(ln, -1, -1) if MARK.match(lines[j])), ln)
             end = next((j for j in range(ln + 1, len(lines)) if NEXT.match(lines[j])), len(lines))
-            attrs = f'id="{tid}" status="IDEA" disp="{th["disposition"]}"'
+            cls = "LOOSE_END" if th.get("status") in ("deferred", "unexplored_fork") else "IDEA"
+            attrs = f'id="{tid}" status="{cls}" disp="{th["disposition"]}"'
             if th.get("ref"):
                 attrs += f' ref="{str(th["ref"]).replace(chr(34), chr(39))}"'
             attrs += f' note="{str(th.get("topic", "")).replace(chr(34), chr(39))[:120]}"'

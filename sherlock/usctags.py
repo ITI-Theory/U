@@ -21,7 +21,7 @@ OUT = U / "bld" / "sherlock" / "lean"
 KINDS = {"begin", "end", "fork", "branch", "jump"}
 KEYS = {"id", "ref", "status", "domain", "lean", "choice", "prob", "opts", "disp", "note"}
 STATUS = {"ESTABLISHED", "LEAN_VERIFIED", "PEER_REVIEWED", "EMPIRICAL_SIM", "PREPRINT", "SPECULATIVE_BRIDGE",
-          "REALIZED", "COUNTERFACTUAL", "WILDCARD", "IDEA"}
+          "REALIZED", "COUNTERFACTUAL", "WILDCARD", "IDEA", "LOOSE_END", "DECISION", "QUESTION"}
 DISP = {"implemented", "queued", "parked", "discarded"}
 TAG = re.compile(r'\{\{\s*usc:(\w+)((?:\s+\w+\s*=\s*"[^"]*")*)\s*\}\}')
 ATTR = re.compile(r'(\w+)\s*=\s*"([^"]*)"')

@@ -7087,6 +7087,10 @@ the body's vessels by the Televator); 26 Nov (the visual audit: USC on the app's
 - [ ] Fix the two systematic findings in the app: the places' INTERPRETIVE plates gated to 11D (or
       relabelled by layer), and the dimension buttons' and claim badges' contrast; rerun the audit.
 - [ ] The Fantastic Voyage (21 Nov, threads body-voyage, shrink-by-zoom): biology at the finest level.
+- [ ] PARKED (author, 27 Nov 15:55: "a stretch ... only look into this if it makes sense from a visualization
+      perspective"): thoughts and chats shown as the mind's parallel universes, reached with the Televator, as
+      the mind's universes are; the chat model's threads, forks and drifts as the branches. Tagged where it was
+      said (Me/chats, the USC session of 27 Nov). For when USM's options and Neovim come.
 - [x] (27 Nov) The 21 Nov chat traced against the code (USC on a chat's asks): the vessel wall is there
       (apps/.../vessel.js, 12 Oct: endothelium, glycocalyx, smooth muscle, driven by the score), fluorescence
       is a style (STYLE: FLUORESCENCE), the voyage stops and `voyage=` views exist; missing: the whole-body

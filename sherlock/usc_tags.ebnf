@@ -1,7 +1,8 @@
 (* The {{usc:...}} tags of the Universal Semantic Compiler (ISS-126).
 
    The grammar is the author's AI Mode chat of 26 Nov 2026 (Me/chats, thread usc-tags, prompts 33-34),
-   verbatim except for the marked 27 Nov extension: the keys disp, note and opts, and the status IDEA, so
+   verbatim except for the marked 27 Nov extension: the keys disp, note and opts, and the statuses IDEA, LOOSE_END, DECISION and QUESTION (the classes of
+   what a chat leaves behind), so
    that a good idea or a stray remark can be tagged and triaged where it was said ("tag the originals, we
    have git", author, 27 Nov). Scanner and checks: sherlock/usctags.py. Builds strip the tags
    (lib/format/visualize-reader.lua). *)
@@ -35,7 +36,10 @@ status_val     = "ESTABLISHED"
                | "REALIZED"         (* Path actually taken in dialogue/derivation *)
                | "COUNTERFACTUAL"   (* Offered/valid branch not yet taken *)
                | "WILDCARD"         (* Unpredicted jump outside declared options *)
-               | "IDEA" ;           (* 27 Nov: a good idea or remark worth keeping *)
+               | "IDEA"             (* 27 Nov: a good idea or remark worth keeping *)
+               | "LOOSE_END"        (* 27 Nov: something said that needs following up *)
+               | "DECISION"         (* 27 Nov: a choice only the author can make *)
+               | "QUESTION" ;       (* 27 Nov: an open question *)
 
 ws             = " " | "\t" | "\n" | "\r" ;
 char_no_quote  = ? any Unicode character except '"' ? ;
