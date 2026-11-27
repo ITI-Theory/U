@@ -7507,3 +7507,46 @@ USC:
 
 Ops:
 - [ ] 25-50 new domains as future work (marketing, journalism, vet, sales, acting) (20260817_173527, future-domains)
+
+## ISS-136: Thinking with USC: recall, browse, see and write one's thoughts (four use cases) — IN-PROGRESS
+{{Tags area.sherlock, area.app}}
+{{Fields date.created=2026-11-27, date.start=2026-11-27, date.end=, epic=ISS-129}}
+
+**Author, 27 Nov 18:40:** "say im in neovim/mother ... i want to ask H-AL about a thought i think i had ...
+'Didnt i think about the UI, with a HUD, pilot2atc something and fantastic voyage?' ... the usc version of that,
+or both combined"; "the reverse ... 'Im sure there was something else i wanted to do' ... A: 'what was it for ...
+the gui, a new book?' me: 'gui ... some cool stuff' A: '... get list of issues, sort by cool'"; "i need to be able to
+visualize my thoughts. Now, as thoughts are code ... how do we visualize code? editors, UML diagrams, viz diagrams,
+html docs of class libraries ... all in neovim, right?"; "im currently typing this in a steering window in vscode,
+has spelling mistakes, logic mistakes ... what is the final solution to how i should be doing this in neovim. lets
+use this as a concrete use case".
+
+1. **Recall: "didn't I think about ...?"** NotebookLM (H-AL) answers from the text of the volumes it holds; USC
+   answers from the record: when, where, and what became of it.
+   - [x] (27 Nov) `python sherlock/usc.py recall WORD ...` and `:UscRecall` (usc.nvim): every thread of every chat
+     and Phase Dot conversation, any state, best first. The author's question finds 21 Nov `hud` (SpaceEngine's
+     HUD, Pilot2ATC; queued ISS-127) first, then the voyage threads. Seconds, no model.
+   - [ ] Both combined: MOTHER/H-AL asks `usc recall` first and hands NotebookLM the hits (their chats and
+     prompts) as the context, so the answer is the record plus the prose.
+2. **Browse: "I'm sure there was something else."** A dialogue that narrows: what was it for (the app, a book,
+   the theory: the products), which kind (an idea, a loose end, a decision), then a short list.
+   - [ ] A picker in Neovim (vim.ui.select, no model): product, then kind, then the threads and tagged ideas.
+   - [ ] "Sort by cool": the author's own rating, a `rank` on a thread or tag (1-3 stars), set in one key;
+     the list sorts by it.
+   - [ ] A model only where it helps: the picker is instant and exact; a fast local model (or NotebookLM
+     through the bridge, slower) can phrase the questions.
+3. **See: thoughts are code, so show them as code is shown.** An outline (the chat's threads, like a class's
+   methods; Neovim's outline or the quickfix list); a graph (the linker's 527 nodes: chats, threads, issues,
+   papers; DOT or Mermaid, rendered); a generated reference (each chat a page, its threads with their fate, like
+   the HTML docs of a class library); and the Soma Machine as the viewer (ISS-127, thoughts as the mind's
+   universes, parked).
+   - [ ] `usc.py graph` -> bld/sherlock/thoughts.dot (and .svg): the links model drawn, one product at a time.
+   - [ ] The reference: the chronicle data as HTML pages (the same Lua as the books, HTML output).
+4. **Write: the steering window, in Neovim (the concrete case).** Today the author types to the coding agent in
+   a VS Code window; spelling and logic slips go through as typed. In Neovim:
+   - [ ] Compose in a buffer (usc-vim, `Me/chats/drafts/`), `spell` on (en_GB); `]s` and `z=` fix words.
+   - [ ] Logic checked as typed, like a compiler: an ISS-NNN that does not exist, a paper id unknown, and "didn't
+     I ...?" answered in place (`usc recall` on the line, shown as virtual text): the language server (ISS-129).
+   - [ ] Tag while writing (`<space>ui`): the prompt is tagged before it is sent ("chats at chat time").
+   - [ ] Send from Neovim to the agent (the Copilot CLI in a terminal split, or VS Code's chat through a command),
+     so the draft, the tags and the prompt are one file in the record.

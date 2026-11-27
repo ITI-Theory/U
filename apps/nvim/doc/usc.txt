@@ -12,6 +12,8 @@ COMMANDS                                                        *usc-commands*
                      Tag the lines as an IDEA where it was said ({{usc:begin ...}} and
                      {{usc:end ...}} lines). Asks for what is missing.
 :UscIdeas            The ideas list from the chats (Me/chats/ideas.md).
+:UscRecall {words}   Didn't I think about ...? Every thread of every chat, whatever became of it,
+                     best match first, with its date, chat, prompts and fate, in a split.
 :SherlockLoad        Sherlock's findings (bld/sherlock/ledger.txt) as diagnostics.
 :SherlockQuickfix    The same findings in the quickfix list.
 :SherlockCheck       Rerun Sherlock's ledger (slow: Lean judges every cited name).

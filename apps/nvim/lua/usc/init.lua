@@ -18,6 +18,7 @@
 --                       ISS-126/129): asks for what is missing; disp is queued, parked, implemented
 --                       or discarded, ref an ISS-NNN, a path or a commit
 --   :UscIdeas           the list of things to do from the chats (Me/chats/ideas.md)
+--   :UscRecall {words}  didn't I think about ...? every thread of every chat, any state, best first, in a split
 --
 -- The app opens on a local dev server when one runs (make app-start), else the public site.
 -- On a local page a tower floor has PROVE: the MOTHER bridge (make mother-bridge) runs Lean.
@@ -281,6 +282,24 @@ function M.ideas()
   vim.cmd.edit(vim.fn.fnameescape(file))
 end
 
+-- Didn't I think about ...? (ISS-136): sherlock/usc.py recall, its answer in a scratch split.
+function M.recall(words)
+  local r = root()
+  if not r then return vim.notify("USC: not inside the U repository (set $USC_U)", vim.log.levels.WARN) end
+  if #words == 0 then return vim.notify("USC: :UscRecall WORD ...", vim.log.levels.WARN) end
+  local cmd = { "python", "sherlock/usc.py", "recall" }
+  vim.list_extend(cmd, words)
+  local out = vim.system(cmd, { cwd = r, text = true, env = { PYTHONIOENCODING = "utf-8" } }):wait()
+  local lines = vim.split((out.stdout or "") .. (out.stderr or ""), "\n", { trimempty = true })
+  vim.cmd("botright new")
+  local buf = vim.api.nvim_get_current_buf()
+  vim.bo[buf].buftype, vim.bo[buf].bufhidden, vim.bo[buf].swapfile = "nofile", "wipe", false
+  vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
+  vim.bo[buf].modifiable = false
+  vim.api.nvim_buf_set_name(buf, "usc-recall: " .. table.concat(words, " "))
+  return lines
+end
+
 function M.setup(opts)
   M.app_url = (opts or {}).app_url or M.app_url
   local cmd = vim.api.nvim_create_user_command
@@ -294,6 +313,7 @@ function M.setup(opts)
   cmd("UscCheck", M.usc_check, {})
   cmd("UscIdea", function(a) M.idea(a.line1, a.line2, a.fargs) end, { nargs = "*", range = true })
   cmd("UscIdeas", M.ideas, {})
+  cmd("UscRecall", function(a) M.recall(a.fargs) end, { nargs = "+" })
   vim.api.nvim_create_autocmd("BufReadPost", {
     group = vim.api.nvim_create_augroup("sherlock", { clear = true }),
     callback = function(ev)

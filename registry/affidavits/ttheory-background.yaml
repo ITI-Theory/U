@@ -1,0 +1,48 @@
+# Sherlock affidavit: [T]-Theory: Background, Book 0 (ISS-134). USC on its own book: the numbers the
+# entries take from the method's rows, checked against the rows' sources and the other documents.
+id: ttheory-background
+document: BACKGROUND
+title: '[T]-Theory: Background'
+source:
+  file: books/T-Theory/background/book-background.md
+  commit: 80a3fbf
+  sha256: 917062eec8b8e5131eb5270fa4e6d25da43b44260054c4cbb45efd78900e9834
+lean: []
+microtheories: {}
+claims:
+  - id: B1
+    quote: '`COID-COSMO-1` is falsified: $7/11 = 0.636$ lies 6.6σ below Planck, and the three fractions sum to $21/22$, a shortfall.'
+    lines: [98, 99]
+    kind: internal-arithmetic
+    finding: >-
+      Background, Book 0 (ISS-134): 0.6847 - 7/11 = 5317/110000, between 6.6 and 6.7 times 0.0073;
+      7/11 + 3/11 + 1/22 = 21/22
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: diff, args: [0.6847, '7/11', '5317/110000']}, {template: lt, args: [0.04818, '5317/110000']}, {template: lt, args: ['5317/110000', 0.04891]}, {template: sum, args: ['7/11', '3/11', '1/22', '21/22']}]
+    disposition: none
+  - id: B2
+    quote: '$\Omega_\Lambda = 15/22 = 0.682$, within 0.4σ of Planck; but a grid of 22nds comes that close to any value about 13 per cent of the'
+    lines: [99, 100]
+    kind: cross-paper
+    finding: >-
+      Background, Book 0 (ISS-134): 0.6847 - 15/22 = 317/110000 < 0.4 x 0.0073; the chance 0.8 x 0.0073 x 22 =
+      0.128, as P3 C14 states
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: diff, args: [0.6847, '15/22', '317/110000']}, {template: lt, args: ['317/110000', 0.00292]}, {template: lt, args: [0.125, 0.12848]}, {template: lt, args: [0.12848, 0.135]}]
+    disposition: none
+  - id: B3
+    quote: 'confirmed to four parts in $10^7$'
+    lines: [132, 133]
+    kind: cross-paper
+    finding: >-
+      Background, Book 0 (ISS-134): Rainville et al. 2005; P3 (C15) and the course (C10) quote the same
+    verdict: not-provable
+    label: sourced
+    lean: null
+    values:
+      - {quantity: Rainville2005-Precision, value: 4e-7}
+    disposition: none

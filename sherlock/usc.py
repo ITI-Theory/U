@@ -3,6 +3,7 @@
 
     python sherlock/usc.py check     # -> bld/sherlock/usc.txt, and printed
     python sherlock/usc.py ideas ... # the ideas list (chats.py ideas, same flags)
+    python sherlock/usc.py recall WORD ...   # "didn't I think about ...?": every thread, any state, best first
 
 Each finding is one line, `path:line: error|warning: message`, the form VS Code's problem matchers,
 Vim's quickfix list and the extension (apps/vscode) read. Errors: the {{usc:...}} tags that break the
@@ -90,7 +91,41 @@ def check() -> int:
     return 1 if errors else 0
 
 
+def recall(query: list[str], top: int = 12) -> int:
+    """Didn't I think about ...? (author, 27 Nov): every thread of every chat and Phase Dot conversation, whatever
+    became of it, scored by the query's words in its topic, id and concepts (a word matches as a prefix:
+    "voyage" finds "voyages"), best first, with when, where and its fate. Private threads included: this is
+    the author's own memory, printed on his machine, never built into a document."""
+    import yaml
+    import chats
+    words = [w.lower() for q in query for w in re.findall(r"[\w-]+", q) if len(w) > 2]
+    if not words:
+        print("usage: usc.py recall WORD ...")
+        return 2
+    hits = []
+    for a in chats.all_affs():
+        aff = yaml.safe_load(a.read_text(encoding="utf-8")) or {}
+        for t in aff.get("threads") or []:
+            hay = (str(t.get("topic", "")) + " " + str(t.get("id", "")) + " " + " ".join(t.get("concepts") or [])).lower()
+            toks = re.findall(r"[\w-]+", hay)
+            score = sum(1 for w in words if any(x.startswith(w) or w in x for x in toks))
+            if score:
+                st = chats.stamp_of(a.stem)
+                d, ref = t.get("disposition", "untriaged"), t.get("ref", "")
+                ps = t.get("prompts") or []
+                where = ("Phase Dot " if a.parent == chats.AFF_PD else "chat ") + st + (f", prompts {ps[0]}-{ps[-1]}" if ps else "")
+                hits.append((score, st, f"{st[:4]}-{st[4:6]}-{st[6:8]}  {t.get('id')}: {' '.join(str(t.get('topic', '')).split())}"
+                                        f"\n      {d}{(' ' + str(ref)) if ref else ''}  ({where})"))
+    hits.sort(key=lambda h: (-h[0], h[1]))
+    for _, _, line in hits[:top]:
+        print(line)
+    print(f"recall: {len(hits)} threads match {' '.join(words)!r}; best {min(top, len(hits))} shown")
+    return 0
+
+
 def main() -> int:
+    if len(sys.argv) >= 2 and sys.argv[1] == "recall":
+        return recall(sys.argv[2:])
     if len(sys.argv) < 2 or sys.argv[1] not in ("check", "ideas"):
         print(__doc__)
         return 2
