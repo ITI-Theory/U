@@ -7944,6 +7944,19 @@ mathlib and physlib ... T-theory, all of it, modelled in lean"):**
       sets: one Anna, two memberships, Mathlib's Disjoint, and the refutation rests on exactly the 5 facts that matter;
       a language as an organism is still a type error. Core fixed: a refutation through sorry is a frontier, not
       refuted.
+- [x] (27 Nov) H-AL asked (the author: "do you want to run this by HAL, as its super high level and important?"):
+      the design matches the chats (OpenCyc all in Lean, no database since 11 Oct; type classes as the class-hierarchy
+      reasoner; Aesop in its own rule sets; states computed; tagless-final; sorts as subtypes of Thing, a sound reading).
+      Its warning, critical: OpenCyc has defaults with exceptions (birds fly, penguins do not); facts as global axioms
+      would make False provable (explosion). Two readings rejected: a "seed-and-closure slice for daily development"
+      (Copilot's own 10 Oct analysis, which the author rejected) and "the OSforGFF/physlib clash is resolved on v4.33"
+      (today's test shows it is not). Its omissions: Moriarty, the attacker; the aso: to cyc: functor (morphism
+      friction). The author decided: microtheories as CLASSES of assumptions over Thing (facts are fields, genlMt is
+      extends, a claim holds in a microtheory; an inconsistent one has no instance and the kernel stays consistent);
+      the whole of OpenCyc, always; Moriarty and the functor into this plan.
+- [ ] Moriarty in Lean: the attacker that searches for refutations (and for microtheory combinations with no instance).
+- [ ] The aso: to cyc: functor: the Somatic Field Ontology mapped to OpenCyc's concepts; where it will not map is a
+      finding ("morphism friction": a hidden dualist assumption in the prose).
 - [ ] Step 2, the scale: the whole NextKB taxonomy (103,321 genls; 333,488 isa; 26,154 disjointWith) generated in the
       A + C form, measured (build time, memory, coercion search); then P1 against it. disjointWith and individuals
       with several types still to design.
