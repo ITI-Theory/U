@@ -12,6 +12,8 @@ open App AppAudit
 
 #guard !observations.isEmpty
 #guard observations.all rendersAsked
+-- The white box: on every screen the page's claim row shows the claim of the row being rendered.
+#guard observations.all fun o => o.pageClaim == o.rowClaim
 -- Errors: a layer that is off shows on screen (soundness), and what should show is not seen (completeness).
 #eval observations.filterMap fun o => let l := leaks forbidden o; if l.isEmpty then none else some (o.level, o.dim, l)
 #eval observations.filterMap fun o => let m := missing rules omissions o; if m.isEmpty then none else some (o.level, o.dim, m)

@@ -7069,6 +7069,8 @@ the body's vessels by the Televator); 26 Nov (the visual audit: USC on the app's
       or FORMAL. Unreadable on screen though in the page: the 11D button on 93 screens, 8D on 89, 4D on 63
       (the dimension buttons' contrast), the claim badges on 76. The six levels below σ 7 show 8D for 11D,
       the app's own rule (main.js elevenDimensionalAvailable): generated as tagged omissions.
+- [x] (27 Nov) The white box on its own: on all 93 screens the page's claim row shows the rendered row's claim
+      (a guard in AppQueries now), so the app's gating is right and the 12 leaks are the 3D scene's alone.
 - [ ] Fix the two systematic findings in the app: the places' INTERPRETIVE plates gated to 11D (or
       relabelled by layer), and the dimension buttons' and claim badges' contrast; rerun the audit.
 - [ ] The Fantastic Voyage (21 Nov, threads body-voyage, shrink-by-zoom): biology at the finest level.

@@ -33,6 +33,9 @@ structure Observation where
   rendered : Nat
   seen : List String
   dom : List String
+  /-- The claim the page's row shows (the white box), and the claim the registry gives the rendered row. -/
+  pageClaim : String := ""
+  rowClaim : String := ""
   deriving Repr
 
 /-- A deliberate omission, with its reason (26 Nov: "if I left something out deliberately that has to be tagged"). -/
