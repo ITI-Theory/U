@@ -7279,6 +7279,10 @@ and their verdicts change: that is the witness.
       Correction (27 Nov, later): Sherlock knew it already: bld/sherlock/values.md has `USF-ScaleLevelCount` DIFFER
       across six documents (20 against 21: P10, P11, P19, P20, P21) since October; it reached no issue because the
       values report was read by nothing. Now `usc.py check` warns on every DIFFER (ISS-139).
+- [ ] (27 Nov, found by the values check across documents) The dark-matter fraction's distance from Planck: the course
+      (ch. 14) says "about one standard deviation", dividing the gap 0.0082 by the matter fraction's uncertainty 0.0073
+      (1.1); P3's new section and the method's row (COID-COSMO-1) say 1.4, with the dark-matter fraction's own. Both
+      read "consistent with chance"; one number, with its uncertainty named, in both (`Cosmo-DarkMatter-Sigma`).
 
 ## ISS-131: Writing up USC: what it did, how it works, how to use it — IN-PROGRESS
 {{Tags area.sherlock, area.papers, area.books}}
@@ -7723,6 +7727,8 @@ registry 1 of 1. Outside U, not yet: the org page and Dist's README.
       rule "facts are pointed to, never copied".
 - [ ] At the release (ISS-132): Dist's READMEs point to Dist/PAPERS.yaml for counts instead of copying them; the
       affidavits re-frozen, the values agree.
+- [x] (27 Nov) The course's cosmology under Sherlock (ch. 12 and 14) and P3's 1.4 sigma as a claim: the values check
+      finds the dark-matter distance quoted 1.1 (the course) and 1.4 (P3) (ISS-130). 62 affidavits, 465 checks.
 
 ## ISS-140: Releases: an id in every artefact, a manifest, the models as a library, what's new — OPEN
 {{Tags area.release, area.sherlock}}

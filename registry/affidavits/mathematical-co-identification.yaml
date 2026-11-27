@@ -301,3 +301,16 @@ claims:
     values:
       - {quantity: Rainville2005-Precision, value: 4e-7}
     disposition: none
+  - id: C16
+    quote: 'Its negative control records that $\Omega_c = 3/11$ passes at 1.4σ by the same counting,'
+    lines: [1015, 1016]
+    kind: cross-paper
+    finding: >-
+      the protocol as code (ISS-139): 1.4 sigma with the dark-matter fraction's own uncertainty; the course (ch. 14,
+      D2) says about one (1.1), borrowing the matter fraction's: one number to settle
+    verdict: not-provable
+    label: sourced
+    lean: null
+    values:
+      - {quantity: Cosmo-DarkMatter-Sigma, value: 1.4}
+    disposition: none

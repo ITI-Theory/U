@@ -1,0 +1,39 @@
+# Sherlock affidavit: [T]-Theory: A Course, Dark Sectors (ISS-139; the course's cosmology).
+id: ttheory-course-ch14
+document: COURSE
+title: '[T]-Theory: A Course, Dark Sectors'
+source:
+  file: Part2/book/field-atlas-textbook/chapters/14-dark-sectors.md
+  commit: 5129996
+  sha256: 364464c7761f5c6d803b4f016c0aff3084203103ac4d9d4619dd7125bf94b81d
+lean: []
+microtheories: {}
+claims:
+  - id: D1
+    quote: '$$\frac{0.6847 - 7/11}{0.0073} = 6.6.$$'
+    lines: [123]
+    kind: cross-paper
+    finding: >-
+      The course (ISS-139): 0.6847 - 7/11 = 5317/110000, between 6.6 and 6.7 times 0.0073, as P3 (C13) and Background (B1)
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: diff, args: [0.6847, '7/11', '5317/110000']}, {template: lt, args: [0.04818, '5317/110000']}, {template: lt, args: ['5317/110000', 0.04891]}]
+    values:
+      - {quantity: Cosmo-OmegaLambda-Sigma, value: 6.6}
+    disposition: none
+  - id: D2
+    quote: 'For dark matter the gap is $0.0082$; taking the uncertainty of $\Omega_c$ to be about that of $\Omega_m$, $0.0073$, it is about one standard deviation,'
+    lines: [127]
+    kind: cross-paper
+    finding: >-
+      The course (ISS-139): 3/11 - 0.2645 = 905/110000 = 0.0082; over 0.0073 (the uncertainty of the matter fraction, borrowed)
+      it is 1.1 sigma, but the method's row and P3 use the dark-matter fraction's own uncertainty: 1.4 sigma.
+      Both are 'consistent with chance'; the two documents should give one number
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: diff, args: ['3/11', 0.2645, '905/110000']}, {template: rel-between, args: ['905/803', 1.1, 0, 0.03]}]
+    values:
+      - {quantity: Cosmo-DarkMatter-Sigma, value: 1.1}
+    disposition: none

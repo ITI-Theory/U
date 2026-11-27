@@ -1,0 +1,22 @@
+# Sherlock affidavit: [T]-Theory: A Course, Cosmology (ISS-139; the course's cosmology).
+id: ttheory-course-ch12
+document: COURSE
+title: '[T]-Theory: A Course, Cosmology'
+source:
+  file: Part2/book/field-atlas-textbook/chapters/12-cosmology-dark-sectors.md
+  commit: 5129996
+  sha256: 5754ff558ff752e63ff2f77e6a589151a0bad387ad160dad00d37e22888a75e3
+lean: []
+microtheories: {}
+claims:
+  - id: K1
+    quote: '**Solution.** $7/11 = 0.636$, $7.1\,\%$ low. $3/11 = 0.273$, $3.1\,\%$ high. $1/22 = 0.045$, $7.8\,\%$ low. Sum: $0.955$, against $0.999$ measured;'
+    lines: [152]
+    kind: internal-arithmetic
+    finding: >-
+      The course (ISS-139): the three fractions sum to 21/22 = 0.9545 (0.955), as P3, Background and SH1 (K14)
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: ['7/11', '3/11', '1/22', '21/22']}, {template: lt, args: [0.9545, '21/22']}, {template: lt, args: ['21/22', 0.9555]}]
+    disposition: none
