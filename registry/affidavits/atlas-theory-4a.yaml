@@ -1,0 +1,36 @@
+# Sherlock affidavit: the Field Atlas, theory/4a-the-city-of-code.md (ISS-139).
+id: atlas-theory-4a
+document: BOOK
+title: 'The Field Atlas: The city of code'
+source:
+  file: Part2/book/field-atlas/theory/4a-the-city-of-code.md
+  commit: f294c1a
+  sha256: 6e8b633d85d05928cf5ba27a1ba30320d7f4585581366a41a9e22ba4902bf396
+lean: []
+microtheories: {}
+claims:
+  - id: K1
+    quote: 'with its amber beams down to the two programme axioms it rests on:'
+    lines: [24]
+    kind: internal-count
+    finding: >-
+      paper/proofs/LocalGR.lean: g2_implies_omega_lambda_static (Omega_Lambda 0 = 7/11) chains two axioms,
+      g2_holonomy_implies_rigid_attractor and rigidAttractor_freezes_omega_lambda (lines 69, 78; the file's own chain,
+      lines 12-13)
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [2, 2]}]
+    disposition: none
+  - id: K2
+    quote: 'which until October 2026 proved only `True` and now proves the classical Green''s-function identity'
+    lines: [20]
+    kind: internal-count
+    finding: >-
+      paper/proofs/UniversalSomaticField.lean: greens_fn_is_SHO states both branches' derivatives (u'' = -k^2 u), the
+      branch on each side and the unit jump in slope at 0: the identity, not True; read 27 Nov
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: diff, args: [1, 0, 1]}]
+    disposition: none

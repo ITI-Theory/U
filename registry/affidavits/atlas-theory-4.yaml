@@ -1,0 +1,54 @@
+# Sherlock affidavit: the Field Atlas, theory/4-eleven-dimensions-m-theory.md (ISS-139).
+id: atlas-theory-4
+document: BOOK
+title: 'The Field Atlas: Eleven dimensions and M-theory'
+source:
+  file: Part2/book/field-atlas/theory/4-eleven-dimensions-m-theory.md
+  commit: f294c1a
+  sha256: 59282aecc829a30d64120a3f5746a411fe2bbbc4b1fe56d1e490e72fc3e9994d
+lean: []
+microtheories: {}
+claims:
+  - id: E1
+    quote: 'The count $4+3+1+3=11$ is bookkeeping'
+    lines: [15]
+    kind: internal-count
+    finding: >-
+      the Field Atlas (ISS-139): M4 x P3 x L1 x C3, as the USF paper, Gateway and the course (ch. 13). Until 27 Nov the
+      chapter read P3 as "a spatial vacuum block used in the dark-matter derivation", L1 as "a localisation or line
+      factor" and C3 as "a compact/vacuum block used in the dark-energy derivation", against the papers (P3 the
+      propagator, L1 the limbic axis, C3 the cortex); text and figure T4.1 corrected in f294c1a
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [4, 3, 1, 3, 11]}]
+    values:
+      - {quantity: TTheory-Dimensions, value: 11}
+    disposition: none
+  - id: E2
+    quote: 'by time, space and the compact block, $1+3+7=11$:'
+    lines: [15]
+    kind: internal-count
+    finding: >-
+      P22's split (its Visualize blocks: time 1, spatial 3, compact 7); the compact seven are X7 = P3 x L1 x C3 = 3 + 1 + 3,
+      the dark-energy count of P21 (7/11) and paper/proofs/CosmologicalConstant.lean (N_compact)
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [1, 3, 7, 11]}, {template: sum, args: [3, 1, 3, 7]}]
+    disposition: none
+  - id: E3
+    quote: 'P21''s dark-energy fraction $7/11$ counts the compact seven,'
+    lines: [15]
+    kind: internal-count
+    finding: >-
+      paper/proofs/CosmologicalConstant.lean: omega_lambda_fraction (7/11 from N_compact / N_total) and omega_dm_fraction
+      (3/11 from N_spatial, "non-compact spatial dimensions"), as the corrected text
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: ['7/11', '3/11', '10/11']}]
+    values:
+      - {quantity: USF-DarkEnergyFraction, value: 7/11}
+      - {quantity: USF-DarkMatterFraction, value: 3/11}
+    disposition: none

@@ -1,0 +1,64 @@
+# Sherlock affidavit: the Field Atlas, theory/5-dark-sectors.md (ISS-139).
+id: atlas-theory-5
+document: BOOK
+title: 'The Field Atlas: Dark sectors'
+source:
+  file: Part2/book/field-atlas/theory/5-dark-sectors.md
+  commit: f294c1a
+  sha256: 8644a2859f2667fb6c8e508dac00a861c6267789f946613389081aa1f56f8862
+lean: []
+microtheories: {}
+claims:
+  - id: D1
+    quote: '$\Omega_\Lambda=0.6847$, $\Omega_c=0.2645$, and $\Omega_b=0.0493$,'
+    lines: [7]
+    kind: internal-count
+    finding: >-
+      Planck 2018 as the papers quote it (P21, P22); the three sum to 0.9985, the rest radiation and neutrinos
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: ['6847/10000', '2645/10000', '493/10000', '9985/10000']}]
+    values:
+      - {quantity: USF-DarkEnergyFraction-Planck2018, value: 0.6847}
+      - {quantity: USF-DarkMatterFraction-Planck2018, value: 0.2645}
+      - {quantity: USF-BaryonFraction-Planck2018, value: 0.0493}
+    disposition: none
+  - id: D2
+    quote: 'The factor $21/11$ is written as $3\times7/11$:'
+    lines: [35]
+    kind: internal-count
+    finding: >-
+      3 x 7/11 = 21/11 (P21's Friedmann factor 3 times the compact fraction)
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: ['7/11', '7/11', '7/11', '21/11']}]
+    disposition: none
+  - id: D3
+    quote: '\frac{0.6847-7/11}{0.6847}\approx0.071.'
+    lines: [44]
+    kind: internal-count
+    finding: >-
+      |7/11 - 0.6847| / 0.6847 = 0.0706: in P21's band [0.0705, 0.0715), as cosmological-constant-derivation's check
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: rel-between, args: ['7/11', 0.6847, 0.0705, 0.0715]}]
+    values:
+      - {quantity: USF-DarkEnergyFraction, value: 7/11}
+    disposition: none
+  - id: D4
+    quote: '\frac{3/11-0.2645}{0.2645}\approx0.031.'
+    lines: [64]
+    kind: internal-count
+    finding: >-
+      |3/11 - 0.2645| / 0.2645 = 0.0311, and 3/11 is the higher (the figure T5.3: "about 3.1 percent high");
+      paper/proofs/CosmologicalConstant.lean's omega_dm_discrepancy_small says the same 3.1%
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: rel-between, args: ['3/11', 0.2645, 0.0305, 0.0315]}, {template: lt, args: [0.2645, '3/11']}]
+    values:
+      - {quantity: USF-DarkMatterFraction, value: 3/11}
+    disposition: none

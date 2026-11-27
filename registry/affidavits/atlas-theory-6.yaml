@@ -1,0 +1,25 @@
+# Sherlock affidavit: the Field Atlas, theory/6-synthesis-response-grammar.md (ISS-139).
+id: atlas-theory-6
+document: BOOK
+title: 'The Field Atlas: Synthesis: the response grammar'
+source:
+  file: Part2/book/field-atlas/theory/6-synthesis-response-grammar.md
+  commit: f294c1a
+  sha256: 3b9bcfd28767efe207d18045a79b0f04724d705873ba9720d3065f5b24ded1c7
+lean: []
+microtheories: {}
+claims:
+  - id: Y1
+    quote: 'Lean theorem `omega_dm_fraction` proves $\Omega_{DM}=3/11$ inside the declared model"'
+    lines: [56]
+    kind: internal-count
+    finding: >-
+      paper/proofs/CosmologicalConstant.lean line 91: omega_dm_fraction : (Omega_DM_USF : R) = 3 / 11, by norm_num; the
+      theorem exists and says what the chapter says
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: ['3/11', '3/11']}]
+    values:
+      - {quantity: USF-DarkMatterFraction, value: 3/11}
+    disposition: none

@@ -7761,6 +7761,12 @@ registry 1 of 1. Outside U, not yet: the org page and Dist's README.
       Galactic to Cosmic, but that path has six (from galactic-disc; stellar-cluster is only on full-atlas). Either the
       path gains stellar-cluster (an edge stellar-cluster--galactic-disc; the app's route changes) or the prose says
       "the sector's sequence". Copilot's suggestion: the path, as the sector is the path's own chapter.
+- [x] (27 Nov) The Field Atlas's theory chapters 4, 4a, 5, 6 (10 claims). Caught: ch. 4 read the eleven's blocks
+      against the papers (P3 "a spatial vacuum block" for dark matter, L1 "a line factor", C3 the dark-energy block);
+      the papers: P3 the propagator, L1 the limbic axis, C3 the cortex, X7 = P3 x L1 x C3 the compact seven behind 7/11,
+      and P22's 3/11 the non-compact spatial three inside M4. Text and figure T4.1 corrected (f294c1a; unpublished).
+      Confirmed from the Lean: 7/11 rests on LocalGR's two axioms; greens_fn_is_SHO proves the identity, not True;
+      omega_dm_fraction says 3/11. 507 checks.
 
 ## ISS-140: Releases: an id in every artefact, a manifest, the models as a library, what's new — OPEN
 {{Tags area.release, area.sherlock}}
