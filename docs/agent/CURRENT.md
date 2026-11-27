@@ -6,65 +6,33 @@ in git history and in `CURRENT-2026-10-01-to-06.md.OBSOLETE`; open items live
 in [ISSUES.md](../../ISSUES.md); how we work is in [README.md](../../README.md);
 the other working documents are listed in [docs/agent/README.md](README.md).
 
-## Now (20 Oct 2026, 03:00)
+## Now (27 Nov 2026, early morning)
 
-**20 Oct, after midnight (branch `audio`, off the release line):** the console (ISS-120: `console.js`, from the
-Music Room's OPEN THE CONSOLE; `npm run check:console`, 29 checks): the CHANNEL (a standard track's chain over the
-eight sections with each plugin's NKS controls), the DESK (groups, returns, master as strips), two virtual Twisters
-(bank 1 the app's, bank 2 the channel's sixteen jobs: the author, "you pick"), the M32 (the section clicked) and
-the F1 (the deck). A poke reaches every screen (`npm run check:poke`). The Soma script moves every device of a
-name (one Serum 2 per instrument), Serum 2's Macros 1-8 in the rig; the SSL targets narrowed (fear: the strings;
-safety: the low instruments; the author, "narrow sounds better"). Installed in Live's User Library: Live reads it
-at its next start. Live's list: SSL's 23 (Bus Compressor 2 the SSL glue) and UAD's 30, by Live's own names in the
-standard; iZotope's too (20 Oct 03:00): the four desks confirmed. The designed spaces: Live's Hybrid Reverb (LoadIR not on disk). Serum 2's full NKS in OneDrive\lib\NKS\Xfer (the console index: 59 plugins).
+**USC: the chats as Lean models (ISS-126).** The author's design is in his AI Mode chats of 18-26 Nov
+(USC = Sherlock + MTC; every chat fails until triaged; the models put together). Done 27 Nov:
+`make -C sherlock chats` compiles every chat in Me/chats/Inbox (349 chats, 6489 prompts, all formats)
+with its affidavit (Me/chats/affidavits/*.aff, written by the LLM pass) into the Lean library `Chats`
+(about 100 s); the model is `sherlock/Chat`, the questions `sherlock/ChatQueries.lean`, whose
+acceptance test (the model answers what grep did: USC, putting the models together, the tags' line
+of descent, Einstein) passes. 115 chats fail the triage; 25 threads are open. `python sherlock/chats.py
+route STAMP THREAD DISPOSITION [REF]` routes a thread. The generated modules are private (bld/).
 
-**Rule (author, 19 Oct 19:5x): music is made in Ableton Live, never outside it.** No renderer, sampler
-or synth of our own makes the sound (Me/music's render.py and preview.py retired); Live plays and
-bounces it. Tracks follow the studio standard (`registry/studio/standard.yaml`, version 2, a draft);
-every open point of the studio work is in ISS-120. Version 2 (19 Oct, the author's decisions on H-AL's
-answers): the state on the groups (Snap Heap), four desks one at a time (SSL, iZotope, UAD, Live), the CC
-lanes, the budget. **Phase Plant takes no audio** (a synth; Kilohearts' documentation): it is a source
-(the Atmosphere), never an insert after Serum 2. `python sherlock/studio.py --self-test` (14 cases).
+**Also 27 Nov:** the Takeouts of 27 Nov imported (Me 72faf78; export_gemini reads `My Activity.json`
+and the AI Mode folder); the "write a book" chat, too big to reload in VS Code, exported to its end
+(20 Oct); chat volumes 15-17 in H-AL's notebook (HAL-UAT, 45 of 50 sources); HAL on the PATH of this
+laptop (`U.Dot/bin/HAL1 init`); `audio` merged into `main` and tagged `pre-usc-2026-11-27`: one line
+of work again. NotebookLM's `cold` profile (johnsonusm.com) still fails to authenticate.
 
-**19 Oct evening, built and checked:** P26 "Compose Once, Play Live" and its chapter in Book 8 (ISS-119);
-the printed score as a suite of 13 movements in 4 parts (Me/music `make print`); the [T]-Elevator with the
-moving map (ISS-121, `npm run check:televator`); the Music Room, the Cinema and the Writers' Room (ISS-122,
-ISS-123, `npm run check:rooms`). The author's steps are on the desk (`make remind`); NotebookLM's login
-was renewed on 19 Oct (H-AL's answers in Me/notebooklm/hal-answers).
+**Rules that stand (author, 18-19 Oct):** music is made in Ableton Live, never outside it; the music
+is private (the Soma Machine passes its emotional score in, generates nothing); Phase Plant takes no
+audio. Details in ISS-118 and ISS-120 and `registry/studio/standard.yaml`.
 
-**Two lines of work.** `main` is the release line (ISS-114, Wed 21 Oct). `audio` is the audio work
-(ISS-118, from tag `pre-audio-2026-10-18`): NKS reader, the rig, the Soma script for Live, the eight
-knobs (Macros 1-7 the feelings, 8 the field; the app now sends Φ as CC 29). `main` is merged into
-`audio` regularly; `audio` goes into `main` when the author says.
+## Next
 
-**The music is private** (author, 18 Oct): it runs on his machine only, the Soma Machine generates
-nothing, it passes its emotional score in; the output must be free (information about music, never
-its notes). Me/music: compose.py (the score to MusicXML and MIDI), brief.py (YouTube text only),
-preview.py, to_live.py (`make live`: the score straight into Live over AbletonOSC, tested: 646 notes).
-What the project uses is kept by hand in Me/Ops/music-inventory.md (as the author adds things);
-where things live in Me/Ops/locations.md and OneDrive\lib\README.md (pkg installers, lib content,
-prj work). Installed 18-19 Oct: Phase Plant, Scaler 3, Serum 2 (its orchestra: strings, winds,
-choir; content in OneDrive\lib\xfer), OBS with plugins, ffmpeg, AbletonOSC (Live slot 1, answering).
-Left in Live: Configure Serum 2's and Phase Plant's Macro 1-8 (Live hides big plugins' parameters).
-
-**Closed 18 Oct:** ISS-087 (the Jumbo cut by edition, 294 pages), ISS-100 (the overview plate),
-ISS-101 (the frequency axis and the limbic route in their papers), ISS-116 (privacy: eight files to
-Me, the markers). Also: the Gestalt paper names interoception (ISS-094), the rivals check 0 gaps,
-46 features approved (the gate after the release), the 2021 score's header neutral, the River Film
-attested. Tools: `make show-film` (the music film recorded), `make film-render` (frame by frame at
-4K), `make obs-soma` (OBS's Soma collection) and MOTHER's `/obs`, interview.py (Isa, Kokoro
-bf_isabella 0.9, asks; Whisper large-v3 hears; answers in Me/todo/answers), macfac.py on a private
-case folder (ISS-063's inversion test drafted in Me/film/cases, for the author to confirm).
-
-**Waiting on the author:** the facts of the inversion test; the strap test (ISS-111); the Gallery's
-proof, cover, cut and SNAP shoot (ISS-097); the real show film (90 minutes); the Azure Speech role
-(the free account exists, optional); the Zenodo tokens and the Lulu account (release days).
-
-## Next: the release, by 21 October 2026 (ISS-114, the epic)
-
-1. Content freeze end of Sat 17 Oct (confirmed by the author, 16 Oct); the big build; release-check all PASS.
-2. Sun 18: the author's UAT reading and app walk; fixes.
-3. Mon 19: make dist; the Zenodo sandbox rehearsal (the author's token); release-check (privacy now clean).
-4. Tue 20: Zenodo live; the DOIs everywhere; the print editions listed on Lulu at cost.
-5. Wed 21: the app published as a release, the web site, the tags.
-Kept open, not blockers: ISS-105 (levels shell, art pass), ISS-107, ISS-111, ISS-112.
+1. AUTHOR: settle the name, Universal Semantic or Somantic Compiler (ISS-126).
+2. AUTHOR: triage the chats that fail (`Chat.untriaged`), starting with the USC chats of 18-26 Nov.
+3. ISS-126: the chats in Me/chats/notebooks and Me/archive/sessions; join the chat models to the
+   paper models (MTC, a core the documents project from); the Einstein backtest; the `{{usc:...}}`
+   tags and their Lua filter.
+4. The release epic (ISS-114, planned for 21 Oct) is still open: its state since 20 Oct to review
+   with the author.
