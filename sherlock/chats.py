@@ -478,6 +478,14 @@ PRODUCTS = {
     "Ops": {"Publishing", "Copyright", "Hardware", "Engineering"},
 }
 PRIVATE = {"Personal", "Health", "Finance", "Politics"}
+# A public view never lists the author's own health: a topic naming the author (or "me") with a health word is
+# held back even when its affidavit forgot the concept (27 Nov: eight such threads were tagged Clinical).
+PERSONAL_HINT = re.compile(r"(?i)\b(the author'?s?|me|my|himself|his own)\b.{0,80}\b(hospital|THC|cannabis|therapy plan|"
+                           r"diagnos\w*|medication|doctor|ADHD|autis\w*|C-PTSD|masking|paralysis)\b|\b(hospital|THC|ADHD|"
+                           r"autism|masking)\b.{0,80}\b(the author'?s?|himself|his own)\b|\b(THC|cannabis|medication|occupational therapy|"
+                           r"therapy plan|hospital stay|kidney stone|DSM|ICD-\d+)\b")
+# Words like ADHD or C-PTSD alone are the theory's subject, not the author's record: those threads rely on their
+# affidavit's Health or Personal concept; this guard catches what is personal in any context.
 
 
 def ideas(by: str = "", grep: str = "") -> int:
@@ -551,6 +559,7 @@ def chronicle() -> int:
     import yaml
     months: dict[str, list] = {}
     private = ops = dupes = 0
+    held: list[str] = []
     # The chats, and Phase Dot's conversations (Me/chats/affidavits/phase-dot: the origin, April-May 2026).
     sources = [(a, "Phase Dot" if a.parent == AFF_PD else "chat") for a in all_affs()]
     for path, origin in sources:
@@ -562,6 +571,10 @@ def chronicle() -> int:
             cs = own | set(aff.get("concepts") or [])
             if own & PRIVATE or not (cs - PRIVATE):
                 private += 1
+                continue
+            if PERSONAL_HINT.search(str(th.get("topic", ""))):  # the author's own health, tagged Clinical by mistake
+                private += 1
+                held.append(f"{path.name}: {th.get('id')}")
                 continue
             product = next((k for k, v in PRODUCTS.items() if own & v), None) or next(
                 (k for k, v in PRODUCTS.items() if cs & v), "Ops")
@@ -590,6 +603,8 @@ def chronicle() -> int:
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(data, ensure_ascii=False, indent=1), encoding="utf-8", newline="\n")
     n = sum(len(v) for v in months.values())
+    for h in held:
+        print(f"chronicle: held back as personal (mark the thread Health or Personal in its affidavit): {h}")
     print(f"chronicle: {n} threads in {len(months)} months ({private} personal counted, {ops} Ops and {dupes} duplicates left out) -> {out}")
     return 0
 
