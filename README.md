@@ -34,9 +34,13 @@ and the app; `HAL` (no hyphen) only in command, file and code names, and
 "HAL 9000" only for the film's computer.
 
 **AI sessions.** Begin with `HAL copilot start`, which reads this README,
-CURRENT.md and the end of the active chat. Until it is installed (ISS-044), read
-them directly. Save often (`HAL copilot save`); end with `HAL copilot wrapup`,
-which exports the chat to `Me/chats/Inbox/` and rewrites CURRENT.md.
+CURRENT.md and the end of the active chat. If `HAL` is not found, the device is
+not set up yet: see T's README, "Working in these repos". Save often
+(`HAL copilot save`); end with `HAL copilot wrapup`, which exports the chat to
+`Me/chats/Inbox/` and rewrites CURRENT.md. A chat VS Code can no longer reload
+is still on disk, in its folder under `~/.copilot/session-state/` (the folder
+name is the session id): `make -C ../../Me/chats copilot T="<name>" S=<session-id>`
+exports it.
 
 **Autopilot mode** (optional, default off). When switched on, every change is
 proposed first as a numbered list and waits for an answer: `next` or `y` does

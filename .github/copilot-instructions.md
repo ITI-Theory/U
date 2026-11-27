@@ -8,8 +8,8 @@ alike: read its "Working on this repo" section and follow it (start order,
 ## AI-only rules
 
 - **Start of session:** run `HAL copilot start` yourself (no pasting needed).
-  Until it is installed (ISS-044), read README.md, `docs/agent/CURRENT.md` and
-  the end of the active chat file in `Me/chats/Inbox/`.
+  If `HAL` is not found, run `T.Dot/bin/HAL copilot start` (Git Bash) and tell
+  the author the device is not set up yet (T's README, "Working in these repos").
 - **After your context is summarised or compacted,** re-read CURRENT.md and the
   end of the active chat file before answering; do not trust the summary over
   the files.
@@ -17,9 +17,8 @@ alike: read its "Working on this repo" section and follow it (start order,
   `Dist/PAPERS.yaml`. Current work: `docs/agent/CURRENT.md`. Open items:
   `ISSUES.md`. Commands: `make help`, `HAL help`. Use the full form of every
   HAL command.
-- **Save as you go:** `HAL copilot save` at milestones (until installed:
-  export the chat with `make -C ../../Me/chats copilot`, once that target
-  exists) and before long-running work, so a sudden break loses nothing.
+- **Save as you go:** `HAL copilot save` at milestones and before long-running
+  work, so a sudden break loses nothing.
 - **Ignore `*.OBSOLETE`** files and directories: kept for history only.
 - **Builds** follow `docs/BUILD.md`: Make, pandoc and Lua; scripts never write
   markup. Commit messages end with the trailer
