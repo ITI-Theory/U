@@ -11,6 +11,10 @@
 -- triaged, or queued to an issue). `concept="Physics,Einstein"` keeps the threads with any of those concepts
 -- (Background, ISS-134); `flat="true"` lists them as one dated list, without the month headings. Nothing is
 -- quoted from the chats: a thread is its affidavit's topic.
+--
+-- In the prose, a citation of a conversation is a span: [the first README]{.chat ref="20260516_11" p="3-5"}
+-- becomes the text, then "(Phase Dot 20260516_11, prompts 3-5)" (or "chat ..."). `python sherlock/usc.py check`
+-- fails when the conversation does not exist or a prompt is out of range.
 
 local MONTHS = { "January", "February", "March", "April", "May", "June", "July", "August",
                  "September", "October", "November", "December" }
@@ -147,7 +151,21 @@ local function render(div)
   return blocks
 end
 
+local function cite(span)
+  if not span.classes:includes("chat") then return nil end
+  local ref = span.attributes["ref"] or ""
+  local p = span.attributes["p"]
+  local label = (ref:match("^%d%d%d%d%d%d%d%d_%d%d$") and "Phase Dot " or "chat ") .. ref
+  if p then
+    label = label .. (p:find("[-,]") and ", prompts " or ", prompt ") .. p:gsub("-", "–")
+  end
+  local out = pandoc.Inlines(span.content)
+  out:extend { pandoc.Space(), pandoc.Str("(" .. label .. ")") }
+  return out
+end
+
 return {
   { Meta = function(meta) load(meta) end },
+  { Span = cite },
   { Div = function(div) if div.classes:includes("chronicle") then return render(div) end end },
 }

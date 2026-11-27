@@ -7415,6 +7415,11 @@ cites the prompts it comes from, so Sherlock can write its affidavit against the
       (OpenCyc in Lean), 6 May ([T]'s names, Sheer Luck as a VS Code or Neovim plug-in, emotions as a field)
       and 16 May (the first abstract and README). privacy.py: 0 leaks.
 - [ ] Layer 2: the narrative of each period, written from the chronicle, every paragraph citing its prompts.
+      (27 Nov) Started: Origins (13 April to 29 May: OpenCyc in Lean, the turning point of 6 May, Sheer Luck, the
+      first README, "put them together as a book?") and November (the checker becomes a compiler). Summer and
+      Autumn to write. The citation is a span, `[text]{.chat ref="STAMP" p="N-M"}`, rendered by chronicle.lua
+      and checked by `usc.py check` (the chat must exist, the prompts must be in it; a negative test passes):
+      the first tag the books defined for USC (the circle, ISS-126).
 - [ ] Triage feeds it: 216 of the 285 threads are not yet triaged; each routed thread changes its line.
 - [ ] AUTHOR (desk): the title. Copilot's opinion, 27 Nov: "[T]-Theory: The Evolution" (the spine carries
       [T]-Theory, so the title can be the one word, as "Law" is), subtitle "How it came about: Phase Dot,

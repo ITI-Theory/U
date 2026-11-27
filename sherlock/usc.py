@@ -6,7 +6,9 @@
 
 Each finding is one line, `path:line: error|warning: message`, the form VS Code's problem matchers,
 Vim's quickfix list and the extension (apps/vscode) read. Errors: the {{usc:...}} tags that break the
-grammar (usctags.py). Warnings: the tags not yet triaged (a class, no disp), and the method's open
+grammar (usctags.py), and the books' citations of conversations that do not hold ([...]{.chat ref="STAMP"
+p="N-M"}: the chat must exist, the prompts must be in it; ISS-133). Warnings: the tags not yet triaged (a class,
+no disp), and the method's open
 assumptions, the bait (`.open_` and `.assumed` witnesses in the backtests and the fishing), each at its
 line in the Lean. Fast (no Lean is run); `make -C sherlock chats links fishing` remain the deep checks.
 """
@@ -50,8 +52,35 @@ def bait_findings() -> list[str]:
     return out
 
 
+BOOKS = [U / "books" / "T-Theory" / "evolution", U / "books" / "T-Theory" / "background"]
+CITE = re.compile(r'\]\{\.chat\s+ref="([^"]+)"(?:\s+p="([^"]+)")?\s*\}')
+
+
+def citation_findings() -> list[str]:
+    import chats
+    out, cache = [], {}
+    for d in BOOKS:
+        for f in sorted(d.glob("*.md")):
+            text = f.read_text(encoding="utf-8")
+            for m in CITE.finditer(text):
+                n = text.count("\n", 0, m.start()) + 1
+                ref, p = m[1], m[2]
+                hits = sorted(chats.INBOX.glob(ref + "*.md")) + sorted(chats.PHASEDOT.glob(ref + "*.md"))
+                if len(hits) != 1:
+                    out.append(f"{f.as_posix()}:{n}: error: cited conversation {ref} {'not found' if not hits else 'ambiguous'}")
+                    continue
+                if p:
+                    if hits[0] not in cache:
+                        cache[hits[0]] = len(chats.parse(hits[0])["prompts"])
+                    nums = [int(x) for x in re.findall(r"\d+", p)]
+                    bad = [x for x in nums if not 1 <= x <= cache[hits[0]]]
+                    if bad:
+                        out.append(f"{f.as_posix()}:{n}: error: {ref} has {cache[hits[0]]} prompts, not {bad}")
+    return out
+
+
 def check() -> int:
-    found = tag_findings() + bait_findings()
+    found = tag_findings() + citation_findings() + bait_findings()
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text("".join(x + "\n" for x in found), encoding="utf-8", newline="\n")
     for x in found:
