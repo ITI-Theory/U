@@ -6772,6 +6772,7 @@ Thoughts (ISS-097) exist.
 - [x] (19 Oct 22:2x: THE CINEMA from the top bar: its four outputs, THE FILMS (bld/film: PLAY hands one to FILM, soma-film-load, and it runs; Esc ends it), THE VERSIONS (each viewer, compiled or the command to compile it), THE RECORDINGS (Videos/Soma, OBS: none yet); /cinema/room, /cinema/film/, /cinema/recording/) The Cinema: the compiled film (FILM, ISS-117) played per viewer version, the recordings.
 - [~] (19 Oct 23:1x: the rooms are doors on the [T]-Elevator's map (registry/rooms.yaml `opens`), each opened with a doorway transition the sound hears; left: the Gallery as the asset registry's face, with ISS-120's pipeline) The rooms on the map: entered by doorway transitions; the Gallery as the public face of the asset
       registry (ISS-120's pipeline: a film frame a plate, a plate a book figure).
+- [x] (27 Nov) Queued here: 20261013_221741 holo-screen (a portable 3D screen or holo-gauze for the Cinema).
 
 ## ISS-123: Text as a 4x4: four authors, chosen per passage — OPEN
 
@@ -6883,6 +6884,8 @@ quieter, pulsing background ... that would show the field working".
       feeling: the wav base labelled by the seven).
 
 ---
+- [x] (27 Nov) The chats' threads queued here: 20261027_221653 real-video-per-scale and moon-film, 20261031_232755
+      photo-to-spaceengine, 20261103_012607 scope-to-spaceengine (real footage per scale, morphing into SpaceEngine).
 
 ## ISS-126: USC: the chats as Lean models (Sherlock on the chats) — IN-PROGRESS
 {{Tags area.sherlock, area.ops}}
@@ -7159,6 +7162,8 @@ the body's vessels by the Televator); 26 Nov (the visual audit: USC on the app's
       (heartbeat-poke); the dimensions as a view: 4D, the 3D EMF, the limbic 1D, the mind's 3D as a sideways
       shift at every level (20261126_140957 dimensions); USC in the Engine Room: a SheerLuck view, a REPL,
       axState (20261120_140700 usc-in-sm). Each becomes an option in the USM model first (`make -C sherlock usm`).
+- [x] (27 Nov) Also queued here: 20261006_190130 app-explorer, 20261008_190711 app-design, 20261027_221653
+      wireframe-terrain.
 
 ## ISS-128: Equations: every Pandoc equation matched to its Lean — OPEN
 {{Tags area.sherlock, area.proofs, area.papers}}
