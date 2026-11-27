@@ -7456,7 +7456,11 @@ the chats are full of, and what a course reader lacks.
 - [x] (27 Nov) More entries: the clinical operators (dwell times), and a chapter "Groups, games and the Earth"
       (Fiedler, potential games, Gutenberg-Richter); Sherlock's affidavit for the book (ttheory-background, 436
       checks with it).
-- [ ] Next entries: philosophy, music, knowledge (from their threads; no method rows yet).
+- [x] (27 Nov) Philosophy (abduction, falsification and research programmes, analogy and structure), music
+      (BRECVEMA) and knowledge (proof assistants, Cyc, qualitative processes): 19 entries in all, every chapter
+      begun, 30 pp.
+- [ ] Next: entries for the theory's own ideas (the field, the zoom, the Televator) from the papers; the
+      affidavit re-frozen with the new entries.
 - [ ] The entries (layer 2): the view by concept (the affidavits' concepts,
       Me/chats/affidavits/concepts.yaml) instead of by month; each entry: the standard idea (cited, not from
       the chats), its role in [T]-Theory (the papers, the Lean, the method's row if there is one), where it

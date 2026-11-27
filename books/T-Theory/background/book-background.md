@@ -219,6 +219,43 @@ the book's two premises conflict at the critical point itself. Label `open-hypot
 
 Discovery or invention, analogy or identity, what counts as evidence: the philosophy of science the programme leans on, and the history it learns from.
 
+## Abduction: reasoning to the best explanation {#sec:bg-abduction}
+
+**The idea.** Peirce's third kind of inference, beside deduction and induction: from a surprising fact to the
+hypothesis that would explain it, held until it is tested [@peirce1903abduction].
+
+**In [T]-Theory.** The methodology paper's loop (observation, hypothesis, proof, prediction, test) is abductive,
+and so is Sherlock's half of the compiler: it proposes what a text claims, and Lean decides.
+
+**The method's verdict.** The loop is now a Lean model (`sherlock/Method`): a hypothesis is a registered row, and
+it cannot rise above S1 while an assumption is open. Label `interpretive` for the philosophy; the model itself
+`kernel-verified`.
+
+## Falsification and research programmes {#sec:bg-falsification}
+
+**The idea.** A theory is scientific when some observation could refute it [@popper1959logic]; a research
+programme keeps a hard core and a protective belt of auxiliary claims, and is judged by whether its changes
+predict new facts or only absorb old ones [@lakatos1978methodology].
+
+**In [T]-Theory.** The programme names its own disconfirmation rules and registers its predictions before the
+data.
+
+**The method's verdict.** The failure ledger is public: two of the programme's rows are falsified (the budget
+$7/11$, and fractions fixed at every epoch), and the flat closure $15/22$ is registered for the next surveys
+instead of being counted as a success (see the cosmological budget in the physics chapter). Label
+`interpretive`.
+
+## Analogy and structure {#sec:bg-structure}
+
+**The idea.** An analogy is a mapping of relations, not of surface features: two systems share structure when
+their relations correspond one to one [@gentner1983structure]; a structure can be searched for across a case
+library in two stages, cheaply then carefully [@forbus1995macfac].
+
+**In [T]-Theory.** The programme says, many times, that two things share "the same structure".
+
+**The method's verdict.** Run as structure mapping, most of those claims share the form of one equation rather
+than a structure, and one hides a contradiction (the Sherlock paper, SH1). Label `derived-under-assumptions`.
+
 **Where it was discussed.** The conversations' threads on these ideas, as the record has them now:
 
 ::: {.chronicle concept="Philosophy,History" flat="true"}
@@ -228,6 +265,17 @@ Discovery or invention, analogy or identity, what counts as evidence: the philos
 
 The music behind the Soma Machine's emotional score: how a score carries feeling, and the tools the programme composes with.
 
+## How music evokes emotion: BRECVEMA {#sec:bg-brecvema}
+
+**The idea.** Juslin's account names eight mechanisms by which music evokes emotion: brain stem reflexes,
+rhythmic entrainment, evaluative conditioning, emotional contagion, visual imagery, episodic memory, musical
+expectancy and aesthetic judgement [@juslin2013].
+
+**In [T]-Theory.** The music paper reads the eight mechanisms as inputs to the field, and the Soma Machine's
+score drives its picture and sound from the same knobs.
+
+**The method's verdict.** No method row yet: the reading is a design, not a derivation. Label `interpretive`.
+
 **Where it was discussed.** The conversations' threads on these ideas, as the record has them now:
 
 ::: {.chronicle concept="Music" flat="true"}
@@ -236,6 +284,40 @@ The music behind the Soma Machine's emotional score: how a score carries feeling
 # Knowledge, proof and machines
 
 What the compiler stands on: Lean and its proofs, OpenCyc's common sense, documents compiled to models, and the adversary that tries to break them.
+
+## Proof assistants {#sec:bg-proof}
+
+**The idea.** A proof assistant accepts a statement only when every step follows by rules its kernel checks;
+Lean 4 is one [@moura2021lean4], and Aesop searches for proofs in it, best first [@limperg2023aesop]. What it
+checks is that the statement follows from the definitions, not that the definitions fit the world (the
+course, chapter 15).
+
+**In [T]-Theory.** The programme's proofs, and the compiler's back end: every claim it confirms is a theorem
+the kernel has checked.
+
+**The method's verdict.** Not a row but the judge of the rows. Label `kernel-verified` for what it checks.
+
+## Common sense as a knowledge base: Cyc {#sec:bg-cyc}
+
+**The idea.** Cyc set out to write down the common sense people never state, as millions of logical
+assertions in contexts (microtheories) [@lenat1995cyc]; its open part, OpenCyc, is available as data
+[@opencyc2012owl].
+
+**In [T]-Theory.** OpenCyc loaded into Lean, so that a category error in a document (a galaxy that feels, a
+matrix that is an organ) fails to compile.
+
+**The method's verdict.** Consensus is not mathematics: a result against OpenCyc holds under OpenCyc's facts
+and the chosen mapping. Label `derived-under-assumptions`.
+
+## Qualitative reasoning about processes {#sec:bg-qp}
+
+**The idea.** Qualitative process theory describes how quantities change (increasing, decreasing, through
+which process) without their numbers [@forbus1984qp].
+
+**In [T]-Theory.** The compiler's front end uses it to read a sentence about change into facts without
+guessing.
+
+**The method's verdict.** Not a row: a tool of the compiler. Label `derived-under-assumptions`.
 
 **Where it was discussed.** The conversations' threads on these ideas, as the record has them now:
 
