@@ -7570,6 +7570,30 @@ use this as a concrete use case".
    - [ ] Send from Neovim to the agent (the Copilot CLI in a terminal split, or VS Code's chat through a command),
      so the draft, the tags and the prompt are one file in the record.
 
+5. **Move: thoughts on a Kanban board** (author, 27 Nov 19:30: "kanban diagrams!!! i use: No status, Backlog, Ready,
+   Paused, in progress, done ... what if a 'thought' was an issue? ... a chat is, say, like a GH issue ... why not map
+   the thoughts via a kanban? easy to move loose ends to close ... reuse tools?"; earlier, 20260726_201838
+   kanban-files: "a Kanban of tasks, chats and to-dos in files with front matter ... nothing to do with GitHub").
+   A chat is an issue whose comments are the prompts; its threads are the cards. The columns are the dispositions:
+
+   | Column | A thread that is | Moving a card there means |
+   |:--|:--|:--|
+   | No status | untriaged | nothing decided |
+   | Backlog | queued on an OPEN or SOMEDAY issue | `route ... queued ISS-NNN` (the card names the issue) |
+   | Ready | queued on an issue marked ready (AUTHOR's column) | the same; the issue is next |
+   | Paused | parked, or queued on a PARKED or ON-HOLD issue | `route ... parked` |
+   | In progress | queued on an IN-PROGRESS issue | read from the issue, not set on the card |
+   | Done | implemented (with its ref), or dropped (with its reason) | `route ... implemented REF` or `discarded REASON` |
+
+   - [ ] `usc.py board` writes the board as Markdown (Me/chats/board.md): `## Column` headings, a card per thread
+     (`- [ ] topic <!-- STAMP thread -->`), the format VS Code's and Obsidian's Kanban views and any editor read.
+   - [ ] `usc.py board --apply` reads it back: a card moved to another column becomes a `route` (a move to Done needs a
+     ref, to Backlog an issue: written on the card; a move without one is reported, not applied). Rearranging the file
+     in Neovim (`dd`, `p`) is the triage.
+   - [ ] One board per chat as well as one for all (zooming: a chat's own thoughts), and the issues' boxes on the same
+     columns (ISSUES.md's statuses map: OPEN, SOMEDAY to Backlog; IN-PROGRESS to In progress; PARKED, ON-HOLD to
+     Paused; CLOSED to Done).
+
 ## ISS-137: Peer review and the first journal: the papers out into the world — OPEN
 {{Tags area.papers, area.release}}
 {{Fields date.created=2026-11-27, date.start=, date.end=, epic=ISS-132-big-bang}}
