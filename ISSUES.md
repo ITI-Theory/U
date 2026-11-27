@@ -7085,6 +7085,12 @@ its two signs (ISS-126) are exactly the error this would catch.
 - [x] (27 Nov) Lean back to LaTeX: `sherlock/Latex.lean`, `#latex name` (the statement pretty-printed by Lean, its
       notation mapped to LaTeX); `make -C sherlock equations` writes bld/sherlock/equations.md, each class's Lean
       witnesses rendered beside every document that writes that form, with its line.
+- [x] (27 Nov) The catches found again wherever an equation repeats them (`equations.py` families, each with its
+      Lean witness): Kramers without the friction γ in P10 (soma-temporal-dynamics.md:263) and the cheatsheet
+      (109); WKB without the 2m in the cheatsheet (116), the geophysics book (212), its conclusion (15) and its
+      kappa (31); Ω_Λ = 7/11 in P21 (cosmological-constant-derivation.md:144, 360), P22 (dark-matter-spatial-
+      vacuum.md:466), the cheatsheet (15), the philosophy book (208, 899) and the physics book (160, 214). The list
+      of places to edit, in bld/sherlock/equations.md; papers are not edited in place (new versions).
 - [ ] The match, equation by equation: the Lean states operators pointwise (f'' + (2/r) f' ± k² f), the documents
       as ∇² ± k²; a normal form for both, then a mismatch is an error.
 - [ ] The cheatsheet first; then the papers through their affidavits.

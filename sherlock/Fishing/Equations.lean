@@ -5,6 +5,9 @@ import Latex
 import Fishing.Gravity
 import Fishing.KleinGordon
 import Fishing.KaluzaKlein
+import Fishing.Kramers
+import Fishing.WKB
+import Fishing.Cosmology
 import UniversalSomaticField
 
 /-!
@@ -29,7 +32,11 @@ open EquationsData
 def witnesses : List (String × List Lean.Name) :=
   [("helmholtz", [``SomaField.Universal.greens_fn_is_SHO, ``Fishing.Gravity.wave_solves]),
    ("klein-gordon", [``Fishing.KleinGordon.dispersion, ``Fishing.KaluzaKlein.kk_reduction]),
-   ("screened", [``Fishing.Gravity.yukawa_solves])]
+   ("screened", [``Fishing.Gravity.yukawa_solves]),
+   -- The catches, wherever an equation repeats them: the witness is the theorem that shows the problem.
+   ("kramers-no-friction", [``Fishing.Kramers.narrower_faster]),
+   ("wkb-no-mass", [``Fishing.WKB.cheatsheet_drops_mass]),
+   ("omega-7-11", [``Fishing.Cosmology.published_misses])]
 
 def ofClass (c : String) : List (String × Nat × Bool × String × String) := all.filter (·.2.2.2.2 == c)
 
@@ -48,5 +55,8 @@ def files (c : String) : List String := ((ofClass c).map fun e => (e.1.splitOn "
 #latex Fishing.KleinGordon.dispersion
 #latex Fishing.KaluzaKlein.kk_reduction
 #latex Fishing.KaluzaKlein.two_signs
+#latex Fishing.Kramers.narrower_faster
+#latex Fishing.WKB.cheatsheet_drops_mass
+#latex Fishing.Cosmology.published_misses
 
 end Fishing.Equations
