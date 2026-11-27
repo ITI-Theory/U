@@ -1,0 +1,37 @@
+# Sherlock affidavit: Dist/README.md, the distribution's front door (ISS-139; frozen in the Dist repo).
+id: dist-readme
+document: DIST
+title: 'Dist/README.md'
+source:
+  repo: Dist
+  file: README.md
+  commit: 92fd183
+  sha256: e41890768f3b0dd7574e1b4055b001659356fb0e9a13c6c9f1c04d6e801f26a9
+lean: []
+microtheories: {}
+claims:
+  - id: D1
+    quote: '| **max** | 30 PDFs: 24 papers + 4 collection/volume files + D2 + cheatsheet |'
+    lines: [91]
+    kind: internal-count
+    finding: >-
+      Dist's README (ISS-139): 24 + 4 + 1 + 1 = 30, and nlm-max/ holds 30 PDFs in git (counted 27 Nov)
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [24, 4, 1, 1, 30]}, {template: eq, args: [30, 30]}]
+    values:
+      - {quantity: Dist-NLMMax-PDFs, value: 30}
+    disposition: open
+  - id: D2
+    quote: '30 PDFs: 24 papers'
+    lines: [91]
+    kind: cross-paper
+    finding: >-
+      Dist's README (ISS-139): the NotebookLM max set holds 24 papers; the registry has 27 (P25, P26 and SH1 came
+      later): the set and its README are one release behind (ISS-132: rebuild nlm-max at the release)
+    verdict: contradicted
+    label: kernel-verified
+    lean: null
+    check: [{template: ne, args: [24, 27]}]
+    disposition: open

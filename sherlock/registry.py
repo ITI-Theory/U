@@ -37,7 +37,9 @@ TEMPLATES = {"eq", "ne", "lt", "sum", "diff", "rel-between", "monotone", "not-mo
 
 
 def frozen_text(src: dict) -> str:
-    blob = subprocess.run(["git", "show", f"{src['commit']}:{src['file']}"], cwd=U,
+    """The frozen source: `file` at `commit` in U, or in a sibling repo named by `repo` (Dist, T; ISS-139)."""
+    cwd = U.parent / src["repo"] if src.get("repo") else U
+    blob = subprocess.run(["git", "show", f"{src['commit']}:{src['file']}"], cwd=cwd,
                           capture_output=True, check=True).stdout
     digest = hashlib.sha256(blob).hexdigest()
     if digest != src["sha256"]:

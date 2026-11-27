@@ -7710,3 +7710,41 @@ registry 1 of 1. Outside U, not yet: the org page and Dist's README.
 - [x] (27 Nov) The values report wired in: `usc.py check` warns on every quantity quoted differently (5, all from
       October: the instrument's section 6 or 8 (P1, P7), The Tensor's second threshold 0.74 or 0.71, two of P11's
       ranks, and the scale levels 20 or 21 in six documents), at the affidavit that quotes it.
+- [x] (27 Nov) Dist beyond PAPERS.yaml: affidavits may freeze a file in a sibling repo (`repo: Dist`); Dist's README
+      under Sherlock: its NotebookLM max set (30 PDFs, consistent) holds 24 papers of the registry's 27 (one release
+      behind: P25, P26 and SH1 missing; rebuild at the release). Coverage counts Dist's READMEs: 1 of 7.
+- [x] (27 Nov) Sherlock on git: `usc.py git` (every repo, Me included: CRLF in the index or the working copy,
+      .gitattributes, stray names). Its first run: U.Ops had no .gitattributes (missed in the morning's LF pass; added,
+      d6d96cc) and a stray `paper/-p`; now 0 errors in nine repos.
+
+## ISS-140: Releases: an id in every artefact, a manifest, the models as a library, what's new — OPEN
+{{Tags area.release, area.sherlock}}
+{{Fields date.created=2026-11-27, date.start=2026-11-27, date.end=, epic=ISS-132-big-bang}}
+
+**Author, 27 Nov 20:27:** "should released artifacts have some form id in filename? a date, or? would be handy. in
+chats, i discussed the compiled lean models and exporting as libs (20261123_171439 prompts 14-15: 'for each markdown
+file compiling it down to a lean file ... put the lean files into the library and either have the library local or
+external') ... maybe it helps the before/after issues ... the whats new, whats changed. prob is the lean models are all
+generated, not in git ... so we must export as artifacts ... am i right?"
+
+**Copilot's opinion (27 Nov).**
+- **The id goes inside, the name stays.** Dist's file names are linked from the org page, Zenodo, Lulu and NotebookLM;
+  a dated name breaks every link at every release. Instead: one release id per big bang (calendar style, `2026.12`),
+  printed in each PDF's colophon with the commit and the date, set in the PDF's metadata, and listed in a manifest
+  (Dist/MANIFEST: file, release id, commit, sha256). "Which version is this?" is then answered by the file itself,
+  and Sherlock can check it (the colophon's commit exists, the sha256 matches the manifest). Bundles that are
+  downloaded as files carry the id in the name already (the VSIX: t-theory-explorer-0.2.0.vsix).
+- **The models: right that they are generated and not in git, but their sources are.** ISSUES.md, the registry, the
+  Lean and the chats (in Me) are all in git, so any model can be rebuilt at any commit, and before/after needs no
+  stored snapshot: compare two commits.
+- **Export as a library for others, not for the diff.** The public models (the issues, the method's rows, the
+  registry's affidavits, the links without the chats) as a Lake package with the release id, so another project can
+  `require` them; the chats' models are private and never exported.
+
+- [x] (27 Nov) What's new between two commits or tags: `usc.py new REV1 [REV2]` (the issues model at both, compared:
+      opened, closed, changed status, boxes added and ticked). Since this morning's tag (pre-usc-2026-11-27): 14
+      issues opened, 200 boxes added, 102 ticked.
+- [ ] The same for the other models: the chats (threads routed), the affidavits (claims changed: `delta` per
+      document already), the links (edges added).
+- [ ] AUTHOR: the release id's form (`2026.12`?), then the colophon line, the PDF metadata and Dist/MANIFEST.
+- [ ] The public models as a Lake package, built at the release.
