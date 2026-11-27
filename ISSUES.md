@@ -4147,6 +4147,43 @@ other work.
       banners are ISS-051). Decided (author, 13 Oct 21:18): the course goes in the release, "it's good".
 - [x] (ISS-050) Move `Me/notebooklm/rosetta.pdf` into its notebook folder
       (13 Oct triage: done, into HAL/ as chat material, with its sources entry; Me 024cd43)
+- [ ] (ISS-126, 27 Nov) the 16 loose ends (Me/chats/triage.md). Copilot's suggestion: an issue each for real-
+      quantum (QUANT-EXP-1 on hardware) and local-rag (an offline H-AL over the books); queue conditions-in-
+      music and score-to-definition to the audio work (ISS-118/120); park the art (exhibition, eiger-drones,
+      eiger-laser, north-face-concerto, wand-cube) together under one issue for the shows; discard or park the
+      rest (diagnosis-proof, semantic-db, body-double-tool, swarm-flows, future-domains, ttheory-in-the-sky,
+      theory-areas) as the author sees fit.
+- [ ] (ISS-126, 27 Nov) route the threads of the chats that fail the triage (implemented, queued, parked,
+      discarded).
+- [ ] (ISS-126, 27 Nov) the master equation's sign. The cheatsheet (books/T-Theory/booklet/booklet_body.md, I)
+      writes the stationary form (∇² + k²)G = -δ (k a wavenumber: oscillation), but its time-dependent form
+      (∂ₜ²/v² - ∇² + k²)Φ = -J has the static limit (∇² - k²)Φ = J (k a mass: decay), and the rest of the page
+      (correlation length 1/k, decay e^{-kvτ}, the GFF of mass k) reads the second;
+      `UniversalSomaticField.greens_fn_is_SHO` proves the first. Which is meant, or both (scales)? Published
+      papers not edited.
+- [ ] (ISS-126, 27 Nov) the bait (`make -C sherlock fishing`): which open assumptions to fish next; whether
+      D5-8 carry fields in the bulk (KK-1: then R is below tens of microns) or on a brane; whether the
+      budget's fractions are today's values only (COSMO-3), and the missing 1/22 (COSMO-2). Recommendation (27
+      Nov, asked for "best effort"): bulk or brane is mostly wording, since the cheatsheet (IV) already holds
+      the EM field on a D3-brane and Hořava-Witten is a two-wall picture (body at -1, mind at +1). For the
+      physics: EM and matter on the walls, gravity and the limbic field across D8, where the even modes meet
+      both walls with zero slope and k = nπ/L is set by the segment's length (KK-1, `segment_walls`;
+      interpretive). For the mind side: label D5-11 coordinates of the field's state, so Kaluza-Klein is a
+      type-level import (P3 §3.3), with no claim of body-sized spatial dimensions that torsion balances would
+      exclude.
+- [ ] (ISS-126, 27 Nov) add `lib/format/usc-tags.lua` first in the `filters:` of the 25 defaults files (`git
+      grep -l "^filters:" -- "*.yaml"`; the nine without unicode-glyphs.lua are books/T-Theory/defaults/
+      booklet-html and booklet-pdf and paper/defaults/book, html, lean-appendix, omnibus-royal, omnibus,
+      pdf-2col, pdf-a4), then allow tags in paper/ and books/ (usctags.py ALLOWED) and rebuild once to
+      compare.
+- [ ] (ISS-127, 27 Nov) The options in the app: start at `start4D`; the missing switches (M-Theory,
+      philosophy, clinical psychiatry) as gates in the model first, then in the page.
+- [ ] (ISS-129, 27 Nov) first use: `usc-vim` on a chat in Me/chats/Inbox, `<space>ui` on a good line.
+- [ ] (ISS-126, 27 Nov) Review the provisional decisions Copilot made for you overnight (ISS-126, 27 Nov
+      05:53: the sign, bulk or brane, the fractions, SQ = λ₂, b, Kramers' γ, "deep"): overrule any; each one
+      drives edits listed in ISS-130.
+- [ ] (ISS-127, 27 Nov) Approve or change the two app fixes the visual audit asks for (ISS-127): the places'
+      INTERPRETIVE plates in the 3D scene at 4D and 8D, and the dimension buttons' and claim badges' contrast.
 
 ## ISS-082: The voices: the author's own, and a licence-clean public one — PARKED
 {{Tags area.app, area.instrument}}
@@ -6846,14 +6883,8 @@ directly or through a core; 26 Nov, USC as Sherlock and MTC, the `{{usc:...}}` t
       witness suggestions read against each issue; four loose ends that tonight's work took up; Benchmark.lean
       as the Hopfield test's witness), each then tagged in its original (`chats.py tag`): 96 tags; the ideas
       list 296 threads; the triage 3 suggestions, 16 loose ends.
-- [ ] AUTHOR: the 16 loose ends (Me/chats/triage.md). Copilot's suggestion: an issue each for real-quantum (QUANT-EXP-1
-      on hardware) and local-rag (an offline H-AL over the books); queue conditions-in-music and
-      score-to-definition to the audio work (ISS-118/120); park the art (exhibition, eiger-drones, eiger-laser,
-      north-face-concerto, wand-cube) together under one issue for the shows; discard or park the rest
-      (diagnosis-proof, semantic-db, body-double-tool, swarm-flows, future-domains, ttheory-in-the-sky,
-      theory-areas) as the author sees fit.
-- [ ] AUTHOR: route the threads of the chats that fail the triage (implemented, queued, parked,
-      discarded).
+- (moved to ISS-081, 27 Nov) the 16 loose ends (Me/chats/triage.md). Copilot's suggestion: an issue each for real-quant…
+- (moved to ISS-081, 27 Nov) route the threads of the chats that fail the triage (implemented, queued, parked, discarde…
 - [x] (27 Nov) Iteration 2: every export format parsed (Copilot, USER:/MODEL:, old non-UTF-8 dumps;
       long chats in chunks); every chat in Me/chats/Inbox read (349 affidavits); the acceptance test
       extended to the history (putting the models together from 5 Jun; the tags' line of descent,
@@ -6892,12 +6923,7 @@ directly or through a core; 26 Nov, USC as Sherlock and MTC, the `{{usc:...}}` t
       k = 0, and the first tends to it as k → 0; the strength (Newton's G) is not fixed by the
       equation. Five assumptions open: the sign below, the field as the gravitational potential, the
       coupling G, attraction, and k(σ) at solar-system scales.
-- [ ] AUTHOR: the master equation's sign. The cheatsheet (books/T-Theory/booklet/booklet_body.md, I)
-      writes the stationary form (∇² + k²)G = -δ (k a wavenumber: oscillation), but its time-dependent
-      form (∂ₜ²/v² - ∇² + k²)Φ = -J has the static limit (∇² - k²)Φ = J (k a mass: decay), and the rest
-      of the page (correlation length 1/k, decay e^{-kvτ}, the GFF of mass k) reads the second;
-      `UniversalSomaticField.greens_fn_is_SHO` proves the first. Which is meant, or both (scales)?
-      Published papers not edited.
+- (moved to ISS-081, 27 Nov) the master equation's sign. The cheatsheet (books/T-Theory/booklet/booklet_body.md, I) wri…
 - [x] (27 Nov, round 2) Catches as a library (`Fishing`, U's lakefile; the backtest as `Einstein1905`),
       so a catch can cite another's theorem; `sherlock/Fishing.lean` prints the ledger and the bait
       (`Method.bait`: every row's open assumptions). `make -C sherlock fishing`. Rows:
@@ -6916,16 +6942,7 @@ directly or through a core; 26 Nov, USC as Sherlock and MTC, the `{{usc:...}}` t
       two signs have two origins; as a what-if it closes gravity's sign assumption). Fishing/Scales:
       the Lean's dial tops at 10²⁵ m, 60 decades, 13 times below c/H₀; the cheatsheet says 10²⁶ and
       61; P21 says 19 steps of 10^3.207.
-- [ ] AUTHOR: the bait (`make -C sherlock fishing`): which open assumptions to fish next; whether
-      D5-8 carry fields in the bulk (KK-1: then R is below tens of microns) or on a brane; whether
-      the budget's fractions are today's values only (COSMO-3), and the missing 1/22 (COSMO-2).
-      Recommendation (27 Nov, asked for "best effort"): bulk or brane is mostly wording, since the
-      cheatsheet (IV) already holds the EM field on a D3-brane and Hořava-Witten is a two-wall picture
-      (body at -1, mind at +1). For the physics: EM and matter on the walls, gravity and the limbic
-      field across D8, where the even modes meet both walls with zero slope and k = nπ/L is set by the
-      segment's length (KK-1, `segment_walls`; interpretive). For the mind side: label D5-11
-      coordinates of the field's state, so Kaluza-Klein is a type-level import (P3 §3.3), with no
-      claim of body-sized spatial dimensions that torsion balances would exclude.
+- (moved to ISS-081, 27 Nov) the bait (`make -C sherlock fishing`): which open assumptions to fish next; whether D5-8 c…
 - [x] (27 Nov, round 3, the mind side, cheatsheet III) COID-KRAMERS-1 (`Fishing/Kramers.lean`, on
       the programme's own well `LimbicTunnel.V`): curvatures 8W and -4W; a deeper well holds longer
       (W ≥ D); a narrower well is escaped faster, so "deep narrow minima" has the second word wrong for
@@ -7016,10 +7033,7 @@ directly or through a core; 26 Nov, USC as Sherlock and MTC, the `{{usc:...}}` t
 - [x] (27 Nov) The filter for every build: `lib/format/usc-tags.lua` drops the tags after any Markdown reader has
       parsed them (with or without +smart; a paragraph of tags goes, a tag between two lines leaves one paragraph);
       tested to Markdown and LaTeX.
-- [ ] AUTHOR (it touches every build): add `lib/format/usc-tags.lua` first in the `filters:` of the 25 defaults
-      files (`git grep -l "^filters:" -- "*.yaml"`; the nine without unicode-glyphs.lua are books/T-Theory/defaults/
-      booklet-html and booklet-pdf and paper/defaults/book, html, lean-appendix, omnibus-royal, omnibus, pdf-2col,
-      pdf-a4), then allow tags in paper/ and books/ (usctags.py ALLOWED) and rebuild once to compare.
+- (moved to ISS-081, 27 Nov) add `lib/format/usc-tags.lua` first in the `filters:` of the 25 defaults files (`git grep…
 - [x] (27 Nov) The list of things to do from the chats (author: "all in chats should be on some new
       list"): `python sherlock/chats.py ideas` writes Me/chats/ideas.md, every untriaged thread by
       product (325: USC 110, USM 92, USF 59, Ops 64; personal threads counted, not listed).
@@ -7046,8 +7060,7 @@ the body's vessels by the Televator); 26 Nov (the visual audit: USC on the app's
       interpretive, from the first screen); the 4D ladder is 31, 31, 62, 93. Of the switches the author
       named on 26 Nov (M-Theory, T-Theory, philosophy, clinical psychiatry) only T-THEORY exists; the page's
       other ten are lens, style, contours and developer switches.
-- [ ] The options in the app (AUTHOR to confirm): start at `start4D`; the missing switches (M-Theory,
-      philosophy, clinical psychiatry) as gates in the model first, then in the page.
+- (moved to ISS-081, 27 Nov) The options in the app: start at `start4D`; the missing switches (M-Theory, philosophy, cl…
 - [x] (27 Nov) Coverage (levels, the concept registry, the questions and the tours): 15 of 27 papers
       reach the screen; none of P4, P6, P7, P8, P12, P15, P17, P18, P23, P25, SH1, P26 does (P24 only through
       the black-hole question); every level cites a paper. The books next.
@@ -7136,8 +7149,58 @@ Code and Neovim plugins (18 Nov).
       `:UscCheck` (the tag checks as diagnostics, from bld/sherlock/usc.txt), `:[range]UscIdea [disp] [ref]
       [note]` (tag the lines as an IDEA where it was said; asks for what is missing) and `:UscIdeas`; it finds
       U from a chat in Me ($USC_U or ~/prj/git/ITI-Theory/U). Tested headless (U.Dot 337dae9).
-- [ ] AUTHOR: first use: `usc-vim` on a chat in Me/chats/Inbox, `<space>ui` on a good line.
+- (moved to ISS-081, 27 Nov) first use: `usc-vim` on a chat in Me/chats/Inbox, `<space>ui` on a good line.…
 - [ ] The Soma Machine's shell (MOTHER `/shell`) as the editor's home, the models one key away.
 - [x] (27 Nov) The chats' threads queued here: 20261120_140700 sm-as-dev-env, mother-neovim and
       plugin-strategy; 20261118_215825 vscode-plugin.
+
+## ISS-130: USF: the corrections the fishing found, place by place — OPEN
+{{Tags area.theory, area.papers, area.books, area.sherlock}}
+{{Fields date.created=2026-11-27, date.start=, date.end=, epic=}}
+
+The fishing of 27 Nov (ISS-126; `make -C sherlock fishing`) found each of these in the cheatsheet and then,
+through the equations census (ISS-128, bld/sherlock/equations.md) and a phrase search, everywhere else. Each
+box names Sherlock's claims (registry/affidavits), the places and the Lean that settles it. Where a box waits
+on a decision, the decision is on the desk (ISS-081); Copilot's provisional answer is in ISS-126. Order: the
+cheatsheet (books/T-Theory/booklet/booklet_body.md) first, then the books, then the papers at their next
+versions (papers are never edited in place; Dist/PAPERS.yaml). When a box is done, its claims are re-frozen
+and their verdicts change: that is the witness.
+
+- [ ] The master equation's sign (desk: the sign). Three documents write both forms with one k: the
+      cheatsheet 30-36, P10 (soma-temporal-dynamics) 88/100, the philosophy book 174/180. Provisional: k is
+      a mass (Klein-Gordon, k = n/R), the stationary form's k is ω/v. Claims CS9, T9, P8; Lean
+      `Fishing.KaluzaKlein.two_signs`, `Fishing.Gravity.yukawa_not_oscillating`. The 17 Helmholtz-only files
+      (equations.md) keep their form, read as ω/v.
+- [ ] The memory kernel (desk: which fix). e^{-τ/τₘ} is the field's Euclidean correlation, not a real-time
+      memory: say so, or add a damping term to the equation. Cheatsheet 39-40; P10 163, 178, 180, 240, 528;
+      the philosophy book 166, 583, 729; P14 287 is right in its setting (add the Wick-rotation remark).
+      Claims CS10, T10, P9, E10; Lean `kernel_euclidean`, `kernel_not_mode`, `rest_mode`.
+- [ ] The pre-verbal claim follows the kernel: cheatsheet 224-225, the soma-field paper 1320, P18. CS19.
+- [ ] "deep narrow minima" becomes "deep minima": cheatsheet 95. CS11; Lean `Fishing.Kramers.narrower_faster`.
+- [ ] Kramers' friction γ in the formula: cheatsheet 108-109, P10 263. CS12, T11.
+- [ ] WKB: the 2m in the exponent (or m = 1/2 stated), and "probability", not "amplitude": cheatsheet
+      115-116, the geophysics book 212-215, conclusion-geophysics 15, kappa-geophysics 31; in the Lean,
+      LimbicTunnel's `wkbAmplitude` renamed (an alias kept). CS13, G7; Lean `Fishing.WKB.action_integral`.
+- [ ] SQ ≡ λ₁ becomes λ₂, the Fiedler value: cheatsheet 171, 190. CS14; Lean `Fishing.Networks.lowest_is_zero`.
+- [ ] Gutenberg-Richter: name the class with β = 2/3 or say b is empirical; N ∝ M^{-b} becomes 10^{-bM}; the
+      premise b ∝ Δλ/T reconsidered: cheatsheet 181, 192; kappa-geophysics 21; soma-geophysics 85-131. CS15.
+- [ ] Nash ≡ Hopfield minimum "for potential games (symmetric couplings)": cheatsheet 186. CS16.
+- [ ] Calabi-Yau: G₂ (open), and flat in the Lean; ω² = k/m "modelled" (physlib), not "derived": cheatsheet
+      148-149, 159; conclusion-formal-mathematics 35; conclusion-physics 15; kappa-physics 37; P21 231, 295,
+      359; P22 120, 291. CS17.
+- [ ] High β: "the same wells hold longer", not "deeper wells": cheatsheet 212. CS18; Lean
+      `Fishing.Clinical.dwell_grows_with_beta`.
+- [ ] The linearised Einstein limit is assumed (an axiom), not recovered: cheatsheet 144-145. CS21.
+- [ ] Ω_Λ = 7/11 as zeroth order; "95.5%" is 1 - 1/22, a shortfall (closure makes it curvature, > 23σ); 15/22
+      pre-registered or not (desk: the fractions): cheatsheet 15, 20; P21 144, 360; P22 466; the philosophy
+      book 208, 899; the physics book 160, 214. CS3; rows COSMO-1, 2, 3.
+- [ ] Gravity's k is the cosmic mode (σ ≥ 18): wherever k(σ) is given per scale (cheatsheet 158-160). Row GRAV-2.
+- [ ] The scale range: cheatsheet 7 (10²⁶ m, 61 orders), the Lean (10²⁵ m, 60), P21 (19 steps, 60.93
+      decades); and in the Lean `scaleNames` against `characteristicLength` (they agree only at levels 0
+      and 1) and the stale "Eleven orders of magnitude" header (dev, UniversalSomaticField.lean). CS2;
+      `Fishing.Scales`.
+- [ ] P15's title (the OS axioms "for the interacting" field) against its content (two conjectures), at
+      its next version. I7.
+- [ ] Sherlock: the sorry count across the affidavits (P14 now says none left since October; E5, E6 and
+      the papers' X12, U10 are frozen before): re-freeze them together (dev).
 
