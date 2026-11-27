@@ -6850,6 +6850,7 @@ directly or through a core; 26 Nov, USC as Sherlock and MTC, the `{{usc:...}}` t
       13 May, 7 and 11 Aug, 26 Nov; Sherlock's origin in the June brainstorms). 115 chats fail the
       triage, 25 threads open. `python sherlock/chats.py route` routes a thread.
 - [ ] The chats outside the Inbox (Me/chats/notebooks, Me/archive/sessions).
+- [x] (27 Nov) Queued here from the chats: 20261126_140957 architecture-md (USC's ARCHITECTURE.md).
 - [ ] Join the chat models to the paper models (MTC; a core T-Theory model the documents project
       from, 23 Nov).
 - [x] (27 Nov) The Einstein backtest (26 Nov): `sherlock/backtests/Einstein1905.lean` (`make -C sherlock
@@ -6981,9 +6982,9 @@ the body's vessels by the Televator); 26 Nov (the visual audit: USC on the app's
       other ten are lens, style, contours and developer switches.
 - [ ] The options in the app (AUTHOR to confirm): start at `start4D`; the missing switches (M-Theory,
       philosophy, clinical psychiatry) as gates in the model first, then in the page.
-- [x] (27 Nov) Coverage, first pass (levels and the concept registry): 14 of 27 papers reach the
-      screen; none of P4, P6, P7, P8, P12, P15, P17, P18, P23, P24, P25, SH1, P26 does; every level cites a
-      paper. Questions, paths and models still to count; the books next.
+- [x] (27 Nov) Coverage (levels, the concept registry, the questions and the tours): 15 of 27 papers
+      reach the screen; none of P4, P6, P7, P8, P12, P15, P17, P18, P23, P25, SH1, P26 does (P24 only through
+      the black-hole question); every level cites a paper. The books next.
 - [x] (27 Nov) USC on the visuals, the author's design of 26 Nov (thread visual-audit): `npm run capture
       -- --only audit` (screenshot and the page's visible text, per level and 4D, 8D, 11D), Windows' own OCR
       (sherlock/Tools/ocr.ps1), the rules from main.js and the registry (`sherlock/appaudit.py`), and Lean
@@ -6996,6 +6997,8 @@ the body's vessels by the Televator); 26 Nov (the visual audit: USC on the app's
       (theoretical physics on or off, ...); other theories' models (philosophy) as alternatives.
 - [ ] USC on the visuals: the visual audit (26 Nov), the screens checked against the model.
 - [ ] The Fantastic Voyage (21 Nov, threads body-voyage, shrink-by-zoom): biology at the finest level.
+- [x] (27 Nov) The chats' threads queued here (`chats.py route`): 20261121_220226 body-voyage and
+      shrink-by-zoom, 20261126_140957 visual-audit.
 
 ## ISS-128: Equations: every Pandoc equation matched to its Lean — OPEN
 {{Tags area.sherlock, area.proofs, area.papers}}
@@ -7017,6 +7020,7 @@ its two signs (ISS-126) are exactly the error this would catch.
       stellar level shows Helmholtz, its local-circuit level Klein-Gordon.
 - [ ] A Lean-to-LaTeX printer for named definitions and theorems, and the match, equation by equation.
 - [ ] The cheatsheet first; then the papers through their affidavits.
+- [x] (27 Nov) The chats' threads queued here: 20261123_171439 equations.
 
 ## ISS-129: Neovim as the front end: the Soma Machine as an Emacs, chats at chat time — OPEN
 {{Tags area.app, area.sherlock, area.ops}}
@@ -7037,4 +7041,6 @@ Code and Neovim plugins (18 Nov).
       U from a chat in Me ($USC_U or ~/prj/git/ITI-Theory/U). Tested headless (U.Dot 337dae9).
 - [ ] AUTHOR: first use: `usc-vim` on a chat in Me/chats/Inbox, `<space>ui` on a good line.
 - [ ] The Soma Machine's shell (MOTHER `/shell`) as the editor's home, the models one key away.
+- [x] (27 Nov) The chats' threads queued here: 20261120_140700 sm-as-dev-env, mother-neovim and
+      plugin-strategy; 20261118_215825 vscode-plugin.
 

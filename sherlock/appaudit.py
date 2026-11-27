@@ -151,6 +151,10 @@ def features() -> int:
     L += [",\n".join(rows), "]", "",
           "/-- The concept registry, shown on its levels in the Sherlock panel: (id, label, levels, papers). -/",
           "def concepts : List (String × String × List String × List String) := [\n" + ",\n".join(concepts) + "\n]", "",
+          "/-- Other things the app shows that cite papers: its questions and tours, (kind/id, papers). -/",
+          "def others : List (String × List String) := [\n" + ",\n".join(
+              f'  ({s(kind + "/" + q.stem)}, {strs(sorted(set(re.findall(r"\b(P\d+|SH1)\b", q.read_text(encoding="utf-8")))))})'
+              for kind in ("questions", "tours") for q in sorted((U / "registry" / kind).glob("*.yaml"))) + "\n]", "",
           "def papers : List (String × String × String) := [" + ",\n  ".join(
               f"({s(pp['id'])}, {s(pp.get('title', ''))}, {s(pp.get('discipline', ''))})" for pp in papers) + "]", "", "end UsmData", ""]
     (OUT / "UsmData.lean").write_text("\n".join(L), encoding="utf-8", newline="\n")

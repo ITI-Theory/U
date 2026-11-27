@@ -16,8 +16,8 @@ open Usm UsmData
 #eval (appDefault.dim, appDefault.on, (shown appDefault rows).length, ((shown appDefault rows).filter (·.claim == "INTERPRETIVE")).length)
 -- The switches the page has.
 #eval toggles
--- Coverage: the papers neither a level nor a concept shows (what the documents claim that nothing shows).
-def onScreen : List String := (papersShown rows ++ concepts.flatMap (·.2.2.2)).eraseDups
+-- Coverage: the papers neither a level, a concept, a question nor a tour shows (what the documents claim that nothing shows).
+def onScreen : List String := (papersShown rows ++ concepts.flatMap (·.2.2.2) ++ others.flatMap (·.2)).eraseDups
 #eval s!"{onScreen.length} of {papers.length} papers on screen"
 #eval (papers.filter fun p => !onScreen.contains p.1).map fun p => (p.1, p.2.1)
 -- Interpretive concepts the Sherlock panel shows whatever the dimension (a 4D start would still show them).
