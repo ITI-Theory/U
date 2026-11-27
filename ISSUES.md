@@ -4196,6 +4196,8 @@ other work.
       extension's name (USF, USM and USC in one package), the date (Zenodo, t-theory.org, Marketplace, Neovim).
 - [ ] (ISS-133, 27 Nov) The Evolution's title: Copilot proposes "[T]-Theory: The Evolution", subtitle "How it
       came about: Phase Dot, condensed"; and the package's name, "[T]-Theory Explorer" (ISS-132).
+- [ ] (ISS-134, 27 Nov) Background reading, the chats by concept, as the course's companion: yes or no; title
+      (Copilot proposes "[T]-Theory: Background").
 
 ## ISS-082: The voices: the author's own, and a licence-clean public one — PARKED
 {{Tags area.app, area.instrument}}
@@ -7360,3 +7362,32 @@ cites the prompts it comes from, so Sherlock can write its affidavit against the
       condensed" (keeps the link to Phase Dot; "compressed" reads like a zip file). "Explore" fits the VS Code
       package better than the book: "[T]-Theory Explorer" (the Soma Machine is an explorer; USC explores the
       documents), ISS-132.
+
+## ISS-134: Background reading: what the chats explain around [T]-Theory, by concept, for the course — OPEN
+{{Tags area.books, area.sherlock}}
+{{Fields date.created=2026-11-27, date.start=, date.end=, epic=ISS-132-big-bang}}
+
+**Author, 27 Nov 17:21:** the chats "contain a lot of background info 'around' t-theory. not a course, not
+the theory ... Background reading. maybe we could repackage it all as background reading ... maybe
+explicitly for the course book ... but as this is a new theory ... users cant just ask google/chatgpt".
+Earlier: an AI reading the chats, 12 Jun (20260612_184004): "You have a gold mine in `Me/chats/`"; 9 Jun
+(20260609_220735): "an educational goldmine".
+
+**Copilot's opinion (27 Nov): yes, as the third view of the same model.** The Evolution (ISS-133) is the
+chats by time (what happened); this is the chats by concept (what you need to know). A general AI can
+explain a Green's function, Kramers' escape or Kaluza-Klein; what it cannot explain, because the theory
+is new, is the bridge: how [T]-Theory uses each one, where, and with what status. Those bridges are what
+the chats are full of, and what a course reader lacks.
+
+- [ ] The view: `chats.py background` groups the threads by concept (the affidavits' concepts,
+      Me/chats/affidavits/concepts.yaml) instead of by month; each entry: the standard idea (cited, not from
+      the chats), its role in [T]-Theory (the papers, the Lean, the method's row if there is one), where it
+      was discussed (chat and prompts), and its evidence label.
+- [ ] Checked, not copied: the chats' explanations contain errors the fishing found (the memory kernel, the
+      sign of k², exp(-2S) called an amplitude); every entry gets Sherlock's affidavit, and where a method row
+      exists (sherlock/Fishing) the entry states the row's verdict, not the chat's.
+- [ ] For the course: each chapter's "going further" boxes point to the entries it needs; the book is the
+      course's companion volume (title: AUTHOR; Copilot proposes "[T]-Theory: Background").
+- [ ] So that people can ask their own AI: published where AIs read (Zenodo with the papers, t-theory.org as
+      HTML, an `llms.txt` index), bundled in the VS Code package (ISS-132), and a source for NotebookLM/H-AL.
+- [ ] Same rules as The Evolution: public; personal threads never listed; nothing quoted from the chats.
