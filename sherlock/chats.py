@@ -35,8 +35,9 @@ OUT = U / "bld" / "sherlock" / "lean"
 
 ENTRY = re.compile(r"^## Author \(([^)]+)\)[ \t]*$", re.M)
 TURN = re.compile(r"^## (Author|Assistant)\b.*$", re.M)
-PROMPT = re.compile(r"^\*\*Your prompt:\*\*[ \t]*$", re.M)
-RESPONSE = re.compile(r"^\*\*Search(?:'|&#39;)s response:\*\*[ \t]*$", re.M)
+# A prompt holding Markdown is exported under a heading: "### **Your prompt:**".
+PROMPT = re.compile(r"^(?:#+[ \t]*)?\*\*Your prompt:\*\*[ \t]*$", re.M)
+RESPONSE = re.compile(r"^(?:#+[ \t]*)?\*\*Search(?:'|&#39;)s response:\*\*[ \t]*$", re.M)
 ACTION = re.compile(r'<ActionUnit query="([^"]*)"')
 STATUS = {"pursued": ".pursued", "deferred": ".deferred", "drifted": ".drifted", "unexplored_fork": ".unexploredFork"}
 DISPOSITIONS = ("implemented", "queued", "parked", "discarded", "untriaged")
@@ -119,7 +120,10 @@ def affidavit(chat: dict, vocab: set[str]) -> tuple[dict | None, list[str]]:
     path = AFF / (Path(chat["file"]).stem + ".aff")
     if not path.exists():
         return None, []
-    aff = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+    try:
+        aff = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+    except yaml.YAMLError as error:
+        return None, [f"{path.name}: not YAML ({str(error).splitlines()[0]})"]
     problems = []
     names = list(aff.get("concepts") or []) + [c for t in aff.get("threads") or [] for c in t.get("concepts") or []]
     problems += [f"{path.name}: unknown concept {c!r} (add it to concepts.yaml)" for c in dict.fromkeys(names) if c not in vocab]
