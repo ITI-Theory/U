@@ -37,7 +37,9 @@ AFF = ME / "chats" / "affidavits"
 OUT = U / "bld" / "sherlock" / "lean"
 
 ENTRY = re.compile(r"^## Author \(([^)]+)\)[ \t]*$", re.M)
-TURN = re.compile(r"^## (Author|Assistant)\b.*$", re.M)
+TURN = re.compile(r"^## (Author|User|Assistant)\b(.*)$", re.M)  # User: Copilot's export ("## User - <time>")
+NLM_TURN = re.compile(r"^(USER|MODEL):[ \t]*", re.M)            # an older NotebookLM history
+STAMP = re.compile(r"(\d{4}-\d\d-\d\dT\d\d:\d\d(?::\d\d)?(?:\.\d+)?Z?|\d{4}-\d\d-\d\d \d\d:\d\d)")
 # A prompt holding Markdown is exported under a heading: "### **Your prompt:**".
 PROMPT = re.compile(r"^(?:#+[ \t]*)?\*\*Your prompt:\*\*[ \t]*$", re.M)
 RESPONSE = re.compile(r"^(?:#+[ \t]*)?\*\*Search(?:'|&#39;)s response:\*\*[ \t]*$", re.M)
@@ -67,7 +69,7 @@ def clean(s: str) -> str:
 
 def parse(path: Path) -> dict:
     """The author's prompts (in order, repeats dropped) and the assistant's offered follow-ups."""
-    text = path.read_text(encoding="utf-8").replace("\r\n", "\n")
+    text = path.read_text(encoding="utf-8", errors="replace").replace("\r\n", "\n")  # a few old exports are not UTF-8
     head = header(text)
     prompts: list[dict] = []
     index: dict[str, int] = {}
@@ -104,11 +106,17 @@ def parse(path: Path) -> dict:
                     if k and not any(o["after"] == k and o["text"] == q for o in offers):
                         offers.append({"after": k, "text": q})
     else:
-        turns = list(TURN.finditer(text))
-        for i, t in enumerate(turns):
-            if t.group(1) == "Author":
-                end = turns[i + 1].start() if i + 1 < len(turns) else len(text)
-                add(text[t.end(): end], "", t.start())
+        # One turn per heading (VS Code, Copilot, NotebookLM) or per USER:/MODEL: line; the brainstorm
+        # dumps have no speakers, so no prompts (their affidavits are read from the text).
+        # USER:/MODEL: only where no heading marks the author (answers quote old chats, USER: and all).
+        marks = [(t.start(), t.end(), t.group(1) in ("Author", "User"), t.group(2)) for t in TURN.finditer(text)]
+        if not any(m[2] for m in marks):
+            marks = sorted(marks + [(t.start(), t.end(), t.group(1) == "USER", "") for t in NLM_TURN.finditer(text)])
+        for i, (start, end, author, rest) in enumerate(marks):
+            if author:
+                stop = marks[i + 1][0] if i + 1 < len(marks) else len(text)
+                when = STAMP.search(rest or "")
+                add(text[end: stop], when.group(1) if when else "", start)
     return {"file": path.name, "date": str(head.get("date", "")), "source": str(head.get("source", "")),
             "account": str(head.get("account", "")), "title": str(head.get("title", "")),
             "prompts": prompts, "offers": offers}
