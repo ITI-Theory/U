@@ -7984,6 +7984,14 @@ mathlib and physlib ... T-theory, all of it, modelled in lean"):**
 - [ ] Moriarty in Lean: the attacker that searches for refutations (and for microtheory combinations with no instance).
 - [ ] The aso: to cyc: functor: the Somatic Field Ontology mapped to OpenCyc's concepts; where it will not map is a
       finding ("morphism friction": a hidden dualist assumption in the prose).
+- [x] (27 Nov 23:5x) The generator's first step, in Lean (no Python): sherlock/Tools/CycCensus.lean, a compiled
+      `lake exe cyc-census` reading NextKB's KRF files (5 seconds for 117 MB). NextKB: 898 files, 1,393,974 forms;
+      573 microtheories, 2,415 genlMt; 97,807 genls, 332,944 isa, 15,000 disjointWith, 58,973 argument-type
+      constraints; 61,626 collections, of which 4,582 sorts (argument types) and 1,917 collection-types; 104,650
+      individuals; 723,685 other forms (relations, lexicon, rules) and 160,659 with variables (rules). The sorts most
+      used: Thing, Collection, FirstOrderCollection, NonNegativeInteger, Microtheory, CharacterString,
+      PartiallyTangible, PositiveInteger, Agent-Generic, Integer, IntelligentAgent, Person, Date, List: several are
+      Lean's own (ℕ, ℤ, String, List), to be mapped to them, not modelled again.
 - [ ] Step 2, the scale: the whole NextKB taxonomy (103,321 genls; 333,488 isa; 26,154 disjointWith) generated in the
       A + C form, measured (build time, memory, coercion search); then P1 against it. disjointWith and individuals
       with several types still to design.

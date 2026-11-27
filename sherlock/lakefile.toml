@@ -121,3 +121,9 @@ name = "LinkQueries"
 # Lean back to LaTeX (ISS-128): #latex name.
 [[lean_lib]]
 name = "Latex"
+
+# The native OpenCyc generator's first step (ISS-141): NextKB's KRF files read in Lean, and counted.
+# `lake exe cyc-census ../bld/sherlock/raw/nextkb`
+[[lean_exe]]
+name = "cyc-census"
+root = "Tools.CycCensus"
