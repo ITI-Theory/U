@@ -7276,6 +7276,9 @@ and their verdicts change: that is the witness.
       "twenty-one scale levels" (line 12), the body "the choice of 20 levels" and "each of the twenty scale levels"
       (lines 316, 372). Twenty named positions on a continuous dial, or 21 counting both ends: settle it in the next
       version, and Sherlock's affidavit gets the claim (a `sum` or `eq` check).
+      Correction (27 Nov, later): Sherlock knew it already: bld/sherlock/values.md has `USF-ScaleLevelCount` DIFFER
+      across six documents (20 against 21: P10, P11, P19, P20, P21) since October; it reached no issue because the
+      values report was read by nothing. Now `usc.py check` warns on every DIFFER (ISS-139).
 
 ## ISS-131: Writing up USC: what it did, how it works, how to use it — IN-PROGRESS
 {{Tags area.sherlock, area.papers, area.books}}
@@ -7695,3 +7698,8 @@ registry 1 of 1. Outside U, not yet: the org page and Dist's README.
 - [ ] A build ledger: each real build appends target, time, exit and outputs; a promised target with no successful
       build is unverified, one older than its sources stale (as the Lean appendix and the omnibus were on 27 Nov).
 - [ ] Targets as nodes in the links graph (target, outputs, document, product).
+- [x] (27 Nov) P26, Gateway and The Evolution under Sherlock: every paper (27) and every book (17) has an affidavit;
+      50 of 86 documents, 447 of 447 checks.
+- [x] (27 Nov) The values report wired in: `usc.py check` warns on every quantity quoted differently (5, all from
+      October: the instrument's section 6 or 8 (P1, P7), The Tensor's second threshold 0.74 or 0.71, two of P11's
+      ranks, and the scale levels 20 or 21 in six documents), at the affidavit that quotes it.

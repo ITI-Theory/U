@@ -88,8 +88,32 @@ def citation_findings() -> list[str]:
     return out
 
 
+def value_findings() -> list[str]:
+    """A quantity quoted differently in two places (bld/sherlock/values.md, from `make -C sherlock check`): a warning at
+    the first affidavit that quotes it, so a disagreement is in the editor and not only in a report (ISS-139)."""
+    f = U / "bld" / "sherlock" / "values.md"
+    if not f.exists():
+        return []
+    out = []
+    for line in f.read_text(encoding="utf-8").split("\n"):
+        m = re.match(r"- `([^`]+)` DIFFER: (.*)$", line)
+        if not m:
+            continue
+        doc = re.search(r"\(([\w-]+) (\w+)\)", m[2])
+        aff = U / "registry" / "affidavits" / f"{doc[1]}.yaml" if doc else None
+        n = 1
+        if aff and aff.exists():
+            for k, l in enumerate(aff.read_text(encoding="utf-8").split("\n"), 1):
+                if re.search(r"- id: " + re.escape(doc[2]) + r"\b", l):
+                    n = k
+                    break
+        where = aff.as_posix() if aff and aff.exists() else f.as_posix()
+        out.append(f"{where}:{n}: warning: {m[1]} is quoted differently: {m[2][:160]}")
+    return out
+
+
 def check() -> int:
-    found = tag_findings() + citation_findings() + make_findings() + bait_findings()
+    found = tag_findings() + citation_findings() + make_findings() + value_findings() + bait_findings()
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text("".join(x + "\n" for x in found), encoding="utf-8", newline="\n")
     for x in found:
