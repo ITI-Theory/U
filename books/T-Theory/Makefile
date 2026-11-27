@@ -127,7 +127,9 @@ $(BLD)/book-background.pdf: background/book-background.md defaults/background-pd
 	$(PANDOC) $< --defaults=defaults/background-pdf.yaml --output=$@
 	@echo "Built: $@"
 
-../../bld/sherlock/chronicle.json: FORCE
+# The chronicle is rebuilt when what it reads changes: the chats' affidavits (Me, beside U) and chats.py.
+CHRONICLE_SRC := $(wildcard ../../../../Me/chats/affidavits/*.aff) $(wildcard ../../../../Me/chats/affidavits/phase-dot/*.aff) ../../sherlock/chats.py
+../../bld/sherlock/chronicle.json: $(CHRONICLE_SRC)
 	cd ../.. && $(PYTHON) sherlock/chats.py chronicle
 
 # Compatibility target names for callers that have not yet been repointed to $(BLD).

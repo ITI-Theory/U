@@ -7692,11 +7692,16 @@ registry 1 of 1. Outside U, not yet: the org page and Dist's README.
 - [x] (27 Nov) Every target named in `make help`, the README and the docs exists: `usc.py make` (and in `usc.py
       check`, so the editors show it): 275 targets in 6 Makefiles. Its first run caught 7 commands in docs/SHERLOCK.md
       that only worked from sherlock/ (now `make -C sherlock ...`).
-- [ ] `make -n TARGET` resolves for every promised target (no build).
+- [x] (27 Nov) `make -n TARGET` for every promised target: `usc.py make --stale` (nothing built) reads the dry run
+      for the files it would write: 96 outputs stale or missing (bld/sherlock/stale.txt), the input of the release's
+      big build; targets that write no file (a Lean build, a check) reported as always running.
 - [ ] Dead targets from Make's own database (`make -pn`): called by nothing (not help, not another target, not the
       docs, not release-check).
-- [ ] A build ledger: each real build appends target, time, exit and outputs; a promised target with no successful
-      build is unverified, one older than its sources stale (as the Lean appendix and the omnibus were on 27 Nov).
+- [x] (27 Nov) Never built or stale, without a ledger: Make's own dependencies answer it (the dry run above). Its first
+      catch: The Evolution and Background were rebuilt on every run (their data rule was FORCE); now the chronicle
+      depends on what it reads (the affidavits, chats.py), and both books are up to date after one build.
+- [ ] A build ledger still, for what Make cannot know: when a promised target last built successfully (a target can
+      be up to date and still broken).
 - [ ] Targets as nodes in the links graph (target, outputs, document, product).
 - [x] (27 Nov) P26, Gateway and The Evolution under Sherlock: every paper (27) and every book (17) has an affidavit;
       50 of 86 documents, 447 of 447 checks.

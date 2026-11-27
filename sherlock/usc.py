@@ -12,6 +12,7 @@
     python sherlock/usc.py board --apply      # the cards moved in board.md become routes (moves it cannot apply: reported)
     python sherlock/usc.py coverage          # which documents have an affidavit, group by group -> bld/sherlock/coverage.md
     python sherlock/usc.py make              # every target `make help` and the docs promise exists (static, seconds)
+    python sherlock/usc.py make --stale      # which promised targets are up to date, by Make's own dry run (nothing built)
 
 Each finding is one line, `path:line: error|warning: message`, the form VS Code's problem matchers,
 Vim's quickfix list and the extension (apps/vscode) read. Errors: the {{usc:...}} tags that break the
@@ -459,11 +460,54 @@ def make_findings() -> list[str]:
     return found
 
 
+# Targets that start a server, publish, ask a notebook or need arguments: never dry-run.
+NO_DRY_RUN = {"app-start", "relay", "app-publish", "ask", "uat-run", "uat-nlm", "uat-stage-papers", "remind", "clean",
+              "generate", "explorer", "sherlock-setup", "lean-update", "release-check", "check", "moriarty", "wizard"}
+
+
+def make_stale() -> int:
+    """Never built, or stale (ISS-139): Make's dry run (`make -n TARGET`) for every target the root's help promises,
+    read for the files it would write (`-o`, `--output`): those outputs are missing or older than their sources.
+    A target whose commands write no file (a Lean build, a check) always runs and is reported as such. Nothing is
+    built; the stale outputs go to bld/sherlock/stale.txt."""
+    import subprocess
+    mk = (U / "Makefile").read_text(encoding="utf-8")
+    help_targets = [t for t in re.findall(r"(?m)^\t\$\(info\s{2,}([a-z][\w.-]*)\s", mk) if t != "make"]
+    out_rx = re.compile(r"(?:\s-o\s+|--output[= ])(\S+?\.(?:pdf|html|json|vsix|epub))\b")
+    stale_all, lines = set(), []
+    for t in help_targets:
+        if t in NO_DRY_RUN:
+            continue
+        try:
+            r = subprocess.run(["make", "-n", "--no-print-directory", t], cwd=U, capture_output=True, text=True,
+                               encoding="utf-8", errors="replace", timeout=180)
+        except subprocess.TimeoutExpired:
+            lines.append(f"  {t:17} timeout")
+            continue
+        outs = sorted(set(out_rx.findall(r.stdout)))
+        cmds = [l for l in r.stdout.split("\n") if l.strip() and not re.match(r"\s*(@?echo|\S*make(\.exe)?\b|#|:)", l)]
+        stale_all.update(outs)
+        if outs:
+            names = ", ".join(Path(o).name for o in outs[:3]) + (f" and {len(outs) - 3} more" if len(outs) > 3 else "")
+            lines.append(f"  {t:17} {len(outs)} stale or missing: {names}")
+        elif cmds:
+            lines.append(f"  {t:17} always runs ({len(cmds)} commands, no file written)")
+        else:
+            lines.append(f"  {t:17} up to date")
+    print("\n".join(lines))
+    (U / "bld" / "sherlock").mkdir(parents=True, exist_ok=True)
+    (U / "bld" / "sherlock" / "stale.txt").write_text("".join(o + "\n" for o in sorted(stale_all)), encoding="utf-8", newline="\n")
+    print(f"usc make --stale: {len(stale_all)} outputs stale or missing -> {U / 'bld' / 'sherlock' / 'stale.txt'}")
+    return 0
+
+
 def main() -> int:
     if len(sys.argv) >= 3 and sys.argv[1] == "recall" and sys.argv[2] == "--text":
         return recall_text(sys.argv[3:])
     if len(sys.argv) >= 2 and sys.argv[1] == "recall":
         return recall(sys.argv[2:])
+    if len(sys.argv) >= 3 and sys.argv[1] == "make" and sys.argv[2] == "--stale":
+        return make_stale()
     if len(sys.argv) >= 2 and sys.argv[1] == "make":
         return make_check()
     if len(sys.argv) >= 2 and sys.argv[1] == "coverage":
