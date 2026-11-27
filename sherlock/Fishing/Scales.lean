@@ -16,6 +16,10 @@ Three statements of the same range:
 3. `below_hubble`: c/H₀ = 1.37 × 10²⁶ m (Planck 2018, H₀ = 67.36 km/s/Mpc) is more than 13 times the
    top level, so the dial stops an order of magnitude short of the scale it names.
 
+4. `names_vs_lengths`: the Lean's own names (`scaleNames`) and lengths agree only at levels 0 and 1.
+5. `named_steps`: the named scales are unevenly spaced (1 to 17 decades a step), so a uniform zoom
+   (10³ or 10^3.207) cannot be the map between named levels.
+
 Evidence label: `kernel-verified`. Which of the three is meant is the author's decision. The
 module's header also says "Eleven orders of magnitude", which is stale.
 -/
@@ -44,6 +48,23 @@ noncomputable def hubbleRadius : ℝ := 299792458 / (67.36e3 / 3.0857e22)
 theorem below_hubble : 13 * characteristicLength 20 < hubbleRadius := by
   rw [top_scale, hubbleRadius]
   norm_num
+
+/-- The exponents `scaleNames` gives, levels 0 to 19 (UniversalSomaticField.lean). -/
+def namedExp : List Int := [-35, -32, -15, -10, -9, -6, -3, -1, 0, 1, 3, 5, 6, 11, 16, 20, 22, 23, 24, 26]
+
+/-- The exponents `characteristicLength` gives: 3n - 35. -/
+def lengthExp : List Int := (List.range 20).map fun n => 3 * (n : Int) - 35
+
+/-- 4. Names and lengths agree only at levels 0 and 1: the brain (level 7) is named 10⁻¹ m and placed at
+    10⁻¹⁴ m, the size of a nucleus. -/
+theorem names_vs_lengths :
+    ((List.range 20).filter fun n => namedExp[n]! == lengthExp[n]!) = [0, 1] ∧
+      namedExp[7]! = -1 ∧ lengthExp[7]! = -14 := by decide
+
+/-- 5. The named scales are not evenly spaced (steps from 1 to 17 decades), so no single zoom
+    ratio maps one level to the next. -/
+theorem named_steps : (List.zipWith (· - ·) namedExp.tail namedExp).eraseDups.length > 1 ∧
+    (List.zipWith (· - ·) namedExp.tail namedExp).max? = some 17 := by decide
 
 #print axioms top_scale
 #print axioms span

@@ -6898,6 +6898,31 @@ directly or through a core; 26 Nov, USC as Sherlock and MTC, the `{{usc:...}}` t
 - [ ] AUTHOR: the bait (`make -C sherlock fishing`): which open assumptions to fish next; whether
       D5-8 carry fields in the bulk (KK-1: then R is below tens of microns) or on a brane; whether
       the budget's fractions are today's values only (COSMO-3), and the missing 1/22 (COSMO-2).
+      Recommendation (27 Nov, asked for "best effort"): bulk or brane is mostly wording, since the
+      cheatsheet (IV) already holds the EM field on a D3-brane and Hořava-Witten is a two-wall picture
+      (body at -1, mind at +1). For the physics: EM and matter on the walls, gravity and the limbic
+      field across D8, where the even modes meet both walls with zero slope and k = nπ/L is set by the
+      segment's length (KK-1, `segment_walls`; interpretive). For the mind side: label D5-11
+      coordinates of the field's state, so Kaluza-Klein is a type-level import (P3 §3.3), with no
+      claim of body-sized spatial dimensions that torsion balances would exclude.
+- [x] (27 Nov, round 3, the mind side, cheatsheet III) COID-KRAMERS-1 (`Fishing/Kramers.lean`, on
+      the programme's own well `LimbicTunnel.V`): curvatures 8W and -4W; a deeper well holds longer
+      (W ≥ D); a narrower well is escaped faster, so "deep narrow minima" has the second word wrong for
+      persistence; Arrhenius: halving the noise squares e^{W/D}; the formula omits the friction γ.
+      COID-ADLER-1 (`Fishing/Locking.lean`): the Arnold tongue as Adler's equation: locked iff
+      |Δω| ≤ K, stable inside, slips outside, so Δω_lock(κ) = K(κ), and how K grows with κ is the
+      claim to test. DESI (checked 27 Nov): DR2's 2.8 to 4.2σ preference for evolving dark energy
+      still stands, no DR3; COSMO-2's w = -1 is under pressure, short of its 5σ falsifier.
+- [x] (27 Nov, round 4, cheatsheet V-VI) COID-GR-1 (`Fishing/Seismic.lean`): b = 3β/2 (Hanks and
+      Kanamori), so b ≈ 1 needs a moment exponent β = 2/3, while the mean-field class gives b = 3/4
+      and no class is named. The geophysics book's own premises (criticality as a closing gap,
+      b ∝ Δλ/T) send b to 0, and its prediction 1 writes N ∝ M^{-b}, but Gutenberg-Richter is
+      exponential in M. COID-NASH-1 (`Fishing/Games.lean`): Nash ≡ Hopfield minimum holds for exact
+      potential games (symmetric couplings); matching pennies has no pure equilibrium, so no energy
+      fits it. COID-SQ-1 (`Fishing/Networks.lean`, Mathlib's Laplacian): λ₁ of a graph Laplacian is
+      0 for every network, so SQ must be the Fiedler value λ₂ (positive iff connected). Fishing/Scales:
+      the Lean's names and lengths agree only at levels 0 and 1 (the brain named 10⁻¹ m, placed at
+      10⁻¹⁴ m), and the named scales step unevenly, 1 to 17 decades, so no single zoom ratio maps them.
 - [ ] Physics fishing, further catches from the cheatsheet (the method's rows; the Lean decides).
 - [x] (27 Nov, author: "compile ISSUES.md as well, heavily linked to chats already") ISSUES.md as a
       Lean model: `sherlock/Issue` (statuses, boxes, AUTHOR steps, the header's rules as functions),

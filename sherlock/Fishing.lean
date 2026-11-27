@@ -4,6 +4,11 @@ import Fishing.Cosmology
 import Fishing.Scales
 import Fishing.Expansion
 import Fishing.KaluzaKlein
+import Fishing.Kramers
+import Fishing.Locking
+import Fishing.Seismic
+import Fishing.Games
+import Fishing.Networks
 import Einstein1905
 
 /-!
@@ -19,7 +24,8 @@ open Method
 def rows : List Row :=
   [Backtest.Einstein1905.row, Fishing.Gravity.row, Fishing.KleinGordon.row,
    Fishing.Cosmology.published, Fishing.Cosmology.row, Fishing.Expansion.row,
-   Fishing.KaluzaKlein.row]
+   Fishing.KaluzaKlein.row, Fishing.Kramers.row, Fishing.Locking.row,
+   Fishing.Seismic.row, Fishing.Games.row, Fishing.Networks.row]
 
 #guard rows.all (·.wellFormed)
 #eval ledger rows

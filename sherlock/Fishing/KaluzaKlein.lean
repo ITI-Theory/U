@@ -74,6 +74,14 @@ theorem periodic (n : ℕ) {R : ℝ} (hR : R ≠ 0) (y : ℝ) :
     field_simp
   rw [e, Real.cos_add_nat_mul_two_pi]
 
+/-- 2c. The field across D8 (the segment between the walls, length L = πR): the even modes
+    cos(nπy/L) have zero slope at both walls, body (y = 0) and mind (y = L). So k = nπ/L is set by the
+    segment's length. -/
+theorem segment_walls (n : ℕ) {L : ℝ} (hL : L ≠ 0) :
+    -(n * π / L * Real.sin (n * π / L * 0)) = 0 ∧ -(n * π / L * Real.sin (n * π / L * L)) = 0 := by
+  refine ⟨by simp, ?_⟩
+  rw [div_mul_cancel₀ _ hL, Real.sin_nat_mul_pi, mul_zero, neg_zero]
+
 /-- 3. The tower: mode n's static response is Yukawa with k = n/R; mode 0 is Newton's 1/r. -/
 theorem tower (n : ℕ) (R : ℝ) {r : ℝ} (hr : r ≠ 0) :
     Gravity.yukawa'' (n / R) r + 2 / r * Gravity.yukawa' (n / R) r
@@ -111,8 +119,9 @@ def row : Method.Row where
     ⟨"k is quantised on the circle", .lean ``Fishing.KaluzaKlein.periodic⟩,
     ⟨"mode n is Yukawa, mode 0 Newton", .lean ``Fishing.KaluzaKlein.tower⟩,
     ⟨"the stationary (Helmholtz) k is a frequency ω/v, not the mass", .lean ``Fishing.KaluzaKlein.two_signs⟩,
-    ⟨"the field propagates in D5-8 (the bulk)",
-      .open_ "IV holds the EM field on a D3-brane; a field confined to a brane has no tower: AUTHOR"⟩,
+    ⟨"the field across D8 meets the walls with zero slope", .lean ``Fishing.KaluzaKlein.segment_walls⟩,
+    ⟨"which fields cross D8 (the bulk) and which stay on the walls",
+      .open_ "recommended (ISS-126): EM and matter on the walls, as IV and Hořava-Witten have it; gravity and the limbic field across D8. AUTHOR"⟩,
     ⟨"the gauge field is g_{μ5}, Maxwell from 5D Einstein", .cited "Kaluza 1921; Klein 1926; not formalised"⟩,
     ⟨"R is below the torsion-balance bound",
       .open_ "if gravity is in the bulk, R is below tens of microns (Eöt-Wash, Lee et al. 2020); the cheatsheet puts D5-8 at somatic scales"⟩]
