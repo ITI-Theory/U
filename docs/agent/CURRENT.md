@@ -29,7 +29,7 @@ audio. Details in ISS-118 and ISS-120 and `registry/studio/standard.yaml`.
 
 ## Next
 
-1. AUTHOR: settle the name, Universal Semantic or Somantic Compiler (ISS-126).
+1. The name is settled: the Universal Semantic Compiler (author, 27 Nov; T.Ops naming standard).
 2. AUTHOR: triage the chats that fail (`Chat.untriaged`), starting with the USC chats of 18-26 Nov.
 3. ISS-126: the chats in Me/chats/notebooks and Me/archive/sessions; join the chat models to the
    paper models (MTC, a core the documents project from); the Einstein backtest; the `{{usc:...}}`

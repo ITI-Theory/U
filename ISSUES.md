@@ -6825,7 +6825,8 @@ quieter, pulsing background ... that would show the field working".
 **The names (author, 27 Nov):** USF, the Universal Soma Field: the theory (the papers and books);
 USM, the Universal Soma Machine: "not just an app, this is the visualization of t-theory"; USC, the
 compiler, "of which sherlock is an instance". The author wrote "Universal Somantic Compiler" on
-27 Nov; his chats of 18-26 Nov say "Universal Semantic Compiler": to settle.
+27 Nov; his chats of 18-26 Nov say "Universal Semantic Compiler". Settled (author, 27 Nov):
+"Semantic, yes, not my typing".
 
 **Goal (author, 27 Nov):** the chats as use cases that finish the chat knowledge base: "run sherlock
 on the chat files themselves, and model the chats"; "first time grep gets the requirements, but the
@@ -6854,4 +6855,4 @@ directly or through a core; 26 Nov, USC as Sherlock and MTC, the `{{usc:...}}` t
 - [ ] The Einstein backtest (26 Nov): his work to June 1905 in, does the system find November 1905
       and the gap Planck found.
 - [ ] The `{{usc:...}}` tags (26 Nov: the EBNF) and their Lua filter.
-- [ ] USF, USM and USC in the naming standard (T.Ops), once the name is settled.
+- [x] (27 Nov) USF, USM and USC in the naming standard (T.Ops `docs/standards/naming.md`).
