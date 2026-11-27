@@ -7585,9 +7585,10 @@ use this as a concrete use case".
    | In progress | queued on an IN-PROGRESS issue | read from the issue, not set on the card |
    | Done | implemented (with its ref), or dropped (with its reason) | `route ... implemented REF` or `discarded REASON` |
 
-   - [ ] `usc.py board` writes the board as Markdown (Me/chats/board.md): `## Column` headings, a card per thread
+   - [x] (27 Nov) `usc.py board [STAMP]` writes the board as Markdown (Me/chats/board.md, or one chat's): 391 cards; `## Column` headings, a card per thread
      (`- [ ] topic <!-- STAMP thread -->`), the format VS Code's and Obsidian's Kanban views and any editor read.
-   - [ ] `usc.py board --apply` reads it back: a card moved to another column becomes a `route` (a move to Done needs a
+   - [x] (27 Nov) `usc.py board --apply [FILE]` reads it back (tested on a copy: a move to Paused applied, a move to
+     Done with only an open issue refused; reverted, git clean): a card moved to another column becomes a `route` (a move to Done needs a
      ref, to Backlog an issue: written on the card; a move without one is reported, not applied). Rearranging the file
      in Neovim (`dd`, `p`) is the triage.
    - [ ] One board per chat as well as one for all (zooming: a chat's own thoughts), and the issues' boxes on the same

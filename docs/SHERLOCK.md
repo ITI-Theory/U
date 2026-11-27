@@ -189,6 +189,10 @@ run at a time, so run the targets one after another.
 | `python chats.py ideas --grep WORD --by kind\|product\|date` | search it; printed, nothing written |
 | `python chats.py tag` | write a tag into the original chat for every routed thread (idempotent) |
 | `python usctags.py check` | the tag checks alone; `strip FILE` prints a file as the builds see it |
+| `python usc.py check` (`make usc`) | every editor's findings in seconds: tag errors, the books' citations, untriaged tags, open assumptions |
+| `python usc.py recall WORD ...` | "didn't I think about ...?": every thread, any state, best first; `--text` searches the chats' text |
+| `python usc.py browse`, `where`, `rank` | the picker's data (`:UscBrowse`), a thread's chat and line, the author's 0-3 rating |
+| `python usc.py board [STAMP]`, `board --apply` | the thoughts as a Kanban board (Me/chats/board.md); moved cards become routes |
 
 **Tagging a line.** Put the tag on its own line, where the thing was said: in a chat (`Me/chats/Inbox`) or in
 `ISSUES.md`, the only places allowed until the builds strip tags (ISS-081):
