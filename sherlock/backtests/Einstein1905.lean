@@ -17,6 +17,7 @@ transformation; the two Doppler factors sum to γ). Energy is conserved in both 
 3. `mass_drop`, `mass_limit`: with that lemma made explicit (the kinetic energy is Newtonian,
    ½mv², up to one constant), Δm(v) = 2L(γ - 1)/v², and Δm(v) → L/c² as v → 0: E = mc² as a limit,
    which is all the 1905 argument gives (von Laue's general proof, 1911, is another matter).
+4. `mass_drop_exact`: with the June paper's own relativistic kinetic energy instead, Δm = L/c² exactly.
 
 Evidence label: kernel-verified facts about Einstein's argument; no claim of [T]-Theory.
 -/
@@ -107,9 +108,29 @@ theorem einstein_1905 {c L : ℝ} (hc : c ≠ 0)
   filter_upwards [self_mem_nhdsWithin] with v hv
   exact (mass_drop hv (h v) (n v)).symm
 
+/-- The lemma in the June paper's own form (§10, for the electron): the kinetic energy is relativistic,
+m c² (γ - 1), up to one constant C. Found by the language-model half of the backtest (NotebookLM, given
+only the June paper, 27 Nov 2026), which also named this lemma as the assumption the paper does not
+prove for a composite body: Planck's point. -/
+structure Relativistic (c v m0 m1 E0 E1 H0 H1 C : ℝ) : Prop where
+  before : H0 - E0 = m0 * c ^ 2 * (γ c v - 1) + C
+  after : H1 - E1 = m1 * c ^ 2 * (γ c v - 1) + C
+
+/-- 4. With the relativistic lemma, Δm = L/c² exactly, at any speed where γ ≠ 1 (v ≠ 0). -/
+theorem mass_drop_exact {c v L E0 E1 H0 H1 m0 m1 C : ℝ} (hc : c ≠ 0) (hγ : γ c v ≠ 1)
+    (h : Emission c v L E0 E1 H0 H1) (r : Relativistic c v m0 m1 E0 E1 H0 H1 C) :
+    m0 - m1 = L / c ^ 2 := by
+  have k := kinetic_drop h
+  rw [r.before, r.after] at k
+  have hg : γ c v - 1 ≠ 0 := sub_ne_zero.mpr hγ
+  rw [eq_div_iff (pow_ne_zero 2 hc)]
+  apply mul_right_cancel₀ hg
+  linear_combination k
+
 -- The receipt: only Lean's standard axioms (no sorry, nothing assumed beyond the stated hypotheses).
 #print axioms kinetic_drop
 #print axioms gap
 #print axioms einstein_1905
+#print axioms mass_drop_exact
 
 end Backtest.Einstein1905
