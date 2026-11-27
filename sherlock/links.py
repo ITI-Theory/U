@@ -2,7 +2,7 @@
 
   python sherlock/links.py      bld/sherlock/lean/Links.lean (private: the chats' edges)
 
-Nodes: the papers (Dist/PAPERS.yaml), U's issues (ISSUES.md), the chats (Me/chats/Inbox) and the method's rows
+Nodes: the papers (Dist/PAPERS.yaml), U's issues (ISSUES.md), the chats (Me/chats/Inbox and Phase Dot's, Me/chats/phase-dot) and the method's rows
 (sherlock/Fishing, backtests). Edges are only what the sources say: an issue that names a paper, another issue
 or a chat; a chat thread routed to an issue (its affidavit); a tag's ref; a row that names an issue or a paper.
 Lean checks that every edge lands (LinkQueries.lean) and lists what nothing links to.
@@ -31,7 +31,8 @@ def main() -> int:
     papers = yaml.safe_load((U.parent / "Dist" / "PAPERS.yaml").read_text(encoding="utf-8"))["canonical_papers"]
     slugs = {p["slug"]: p["id"] for p in papers if p.get("slug")}
     pids = {p["id"] for p in papers}
-    chats = {f.name[:15] for f in (ME / "chats" / "Inbox").glob("*.md")}
+    import chats as chatmod  # the chats and Phase Dot's conversations, by their stamps (ISS-133)
+    chats = {chatmod.stamp_of(f.stem) for f in chatmod.chat_files([])}
     nodes = [("paper", p) for p in sorted(pids)] + [("chat", c) for c in sorted(chats)]
     edges = set()
     text = (U / "ISSUES.md").read_text(encoding="utf-8")
@@ -48,11 +49,11 @@ def main() -> int:
                 edges.add((iid, pid, "names"))
         for st in set(STAMP.findall(body)) & chats:
             edges.add((iid, st, "names"))
-    for a in sorted((ME / "chats" / "affidavits").glob("*.aff")):
+    for a in chatmod.all_affs():
         aff = yaml.safe_load(a.read_text(encoding="utf-8")) or {}
         for t in aff.get("threads") or []:
             for r in re.findall(r"\bISS-\d+\b", str(t.get("ref", ""))):
-                edges.add((a.stem[:15], r, t.get("disposition", "routed")))
+                edges.add((chatmod.stamp_of(a.stem), r, t.get("disposition", "routed")))
     for f in sorted((S / "Fishing").glob("*.lean")) + sorted((S / "backtests").glob("*.lean")):
         body = f.read_text(encoding="utf-8")
         for rid in re.findall(r'id := "(COID-[\w-]+)"', body):
