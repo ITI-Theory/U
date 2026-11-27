@@ -3,6 +3,8 @@ import SomaField
 import Mathlib.Analysis.Calculus.Deriv.Add
 import Mathlib.Analysis.Calculus.Deriv.Mul
 import Mathlib.Analysis.Calculus.Deriv.Pi
+import Mathlib.Analysis.Calculus.Deriv.Comp
+import Mathlib.Analysis.Calculus.Deriv.MeanValue
 
 /-!
 # P1 · The Soma-Field: A Wave-Based Model of Emotional Dynamics
@@ -261,6 +263,59 @@ def Attractor.basin : Attractor → Basin
   | .flight => .saddleOrShallow
   | .freeze => .deepIsolated
 
+/-- Without noise the field never climbs: along `ė = -∇H(e)` the energy falls at the rate
+    `Σᵢ (∂H/∂eᵢ)²` (kernel-verified). -/
+theorem downhill {n : ℕ} (H : (Fin n → ℝ) → ℝ) (hH : Differentiable ℝ H) (e : ℝ → Fin n → ℝ)
+    (he : ∀ t, HasDerivAt e (velocity H (e t) 0) t) : Antitone (fun t => H (e t)) := by
+  have hp : ∀ y i, partialAt H y i = fderiv ℝ H y (Pi.single i 1) := by
+    intro y i
+    have h := (hH (Function.update y i (y i))).hasFDerivAt.comp_hasDerivAt (y i) (hasDerivAt_update y i (y i))
+    simp only [Function.update_eq_self] at h
+    exact h.deriv
+  have hlin : ∀ y (v : Fin n → ℝ), fderiv ℝ H y v = ∑ i, v i * partialAt H y i := by
+    intro y v
+    conv_lhs => rw [← Finset.univ_sum_single v]
+    rw [map_sum]
+    refine Finset.sum_congr rfl fun i _ => ?_
+    have hs : (Pi.single i (v i) : Fin n → ℝ) = v i • (Pi.single i (1 : ℝ) : Fin n → ℝ) := by
+      ext j
+      by_cases h : j = i <;> simp [h]
+    rw [hs, map_smul, smul_eq_mul, hp]
+  have hd : ∀ t, HasDerivAt (fun t => H (e t)) (-(∑ i, partialAt H (e t) i ^ 2)) t := by
+    intro t
+    have h := (hH (e t)).hasFDerivAt.comp_hasDerivAt t (he t)
+    rw [hlin] at h
+    refine h.congr_deriv ?_
+    simp only [velocity, Pi.zero_apply, add_zero, neg_mul, Finset.sum_neg_distrib, sq]
+  exact antitone_of_deriv_nonpos (fun t => (hd t).differentiableAt) fun t => by
+    rw [(hd t).deriv]
+    exact neg_nonpos.2 (Finset.sum_nonneg fun i _ => sq_nonneg _)
+
+/-- Escape from a valley requires first gaining energy: every continuous path out of a strict local
+    minimum passes through a state above it (kernel-verified). This is the paper's freeze: low energy,
+    but walled in. -/
+theorem escape_needs_energy {n : ℕ} (H : (Fin n → ℝ) → ℝ) (x : Fin n → ℝ)
+    (hx : ∀ᶠ y in nhdsWithin x {x}ᶜ, H x < H y) (γ : ℝ → Fin n → ℝ) (hγ : Continuous γ)
+    (h0 : γ 0 = x) (h1 : γ 1 ≠ x) : ∃ t ∈ Set.Icc (0 : ℝ) 1, H x < H (γ t) := by
+  by_contra hcon
+  simp only [not_exists, not_and, not_lt] at hcon
+  have hx' : ∀ᶠ y in nhds x, y ≠ x → H x < H y := eventually_nhdsWithin_iff.1 hx
+  have hsub : Set.Icc (0 : ℝ) 1 ⊆ {t | γ t = x} := by
+    refine IsClosed.Icc_subset_of_forall_mem_nhdsWithin ?_ h0 ?_
+    · exact (isClosed_eq hγ continuous_const).inter isClosed_Icc
+    · rintro t ⟨ht, ht0, ht1⟩
+      have hγt : Filter.Tendsto γ (nhds t) (nhds x) := by
+        have h := hγ.tendsto t
+        rwa [show γ t = x from ht] at h
+      have ha : ∀ᶠ t' in nhds t, γ t' ≠ x → H x < H (γ t') := hγt.eventually hx'
+      have hb : ∀ᶠ t' in nhdsWithin t (Set.Ioi t), t' ∈ Set.Icc (0 : ℝ) 1 := by
+        filter_upwards [Ioo_mem_nhdsGT ht1] with t' ht'
+        exact ⟨by linarith [ht'.1], ht'.2.le⟩
+      filter_upwards [ha.filter_mono nhdsWithin_le_nhds, hb] with t' ha' hb'
+      by_contra hne
+      exact (not_le.2 (ha' hne)) (hcon t' hb')
+  exact h1 (hsub ⟨zero_le_one, le_refl 1⟩)
+
 /-! ## P1's claims and their witnesses
 
 Each claim in the paper's words, its statement, and its witness where the model has one. A witness may be
@@ -355,6 +410,10 @@ def cEscape : Claim where
 /-- P1's claims, in the paper's order. -/
 def claims : List Claim :=
   [cOneFunction, cCompanion, cForce, cHRV, cThreeLayers, cEquivalence, cPlasticity, cLayer2, cDownhill, cEscape]
+
+instance : Witness cDownhill := .of fun _ H hH e he => downhill H hH e he
+
+instance : Witness cEscape := .of fun _ H x hx γ hγ h0 h1 => escape_needs_energy H x hx γ hγ h0 h1
 
 #status claims
 

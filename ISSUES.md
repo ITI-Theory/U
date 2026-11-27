@@ -7863,7 +7863,9 @@ prose in `/-! -/` blocks, the papers' equations imported from their proofs, not 
 - [x] (27 Nov) Witnesses and states (the spec of 26 Nov; the author: "the use of witnesses to trigger new states as
       other includes change"): `TTheory/Core.lean`, a Claim and a `Witness` class whose instances chain, and
       `#status`, which computes each claim's state from its witness's axioms (kernel-verified; derived under
-      assumptions, the axioms named; frontier, sorry; open). P1: 8 kernel-verified, 2 open (downhill, escape).
+      assumptions, the axioms named; frontier, sorry; open). P1: 10 of 10 kernel-verified, after the two open ones
+      were proved: the field always moves downhill (dH/dt = -sum of the squared slopes), and escape from a strict local
+      minimum (freeze) needs energy first (every continuous path out of it climbs).
       Tested: with the force's witness removed, eq (13) and the companion derived from it both went open; a sorry
       witness showed as frontier.
 - [ ] Cyc for what is not an equation (the author: "by using cyc tags ... a compile time check?"): yes, as
