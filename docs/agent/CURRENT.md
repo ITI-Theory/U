@@ -6,7 +6,7 @@ in git history and in `CURRENT-2026-10-01-to-06.md.OBSOLETE`; open items live
 in [ISSUES.md](../../ISSUES.md); how we work is in [README.md](../../README.md);
 the other working documents are listed in [docs/agent/README.md](README.md).
 
-## Now (27 Nov 2026, evening)
+## Now (27 Nov 2026, evening; updated 17:40)
 
 Three layers: USF (the theory: papers and books), USM (the Soma Machine, the theory made visible) and
 USC (the Universal Semantic Compiler: Sherlock plus the meta-theory compiler). The author's order:
@@ -28,6 +28,14 @@ model and a make target in `sherlock/`; how to use them is `docs/SHERLOCK.md`, "
   Code" (with the failure ledger table); the course, ch. 15 "Backtest: Einstein, 1905". Sherlock run
   on its own write-up: affidavits re-frozen at 13a3fb3, 428 of 428 checks. The technical-book idea
   (Manning and others) is parked until USC ships as a plugin.
+- **The big bang (ISS-132, epic).** Three products, one package. Done 27 Nov: `make -C sherlock usc` (one
+  fast command for every editor, bld/sherlock/usc.txt); the VS Code extension 0.2.0 (USC's findings, tag
+  the selection, the ideas list, the `.aff` language, the papers and books by DOI; `node test/run.js` in
+  apps/vscode: 13 ok); usc.nvim (U apps/nvim, installable; U.Dot's sherlock.lua is a shim). Waiting on the
+  author: accounts, the name ("[T]-Theory Explorer" proposed), the date.
+- **The chats in three forms.** Phase Dot (raw, private, Me); The Evolution (by time, public, ISS-133:
+  `make -C books/T-Theory evolution`, 46 pp, from `chats.py chronicle`); Background (by concept, the course's
+  companion, ISS-134, proposed). The Evolution's origin needs phase-dot.md split and given affidavits.
 - **Line endings.** LF everywhere (.gitattributes in every repo, 27 Nov); never `Set-Content` from
   PowerShell for repo files.
 
