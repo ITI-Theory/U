@@ -187,6 +187,35 @@ function loadFindings(diags) {
   return count;
 }
 
+// --- USF: the papers, datasets and books (media/catalogue.json from Dist/PAPERS.yaml; ISS-132) ----
+
+function catalogue(extPath) {
+  const file = path.join(extPath, 'media', 'catalogue.json');
+  return fs.existsSync(file) ? JSON.parse(fs.readFileSync(file, 'utf8')).items : [];
+}
+
+async function openCatalogue(ctx) {
+  const items = catalogue(ctx.extensionPath);
+  if (!items.length) return vscode.window.showWarningMessage('[T]-Theory: no catalogue in this build (npm run catalogue).');
+  const kinds = [['paper', 'Papers'], ['dataset', 'Datasets'], ['book', 'Books']];
+  const picks = [];
+  for (const [kind, label] of kinds) {
+    picks.push({ label, kind: vscode.QuickPickItemKind.Separator });
+    for (const it of items.filter(i => i.kind === kind)) {
+      picks.push({ label: `${it.id}  ${it.title}`, description: it.discipline,
+        detail: it.doi ? `doi:${it.doi}` : `not yet on Zenodo (${it.status})`, item: it });
+    }
+  }
+  const pick = await vscode.window.showQuickPick(picks, { placeHolder: 'Open a [T]-Theory paper or book', matchOnDescription: true });
+  if (!pick || !pick.item) return;
+  const it = pick.item;
+  if (it.doi) return vscode.env.openExternal(vscode.Uri.parse(`https://doi.org/${it.doi}`));
+  const ws = folder();
+  const local = ws && it.file ? path.resolve(ws.uri.fsPath, '..', 'Dist', it.file) : '';
+  if (local && fs.existsSync(local)) return vscode.env.openExternal(vscode.Uri.file(local));
+  vscode.window.showInformationMessage(`${it.id} is not published yet (${it.status}).`);
+}
+
 // --- USC: tag where it was said (usc_tags.ebnf; the same as Neovim's :UscIdea) ---------------
 
 const TAG_CLASSES = [
@@ -413,6 +442,7 @@ function activate(ctx) {
       });
     }),
     vscode.commands.registerCommand('usc.tag', tagSelection),
+    vscode.commands.registerCommand('ttheory.catalogue', () => openCatalogue(ctx)),
     vscode.commands.registerCommand('usc.ideas', async () => {
       const w = folder();
       const rel = vscode.workspace.getConfiguration('usc').get('ideasFile');
@@ -425,4 +455,4 @@ function activate(ctx) {
 
 function deactivate() {}
 
-module.exports = { activate, deactivate, stopFor };
+module.exports = { activate, deactivate, stopFor, catalogue };

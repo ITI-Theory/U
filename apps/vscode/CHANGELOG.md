@@ -8,6 +8,8 @@
 - **USC: Tag the Selection…**: mark lines as an idea, a loose end, a decision or a question where they were
   said (`{{usc:begin ...}}` and `{{usc:end ...}}` lines), the same as Neovim's `:UscIdea`.
 - **USC: Open the Ideas List**.
+- **[T]-Theory: Open a Paper or Book…**: the programme's papers, datasets and books (from its registry),
+  each opening its DOI; one not yet on Zenodo opens its local PDF when there is one.
 - The `.aff` language (affidavits, YAML with dispositions highlighted), and the `{{usc:...}}` tags
   highlighted in Markdown and affidavits.
 

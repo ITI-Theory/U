@@ -82,6 +82,11 @@
         "command": "usc.ideas",
         "title": "Open the Ideas List",
         "category": "USC"
+      },
+      {
+        "command": "ttheory.catalogue",
+        "title": "Open a Paper or Book…",
+        "category": "[T]-Theory"
       }
     ],
     "menus": {
@@ -176,7 +181,8 @@
   },
   "scripts": {
     "app": "node scripts/build-app.mjs",
-    "package": "npm run app && npx --yes @vscode/vsce package --no-dependencies --out bld/"
+    "package": "npm run app && npm run catalogue && npx --yes @vscode/vsce package --no-dependencies --out bld/",
+    "catalogue": "python scripts/catalogue.py"
   },
   "icon": "media/icon.png",
   "homepage": "https://github.com/ITI-Theory/U/tree/main/apps/vscode",

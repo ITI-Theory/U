@@ -3,3 +3,4 @@ bld/
 *.vsix
 node_modules/
 .vscode-test/
+media/catalogue.json

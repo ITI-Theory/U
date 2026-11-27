@@ -7308,7 +7308,9 @@ Plan (each a box; the AUTHOR's are on the desk, ISS-081):
       (IDEA, LOOSE_END, DECISION, QUESTION), open the ideas list. Packaged (apps/vscode/bld/
       soma-machine-0.2.0.vsix, 9.5 MB); smoke-tested in a throwaway VS Code 1.148 (`node test/run.js`, U as
       the workspace): the commands, USC's findings in Problems at their lines, the affidavit language: 10 ok.
-- [ ] USF in the extension: the catalogue of papers and books from Dist/PAPERS.yaml, each opening its DOI.
+- [x] (27 Nov) USF in the extension: the catalogue of papers and books from Dist/PAPERS.yaml, each opening its DOI
+      (`[T]-Theory: Open a Paper or Book…`; 52 items, 26 with a DOI; scripts/catalogue.py at package time; a
+      paper not yet on Zenodo opens its local PDF in Dist). Smoke test: 13 ok.
 - [ ] The Neovim equivalent as a plugin others can install (from U.Dot's sherlock.lua and usc-vim: a
       repository or a folder a plugin manager can load), with the same commands.
 - [ ] The Marketplace page and Open VSX: the README as the page (what it does, what it needs, no AI model

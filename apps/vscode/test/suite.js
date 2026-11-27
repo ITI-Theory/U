@@ -12,7 +12,7 @@ async function run() {
   const ok = (name, cond) => { assert.ok(cond, name); results.push('ok  ' + name); };
 
   const cmds = await vscode.commands.getCommands(true);
-  for (const c of ['usc.check', 'usc.tag', 'usc.ideas', 'sherlock.check', 'somaMachine.open']) ok(`command ${c}`, cmds.includes(c));
+  for (const c of ['usc.check', 'usc.tag', 'usc.ideas', 'ttheory.catalogue', 'sherlock.check', 'somaMachine.open']) ok(`command ${c}`, cmds.includes(c));
 
   const wkb = vscode.Uri.file(path.join(ws, 'sherlock', 'Fishing', 'WKB.lean'));
   const diags = vscode.languages.getDiagnostics(wkb).filter(d => d.source === 'USC');
@@ -25,6 +25,9 @@ async function run() {
   ok('an .aff document opens as affidavit', aff.languageId === 'affidavit');
 
   ok('stopFor still finds a stop', require(path.join(ext.extensionPath, 'extension.js')).stopFor('the amygdala and the limbic system') === 'limbic');
+  const cat = require(path.join(ext.extensionPath, 'extension.js')).catalogue(ext.extensionPath);
+  ok(`the catalogue: papers, datasets and books (${cat.length})`, ['paper', 'dataset', 'book'].every(k => cat.some(i => i.kind === k)));
+  ok('a published paper has its DOI', cat.some(i => i.kind === 'paper' && /^10\.5281\/zenodo\./.test(i.doi)));
   console.log(results.join('\n'));
 }
 
