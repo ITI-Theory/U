@@ -6954,6 +6954,11 @@ directly or through a core; 26 Nov, USC as Sherlock and MTC, the `{{usc:...}}` t
       system's scale as gravity's k is excluded (about 2 × 10⁻¹⁸ eV); the Hubble scale's, H₀/c, is allowed by
       ten orders; on the Lean's dial only σ ≥ 18 is long enough. So gravity, if it is the field's response, is
       its cosmic mode, not the local scale's: a constraint on the scale law k(σ). 15 rows in the ledger.
+- [x] (27 Nov, round 7, cheatsheet VII) COID-CLIN-1 (`Fishing/Clinical.lean`, reusing KRAMERS-1): with D = 1/β,
+      β does not deepen the well (its depth is W, `LimbicTunnel.barrier_height`), it lengthens the escape
+      exponentially, so "high β ⇒ deeper trauma wells" should read "the same wells hold longer"; ADHD's flat
+      landscape (all barriers ≤ D) traps nothing (the Kramers factor at most e, and outside Kramers' regime);
+      Anti-Freeze is Arrhenius, consistent. 16 rows.
 - [ ] Physics fishing, further catches from the cheatsheet (the method's rows; the Lean decides).
 - [x] (27 Nov, author: "compile ISSUES.md as well, heavily linked to chats already") ISSUES.md as a
       Lean model: `sherlock/Issue` (statuses, boxes, AUTHOR steps, the header's rules as functions),
