@@ -7448,6 +7448,12 @@ the chats are full of, and what a course reader lacks.
       equations; mind, body and the clinic; philosophy and history; music and the arts; knowledge, proof and
       machines), each with its record laid out from the same data as The Evolution (chronicle.json now
       carries each thread's concepts; chronicle.lua `concept=` and `flat=`). privacy.py: 0 leaks.
+- [x] (27 Nov) The first entries, written from the fishing's rows: physics (Green's functions and the screened
+      potential, Klein-Gordon and memory, Kaluza-Klein, the cosmological budget, tunnelling, Kramers, Einstein
+      1905) and the clinic (Adler's locking): each the standard idea with its reference (seven added to the
+      bibliography), its role in [T]-Theory, and the method's verdict with its label. 27 pp.
+- [ ] More entries: Fiedler and Nash (society), Gutenberg-Richter (geophysics), the clinical operators; then
+      philosophy, music, knowledge; Sherlock's affidavit for the book.
 - [ ] The entries (layer 2): the view by concept (the affidavits' concepts,
       Me/chats/affidavits/concepts.yaml) instead of by month; each entry: the standard idea (cited, not from
       the chats), its role in [T]-Theory (the papers, the Lean, the method's row if there is one), where it
