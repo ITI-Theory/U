@@ -138,4 +138,13 @@ theorem test_keeps_S1 (r : Row) (what : String) (p : Bool) (hs : r.scope = .S1)
 
 end Row
 
+/-- The loop's next turn (§3.4): every open assumption of every row, with its row. What one catch
+    leaves open is the bait for the next; a Lean witness found later closes it everywhere it is cited. -/
+def bait (rs : List Row) : List (String × String) :=
+  rs.flatMap fun r => r.openAssumptions.map fun a => (r.id, a.text)
+
+/-- One line per row: id, status, scope, open assumptions. -/
+def ledger (rs : List Row) : List (String × Status × Scope × Nat) :=
+  rs.map fun r => (r.id, r.status, r.scope, r.openAssumptions.length)
+
 end Method

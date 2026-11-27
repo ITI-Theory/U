@@ -151,7 +151,7 @@ def row : Method.Row where
   assumptions := [
     ⟨"the static response solves (∇² - k²)Φ = J away from the source", .lean ``Fishing.Gravity.yukawa_solves⟩,
     ⟨"the master equation's k² term is a mass (decay), not a wavenumber (oscillation)",
-      .open_ "the cheatsheet writes both signs; greens_fn_is_SHO uses +k² (ISS-126)"⟩,
+      .open_ "the cheatsheet writes both signs; greens_fn_is_SHO uses +k²; COID-KG-1: the time-dependent form is Klein-Gordon, whose static limit decays (AUTHOR, ISS-126)"⟩,
     ⟨"the field's static amplitude is the gravitational potential", .open_ "an identification, not in the cheatsheet"⟩,
     ⟨"a mass pokes the field with strength G M", .open_ "the equation does not fix it (coupling_free): an input, as Planck's constant was"⟩,
     ⟨"the response attracts", .open_ "the sign of J for a mass is not stated"⟩,

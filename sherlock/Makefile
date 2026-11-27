@@ -41,7 +41,7 @@ help:
 	$(info   chats       the chats as Lean models: Me/chats and their affidavits (FILES="..." limits it); private, built in bld/)
 	$(info   method      the method's model: P3's co-identification rows, scope labels and the loop (Method/, MethodQueries; ISS-126))
 	$(info   backtests   the system on known history first: Einstein 1905 (backtests/, Lean with U's Mathlib; ISS-126))
-	$(info   fishing     the method on [T]-Theory: gravity in the USF (fishing/, Lean with U's Mathlib; ISS-126))
+	$(info   fishing     the method on [T]-Theory: gravity in the USF (Fishing/, Lean with U's Mathlib; the ledger and the bait; ISS-126))
 	$(info   privacy     what is private stays private: Phase Dot, H-AL's answers, the film notes (needs Me; ISS-116))
 	$(info   provenance  whose emotions a score carries, and whether the author has attested it (ISS-115))
 	$(info   features    every Soma Machine feature tagged science or show, and the author's approvals (ISS-095))
@@ -176,11 +176,16 @@ method:
 	lake build Method MethodQueries
 
 backtests: method
-	cd .. && lake env lean sherlock/backtests/Einstein1905.lean
+	cd .. && LEAN_NUM_THREADS=2 lake build Einstein1905
 
 # Fishing (ISS-126): the method pointed at [T]-Theory, from the cheatsheet's premises.
-fishing: method
-	cd .. && lake env lean sherlock/fishing/Gravity.lean
+# One module at a time (at most two Lean processes); Fishing is the catalogue: the ledger and the bait.
+FISH := Fishing.Gravity Fishing.KleinGordon Fishing.Cosmology Fishing.Scales Fishing.Expansion Fishing.KaluzaKlein Fishing
+fishing: backtests
+	@cd .. && for m in $(FISH); do echo "lean $$m"; \
+	  LEAN_NUM_THREADS=2 lake build $$m > "$(LOG)" 2>&1 || { tail -n 30 "$(LOG)"; exit 1; }; tail -n 1 "$(LOG)"; \
+	done
+	cd .. && lake env lean sherlock/Fishing.lean
 
 # The chats as Lean models (USC iteration 1): Me/chats and their affidavits in Me/chats/affidavits.
 chats:

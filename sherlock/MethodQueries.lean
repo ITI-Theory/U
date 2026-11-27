@@ -47,3 +47,5 @@ def bsHeat' : Row :=
 #guard !({ bsHeat with negativeControl := ⟨"", .open_ ""⟩ } : Row).wellFormed
 #guard !({ bsHeat with scope := .S2 } : Row).wellFormed
 #guard !({ bsHeat with status := .falsified } : Row).wellFormed
+-- The bait: the paper's row leaves one assumption open; its witnessed successor none.
+#guard bait [bsHeat, bsHeat'] == [("COID-BS-HEAT-1", "Sufficient regularity for classical solution methods")]

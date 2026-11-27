@@ -6877,6 +6877,27 @@ directly or through a core; 26 Nov, USC as Sherlock and MTC, the `{{usc:...}}` t
       of the page (correlation length 1/k, decay e^{-kvτ}, the GFF of mass k) reads the second;
       `UniversalSomaticField.greens_fn_is_SHO` proves the first. Which is meant, or both (scales)?
       Published papers not edited.
+- [x] (27 Nov, round 2) Catches as a library (`Fishing`, U's lakefile; the backtest as `Einstein1905`),
+      so a catch can cite another's theorem; `sherlock/Fishing.lean` prints the ledger and the bait
+      (`Method.bait`: every row's open assumptions). `make -C sherlock fishing`. Rows:
+      COID-KG-1 (the time-dependent form is Klein-Gordon: undamped modes, ω² = v²(p² + k²); the memory
+      kernel e^{-kvτ} is not a solution, it needs the tachyonic sign or a damping term; the cheatsheet
+      swaps space and time: Helmholtz in space, decay in time). COID-COSMO-1 (7/11 tested, falsified
+      as a precision value, 6.6σ; ISS-106) and COID-COSMO-2 (the budget closes at 21/22; under
+      Friedmann closure the shortfall is curvature, > 23σ; flat with the 1/22 as dark energy gives
+      Ω_Λ = 15/22, Ω_m = 7/22, both 0.4σ from Planck, but 13% by chance on the n/22 grid and post hoc:
+      pre-registered, not counted). COID-COSMO-3 (the author's question of 26 Oct, the chat thread
+      `dark-matter-time`: fractions fixed at every epoch need one w, created mass at Γ = 3H, and a
+      constant q; excluded by the sign change of q, Riess et al. 2004; AI Mode's "proof" of the day
+      was a definition, true for any growth law, never committed). COID-KK-1 (the author, 27 Nov:
+      "the emf is itself a witness?": Kaluza-Klein on D8's S¹/ℤ₂ derives the mass term, kₙ = n/R,
+      gravity as the zero mode with Yukawa corrections; the Helmholtz k is a frequency ω/v, so the
+      two signs have two origins; as a what-if it closes gravity's sign assumption). Fishing/Scales:
+      the Lean's dial tops at 10²⁵ m, 60 decades, 13 times below c/H₀; the cheatsheet says 10²⁶ and
+      61; P21 says 19 steps of 10^3.207.
+- [ ] AUTHOR: the bait (`make -C sherlock fishing`): which open assumptions to fish next; whether
+      D5-8 carry fields in the bulk (KK-1: then R is below tens of microns) or on a brane; whether
+      the budget's fractions are today's values only (COSMO-3), and the missing 1/22 (COSMO-2).
 - [ ] Physics fishing, further catches from the cheatsheet (the method's rows; the Lean decides).
 - [ ] The `{{usc:...}}` tags (26 Nov: the EBNF) and their Lua filter.
 - [x] (27 Nov) USF, USM and USC in the naming standard (T.Ops `docs/standards/naming.md`).
