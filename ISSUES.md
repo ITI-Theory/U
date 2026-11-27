@@ -8066,6 +8066,24 @@ mathlib and physlib ... T-theory, all of it, modelled in lean"):**
       minutes without output; grouping in one pass takes a second); breaking cycles by Kahn's algorithm dropped
       1,043 good links. The root lakefile has lean_lib OpenCycNative (srcDir bld/opencyc, not a default target).
       First builds: the carrier 15 s; a vocabulary part of 5,000 constants 31 s.
+- [x] (28 Nov 01:xx; the author, on who says the Lean matches the text: "read, carefully,
+      https://attempto.ifi.uzh.ch/site/docs/writing_owl_in_ace.html"; and of its three routes, hand-written triples,
+      NLP extraction and controlled English: "use lean instead of python ... lets see what works")
+      TTheory/Experiments/ControlledEnglish.lean: Attempto Controlled English (ACE, Zürich) read into Lean, not OWL,
+      with no APE, Prolog or Python. `ace "…"` reads controlled English at compile time (prose outside it is a
+      compile error); the sentences are a tagless-final class with two interpreters, Prop (Mathlib's ⊆, Disjoint,
+      ∈) and String (the English). Checked: the English reads back word for word (#guard; "an human" does not);
+      the page's reasoning as theorems (John a man and a woman: inconsistent; the empty class child: consistent by
+      a model, inconsistent once John is a child); no unique names, as OWL (models of John = Bill and John ≠ Bill);
+      entailment ("John is not Bill" follows). Finding: the three routes are layers, all in Lean: free prose
+      proposed into facts by NextKB's lexicon and semtranses (Moriarty judging), controlled English the reading
+      the author signs, the facts beneath; so "does the Lean say what the text says" becomes prose against
+      controlled English (the author and Moriarty), controlled English against Lean (mechanical), Lean against
+      the corpus (theorems). Lean's string functions do not reduce in the kernel (well-founded recursion), so
+      the display is checked by evaluation and the meaning by the kernel.
+- [ ] Controlled English, next: verbs (OWL properties), cardinality; the words resolved through NextKB's lexicon
+      to OpenCyc's constants; the generated microtheories verbalised (the fact names read as ACE); P1's abstract
+      in controlled English against its claims.
 - [ ] Step 2, the scale: the whole NextKB taxonomy (103,321 genls; 333,488 isa; 26,154 disjointWith) generated in the
       A + C form, measured (build time, memory, coercion search); then P1 against it. disjointWith and individuals
       with several types still to design.
