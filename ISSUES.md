@@ -6747,6 +6747,7 @@ between descriptions.
       Atlas: the Televator and the moving map as figures), and the philosophy reading drafted for the
       Philosophy book (the author's call).
 - [x] (27 Nov) The chats' threads queued here (`chats.py route`, checked against this issue): 20261025_160728 app-features (the elevator keeps the scale feeling), 20261007_222230 sideways-time.
+- [x] (27 Nov) Also queued here: 20260817_173527 time-in-app (a time slider, forward time).
 
 ## ISS-122: The rooms: the Music Room and the Cinema (beside the Engine Room and the Gallery) — OPEN
 
@@ -7077,6 +7078,8 @@ directly or through a core; 26 Nov, USC as Sherlock and MTC, the `{{usc:...}}` t
       document describes, e.g. a therapist's Gestalt against CBT (20261120_140700 readable-model); generated
       Lean models in which a new equation is a witness that infers new facts, with no database
       (20261126_140957 lean-inference; the fishing's `bait` is the first instance).
+- [x] (27 Nov) The chats' threads queued here: 20260612_184004 federated-to-one (the Lean as one unified model),
+      20260605_204722 combine-two-models, 20261118_215825 python-to-lean (a readable model in Lean).
 
 ## ISS-127: USM as a model: what the Soma Machine shows, and its options from 4D up — OPEN
 {{Tags area.app, area.sherlock, area.visualize, project.soma-field-operator}}
