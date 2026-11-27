@@ -1,0 +1,24 @@
+# Sherlock affidavit: Dist/PAPERS.yaml, the programme's registry (through its mirror, registry/papers.yaml;
+# ISS-139). Its structure is checked by release-check and its scripts; its prose (titles, notes) only here.
+id: dist-papers
+document: REGISTRY
+title: 'Dist/PAPERS.yaml (the registry)'
+source:
+  file: registry/papers.yaml
+  commit: a7b9535
+  sha256: ba0d8995b5a5dbe1d85598ab19dca1e6a92a484f103824e3caffcbb6ba5994c2
+lean: []
+microtheories: {}
+claims:
+  - id: R1
+    quote: 'affidavits for 23 programme papers checked in Lean 4'
+    lines: [418]
+    kind: cross-paper
+    finding: >-
+      The registry's note on SH1 says 23 papers; SH1 itself (v3) says all 24 (its affidavit
+      K1): the note predated v3. Fixed in Dist the same evening; the registry's prose was in no affidavit until now (ISS-139)
+    verdict: contradicted
+    label: kernel-verified
+    lean: null
+    check: [{template: ne, args: [23, 24]}]
+    disposition: fixed

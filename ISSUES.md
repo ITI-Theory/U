@@ -7655,3 +7655,39 @@ then one paper and the app.
 - [x] (27 Nov) Recall searches the text as well as the topics: `usc.py recall --text WORD ...` (and `:UscRecall
       --text ...`): every line of every chat with all the words, newest first, 3 s. `recall --text impressive makefile`
       finds the 20 Nov sentence above (20261120_140700:582).
+
+## ISS-139: The web closes: every document and every make target under USC — IN-PROGRESS
+{{Tags area.sherlock, area.release}}
+{{Fields date.created=2026-11-27, date.start=2026-11-27, date.end=, epic=ISS-132-big-bang}}
+
+**Author, 27 Nov 19:42:** "PAPERS.yaml ... is that under the full umbrella of sherlock? and, what other files should
+be part of this new web? we got them all covered?"; 19:44: "and usc on the makefiles ... if X is never actually
+built ...?"; 19:45: "the web is closing in".
+
+**The registry.** Dist/PAPERS.yaml's structure is checked by sixteen scripts (release-check, the Zenodo tools, the
+checks of concepts, licences, Lulu pages, references, programme refs and hooks; links, appaudit, bofh), but its
+prose by none.
+- [x] (27 Nov) An affidavit for the registry, through its mirror (registry/affidavits/dist-papers.yaml): its first
+      claim caught a real slip at once: SH1's note said "affidavits for 23 programme papers", SH1 itself all 24
+      (fixed in Dist, 92fd183).
+
+**The documents.** `python sherlock/usc.py coverage` (bld/sherlock/coverage.md): 43 of 86 documents have an
+affidavit, 27 Nov: the papers 26 of 27 (not P26), the books 15 of 17 (not Gateway, not The Evolution), the course 1
+of 21, the Field Atlas 0 of 13, the front doors 0 of 7 (README, BUILD, SHERLOCK, the two editor READMEs, web/), the
+registry 1 of 1. Outside U, not yet: the org page and Dist's README.
+- [ ] The front doors first (first impressions, ISS-138): the README's claims, the editor READMEs, web/.
+- [ ] P26, Gateway, The Evolution.
+- [ ] The course (20 chapters) and the Field Atlas (13): their numbers are already recomputed by verify_answers.py;
+      the affidavits add the cross-document values.
+- [ ] Coverage in `usc.py check`: a warning per uncovered document, so the editor shows it.
+
+**The Makefiles** (Copilot, 27 Nov: every `make help` line is a claim, every build a witness):
+- [x] (27 Nov) Every target named in `make help`, the README and the docs exists: `usc.py make` (and in `usc.py
+      check`, so the editors show it): 275 targets in 6 Makefiles. Its first run caught 7 commands in docs/SHERLOCK.md
+      that only worked from sherlock/ (now `make -C sherlock ...`).
+- [ ] `make -n TARGET` resolves for every promised target (no build).
+- [ ] Dead targets from Make's own database (`make -pn`): called by nothing (not help, not another target, not the
+      docs, not release-check).
+- [ ] A build ledger: each real build appends target, time, exit and outputs; a promised target with no successful
+      build is unverified, one older than its sources stale (as the Lean appendix and the omnibus were on 27 Nov).
+- [ ] Targets as nodes in the links graph (target, outputs, document, product).

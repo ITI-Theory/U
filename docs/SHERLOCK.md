@@ -169,19 +169,19 @@ app's type guard should read the same types.
 Sherlock is one instance of the Universal Semantic Compiler (USC; ISS-126 to ISS-131). The same back end
 (Lean models and queries) reads the programme's working record as well as its documents. What it did on
 26-27 Nov is written up in SH1 ("A second run"), P3's next version ("The Protocol as Code") and the course,
-chapter 15 ("Backtest: Einstein, 1905"). Everything below runs from `U/sherlock/`. At most two Lean processes
+chapter 15 ("Backtest: Einstein, 1905"). The commands run from `U/` (`make -C sherlock ...`; the Python ones from `U/sherlock/`). At most two Lean processes
 run at a time, so run the targets one after another.
 
 | Command | What it builds or does |
 |:--|:--|
-| `make chats` | every chat in `Me/chats/Inbox` with its affidavit (`Me/chats/affidavits/*.aff`), as Lean in `bld/` (private, never committed); runs `tags` and `issues` first |
-| `make issues` | `ISSUES.md` as Lean: issues, boxes, refs |
-| `make tags` | the `{{usc:...}}` tags, checked and compiled; a ref to an issue that does not exist fails |
-| `make links` | papers, issues, chats and the method's rows in one graph; what nothing links to |
-| `make method` / `backtests` | P3's protocol as Lean (`Method/`), and the Einstein backtest (`backtests/Einstein1905.lean`) |
-| `make fishing` | the method's rows on [T]-Theory (`Fishing/`): the ledger and the bait (open assumptions) |
-| `make equations` | every equation in the documents, classed, beside its Lean (`bld/sherlock/equations.md`) |
-| `make usm` / `app-audit` | the app as a model; the app as seen (screenshots, Windows OCR, about 35 minutes) |
+| `make -C sherlock chats` | every chat in `Me/chats/Inbox` with its affidavit (`Me/chats/affidavits/*.aff`), as Lean in `bld/` (private, never committed); runs `tags` and `issues` first |
+| `make -C sherlock issues` | `ISSUES.md` as Lean: issues, boxes, refs |
+| `make -C sherlock tags` | the `{{usc:...}}` tags, checked and compiled; a ref to an issue that does not exist fails |
+| `make -C sherlock links` | papers, issues, chats and the method's rows in one graph; what nothing links to |
+| `make -C sherlock method` / `backtests` | P3's protocol as Lean (`Method/`), and the Einstein backtest (`backtests/Einstein1905.lean`) |
+| `make -C sherlock fishing` | the method's rows on [T]-Theory (`Fishing/`): the ledger and the bait (open assumptions) |
+| `make -C sherlock equations` | every equation in the documents, classed, beside its Lean (`bld/sherlock/equations.md`) |
+| `make -C sherlock usm` / `app-audit` | the app as a model; the app as seen (screenshots, Windows OCR, about 35 minutes) |
 | `python chats.py todo` | the chats with no affidavit yet |
 | `python chats.py route STAMP THREAD DISP [REF]` | route a thread: `implemented REF`, `queued ISS-NNN`, `parked`, `discarded REASON` |
 | `python chats.py triage` | witnesses that do not hold, possible witnesses, loose ends: `Me/chats/triage.md` |
@@ -189,7 +189,7 @@ run at a time, so run the targets one after another.
 | `python chats.py ideas --grep WORD --by kind\|product\|date` | search it; printed, nothing written |
 | `python chats.py tag` | write a tag into the original chat for every routed thread (idempotent) |
 | `python usctags.py check` | the tag checks alone; `strip FILE` prints a file as the builds see it |
-| `python usc.py check` (`make usc`) | every editor's findings in seconds: tag errors, the books' citations, untriaged tags, open assumptions |
+| `python usc.py check` (`make -C sherlock usc`) | every editor's findings in seconds: tag errors, the books' citations, untriaged tags, open assumptions |
 | `python usc.py recall WORD ...` | "didn't I think about ...?": every thread, any state, best first; `--text` searches the chats' text |
 | `python usc.py browse`, `where`, `rank` | the picker's data (`:UscBrowse`), a thread's chat and line, the author's 0-3 rating |
 | `python usc.py board [STAMP]`, `board --apply` | the thoughts as a Kanban board (Me/chats/board.md); moved cards become routes |
@@ -205,7 +205,7 @@ run at a time, so run the targets one after another.
 
 The classes for the working record are `IDEA`, `LOOSE_END`, `DECISION` and `QUESTION` (the grammar is
 `usc_tags.ebnf`). `disp` is one of `implemented`, `queued`, `parked` or `discarded`. `implemented` and `queued`
-need a `ref`. A tag without `disp` is listed as untriaged by `make tags` and in `ideas.md` until it is routed. A
+need a `ref`. A tag without `disp` is listed as untriaged by `make -C sherlock tags` and in `ideas.md` until it is routed. A
 tag inside a line of prose is a mention and is ignored. Tags survive a re-export of a chat
 (`Me/chats/scripts/usc_keep.py`), and `chats.py parse` blanks tag lines, so prompt numbers do not move.
 

@@ -415,7 +415,7 @@ canonical_papers:
     level: "masters"
     doi: null
     status: pending-review
-    notes: "Sherlock (v2, 11 Oct 2026): a neuro-symbolic compiler for natural language (a natural language compiler, NLC); affidavits for 23 programme papers checked in Lean 4 against themselves, each other, the programme's Lean and OpenCyc; structure mapping; OpenCyc collections as Lean types. Lean in U sherlock/. 2026-11-27: 'A second run' added (USC on the working record: chats, issues, app, equations, the method, the Einstein backtest; ISS-131)."
+    notes: "Sherlock (v2, 11 Oct 2026): a neuro-symbolic compiler for natural language (a natural language compiler, NLC); affidavits for all 24 programme papers checked in Lean 4 against themselves, each other, the programme's Lean and OpenCyc; structure mapping; OpenCyc collections as Lean types. Lean in U sherlock/. 2026-11-27: 'A second run' added (USC on the working record: chats, issues, app, equations, the method, the Einstein backtest; ISS-131)."
     file: papers/sherlock-compiler.pdf
     zenodo_file: zenodo/SH1-sherlock-compiler.pdf
     make_class: citeproc
