@@ -33,6 +33,42 @@ written (ISS-134); the record grows as the conversations are triaged.
 
 The ideas [T]-Theory adds: the field and its dimensions, the zoom across scales, the Televator's sideways step into the mind. Each entry will say which standard idea it rests on (the next chapters) and where the papers state it.
 
+## The field and its dimensions {#sec:bg-usf}
+
+**The idea.** A field gives a value to every point of a space, and its response to a source is its Green's
+function (the physics chapter's first entry).
+
+**In [T]-Theory.** The Universal Somatic Field: one master equation of that kind, read at every scale, on
+eleven dimensions decomposed as $4 + 3 + 1 + 3$, spacetime, the propagator, the limbic dimension and cortex
+[@P20]. The cosmology paper counts the same eleven as $7 + 3 + 1$: seven compact, three spatial, one of time
+[@P21].
+
+**The method's verdict.** The counts are arithmetic and kernel-checked; that the dimensions are these is the
+programme's modelling choice, and the master equation's sign is still open (`COID-GRAV-1`). Labels:
+`kernel-verified` for the counts, `interpretive` for the reading.
+
+## The zoom: one equation at every scale {#sec:bg-zoom}
+
+**The idea.** Physics at different scales is related by a flow: the renormalisation group follows how a
+theory's parameters change as the scale changes [@wilson1971].
+
+**In [T]-Theory.** The zoom operator: the same equation at every scale from the Planck length to the cosmic
+horizon, with a scale-dependent $k(\sigma)$, and the dial continuous between named positions [@P11]. The paper's
+abstract says twenty-one scale levels and its body twenty: one count to settle (ISS-130).
+
+**The method's verdict.** The level hierarchy is a formal structure in Lean; that one response grammar holds at
+every level is an organising idea, testable level by level. Labels: `derived-under-assumptions` for the
+structure, `interpretive` for the grammar.
+
+## The Televator {#sec:bg-televator}
+
+**The idea.** Not borrowed: a device of the programme's own.
+
+**In [T]-Theory.** The Soma Machine's way of moving: up and down the scales, sideways from the brain to the mind
+at the same scale, and through time; the visual form of the zoom.
+
+**The method's verdict.** A design for navigation, not a claim about nature. Label `interpretive`.
+
 **Where it was discussed.** The conversations' threads on these ideas, as the record has them now:
 
 ::: {.chronicle concept="TTheory,TTheoryCore,Televator" flat="true"}

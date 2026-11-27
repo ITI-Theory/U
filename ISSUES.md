@@ -7272,6 +7272,10 @@ and their verdicts change: that is the witness.
       its next version. I7.
 - [ ] Sherlock: the sorry count across the affidavits (P14 now says none left since October; E5, E6 and
       the papers' X12, U10 are frozen before): re-freeze them together (dev).
+- [ ] (27 Nov, found writing Background) P11, The Zoomable Somatic Field, counts its levels two ways: the abstract
+      "twenty-one scale levels" (line 12), the body "the choice of 20 levels" and "each of the twenty scale levels"
+      (lines 316, 372). Twenty named positions on a continuous dial, or 21 counting both ends: settle it in the next
+      version, and Sherlock's affidavit gets the claim (a `sum` or `eq` check).
 
 ## ISS-131: Writing up USC: what it did, how it works, how to use it — IN-PROGRESS
 {{Tags area.sherlock, area.papers, area.books}}
@@ -7465,8 +7469,9 @@ the chats are full of, and what a course reader lacks.
 - [x] (27 Nov) Philosophy (abduction, falsification and research programmes, analogy and structure), music
       (BRECVEMA) and knowledge (proof assistants, Cyc, qualitative processes): 19 entries in all, every chapter
       begun, 30 pp.
-- [ ] Next: entries for the theory's own ideas (the field, the zoom, the Televator) from the papers; the
-      affidavit re-frozen with the new entries.
+- [x] (27 Nov) The theory's own ideas: the field and its dimensions (4+3+1+3 in P20; 7+3+1 in P21), the zoom (P11;
+      its two counts of levels caught, ISS-130), the Televator: 22 entries, every chapter with entries.
+- [ ] The affidavit re-frozen with the new entries (it is frozen at 80a3fbf).
 - [ ] The entries (layer 2): the view by concept (the affidavits' concepts,
       Me/chats/affidavits/concepts.yaml) instead of by month; each entry: the standard idea (cited, not from
       the chats), its role in [T]-Theory (the papers, the Lean, the method's row if there is one), where it
