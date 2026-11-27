@@ -4,6 +4,7 @@
     python sherlock/usc.py check     # -> bld/sherlock/usc.txt, and printed
     python sherlock/usc.py ideas ... # the ideas list (chats.py ideas, same flags)
     python sherlock/usc.py recall WORD ...   # "didn't I think about ...?": every thread, any state, best first
+    python sherlock/usc.py recall --text WORD ...  # the same in the chats' own text: lines with every word
     python sherlock/usc.py browse            # "there was something else": what is still open, as JSON for a picker
     python sherlock/usc.py where STAMP THREAD # the chat file and line where a thread starts
     python sherlock/usc.py rank STAMP THREAD N # the author's own rating, 0-3 ("sort by cool"); browse puts it first
@@ -203,7 +204,30 @@ def rank(stamp: str, thread: str, n: str) -> int:
     return 1
 
 
+def recall_text(query: list[str], top: int = 12) -> int:
+    """Recall in the text itself (ISS-138): a sentence an assistant wrote is in no thread's topic. Every line of every
+    chat and Phase Dot conversation that holds all the words (case-insensitive), newest chats first."""
+    import chats
+    words = [w.lower() for w in query if len(w) > 1]
+    if not words:
+        print("usage: usc.py recall --text WORD ...")
+        return 2
+    hits = 0
+    for f in sorted(chats.chat_files([]), key=lambda p: p.name, reverse=True):
+        for n, line in enumerate(f.read_text(encoding="utf-8", errors="replace").split("\n"), 1):
+            low = line.lower()
+            if all(w in low for w in words):
+                hits += 1
+                if hits <= top:
+                    i = min(low.index(w) for w in words)
+                    print(f"{chats.stamp_of(f.stem)}:{n}: ...{' '.join(line[max(0, i - 60):i + 140].split())}...")
+    print(f"recall --text: {hits} lines hold {' '.join(words)!r}; {min(top, hits)} shown, newest chats first")
+    return 0
+
+
 def main() -> int:
+    if len(sys.argv) >= 3 and sys.argv[1] == "recall" and sys.argv[2] == "--text":
+        return recall_text(sys.argv[3:])
     if len(sys.argv) >= 2 and sys.argv[1] == "recall":
         return recall(sys.argv[2:])
     if len(sys.argv) >= 2 and sys.argv[1] == "browse":

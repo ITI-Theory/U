@@ -7618,5 +7618,6 @@ then one paper and the app.
       author's two layers and tagline kept), U's line in Repositories widened; `make -C sherlock presence`: 15 linked,
       0 gaps.
 - [ ] t-theory.org (web/) says the same three products (after the app's release build).
-- [ ] Recall searches the text as well as the topics (`usc.py recall --text`): the 20 Nov sentence above was found
-      by grep, not by recall (ISS-136).
+- [x] (27 Nov) Recall searches the text as well as the topics: `usc.py recall --text WORD ...` (and `:UscRecall
+      --text ...`): every line of every chat with all the words, newest first, 3 s. `recall --text impressive makefile`
+      finds the 20 Nov sentence above (20261120_140700:582).
