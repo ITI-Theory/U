@@ -1,0 +1,47 @@
+# Sherlock affidavit: P26, Compose Once, Play Live (ISS-139: the last paper without one).
+id: compose-once-play-live
+document: P26
+title: 'Compose Once, Play Live: An Emotional Score Compiled to Picture and Sound'
+source:
+  file: paper/soma/compose-once-play-live/compose-once-play-live.md
+  commit: b544d6c
+  sha256: ee700244ed614816db76364f57a275f4b7615f1514fa43b68a0aa780d6529cc9
+lean: []
+microtheories: {}
+claims:
+  - id: M1
+    quote: 'at 90 minutes a suite of thirteen movements in four'
+    lines: [26]
+    kind: internal-count
+    finding: >-
+      P26 (ISS-139): the table's parts hold 3 + 4 + 3 + 3 = 13 movements
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [3, 4, 3, 3, 13]}]
+    values:
+      - {quantity: RiverFilm-Movements, value: 13}
+    disposition: none
+  - id: M2
+    quote: '| One: Departure | 3 (144, 144, 144 bars) | 22.5 | Ionian |'
+    lines: [279]
+    kind: internal-arithmetic
+    finding: >-
+      P26 (ISS-139): the parts' minutes sum to 22.5 + 25.3 + 19.9 + 22.6 = 90.3, within 0.5 per cent of the
+      90-minute take
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [22.5, 25.3, 19.9, 22.6, 90.3]}, {template: rel-between, args: [90.3, 90, 0, 0.005]}]
+    disposition: none
+  - id: M3
+    quote: 'The carving gives thirteen movements of 5.6 to 8.0 minutes'
+    lines: [274]
+    kind: internal-duplicate-mismatch
+    finding: >-
+      P26 (ISS-139): the longest movement is 8.0 minutes, so "none over eight minutes" (the abstract) holds, at the edge
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: lt, args: [5.6, 8.0]}, {template: eq, args: [8.0, 8]}]
+    disposition: none
