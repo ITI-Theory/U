@@ -1,3 +1,8 @@
+/-
+Copyright (c) 2026 Alistair Johnson. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE-APACHE.
+Authors: Alistair Johnson
+-/
 import TTheory.Core
 import Mathlib.Data.Set.Basic
 
@@ -5,8 +10,9 @@ import Mathlib.Data.Set.Basic
 # Experiment (ISS-141): designing a study at the REPL, type-level, in OpenCyc's words
 
 The author, 27 Nov: "another BIG usage of a BIG lean model is in a REPL, a user can start modelling
-something, easily ... typelevel design is the goal ... and use of formal notation U and so on, say for the
-design of a people experiment, saying they must speak german OR english AND live in ZH for 10 years".
+something, easily ... typelevel design is the goal ... and use of formal notation U and so on, say
+for the design of a people experiment, saying they must speak german OR english AND live in ZH for
+10 years".
 
 The words are OpenCyc's (NextKB), in the native form of the experiment (A + C: collections as types,
 genls as coercions); OpenCyc's own argument constraints type its predicates:
@@ -55,7 +61,8 @@ opaque yearsResidentIn : Person → GeopoliticalEntity → ℕ
 
 /-- The people who speak a language. A person is an intelligent agent by two genls, so `p` fits
     `languageSpoken` without being told. -/
-def speakers (l : NaturalLanguage) : Set Person := {p | languageSpoken ((p : SocialBeing) : IntelligentAgent) l}
+def speakers (l : NaturalLanguage) : Set Person :=
+  {p | languageSpoken ((p : SocialBeing) : IntelligentAgent) l}
 
 /-- The people who have lived in a place for at least `n` years. -/
 def residents (r : GeopoliticalEntity) (n : ℕ) : Set Person :=
@@ -65,15 +72,17 @@ noncomputable def zurich : GeopoliticalEntity := CityOfZurichSwitzerland
 
 /-- The criterion: speaks German or English, and has lived in Zürich for ten years.
     `(German ∪ English) ∩ Zürich₁₀` -/
-def Eligible : Set Person := (speakers GermanLanguage ∪ speakers EnglishLanguage) ∩ residents zurich 10
+def Eligible : Set Person :=
+  (speakers GermanLanguage ∪ speakers EnglishLanguage) ∩ residents zurich 10
 
-/-- A participant is a person together with the proof that they meet the criterion: the design is a type. -/
+/-- A participant is a person together with the proof that they meet the criterion: the design is a
+    type. -/
 def Participant := {p : Person // p ∈ Eligible}
 
 /-! ## A session
 
-Two people, as a user would enter them. Their facts are assumptions (axioms), so whatever follows from them
-says so in its receipt. -/
+Two people, as a user would enter them. Their facts are assumptions (axioms), so whatever follows
+from them says so in its receipt. -/
 
 axiom anna : Person
 axiom anna_speaks : languageSpoken ((anna : SocialBeing) : IntelligentAgent) GermanLanguage

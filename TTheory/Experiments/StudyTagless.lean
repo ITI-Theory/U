@@ -1,19 +1,24 @@
+/-
+Copyright (c) 2026 Alistair Johnson. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE-APACHE.
+Authors: Alistair Johnson
+-/
 import TTheory.Core
 import Mathlib.Data.Set.Basic
 
 /-!
 # Experiment (ISS-141): the study, tagless-final, in Lean's words
 
-The same design as `StudyDesign.lean` (speaks German or English, and has lived in Zürich for ten years),
-written the way the final model should read (the author, 27 Nov: "i dont think i would expect to see/use
-'genls' in the final version. thats a cyc thing, not lean"; and tagless-final, as `EmotionOntology.lean`):
+The same design as `StudyDesign.lean` (speaks German or English, and has lived in Zürich for ten
+years), written the way the final model should read (the author, 27 Nov: "i dont think i would
+expect to see/use 'genls' in the final version. thats a cyc thing, not lean"; and tagless-final, as
+`EmotionOntology.lean`):
 
-* the vocabulary is types; "every A is a B" is written `fact A ⊑ B`, an asserted subsumption that Lean
-  applies by itself as a coercion; OpenCyc's own words appear only where a fact comes from;
-* the design language is a class, `Criteria`; the criterion is ONE term; each output is an interpreter of
-  it: its meaning (a set of people, with proofs), its text (for the paper or the consent form) and CycL (for
-  OpenCyc), which says plainly what OpenCyc does not know.
--/
+* the vocabulary is types; "every A is a B" is written `fact A ⊑ B`, an asserted subsumption that
+  Lean applies by itself as a coercion; OpenCyc's own words appear only where a fact comes from;
+* the design language is a class, `Criteria`; the criterion is ONE term; each output is an
+  interpreter of it: its meaning (a set of people, with proofs), its text (for the paper or the
+  consent form) and CycL (for OpenCyc), which says plainly what OpenCyc does not know. -/
 
 open TTheory
 
@@ -21,8 +26,8 @@ namespace StudyTagless
 
 /-! ## `fact A ⊑ B`: every `A` is a `B` -/
 
-/-- `fact A ⊑ B` asserts that every `A` is a `B`: an axiom, which Lean then applies by itself (a coercion),
-    and chains. -/
+/-- `fact A ⊑ B` asserts that every `A` is a `B`: an axiom, which Lean then applies by itself (a
+    coercion), and chains. -/
 syntax "fact " ident " ⊑ " ident : command
 
 macro_rules
@@ -50,8 +55,9 @@ axiom GermanLanguage : NaturalLanguage            -- NextKB, AgentGMt
 axiom EnglishLanguage : NaturalLanguage           -- NextKB, UniversalVocabularyMt
 axiom CityOfZurichSwitzerland : City              -- NextKB, WorldPoliticalGeographyDataVocabularyMt
 
-opaque languageSpoken : IntelligentAgent → NaturalLanguage → Prop   -- NextKB, BaseKB (argument types)
-opaque residesInRegion : Person → GeopoliticalEntity → Prop         -- NextKB, BaseKB (argument types)
+-- NextKB, BaseKB (their argument types)
+opaque languageSpoken : IntelligentAgent → NaturalLanguage → Prop
+opaque residesInRegion : Person → GeopoliticalEntity → Prop
 /-- The study's own notion, not OpenCyc's. -/
 opaque yearsResidentIn : Person → GeopoliticalEntity → ℕ
 

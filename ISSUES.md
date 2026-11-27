@@ -7811,6 +7811,9 @@ generated, not in git ... so we must export as artifacts ... am i right?"
       its own Lake package (OpenCyc: Cyc + the generated KB, rules and types; NextKB is CC BY 4.0, so with
       attribution), versioned by tag, the generated sources and the toolchain's .olean shipped as a release artefact
       (as Mathlib's cache) so that nobody rebuilds 2.6 GB; Sherlock and the TTheory model (ISS-141) require it.
+- [ ] (27 Nov, ISS-141) Software that ships OpenCyc (the sherlock binary, the editor extensions, the release of the
+      OpenCyc library) shows NextKB's credit text in a user-visible place, as its licence asks
+      (bld/sherlock/raw/nextkb/license.txt; docs/LEAN.md, Headers).
 
 ---
 
@@ -7954,6 +7957,21 @@ mathlib and physlib ... T-theory, all of it, modelled in lean"):**
       friction). The author decided: microtheories as CLASSES of assumptions over Thing (facts are fields, genlMt is
       extends, a claim holds in a microtheory; an inconsistent one has no instance and the kernel stays consistent);
       the whole of OpenCyc, always; Moriarty and the functor into this plan.
+- [x] (27 Nov) Microtheories as classes, tested (TTheory/Experiments/Microtheories.lean): Anna kernel-verified in
+      PeopleMt with no axioms at all; "Anna is an embryo" refuted in PeopleMt; birds fly and penguins do not, each in
+      its own microtheory: Tweety refuted in PenguinMt, and in the two together witnessed AND refuted, so #status
+      says "inconsistent ... which has no instance", and the combination's False is a theorem about it, resting on no
+      axiom. Core: a claim may name its denial; #status names the microtheories a claim holds in (read off its
+      statement) and has a sixth state, inconsistent.
+- [x] (27 Nov) Lean standards before generating (the author: "somewhere, i had the start at least of some coding
+      standards for lean ... make sure they are good, and you have them"; the start: Me/chats 20260814_204840):
+      docs/LEAN.md, Mathlib's style, naming and documentation guides pointed to, and only our own rules spelled out.
+      The author's choices: OpenCyc's names as they are (a deliberate exception to Mathlib's lowerCamelCase); Mathlib's
+      per-file header, "esp as we have some third party stuff here as well ... be super careful". NextKB's own
+      license.txt checked: CC BY 4.0, so generated OpenCyc files carry its required credit text, the source archive's
+      SHA-256 and what the translation changed; software that ships OpenCyc shows the credit (ISS-140); papers using it
+      cite Forbus and Hinrichs (2017). All TTheory files now have the header and no line over 100 characters; all
+      compile, the states unchanged.
 - [ ] Moriarty in Lean: the attacker that searches for refutations (and for microtheory combinations with no instance).
 - [ ] The aso: to cyc: functor: the Somatic Field Ontology mapped to OpenCyc's concepts; where it will not map is a
       finding ("morphism friction": a hidden dualist assumption in the prose).

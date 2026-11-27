@@ -1,3 +1,8 @@
+/-
+Copyright (c) 2026 Alistair Johnson. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE-APACHE.
+Authors: Alistair Johnson
+-/
 import TTheory.Core
 import SomaField
 import Mathlib.Analysis.Calculus.Deriv.Add
@@ -9,8 +14,8 @@ import Mathlib.Analysis.Calculus.Deriv.MeanValue
 /-!
 # P1 · The Soma-Field: A Wave-Based Model of Emotional Dynamics
 
-[T]-Theory's first paper, as Lean. Read it top to bottom as you would the paper: each section says in a
-few lines what the paper says, then the paper's own objects follow as Lean. Not every word: the
+[T]-Theory's first paper, as Lean. Read it top to bottom as you would the paper: each section says
+in a few lines what the paper says, then the paper's own objects follow as Lean. Not every word: the
 equations, the claims and how far each one is established.
 
 Source: `paper/soma/soma-field-paper/soma-field-paper.md`; the paper's id, title and DOI are in
@@ -28,9 +33,9 @@ open BigOperators
 
 /-! ## Background: the formal correspondences
 
-The paper's starting point: the energy of a Hopfield network, the Hamiltonian of an Ising magnet and the
-energy of the soma-field are one expression. The correspondence is structure, not metaphor; here it is an
-identity that the kernel checks. -/
+The paper's starting point: the energy of a Hopfield network, the Hamiltonian of an Ising magnet and
+the energy of the soma-field are one expression. The correspondence is structure, not metaphor; here
+it is an identity that the kernel checks. -/
 
 section Correspondences
 
@@ -58,8 +63,8 @@ end Correspondences
 
 /-! ## The companion model: eight BRECVEMA mechanisms
 
-The paper's worked model is `paper/proofs/SomaField.lean`: eight dimensions, one per BRECVEMA mechanism,
-and the coupling matrix `W8`. Its energy has no bias term: it is eq. (3) with `b = 0`. -/
+The paper's worked model is `paper/proofs/SomaField.lean`: eight dimensions, one per BRECVEMA
+mechanism, and the coupling matrix `W8`. Its energy has no bias term: it is eq. (3) with `b = 0`. -/
 
 /-- The companion's energy is eq. (3) with the couplings `W8` and no bias (kernel-verified). -/
 theorem companion_energy (e : Field8) : energy8 e = somaEnergy W8 0 e := by
@@ -70,8 +75,8 @@ theorem companion_energy (e : Field8) : energy8 e = somaEnergy W8 0 e := by
 
 /-! ## The Soma-Field model: the perception threshold
 
-An emotion is consciously perceived when its component exceeds a threshold; below it, the field is active
-and causally effective but not named (eq. 12). -/
+An emotion is consciously perceived when its component exceeds a threshold; below it, the field is
+active and causally effective but not named (eq. 12). -/
 
 /-- Eq. (12): emotion `i` is perceived iff `|Eᵢ(t)| > Tᵢ`. -/
 def Perceived {n : ℕ} (T E : Fin n → ℝ) (i : Fin n) : Prop := T i < |E i|
@@ -84,8 +89,9 @@ theorem companion_perceptible (e : Field8) (i : Fin N8) :
 
 /-! ## The interaction of emotional modes: the dynamics
 
-The state flows down the energy landscape, driven by low-level noise: `ė(t) = -∇H(e) + η(t)` (eq. 13).
-Here the noise is an input, one realisation `η` at a time; its law (eq. 24) comes with Appendix B. -/
+The state flows down the energy landscape, driven by low-level noise: `ė(t) = -∇H(e) + η(t)` (eq.
+13). Here the noise is an input, one realisation `η` at a time; its law (eq. 24) comes with Appendix
+B. -/
 
 section Dynamics
 
@@ -109,16 +115,21 @@ theorem hasDerivAt_mode (e : Fin n → ℝ) (i k : Fin n) :
   · simp only [Function.update_of_ne h, Pi.single_apply, h, if_false]
     exact hasDerivAt_const (e i) (e k)
 
-/-- The force behind eq. (13): for symmetric couplings, `-∂H/∂eᵢ = Σⱼ Wᵢⱼ eⱼ + bᵢ` (kernel-verified). -/
-theorem soma_force (W : Fin n → Fin n → ℝ) (hW : ∀ i j, W i j = W j i) (b e : Fin n → ℝ) (i : Fin n) :
-    HasDerivAt (fun x => somaEnergy W b (Function.update e i x)) (-(∑ j, W i j * e j + b i)) (e i) := by
-  have h := ((HasDerivAt.fun_sum (u := Finset.univ) fun a _ => HasDerivAt.fun_sum (u := Finset.univ) fun c _ =>
-      ((hasDerivAt_mode e i a).const_mul (W a c)).mul (hasDerivAt_mode e i c)).const_mul (-(1 / 2) : ℝ)).sub
+/-- The force behind eq. (13): for symmetric couplings, `-∂H/∂eᵢ = Σⱼ Wᵢⱼ eⱼ + bᵢ`
+    (kernel-verified). -/
+theorem soma_force (W : Fin n → Fin n → ℝ) (hW : ∀ i j, W i j = W j i) (b e : Fin n → ℝ)
+    (i : Fin n) :
+    HasDerivAt (fun x => somaEnergy W b (Function.update e i x)) (-(∑ j, W i j * e j + b i))
+      (e i) := by
+  have h := ((HasDerivAt.fun_sum (u := Finset.univ) fun a _ =>
+      HasDerivAt.fun_sum (u := Finset.univ) fun c _ =>
+        ((hasDerivAt_mode e i a).const_mul (W a c)).mul (hasDerivAt_mode e i c)).const_mul
+      (-(1 / 2) : ℝ)).sub
       (HasDerivAt.fun_sum (u := Finset.univ) fun a _ => (hasDerivAt_mode e i a).const_mul (b a))
   refine (h.congr_of_eventuallyEq (Filter.Eventually.of_forall fun x => ?_)).congr_deriv ?_
   · simp only [somaEnergy, Pi.sub_apply, Pi.mul_apply]
-  · simp only [Function.update_eq_self, Pi.single_apply, mul_ite, mul_one, mul_zero, ite_mul, zero_mul,
-      Finset.sum_add_distrib, Finset.sum_ite_eq', Finset.mem_univ, if_true]
+  · simp only [Function.update_eq_self, Pi.single_apply, mul_ite, mul_one, mul_zero, ite_mul,
+      zero_mul, Finset.sum_add_distrib, Finset.sum_ite_eq', Finset.mem_univ, if_true]
     have hs : ∑ a, W a i * e a = ∑ j, W i j * e j := Finset.sum_congr rfl fun a _ => by rw [hW a i]
     have hd : ∑ a, ∑ c, (if a = i then W a c * e c else 0) = ∑ j, W i j * e j := by
       rw [Finset.sum_comm]
@@ -142,10 +153,10 @@ theorem companion_force (e : Field8) (i : Fin N8) :
 
 /-! ## The three-layer architecture
 
-The nervous system that carries the field has three layers. Layer 1, the brainstem: heart-rate-variability
-coherence `C_HRV` sets the noise floor (eq. 14), and cardiac acceleration `Ḣ` tilts the landscape (eq. 15).
-Layer 2, the limbic system: the couplings, the energy, the threshold. Layer 3, the prefrontal cortex: a
-regulating term `R_PFC` (eq. 18). Eq. (16) puts them together. -/
+The nervous system that carries the field has three layers. Layer 1, the brainstem:
+heart-rate-variability coherence `C_HRV` sets the noise floor (eq. 14), and cardiac acceleration `Ḣ`
+tilts the landscape (eq. 15). Layer 2, the limbic system: the couplings, the energy, the threshold.
+Layer 3, the prefrontal cortex: a regulating term `R_PFC` (eq. 18). Eq. (16) puts them together. -/
 
 section ThreeLayers
 
@@ -170,11 +181,14 @@ noncomputable def tilted (H₀ : (Fin n → ℝ) → ℝ) (α Hdot : ℝ) (β e 
 /-- The tilt adds `α Ḣ βᵢ` to the downhill force on mode `i` (kernel-verified). -/
 theorem tilt_force {H₀ : (Fin n → ℝ) → ℝ} {α Hdot : ℝ} {β e : Fin n → ℝ} {i : Fin n} {d : ℝ}
     (h : HasDerivAt (fun x => H₀ (Function.update e i x)) d (e i)) :
-    HasDerivAt (fun x => tilted H₀ α Hdot β (Function.update e i x)) (d - α * Hdot * β i) (e i) := by
-  have hl := (HasDerivAt.fun_sum (u := Finset.univ) fun a _ => (hasDerivAt_mode e i a).const_mul (β a)).const_mul (α * Hdot)
+    HasDerivAt (fun x => tilted H₀ α Hdot β (Function.update e i x)) (d - α * Hdot * β i)
+      (e i) := by
+  have hl := (HasDerivAt.fun_sum (u := Finset.univ) fun a _ =>
+    (hasDerivAt_mode e i a).const_mul (β a)).const_mul (α * Hdot)
   refine ((h.sub hl).congr_of_eventuallyEq (Filter.Eventually.of_forall fun x => ?_)).congr_deriv ?_
   · simp only [tilted, Pi.sub_apply]
-  · simp only [Pi.single_apply, mul_ite, mul_one, mul_zero, Finset.sum_ite_eq', Finset.mem_univ, if_true]
+  · simp only [Pi.single_apply, mul_ite, mul_one, mul_zero, Finset.sum_ite_eq', Finset.mem_univ,
+      if_true]
 
 /-- Eq. (16), the full three-layer velocity: `ė = -∇H₀ + α Ḣ β + R_PFC + (σ₀ / C_HRV) ξ`. -/
 noncomputable def velocity3 (H₀ : (Fin n → ℝ) → ℝ) (α Hdot : ℝ) (β R : Fin n → ℝ) (σ₀ C : ℝ)
@@ -185,16 +199,18 @@ noncomputable def velocity3 (H₀ : (Fin n → ℝ) → ℝ) (α Hdot : ℝ) (β
     its forcing: the paper's three-layer equation follows from its parts (kernel-verified). -/
 theorem velocity3_is_tilted_flow {H₀ : (Fin n → ℝ) → ℝ} {α Hdot σ₀ C : ℝ} {β R ξ e : Fin n → ℝ}
     (h : ∀ i, HasDerivAt (fun x => H₀ (Function.update e i x)) (partialAt H₀ e i) (e i)) :
-    velocity3 H₀ α Hdot β R σ₀ C ξ e = velocity (tilted H₀ α Hdot β) e (fun i => R i + sigmaEff σ₀ C * ξ i) := by
+    velocity3 H₀ α Hdot β R σ₀ C ξ e =
+      velocity (tilted H₀ α Hdot β) e (fun i => R i + sigmaEff σ₀ C * ξ i) := by
   funext i
   simp only [velocity3, velocity, partialAt, (tilt_force (h i)).deriv]
   ring
 
-/-- The somatic equivalence principle: a cardiac tilt and any other forcing `J` of the same size give the
-    same velocity; the field has no access to the origin of the tilt (kernel-verified). -/
+/-- The somatic equivalence principle: a cardiac tilt and any other forcing `J` of the same size
+    give the same velocity; the field has no access to the origin of the tilt (kernel-verified). -/
 theorem somatic_equivalence {H₀ : (Fin n → ℝ) → ℝ} {α Hdot σ₀ C : ℝ} {β R ξ e J : Fin n → ℝ}
     (hJ : ∀ i, J i = α * Hdot * β i) :
-    velocity3 H₀ α Hdot β R σ₀ C ξ e = fun i => -partialAt H₀ e i + J i + R i + sigmaEff σ₀ C * ξ i := by
+    velocity3 H₀ α Hdot β R σ₀ C ξ e =
+      fun i => -partialAt H₀ e i + J i + R i + sigmaEff σ₀ C * ξ i := by
   funext i
   simp only [velocity3, hJ]
 
@@ -230,10 +246,11 @@ end ThreeLayers
 
 /-! ## The energy landscape: attractors
 
-The landscape has valleys, hills and saddles; the field always moves downhill. The paper proposes that the
-major valleys are the autonomic states of polyvagal theory (Table 2): regulated calm the global minimum,
-fight a shallow high-energy minimum, flight a saddle or shallow minimum, freeze a deep but isolated one.
-Escape from freeze requires first *gaining* energy: the clinical point that arousal must be titrated. -/
+The landscape has valleys, hills and saddles; the field always moves downhill. The paper proposes
+that the major valleys are the autonomic states of polyvagal theory (Table 2): regulated calm the
+global minimum, fight a shallow high-energy minimum, flight a saddle or shallow minimum, freeze a
+deep but isolated one. Escape from freeze requires first *gaining* energy: the clinical point that
+arousal must be titrated. -/
 
 /-- Table 2's attractors. -/
 inductive Attractor
@@ -269,7 +286,8 @@ theorem downhill {n : ℕ} (H : (Fin n → ℝ) → ℝ) (hH : Differentiable �
     (he : ∀ t, HasDerivAt e (velocity H (e t) 0) t) : Antitone (fun t => H (e t)) := by
   have hp : ∀ y i, partialAt H y i = fderiv ℝ H y (Pi.single i 1) := by
     intro y i
-    have h := (hH (Function.update y i (y i))).hasFDerivAt.comp_hasDerivAt (y i) (hasDerivAt_update y i (y i))
+    have h := (hH (Function.update y i (y i))).hasFDerivAt.comp_hasDerivAt (y i)
+      (hasDerivAt_update y i (y i))
     simp only [Function.update_eq_self] at h
     exact h.deriv
   have hlin : ∀ y (v : Fin n → ℝ), fderiv ℝ H y v = ∑ i, v i * partialAt H y i := by
@@ -292,8 +310,8 @@ theorem downhill {n : ℕ} (H : (Fin n → ℝ) → ℝ) (hH : Differentiable �
     exact neg_nonpos.2 (Finset.sum_nonneg fun i _ => sq_nonneg _)
 
 /-- Escape from a valley requires first gaining energy: every continuous path out of a strict local
-    minimum passes through a state above it (kernel-verified). This is the paper's freeze: low energy,
-    but walled in. -/
+    minimum passes through a state above it (kernel-verified). This is the paper's freeze: low
+    energy, but walled in. -/
 theorem escape_needs_energy {n : ℕ} (H : (Fin n → ℝ) → ℝ) (x : Fin n → ℝ)
     (hx : ∀ᶠ y in nhdsWithin x {x}ᶜ, H x < H y) (γ : ℝ → Fin n → ℝ) (hγ : Continuous γ)
     (h0 : γ 0 = x) (h1 : γ 1 ≠ x) : ∃ t ∈ Set.Icc (0 : ℝ) 1, H x < H (γ t) := by
@@ -318,9 +336,9 @@ theorem escape_needs_energy {n : ℕ} (H : (Fin n → ℝ) → ℝ) (x : Fin n �
 
 /-! ## P1's claims and their witnesses
 
-Each claim in the paper's words, its statement, and its witness where the model has one. A witness may be
-built from other witnesses: the companion's claim below is derived from the force claim, so it stands or
-falls with it. `#status` at the end computes each claim's state. -/
+Each claim in the paper's words, its statement, and its witness where the model has one. A witness
+may be built from other witnesses: the companion's claim below is derived from the force claim, so
+it stands or falls with it. `#status` at the end computes each claim's state. -/
 
 open TTheory
 
@@ -341,8 +359,10 @@ instance : Witness cForce := .of fun _ W hW b e η => soma_velocity W hW b e η
 
 def cCompanion : Claim where
   id := "P1.companion"
-  text := "SomaField.lean is the paper's model: eight BRECVEMA modes, no bias; its threshold is eq. (12) and its force eq. (13)'s."
-  statement := (∀ e, energy8 e = somaEnergy W8 0 e) ∧ (∀ e i, perceptible e i ↔ Perceived threshold8 e i) ∧
+  text := "SomaField.lean is the paper's model: eight BRECVEMA modes, no bias; its threshold is \
+    eq. (12) and its force eq. (13)'s."
+  statement := (∀ e, energy8 e = somaEnergy W8 0 e) ∧
+    (∀ e i, perceptible e i ↔ Perceived threshold8 e i) ∧
     (∀ e i, fieldForce8 e i = -partialAt (somaEnergy W8 0) e i)
 
 /-- Derived from the force claim's witness: the companion's force is eq. (13)'s. -/
@@ -355,19 +375,23 @@ instance [h : Witness cForce] : Witness cCompanion := .of
 
 def cThreeLayers : Claim where
   id := "P1.eq16"
-  text := "The three-layer equation (16) is the downhill flow of the tilted energy (15), with regulation and HRV-scaled noise."
+  text := "The three-layer equation (16) is the downhill flow of the tilted energy (15), with \
+    regulation and HRV-scaled noise."
   statement := ∀ n (H₀ : (Fin n → ℝ) → ℝ) (α Hdot σ₀ C : ℝ) (β R ξ e : Fin n → ℝ),
     (∀ i, HasDerivAt (fun x => H₀ (Function.update e i x)) (partialAt H₀ e i) (e i)) →
-    velocity3 H₀ α Hdot β R σ₀ C ξ e = velocity (tilted H₀ α Hdot β) e (fun i => R i + sigmaEff σ₀ C * ξ i)
+    velocity3 H₀ α Hdot β R σ₀ C ξ e =
+      velocity (tilted H₀ α Hdot β) e (fun i => R i + sigmaEff σ₀ C * ξ i)
 
 instance : Witness cThreeLayers := .of fun _ _ _ _ _ _ _ _ _ _ h => velocity3_is_tilted_flow h
 
 def cEquivalence : Claim where
   id := "P1.equivalence"
-  text := "The somatic equivalence principle: the field cannot tell a cardiac tilt from any other forcing of the same size."
+  text := "The somatic equivalence principle: the field cannot tell a cardiac tilt from any other \
+    forcing of the same size."
   statement := ∀ n (H₀ : (Fin n → ℝ) → ℝ) (α Hdot σ₀ C : ℝ) (β R ξ e J : Fin n → ℝ),
     (∀ i, J i = α * Hdot * β i) →
-    velocity3 H₀ α Hdot β R σ₀ C ξ e = fun i => -partialAt H₀ e i + J i + R i + sigmaEff σ₀ C * ξ i
+    velocity3 H₀ α Hdot β R σ₀ C ξ e =
+      fun i => -partialAt H₀ e i + J i + R i + sigmaEff σ₀ C * ξ i
 
 instance : Witness cEquivalence := .of fun _ _ _ _ _ _ _ _ _ _ _ hJ => somatic_equivalence hJ
 
@@ -409,7 +433,8 @@ def cEscape : Claim where
 
 /-- P1's claims, in the paper's order. -/
 def claims : List Claim :=
-  [cOneFunction, cCompanion, cForce, cHRV, cThreeLayers, cEquivalence, cPlasticity, cLayer2, cDownhill, cEscape]
+  [cOneFunction, cCompanion, cForce, cHRV, cThreeLayers, cEquivalence, cPlasticity, cLayer2,
+    cDownhill, cEscape]
 
 instance : Witness cDownhill := .of fun _ H hH e he => downhill H hH e he
 

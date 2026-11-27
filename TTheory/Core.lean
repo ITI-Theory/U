@@ -1,20 +1,32 @@
+/-
+Copyright (c) 2026 Alistair Johnson. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE-APACHE.
+Authors: Alistair Johnson
+-/
 import Lean
 
 /-!
 # The core: claims, witnesses, and their state
 
 A document's claim is a proposition. A **witness** for it is a proof, registered as an instance of
-`Witness`; Lean's instance search chains witnesses, so a rule `[Witness a] → [Witness b] → Witness c`
-establishes `c` as soon as `a` and `b` have witnesses, wherever those come from. A new proof, or a changed
-import, moves the states downstream on the next build: nothing is set by hand.
+`Witness`; Lean's instance search chains witnesses, so a rule
+`[Witness a] → [Witness b] → Witness c` establishes `c` as soon as `a` and `b` have witnesses,
+wherever those come from. A new proof, or
+a changed import, moves the states downstream on the next build: nothing is set by hand.
 
 The state of a claim is computed, never typed (`#status`):
 * **kernel-verified**: a witness resting on Lean's standard axioms alone;
 * **derived under assumptions**: a witness resting on further axioms, which are named;
 * **frontier**: a witness through `sorry`, stated exactly but not yet proved;
 * **open**: no witness at all;
-* **refuted**: a refutation, a proof that the claim is false (Moriarty's attack); its receipt says what
-  the refutation rests on.
+* **refuted**: a refutation, a proof of the claim's denial (Moriarty's attack); its receipt says
+  what the refutation rests on;
+* **inconsistent**: both a witness and a refutation: the context the claim lives in (a microtheory,
+  a class of assumptions) has no instance. The contradiction stays inside that context; Lean's
+  kernel is untouched.
+
+A claim that holds in a microtheory says so in its statement (`∀ T [M T], ...`); `#status` reads the
+microtheories off the statement and names them.
 -/
 
 namespace TTheory
@@ -25,6 +37,9 @@ structure Claim where
   id : String
   text : String
   statement : Prop
+  /-- What a refutation must prove: by default the statement's negation; for a claim in a
+      microtheory, its negation in that microtheory (`∀ T [M T], ¬ ...`). -/
+  denial : Prop := ¬ statement
 
 /-- A witness for a claim: a proof of its statement. -/
 class Witness (c : Claim) : Prop where
@@ -34,9 +49,12 @@ theorem Witness.of {c : Claim} (h : c.statement) : Witness c := ⟨h⟩
 
 /-- A refutation of a claim: a proof that it is false. -/
 class Refutation (c : Claim) : Prop where
-  disproof : ¬ c.statement
+  disproof : c.denial
 
-theorem Refutation.of {c : Claim} (h : ¬ c.statement) : Refutation c := ⟨h⟩
+theorem Refutation.of {c : Claim} (h : ¬ c.statement) (e : c.denial = ¬ c.statement := by rfl) :
+    Refutation c := ⟨e ▸ h⟩
+
+theorem Refutation.ofDenial {c : Claim} (h : c.denial) : Refutation c := ⟨h⟩
 
 open Lean Meta Elab Command
 
@@ -57,6 +75,18 @@ private partial def listElems (e : Expr) : MetaM (List Expr) := do
   | (``List.nil, _) => return []
   | _ => throwError "#status: expected a list of claims, got {e}"
 
+/-- The microtheories a claim's statement quantifies over: its instance-implicit binders' classes.
+    -/
+private def contextOf (c : Expr) : MetaM (List Name) := do
+  let stmt ← whnf (mkApp (mkConst ``TTheory.Claim.statement) c)
+  forallTelescopeReducing stmt fun xs _ => do
+    let mut out : List Name := []
+    for x in xs do
+      let d ← x.fvarId!.getDecl
+      if d.binderInfo.isInstImplicit then
+        if let some n := (← whnfR d.type).getAppFn.constName? then out := out ++ [n]
+    return out
+
 private def strField (field : Name) (c : Expr) : MetaM String := do
   match ← whnf (mkApp (mkConst field) c) with
   | .lit (.strVal s) => return s
@@ -67,30 +97,38 @@ elab "#status " t:term : command => liftTermElabM do
   let ty := mkApp (mkConst ``List [Level.zero]) (mkConst ``TTheory.Claim)
   let e ← instantiateMVars (← Term.elabTermEnsuringType t ty)
   let mut lines : Array MessageData := #[]
-  let mut counts : Array Nat := #[0, 0, 0, 0, 0]
+  let mut counts : Array Nat := #[0, 0, 0, 0, 0, 0]
   for c in ← listElems e do
     let id ← strField ``TTheory.Claim.id c
     let text ← strField ``TTheory.Claim.text c
     let receipt := fun (ax : Array Name) => (ax.filter (fun a => !standardAxioms.contains a)).toList
-    let (k, state) ← match ← synthInstance? (mkApp (mkConst ``TTheory.Refutation) c) with
-      | some r =>
+    let ctx ← contextOf c
+    let inCtx := if ctx.isEmpty then "" else s!" in {ctx}"
+    let w? ← synthInstance? (mkApp (mkConst ``TTheory.Witness) c)
+    let r? ← synthInstance? (mkApp (mkConst ``TTheory.Refutation) c)
+    let (k, state) ← match r?, w? with
+      | some _, some _ =>
+        pure (5, s!"inconsistent: witnessed and refuted{inCtx}, " ++ "which has no instance")
+      | some r, none =>
         let ax ← axiomsOf (← instantiateMVars r)
         if ax.contains ``sorryAx then pure (2, "frontier (a refutation through sorry)")
         else
           let extra := receipt ax
-          pure (4, if extra.isEmpty then "refuted" else s!"refuted, resting on: {extra}")
-      | none => match ← synthInstance? (mkApp (mkConst ``TTheory.Witness) c) with
-        | none => pure (3, "open")
-        | some w =>
-          let ax ← axiomsOf (← instantiateMVars w)
-          if ax.contains ``sorryAx then pure (2, "frontier (sorry)")
-          else
-            let extra := receipt ax
-            if extra.isEmpty then pure (0, "kernel-verified")
-            else pure (1, s!"derived under assumptions: {extra}")
+          pure (4, if extra.isEmpty then s!"refuted{inCtx}"
+            else s!"refuted{inCtx}, resting on: {extra}")
+      | none, none => pure (3, "open")
+      | none, some w =>
+        let ax ← axiomsOf (← instantiateMVars w)
+        if ax.contains ``sorryAx then pure (2, "frontier (sorry)")
+        else
+          let extra := receipt ax
+          if extra.isEmpty then pure (0, s!"kernel-verified{inCtx}")
+          else pure (1, s!"derived under assumptions{inCtx}: {extra}")
     counts := counts.modify k (· + 1)
     lines := lines.push m!"{id} [{state}]: {text}"
   logInfo (MessageData.joinSep lines.toList "\n" ++
-    m!"\n{counts[0]!} kernel-verified, {counts[1]!} derived under assumptions, {counts[2]!} frontier, {counts[3]!} open, {counts[4]!} refuted")
+    m!"\n{counts[0]!} kernel-verified, {counts[1]!} derived under assumptions, " ++
+    m!"{counts[2]!} frontier, {counts[3]!} open, {counts[4]!} refuted, " ++
+    m!"{counts[5]!} inconsistent")
 
 end TTheory

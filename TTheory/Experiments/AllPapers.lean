@@ -1,3 +1,8 @@
+/-
+Copyright (c) 2026 Alistair Johnson. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE-APACHE.
+Authors: Alistair Johnson
+-/
 import Benchmark
 import BFSSIsomorphism
 import BRECVEMAField
@@ -32,15 +37,15 @@ import UniversalSomaticField
 /-!
 # Experiment (ISS-141): every paper's Lean in one environment, "and see what happens"
 
-The author, 27 Nov: "to be able to just import all the Px models ... and see what happens". If this file
-compiles, the thirty modules sit together (no clashing names). `#census` then reads the combined
-environment: per module, its theorems, definitions and axioms, the axioms named: the programme's
-assumptions, all in one place.
+The author, 27 Nov: "to be able to just import all the Px models ... and see what happens". If this
+file compiles, the thirty modules sit together (no clashing names). `#census` then reads the
+combined environment: per module, its theorems, definitions and axioms, the axioms named: the
+programme's assumptions, all in one place.
 
-First finding (27 Nov): they do not all sit together. `USF_OSAxioms` imports OSforGFF, and three others
-(MTheoryIsomorphism, RenormalisationGroup, ScaleUniverse) import physlib; both libraries define a top-level
-`SpaceTime`, so Lean refuses to load the two. `USF_OSAxioms` is left out below until that is resolved.
--/
+First finding (27 Nov): they do not all sit together. `USF_OSAxioms` imports OSforGFF, and three
+others (MTheoryIsomorphism, RenormalisationGroup, ScaleUniverse) import physlib; both libraries
+define a top-level `SpaceTime`, so Lean refuses to load the two. `USF_OSAxioms` is left out below
+until that is resolved. -/
 
 open Lean Elab Command in
 elab "#census" : command => do

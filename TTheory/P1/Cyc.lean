@@ -1,16 +1,21 @@
+/-
+Copyright (c) 2026 Alistair Johnson. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE-APACHE.
+Authors: Alistair Johnson
+-/
 import EmotionCyc
 import TTheory.P1
 
 /-!
 # P1 against OpenCyc: what is not an equation, checked as the file compiles
 
-P1's words for feelings, brain regions and nervous systems, each anchored to an OpenCyc collection. An
-anchor is a proof, found by Aesop in OpenCyc's `UniversalVocabularyMt`, that OpenCyc classifies the
-constant so: a wrong name, or a word OpenCyc types differently, does not compile. Where OpenCyc has
-nothing, the word is marked unanchored, visibly, and never given an invented name.
+P1's words for feelings, brain regions and nervous systems, each anchored to an OpenCyc collection.
+An anchor is a proof, found by Aesop in OpenCyc's `UniversalVocabularyMt`, that OpenCyc classifies
+the constant so: a wrong name, or a word OpenCyc types differently, does not compile. Where OpenCyc
+has nothing, the word is marked unanchored, visibly, and never given an invented name.
 
-Apart from the chapter `TTheory.P1` because it imports all of `UniversalVocabularyMt` (as `EmotionCyc`).
--/
+Apart from the chapter `TTheory.P1` because it imports all of `UniversalVocabularyMt` (as
+`EmotionCyc`). -/
 
 namespace TTheory.P1.Cyc
 
@@ -21,20 +26,22 @@ abbrev UV : Mt := .c "UniversalVocabularyMt"
 -- Each anchor is an Aesop search over all of UniversalVocabularyMt (as in EmotionCyc).
 set_option maxHeartbeats 1000000
 
-/-- An OpenCyc constant of the collection type `t`: compiles only if `UniversalVocabularyMt` says so. -/
+/-- An OpenCyc constant of the collection type `t`: compiles only if `UniversalVocabularyMt` says
+    so. -/
 def anchorAs (t n : String)
     (h : Holds UV (Sentence.isa (.c n) (.c t)) := by aesop (rule_sets := [Cyc])) : Ty.Inst UV t :=
   ⟨.c n, h⟩
 
-/-- A word of the paper: anchored to OpenCyc, or unanchored (OpenCyc has no such constant of that type). -/
+/-- A word of the paper: anchored to OpenCyc, or unanchored (OpenCyc has no such constant of that
+    type). -/
 inductive Word (t : String)
   | anchored : Ty.Inst UV t → Word t
   | unanchored : String → Word t
 
 /-! ## The feelings the paper names
 
-Fear, shame, calm (regulated calm), awe and nostalgia are OpenCyc emotion types. Anxiety, the face of
-flight in Table 2, is not: OpenCyc has no emotion type for it, so it stays unanchored. -/
+Fear, shame, calm (regulated calm), awe and nostalgia are OpenCyc emotion types. Anxiety, the face
+of flight in Table 2, is not: OpenCyc has no emotion type for it, so it stays unanchored. -/
 
 abbrev Emotion := Word "EmotionalQuantityType"
 
@@ -61,9 +68,9 @@ def layer3 : Anatomy := .unanchored "PrefrontalCortex"
 
 /-! ## Table 2's nervous systems
 
-Polyvagal theory's states rest on two systems OpenCyc knows as internal body regions: the sympathetic
-nervous system (fight and flight) and the vagus nerve (ventral and dorsal vagal; OpenCyc has the nerve,
-not its two branches). -/
+Polyvagal theory's states rest on two systems OpenCyc knows as internal body regions: the
+sympathetic nervous system (fight and flight) and the vagus nerve (ventral and dorsal vagal; OpenCyc
+has the nerve, not its two branches). -/
 
 abbrev BodyRegion := Ty.Inst UV "InternalAnimalBodyRegionType"
 
@@ -98,7 +105,8 @@ def cAnxiety : Claim where
 
 def cLayers : Claim where
   id := "P1.layers"
-  text := "The brainstem and the limbic system, Layers 1 and 2, are parts of the body; the brainstem is a brain region."
+  text := "The brainstem and the limbic system, Layers 1 and 2, are parts of the body; the \
+    brainstem is a brain region."
   statement := Holds UV (Sentence.isa (.c "BrainStem") (.c "BrainRegionType")) ∧
     Holds UV (Sentence.isa (.c "LimbicSystem") (.c "UniqueAnatomicalPartType"))
 
@@ -106,7 +114,8 @@ instance : Witness cLayers := .of ⟨by aesop (rule_sets := [Cyc]), by aesop (ru
 
 def cPolyvagal : Claim where
   id := "P1.table2"
-  text := "Fight and flight share one nervous system, the sympathetic; calm and freeze share the vagus."
+  text := "Fight and flight share one nervous system, the sympathetic; calm and freeze share \
+    the vagus."
   statement := Attractor.fight.polyvagal.system = Attractor.flight.polyvagal.system ∧
     Attractor.regulatedCalm.polyvagal.system = Attractor.freeze.polyvagal.system
 

@@ -1,3 +1,8 @@
+/-
+Copyright (c) 2026 Alistair Johnson. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE-APACHE.
+Authors: Alistair Johnson
+-/
 import TTheory.Core
 import Mathlib.Data.Set.Basic
 import Mathlib.Data.Set.Disjoint
@@ -5,16 +10,16 @@ import Mathlib.Data.Set.Disjoint
 /-!
 # Experiment (ISS-141): individuals with several types, and disjointness, two ways
 
-NextKB's facts: FemaleHuman ⊑ HomoSapiens, HumanAdult ⊑ HomoSapiens (BaseKB); HumanAdult and Embryo are
-disjoint (UniversalVocabularyMt). Anna is a woman and an adult: two collections at once. Each design must
-witness "Anna is an adult woman, a human" and refute "Anna is an embryo".
+NextKB's facts: FemaleHuman ⊑ HomoSapiens, HumanAdult ⊑ HomoSapiens (BaseKB); HumanAdult and Embryo
+are disjoint (UniversalVocabularyMt). Anna is a woman and an adult: two collections at once. Each
+design must witness "Anna is an adult woman, a human" and refute "Anna is an embryo".
 
 1. Every collection a type: maximal type checking; an individual has one type, so a second needs an
    identity, and disjointness has to be said through a common supertype.
-2. Sorts as types, the rest as sets: the broad kinds (here `Organism`; elsewhere Person, Language, Place)
-   are types, so a category error across kinds stays a type error; within a kind, collections are Mathlib
-   sets, so several memberships, `∪ ∩ ⊆` and disjointness (`Disjoint`) are Mathlib's own.
--/
+2. Sorts as types, the rest as sets: the broad kinds (here `Organism`; elsewhere Person, Language,
+   Place) are types, so a category error across kinds stays a type error; within a kind, collections
+   are Mathlib sets, so several memberships, `∪ ∩ ⊆` and disjointness (`Disjoint`) are Mathlib's
+   own. -/
 
 open TTheory
 
@@ -43,7 +48,8 @@ fact HumanAdult ⊑ HomoSapiens
 fact Embryo ⊑ Organism
 
 /-- Disjointness through the common supertype: no organism is both an adult human and an embryo. -/
-axiom adult_apart_embryo : ∀ (a : HumanAdult) (e : Embryo), ((a : HomoSapiens) : Organism) ≠ (e : Organism)
+axiom adult_apart_embryo :
+  ∀ (a : HumanAdult) (e : Embryo), ((a : HomoSapiens) : Organism) ≠ (e : Organism)
 
 /-- Anna, declared at one type; her second type needs a second term and an identity. -/
 axiom anna : FemaleHuman

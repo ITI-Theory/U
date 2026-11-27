@@ -1,11 +1,17 @@
+/-
+Copyright (c) 2026 Alistair Johnson. All rights reserved.
+Released under Apache 2.0 license as described in the file LICENSE-APACHE.
+Authors: Alistair Johnson
+-/
 import TTheory.Core
 
 /-!
 # Experiment (ISS-141): OpenCyc as native Lean, two ways, on P1's vocabulary
 
-The same NextKB facts as `TTheory/P1/Cyc.lean` (which keeps OpenCyc as strings inside an opaque `Holds`,
-every fact an axiom, Aesop searching them: 8 minutes for four queries over UniversalVocabularyMt), written
-natively. Exploratory: what reads well, what the compiler catches, what it costs.
+The same NextKB facts as `TTheory/P1/Cyc.lean` (which keeps OpenCyc as strings inside an opaque
+`Holds`, every fact an axiom, Aesop searching them: 8 minutes for four queries over
+UniversalVocabularyMt), written natively. Exploratory: what reads well, what the compiler catches,
+what it costs.
 
 Every fact below is NextKB's, in UniversalVocabularyMt unless marked:
   BrainStem genls AnimalBodyPart; BrainStem genls InternalAnatomicalPart;
@@ -44,9 +50,11 @@ axiom SympatheticNervousSystem.toAnimalBodyRegion : SympatheticNervousSystem →
 axiom VagusNerve.toCranialNerve : VagusNerve → CranialNerve
 
 noncomputable instance : Coe BrainStem AnimalBodyPart := ⟨BrainStem.toAnimalBodyPart⟩
-noncomputable instance : Coe BrainStem InternalAnatomicalPart := ⟨BrainStem.toInternalAnatomicalPart⟩
+noncomputable instance : Coe BrainStem InternalAnatomicalPart :=
+  ⟨BrainStem.toInternalAnatomicalPart⟩
 noncomputable instance : Coe LimbicSystem AnimalBodyPart := ⟨LimbicSystem.toAnimalBodyPart⟩
-noncomputable instance : Coe LimbicSystem InternalAnatomicalPart := ⟨LimbicSystem.toInternalAnatomicalPart⟩
+noncomputable instance : Coe LimbicSystem InternalAnatomicalPart :=
+  ⟨LimbicSystem.toInternalAnatomicalPart⟩
 noncomputable instance : Coe AnimalBodyPart AnimalBodyRegion := ⟨AnimalBodyPart.toAnimalBodyRegion⟩
 noncomputable instance : Coe SympatheticNervousSystem AnimalBodyRegion :=
   ⟨SympatheticNervousSystem.toAnimalBodyRegion⟩
@@ -76,7 +84,8 @@ axiom Calmness.isEmotion : EmotionalQuantityType Calmness
 attribute [instance] Fear.isEmotion Shame.isEmotion Calmness.isEmotion
 
 -- Transitivity is Lean's own: a brainstem is an animal body region through two genls, no search.
-noncomputable example (b : BrainStem) : AnimalBodyRegion := ((b : AnimalBodyPart) : AnimalBodyRegion)
+noncomputable example (b : BrainStem) : AnimalBodyRegion :=
+  ((b : AnimalBodyPart) : AnimalBodyRegion)
 
 -- The microtheory's fact holds only where it is opened ...
 section
@@ -95,7 +104,8 @@ end
 def cFeelings : Claim where
   id := "P1.feelings (A)"
   text := "Fear, shame and calm are emotions."
-  statement := EmotionalQuantityType Fear ∧ EmotionalQuantityType Shame ∧ EmotionalQuantityType Calmness
+  statement :=
+    EmotionalQuantityType Fear ∧ EmotionalQuantityType Shame ∧ EmotionalQuantityType Calmness
 
 instance : Witness cFeelings := .of ⟨inferInstance, inferInstance, inferInstance⟩
 
@@ -105,7 +115,8 @@ def cLayers : Claim where
   statement := BrainRegionType BrainStem ∧ Nonempty (BrainStem → AnimalBodyRegion) ∧
     Nonempty (LimbicSystem → AnimalBodyRegion)
 
-instance : Witness cLayers := .of ⟨inferInstance, ⟨fun b => ((b : AnimalBodyPart) : AnimalBodyRegion)⟩,
+instance : Witness cLayers := .of ⟨inferInstance,
+  ⟨fun b => ((b : AnimalBodyPart) : AnimalBodyRegion)⟩,
   ⟨fun l => ((l : AnimalBodyPart) : AnimalBodyRegion)⟩⟩
 
 #status [cFeelings, cLayers]
