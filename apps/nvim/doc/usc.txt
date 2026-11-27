@@ -1,0 +1,33 @@
+*usc.txt*  Sherlock, USC and the Soma Machine in Neovim
+
+USC is the Universal Semantic Compiler of the [T]-Theory programme. This plugin is the Neovim client;
+the VS Code extension (apps/vscode) is the other. Both read the same findings, one per line, in the
+form `path:line: error|warning: message`.
+
+COMMANDS                                                        *usc-commands*
+
+:UscCheck            USC's findings as diagnostics (runs `python sherlock/usc.py check`: tag errors,
+                     tags not yet triaged, the method's open assumptions). Seconds, no Lean.
+:[range]UscIdea [disp] [ref] [note]
+                     Tag the lines as an IDEA where it was said ({{usc:begin ...}} and
+                     {{usc:end ...}} lines). Asks for what is missing.
+:UscIdeas            The ideas list from the chats (Me/chats/ideas.md).
+:SherlockLoad        Sherlock's findings (bld/sherlock/ledger.txt) as diagnostics.
+:SherlockQuickfix    The same findings in the quickfix list.
+:SherlockCheck       Rerun Sherlock's ledger (slow: Lean judges every cited name).
+:SherlockReadings    Sentences checked against NextKB.
+:SherlockProve [n]   Ask Lean about a declaration (#check, #print axioms).
+:SomaView            This file in the Soma Machine (a Lean file's tower, a document's stop).
+:SomaTower [n]       A declaration's tower floor.
+
+WHERE IT WORKS                                                  *usc-root*
+
+Inside a clone of ITI-Theory/U, or anywhere when $USC_U names one (a chat in another folder).
+
+SETUP                                                           *usc-setup*
+
+The plugin sets itself up on load. To call setup yourself: >lua
+    vim.g.usc_setup = false
+    require("usc").setup()
+<
+ vim:tw=100:ft=help:norl:

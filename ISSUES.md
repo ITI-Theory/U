@@ -7311,8 +7311,12 @@ Plan (each a box; the AUTHOR's are on the desk, ISS-081):
 - [x] (27 Nov) USF in the extension: the catalogue of papers and books from Dist/PAPERS.yaml, each opening its DOI
       (`[T]-Theory: Open a Paper or Book…`; 52 items, 26 with a DOI; scripts/catalogue.py at package time; a
       paper not yet on Zenodo opens its local PDF in Dist). Smoke test: 13 ok.
-- [ ] The Neovim equivalent as a plugin others can install (from U.Dot's sherlock.lua and usc-vim: a
-      repository or a folder a plugin manager can load), with the same commands.
+- [x] (27 Nov) The Neovim equivalent as a plugin others can install: usc.nvim, U apps/nvim (lua/usc,
+      plugin/usc.lua, doc/usc.txt, README: lazy.nvim `dir`, vim-plug `{'rtp': 'apps/nvim'}`, or the
+      runtimepath), moved from U.Dot's sherlock.lua, which is now a shim loading it. Tested headless: a clean
+      Neovim with the plugin (5 diagnostics in WKB.lean, the commands), usc-vim through the shim, `:help usc`.
+- [ ] AUTHOR: usc.nvim in a repository of its own (ITI-Theory/usc.nvim) so plugin managers find it by
+      name, or kept in U (installable already).
 - [ ] The Marketplace page and Open VSX: the README as the page (what it does, what it needs, no AI model
       involved, not medical advice), screenshots, tags; a CHANGELOG.
 - [ ] AUTHOR: the publisher accounts (Visual Studio Marketplace: publisher `iti-theory`; Open VSX), the
@@ -7357,6 +7361,13 @@ cites the prompts it comes from, so Sherlock can write its affidavit against the
 - [ ] USC needs one Phase Dot source: the original Me/books/phase-dot/phase-dot.md (the April-May 2026
       transcripts, the origin) is not in Me/chats/Inbox, so the chronicle starts nearly empty (Feb-Apr: 3
       threads). Give it an affidavit (split into its conversations) so the Origins chapter has its record.
+      Surveyed 27 Nov: phase-dot.md is 2 MB, 30,144 lines: Part I "Conversations" (62 sections, each opening
+      with its date in italics, from 13 April 2026), Part II "The Build" (156), "The T's" (53 + 293); its code
+      fences do not balance. Plan: (1) a splitter (no LLM) cuts it into dated conversations, Me/chats/
+      phase-dot/YYYYMMDD_NN_<slug>.md, private; (2) the pasted text has no prompt markers, so their affidavits
+      cite sections and lines instead of prompts (Chat model: a `section` locator beside `prompts`); (3) the LLM
+      pass writes the affidavits, Part I first (the origin), a few sessions' work; (4) chronicle reads them.
+      AUTHOR: whether they join Me/chats/Inbox (then they count in the triage) or stay beside it.
 - [ ] Layer 2: the narrative of each period, written from the chronicle, every paragraph citing its prompts.
 - [ ] Triage feeds it: 216 of the 285 threads are not yet triaged; each routed thread changes its line.
 - [ ] AUTHOR (desk): the title. Copilot's opinion, 27 Nov: "[T]-Theory: The Evolution" (the spine carries
