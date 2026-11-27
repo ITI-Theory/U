@@ -4192,6 +4192,8 @@ other work.
 - [ ] (ISS-131, 27 Nov) Read the write-up: SH1 "A second run", P3 "The Protocol as Code" (its next version;
       upload to Zenodo when happy), the course ch. 15 "Backtest: Einstein, 1905". Built in bld/papers and
       bld/textbook.
+- [ ] (ISS-132, 27 Nov) The big bang's decisions: the Marketplace and Open VSX publisher accounts, the
+      extension's name (USF, USM and USC in one package), the date (Zenodo, t-theory.org, Marketplace, Neovim).
 
 ## ISS-082: The voices: the author's own, and a licence-clean public one — PARKED
 {{Tags area.app, area.instrument}}
@@ -7261,3 +7263,51 @@ ISS-130) is written up where each part belongs, with its numbers taken from the 
       count in prose is checked against `make` instead of against itself.
 - [ ] (queued from 20261121_171224 document-triad) Document all three layers, not only USC: USF (the theory's
       own guide), USM (how to use the app and what it shows), USC (docs/SHERLOCK.md, done).
+
+## ISS-132: EPIC: the big bang: three products, one package (USF, USM, USC) — IN-PROGRESS
+{{Tags area.release, area.app, area.sherlock}}
+{{Fields date.created=2026-11-27, date.start=2026-11-27, date.end=, epic=ISS-132-big-bang}}
+
+**Author, 27 Nov 16:49:** "originally we just had the paper/book release to zenodo and the app on the web,
+t-theory.org. very much a big bang ... releasing sherlock to vscode marketplace and neovim equiv. now, those
+releases also need usm and sf ... its all one package (deliberately, even if not technically needed). so ...
+its still a big bang. but focusing on 3 products ... esp a vscode plugin (and the plugin actually runs
+neovim ... or a vscode interface instead? as browser neovim just a client i understand, so we can do that?)"
+
+The chats behind it: 18 Nov (20261118_215825 vscode-plugin: the Marketplace, one-click install, the
+affidavits as the extension's basis, its page, who to tell; first a chat channel, "what do you think, guys,
+before i release?"); 20 Nov (20261120_140700 plugin-strategy: all of [T]-Theory in the plugin, the data
+pre-compiled to Lean, the node app linking to the PDFs, the .aff DSL, Neovim to edit .aff files "IF YOU
+WANT", "main point for me is the t-theory gets an audience"; Python and Lean both, Python loaded lazily;
+sm-as-dev-env and mother-neovim: Neovim and a shell inside the Soma Machine). ISS-114 (the release of
+Oct, still open), ISS-090 (apps/vscode 0.1.0, packaged, not published), ISS-129 (Neovim) feed it.
+
+**The three products, one package.** USF: the papers and books (Zenodo, DOIs in Dist/PAPERS.yaml).
+USM: the Soma Machine (t-theory.org/app; bundled offline in the extension). USC: the compiler (Sherlock,
+the tags, the models), in VS Code and Neovim. The VS Code extension carries all three: the app in a tab,
+the catalogue of papers and books opening their DOIs, and USC's findings and commands.
+
+**Neovim inside VS Code? (Copilot, 27 Nov.)** Neovim is a server with clients: a terminal UI, a GUI
+(Neovide), a browser textarea (Firenvim), or VS Code itself (the vscode-neovim extension runs a real
+Neovim behind VS Code's editor). Neovim does not run inside a web page; a page can only be a client of a
+Neovim process on the machine. So the extension does not embed Neovim: USC is editor-neutral (one command
+line, `usc`, writing compiler-style findings; a language server later), VS Code and Neovim are two thin
+clients, and a Vim user in VS Code adds vscode-neovim. The Soma Machine's own shell with Neovim (ISS-129,
+MOTHER `/shell`) is a client of the same kind, later.
+
+Plan (each a box; the AUTHOR's are on the desk, ISS-081):
+- [ ] One USC command for both editors: `python sherlock/usc.py check` writes bld/sherlock/usc.txt
+      (`path:line: error|warning: message`): the tag errors, the untriaged tags, the method's open
+      assumptions (the bait). The Neovim plugin (U.Dot sherlock.lua) already reads usc.txt.
+- [ ] The VS Code extension 0.2.0 reads usc.txt beside the ledger; the `.aff` language (affidavits:
+      highlighting); the `{{usc:...}}` tags highlighted in Markdown; USC commands: check, tag the selection
+      (IDEA, LOOSE_END, DECISION, QUESTION), open the ideas list.
+- [ ] USF in the extension: the catalogue of papers and books from Dist/PAPERS.yaml, each opening its DOI.
+- [ ] The Neovim equivalent as a plugin others can install (from U.Dot's sherlock.lua and usc-vim: a
+      repository or a folder a plugin manager can load), with the same commands.
+- [ ] The Marketplace page and Open VSX: the README as the page (what it does, what it needs, no AI model
+      involved, not medical advice), screenshots, tags; a CHANGELOG.
+- [ ] AUTHOR: the publisher accounts (Visual Studio Marketplace: publisher `iti-theory`; Open VSX), the
+      extension's name (now "Sherlock & the Soma Machine"; with USC and the books, perhaps "[T]-Theory"),
+      and the date of the big bang (Zenodo, t-theory.org, the Marketplace, Neovim, together).
+- [ ] Before the release (18 Nov, the author): a chat channel, "what do you think, guys, before i release?"

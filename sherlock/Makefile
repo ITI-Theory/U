@@ -16,7 +16,7 @@ NEXTKB_URL := https://www.qrg.northwestern.edu/nextkb/nextkb_files_20190107.zip
 NEXTKB_ZIP := $(RAW)/nextkb_files_20190107.zip
 NEXTKB_SHA := 5489856b64c9db1c69965ecb6a9a82382ddffd3fdf76c571b8bbde97405d7b79
 
-.PHONY: issues tags links app-audit usm equations method backtests fishing chats writers studio help fetch lean-gen lean affidavits all clean check ledger delta rules-gen types towers readings readings-lean skyline clinical level-types leakage grammar impact presence model rivals bofh standalone gallery privacy provenance features views
+.PHONY: usc issues tags links app-audit usm equations method backtests fishing chats writers studio help fetch lean-gen lean affidavits all clean check ledger delta rules-gen types towers readings readings-lean skyline clinical level-types leakage grammar impact presence model rivals bofh standalone gallery privacy provenance features views
 
 help:
 	$(info Sherlock (ISS-055), outputs in bld/sherlock/)
@@ -39,6 +39,7 @@ help:
 	$(info   standalone  every cheat sheet stands on its own: identity, its own words, its own references)
 	$(info   gallery     every picture in A Gallery of Thoughts is the programme's own (ISS-097))
 	$(info   issues      ISSUES.md as a Lean model: the format's rules, loose ends, the author's desk (Issue/, IssueQueries; ISS-126))
+	$(info   usc         USC's findings for every editor, fast (no Lean): tag errors, untriaged tags, the method's open assumptions -> bld/sherlock/usc.txt (ISS-132))
 	$(info   tags        the {{usc:...}} tags in the originals (chats, ISSUES.md): checked, as Lean, joined to the issues (ISS-126))
 	$(info   equations   every equation of the papers, books and levels, classed and matched to its Lean (ISS-128; minutes))
 	$(info   usm         the USM as a model: options from 4D up, what each shows, which papers nothing shows (ISS-127))
@@ -192,6 +193,10 @@ fishing: backtests
 	  LEAN_NUM_THREADS=2 lake build $$m > "$(LOG)" 2>&1 || { tail -n 30 "$(LOG)"; exit 1; }; tail -n 1 "$(LOG)"; \
 	done
 	cd .. && lake env lean sherlock/Fishing.lean
+
+# USC's one command for every editor (ISS-132): compiler-style findings in bld/sherlock/usc.txt.
+usc:
+	$(PYTHON) usc.py check
 
 # U's issues as a Lean model (ISS-126): generated from ISSUES.md into bld/, checked by IssueQueries.
 issues:
