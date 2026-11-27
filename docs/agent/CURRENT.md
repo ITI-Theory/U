@@ -6,50 +6,30 @@ in git history and in `CURRENT-2026-10-01-to-06.md.OBSOLETE`; open items live
 in [ISSUES.md](../../ISSUES.md); how we work is in [README.md](../../README.md);
 the other working documents are listed in [docs/agent/README.md](README.md).
 
-## Now (27 Nov 2026, early morning)
+## Now (27 Nov 2026, evening)
 
-**USC: the chats as Lean models (ISS-126).** The author's design is in his AI Mode chats of 18-26 Nov
-(USC = Sherlock + MTC; every chat fails until triaged; the models put together). Done 27 Nov:
-`make -C sherlock chats` compiles every chat in Me/chats/Inbox (349 chats, 6489 prompts, all formats)
-with its affidavit (Me/chats/affidavits/*.aff, written by the LLM pass) into the Lean library `Chats`
-(about 100 s); the model is `sherlock/Chat`, the questions `sherlock/ChatQueries.lean`, whose
-acceptance test (the model answers what grep did: USC, putting the models together, the tags' line
-of descent, Einstein) passes. 115 chats fail the triage; 25 threads are open. `python sherlock/chats.py
-route STAMP THREAD DISPOSITION [REF]` routes a thread. The generated modules are private (bld/).
+Three layers: USF (the theory: papers and books), USM (the Soma Machine, the theory made visible) and
+USC (the Universal Semantic Compiler: Sherlock plus the meta-theory compiler). The author's order:
+**USC first, USF points, then USM correctness**; Neovim in USM later (ISS-129). Every layer has a Lean
+model and a make target in `sherlock/`; how to use them is `docs/SHERLOCK.md`, "USC: the working record".
 
-**The method as a model (27 Nov, late).** P3, the author's methodology paper (mathematical
-co-identification), is now Lean: `sherlock/Method` (registration rows, scope labels S1-S3,
-disconfirmation rules, negative control, the loop; `make -C sherlock method`). The Einstein backtest
-is row COID-EINSTEIN-1905 (S3); the first fishing catch, gravity, is COID-GRAV-1 (S1,
-`make -C sherlock fishing`), with five open assumptions. The first is a sign contradiction in the
-cheatsheet's master equation (ISS-126, AUTHOR).
-
-**Round 2 (27 Nov, night).** The catches are the `Fishing` library (U's lakefile) and cite each
-other; `make -C sherlock fishing` prints the method's ledger (7 rows) and the bait (the open
-assumptions, the next round's targets). New rows: Klein-Gordon (the memory kernel is not a solution),
-the cosmic budget (closes at 21/22; 15/22 pre-registered), the author's expansion question (fixed
-fractions need created mass and are excluded), Kaluza-Klein on D8 (the extra dimension as the witness
-for the sign). ISSUES.md is a Lean model too (`make -C sherlock issues`), joined to the chats.
-
-**Also 27 Nov:** the Takeouts of 27 Nov imported (Me 72faf78; export_gemini reads `My Activity.json`
-and the AI Mode folder); the "write a book" chat, too big to reload in VS Code, exported to its end
-(20 Oct); chat volumes 15-17 in H-AL's notebook (HAL-UAT, 45 of 50 sources); HAL on the PATH of this
-laptop (`U.Dot/bin/HAL1 init`); `audio` merged into `main` and tagged `pre-usc-2026-11-27`: one line
-of work again. NotebookLM's `cold` profile (johnsonusm.com) still fails to authenticate.
-
-**The night of 27 Nov (author asleep; read this first).** Three layers, each with its Lean model and a
-make target in `sherlock/` (`make -C sherlock help`); every finding is in ISS-126 to ISS-129.
-- USF, the theory: `fishing` (16 method rows from the cheatsheet, the bait: what each leaves open);
-  `equations` (393 equations, the master equation's sign census, and every catch found again across the corpus:
-  58 places to edit, bld/sherlock/equations.md); the catches are claims in Sherlock's affidavits (the cheatsheet
-  CS9 to CS21, P10, P14, the geophysics and philosophy books). Provisional decisions in ISS-126 for the author to
-  overrule. The sharpest: the memory kernel e^{-kvτ} is the field's Euclidean correlation, not a real-time memory.
-- USM, the app: `usm` (options from 4D up, `visible_mono`; 15 of 27 papers on screen) and `app-audit`
-  (screenshots, Windows OCR and the page's text, 93 screens: INTERPRETIVE drawn at 4D and 8D on the six human and
-  collective levels; the dimension buttons unreadable), ISS-127. App changes left for the author.
-- USC, the compiler: `issues`, `tags` (`chats.py tag` writes the model's routed threads into the originals: 96
-  tags), `links` (papers, issues, chats and rows in one graph), `chats`; the ideas list Me/chats/ideas.md (296
-  threads; 29 routed overnight, evidence checked); Neovim: U.Dot `bin/usc-vim` (ISS-129).
+- **USC (ISS-126).** The chats (349, 6507 prompts, each with an affidavit), ISSUES.md (131 issues, 820
+  boxes), the `{{usc:...}}` tags (120, classes IDEA, LOOSE_END, DECISION, QUESTION, written where the
+  thing was said, kept across re-exports) and the linker. `python sherlock/chats.py ideas` writes
+  Me/chats/ideas.md by kind (16 loose ends, 15 drift, 264 pursued not yet routed); `--grep WORD --by
+  kind|product|date` searches it. Tag loose ends in the chat as they come up, on their own lines.
+- **USF (ISS-130).** The fishing's corrections, place by place (17 boxes); the method's ledger
+  (`make -C sherlock fishing`): 16 rows, 1 validated (the Einstein backtest), 2 falsified (the
+  cosmological budget), 13 at S1 with 32 open assumptions. Several boxes wait on the author's
+  decisions (desk, ISS-081).
+- **USM (ISS-127).** The app audit (93 screens): the 3D scene's INTERPRETIVE plates at 4D and 8D, and
+  the buttons' contrast; fixes wait on the author's approval (desk).
+- **The write-up (ISS-131, done 27 Nov).** SH1 "A second run"; P3's next version, "The Protocol as
+  Code" (with the failure ledger table); the course, ch. 15 "Backtest: Einstein, 1905". Sherlock run
+  on its own write-up: affidavits re-frozen at 13a3fb3, 428 of 428 checks. The technical-book idea
+  (Manning and others) is parked until USC ships as a plugin.
+- **Line endings.** LF everywhere (.gitattributes in every repo, 27 Nov); never `Set-Content` from
+  PowerShell for repo files.
 
 **Rules that stand (author, 18-19 Oct):** music is made in Ableton Live, never outside it; the music
 is private (the Soma Machine passes its emotional score in, generates nothing); Phase Plant takes no
@@ -57,11 +37,10 @@ audio. Details in ISS-118 and ISS-120 and `registry/studio/standard.yaml`.
 
 ## Next
 
-1. The name is settled: the Universal Semantic Compiler (author, 27 Nov; T.Ops naming standard).
-2. AUTHOR: the master equation's sign (ISS-126): +k² (oscillation) or -k² (a mass, decay)?
-3. AUTHOR: triage the chats that fail (`Chat.untriaged`), starting with the USC chats of 18-26 Nov.
-4. ISS-126: further fishing catches as Method rows; the chats in Me/chats/notebooks and Me/archive/sessions; join the chat models to the
-   paper models (MTC, a core the documents project from); the `{{usc:...}}`
-   tags and their Lua filter.
-5. The release epic (ISS-114, planned for 21 Oct) is still open: its state since 20 Oct to review
-   with the author.
+1. AUTHOR (desk, ISS-081): read the write-up and upload P3's new version; the provisional decisions
+   (sign, bulk or brane, the fractions, SQ = λ₂, b, Kramers' γ, "deep"), which unlock ISS-130's edits;
+   approve the two app fixes (ISS-127); wire `usc-tags.lua` into the builds.
+2. USC: a template that checks a prose count against a build's output (ISS-131); route the 264
+   pursued-but-unrouted threads, the USC chats of 18-26 Nov first; the USC language server (ISS-129).
+3. USF: the ISS-130 boxes that wait on no decision; the equation-by-equation match (ISS-128).
+4. The release epic (ISS-114) is still open: review its state with the author.
