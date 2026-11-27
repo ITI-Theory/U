@@ -7055,6 +7055,12 @@ the body's vessels by the Televator); 26 Nov (the visual audit: USC on the app's
 - [ ] Fix the two systematic findings in the app: the places' INTERPRETIVE plates gated to 11D (or
       relabelled by layer), and the dimension buttons' and claim badges' contrast; rerun the audit.
 - [ ] The Fantastic Voyage (21 Nov, threads body-voyage, shrink-by-zoom): biology at the finest level.
+- [x] (27 Nov) The 21 Nov chat traced against the code (USC on a chat's asks): the vessel wall is there
+      (apps/.../vessel.js, 12 Oct: endothelium, glycocalyx, smooth muscle, driven by the score), fluorescence
+      is a style (STYLE: FLUORESCENCE), the voyage stops and `voyage=` views exist; missing: the whole-body
+      vascular tree (prompt 3, "a hundred thousand miles of vessels"), shrinking into the capillaries with the
+      Televator's zoom (prompts 4-5, thread shrink-by-zoom), the HUD (prompt 8: Sherlock-like, a spacecraft's
+      directions and angles). The chat's prototype and instructions for Claude are prompts 8-9.
 - [x] (27 Nov) The chats' threads queued here (`chats.py route`): 20261121_220226 body-voyage and
       shrink-by-zoom, 20261126_140957 visual-audit.
 
