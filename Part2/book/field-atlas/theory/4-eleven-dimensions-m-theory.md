@@ -12,7 +12,7 @@ $$
 M_4\times P_3\times L_1\times C_3,
 $$
 
-where $M_4$ denotes local spacetime, $P_3$ a spatial vacuum block used in the dark-matter derivation, $L_1$ a localisation or line factor, and $C_3$ a compact/vacuum block used in the dark-energy derivation. The count $4+3+1+3=11$ is bookkeeping inside P21/P22-style assumptions. It is not the same as deriving the observed universe from an M-theory compactification. [derived-under-assumptions]
+where $M_4$ denotes local spacetime and $X_7=P_3\times L_1\times C_3$ the seven compact dimensions: $P_3$ the propagator, $L_1$ the limbic axis and $C_3$ the cortex, as the USF paper names them. The cosmology papers count the same eleven by time, space and the compact block, $1+3+7=11$: P21's dark-energy fraction $7/11$ counts the compact seven, and P22's dark-matter fraction $3/11$ the three non-compact spatial dimensions inside $M_4$. The count $4+3+1+3=11$ is bookkeeping inside P21/P22-style assumptions. It is not the same as deriving the observed universe from an M-theory compactification. [derived-under-assumptions]
 
 This distinction prevents overclaim. Physical compactification begins with a higher-dimensional theory on a product or fibration, then derives lower-dimensional fields, spectra, moduli, and couplings. The programme's count instead organises response sectors and compares fractions such as $7/11$ and $3/11$ with cosmological data. The numerical comparison can be tested and criticised without claiming that a full string vacuum has been constructed. [derived-under-assumptions; open-hypothesis]
 

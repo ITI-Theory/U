@@ -379,13 +379,13 @@ def fig_T3_5():
 
 def fig_T4_1():
     fig, ax = plt.subplots(figsize=(5.2, 1.9)); ax.axis("off")
-    parts = [("M4\nspacetime", 4, BLUE), ("P3\nspatial", 3, CYAN), ("L1\nline", 1, GOLD), ("C3\ncompact", 3, WARM)]
+    parts = [("M4\nspacetime", 4, BLUE), ("P3\npropagator", 3, CYAN), ("L1\nlimbic", 1, GOLD), ("C3\ncortex", 3, WARM)]
     x = 0
     for label, n, color in parts:
         ax.add_patch(Rectangle((x, 0.45), n, 0.62, fc=color, ec="white"))
         ax.text(x + n / 2, 0.76, label, ha="center", va="center", color="white", fontsize=8)
         x += n
-    ax.text(5.5, 0.18, "4 + 3 + 1 + 3 = 11", ha="center", fontsize=9)
+    ax.text(5.5, 0.18, "4 + 3 + 1 + 3 = 11;  compact X7 = P3 L1 C3 = 7", ha="center", fontsize=9)
     ax.set_xlim(0, 11); ax.set_ylim(0, 1.35)
     ax.set_title("dimensional bookkeeping")
     save(fig, "T4_1_dimension_blocks")
