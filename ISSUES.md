@@ -6815,3 +6815,39 @@ quieter, pulsing background ... that would show the field working".
 - [ ] The somagram per scene (SNAP) for the Gallery and the book; the film recorded (`make film-render`, 4K).
 - [ ] The recorder shows a scene's words and direction (`record.py --scene <id>`), and a direction per take (a
       feeling: the wav base labelled by the seven).
+
+---
+
+## ISS-126: USC: the chats as Lean models (Sherlock on the chats) — IN-PROGRESS
+{{Tags area.sherlock, area.ops}}
+{{Fields date.created=2026-11-27, date.start=2026-11-27, date.end=, epic=}}
+
+**The names (author, 27 Nov):** USF, the Universal Soma Field: the theory (the papers and books);
+USM, the Universal Soma Machine: "not just an app, this is the visualization of t-theory"; USC, the
+compiler, "of which sherlock is an instance". The author wrote "Universal Somantic Compiler" on
+27 Nov; his chats of 18-26 Nov say "Universal Semantic Compiler": to settle.
+
+**Goal (author, 27 Nov):** the chats as use cases that finish the chat knowledge base: "run sherlock
+on the chat files themselves, and model the chats"; "first time grep gets the requirements, but the
+next time we use the model". The design is the author's, in his AI Mode chats (Me/chats: 20 Nov, the
+V-model and "each chat fails unless triaged"; 23 Nov, putting the document models together,
+directly or through a core; 26 Nov, USC as Sherlock and MTC, the `{{usc:...}}` tags, loose ends).
+
+- [x] (27 Nov) The Takeouts of 27 Nov imported (Me 72faf78: 66 new chats, 4 NotebookLM histories
+      grown; export_gemini reads `My Activity.json` and the AI Mode folder) and loaded into H-AL's
+      notebook as chat volumes 16-17 (Me 3b8e3ca).
+- [x] (27 Nov) Iteration 1: the model (sherlock/Chat), `sherlock/chats.py` (parse, lean, todo),
+      `make -C sherlock chats`, and the acceptance test (sherlock/ChatQueries.lean: the model
+      answers what grep did for USC, putting the models together and Einstein). The 70 chats of the
+      Takeout read by the LLM pass (affidavits in Me/chats/affidavits): 39 fail the triage, 12 open
+      threads.
+- [ ] AUTHOR: route the threads of the chats that fail the triage (implemented, queued, parked,
+      discarded).
+- [ ] The older chats: every export format, their affidavits; the acceptance test extended (putting
+      the models together, 5 and 12 Jun).
+- [ ] Join the chat models to the paper models (MTC; a core T-Theory model the documents project
+      from, 23 Nov).
+- [ ] The Einstein backtest (26 Nov): his work to June 1905 in, does the system find November 1905
+      and the gap Planck found.
+- [ ] The `{{usc:...}}` tags (26 Nov: the EBNF) and their Lua filter.
+- [ ] USF, USM and USC in the naming standard (T.Ops), once the name is settled.

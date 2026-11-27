@@ -12,6 +12,9 @@ chats are queried in Lean (Chat/Query.lean) instead of grepped.
     python sherlock/chats.py parse FILE ...     # the prompts and offers found, as JSON
     python sherlock/chats.py lean [FILE ...]    # -> bld/sherlock/lean/Chats/*.lean and Chats.lean
     python sherlock/chats.py todo [FILE ...]    # the chats with no affidavit yet
+    python sherlock/chats.py route STAMP THREAD DISPOSITION [REF]   # the author's triage of a thread
+        (STAMP: the chat's time stamp, e.g. 20261126_140957; DISPOSITION: implemented REF (a path or
+        commit), queued REF (ISS-NNN), parked, discarded REF (the reason), untriaged)
 
 FILE defaults to every chat in Me/chats/Inbox. The chats are private: the generated modules are
 built in bld/ (ignored) and never committed.
@@ -184,6 +187,33 @@ def lean_module(name: str, chat: dict, aff: dict | None) -> str:
     return "\n".join(L)
 
 
+def route(stamp: str, thread: str, disposition: str, ref: str) -> int:
+    """Set one thread's disposition in a chat's affidavit (the line is edited, the rest kept)."""
+    affs = sorted(AFF.glob(f"{stamp}*.aff"))
+    if len(affs) != 1:
+        print(f"route: {len(affs)} affidavits match {stamp!r}")
+        return 1
+    if disposition not in DISPOSITIONS:
+        print(f"route: disposition must be one of {', '.join(DISPOSITIONS)}")
+        return 1
+    if disposition in ("implemented", "queued", "discarded") and not ref:
+        print(f"route: {disposition} needs a REF (a path or commit, ISS-NNN, or the reason)")
+        return 1
+    path = affs[0]
+    lines = path.read_text(encoding="utf-8").splitlines()
+    hits = [i for i, l in enumerate(lines) if re.search(r"\{id: " + re.escape(thread) + r",", l)]
+    if len(hits) != 1:
+        print(f"route: {path.name} has no thread {thread!r}; threads: "
+              + ", ".join(re.findall(r"\{id: ([\w-]+),", "\n".join(lines))))
+        return 1
+    line = re.sub(r', ref: "(?:[^"\\]|\\.)*"', "", lines[hits[0]])
+    line = re.sub(r"disposition: \w+", f"disposition: {disposition}" + (f", ref: {json.dumps(ref, ensure_ascii=False)}" if ref else ""), line)
+    lines[hits[0]] = line
+    path.write_text("\n".join(lines) + "\n", encoding="utf-8", newline="\n")
+    print(f"{path.name}: {thread} -> {disposition}" + (f" ({ref})" if ref else ""))
+    return 0
+
+
 def chat_files(given: list[str]) -> list[Path]:
     return [Path(f).resolve() for f in given] if given else sorted(INBOX.glob("*.md"))
 
@@ -191,9 +221,14 @@ def chat_files(given: list[str]) -> list[Path]:
 def main() -> int:
     sys.stdout.reconfigure(encoding="utf-8")
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
-    ap.add_argument("command", choices=["parse", "lean", "todo"])
+    ap.add_argument("command", choices=["parse", "lean", "todo", "route"])
     ap.add_argument("files", nargs="*")
     a = ap.parse_args()
+    if a.command == "route":
+        if len(a.files) not in (3, 4):
+            print("usage: chats.py route STAMP THREAD DISPOSITION [REF]")
+            return 1
+        return route(*a.files[:3], a.files[3] if len(a.files) == 4 else "")
     chats = [parse(f) for f in chat_files(a.files)]
     if a.command == "parse":
         print(json.dumps(chats, ensure_ascii=False, indent=1))
