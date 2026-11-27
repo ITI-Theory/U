@@ -4184,6 +4184,11 @@ other work.
       drives edits listed in ISS-130.
 - [ ] (ISS-127, 27 Nov) Approve or change the two app fixes the visual audit asks for (ISS-127): the places'
       INTERPRETIVE plates in the 3D scene at 4D and 8D, and the dimension buttons' and claim badges' contrast.
+- [x] (ISS-131, 27 Nov 16:09) Where the USC work is written up. Author: "ok, neat response, lets go with that".
+      What USC did and how it works: SH1 grows a case study. The method made executable: P3's next version.
+      How to use it: one course lesson (the Einstein backtest) and the docs. The fishing's corrections: new
+      versions, place by place (ISS-130). A technical book (Manning, Pragmatic, No Starch; chat of 20 Nov):
+      parked until USC ships as a product. Work in ISS-131.
 
 ## ISS-082: The voices: the author's own, and a licence-clean public one — PARKED
 {{Tags area.app, area.instrument}}
@@ -7215,3 +7220,20 @@ and their verdicts change: that is the witness.
 - [ ] Sherlock: the sorry count across the affidavits (P14 now says none left since October; E5, E6 and
       the papers' X12, U10 are frozen before): re-freeze them together (dev).
 
+## ISS-131: Writing up USC: what it did, how it works, how to use it — IN-PROGRESS
+{{Tags area.sherlock, area.papers, area.books}}
+{{Fields date.created=2026-11-27, date.start=2026-11-27, date.end=, epic=}}
+
+Decided on the desk (ISS-081, 27 Nov 16:09; author: "lets go with that"). The USC work of 26-27 Nov (ISS-126 to
+ISS-130) is written up where each part belongs, with its numbers taken from the make targets, never typed:
+
+- [ ] SH1 (paper/soma/sherlock-compiler; no DOI, pending review) grows a case study: Sherlock on its own
+      programme's chats, issues, app and equations; the Einstein backtest; the fishing and what it found
+      (ISS-130). What it did and how it works.
+- [ ] P3's next version (paper/soma/mathematical-co-identification; status needs-new-version already): the
+      protocol is executable; its steps are Lean rows (sherlock/Method), each with its verdict. The author uploads.
+- [ ] The course (Part2/book/field-atlas-textbook), chapter 15 Evidence and Proof: one section, the Einstein
+      backtest as the worked example of the protocol; a homework item.
+- [ ] The docs: how to use it (sherlock/README.md: the make targets, `chats.py ideas --grep --by`, the tags).
+- [x] A technical book on USC (Manning, Pragmatic, No Starch; chat of 20 Nov, tagged there as
+      DECISION-20261120-usc-technical-book): parked until USC ships as a product (a VS Code or Neovim plugin).
