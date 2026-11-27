@@ -42,11 +42,11 @@ where $\mu$ is the energy or inverse-length scale. Fixed points and relevant dir
 
 ## 4. Paths and edge operations
 
-![Figure T3.4 — Registry path edges specify operations between levels: aggregation, projection, boundary change, or substrate change.](figures/theory/T3_4_path_edges.png){width=92%}
+![Figure T3.4 — Each registry path edge names an operation between levels, with a kernel and a claim badge; the arrows sort operations by kind: substrate change, aggregation, projection.](figures/theory/T3_4_path_edges.png){width=92%}
 
 The registry contains path-edge files such as `molecular--cellular-synaptic.md` and `galactic-halo--galaxy-cluster.md`. Each edge names a transition operation and a kernel badge. The edge is not an empirical fact by itself; it is an instruction for how one level entry is to be read after another. A path through several edges therefore records a sequence of modelling commitments.
 
-Four edge types recur. Aggregation combines many units into a population field. Projection maps a high-dimensional state onto a lower-dimensional observable. Boundary replacement changes the domain enclosing the field. Substrate change moves from one physical carrier to another, as when biochemical kinetics become membrane excitability. These are different mathematical acts. Grouping them all under a vague word such as emergence would hide the work.
+The registry's 58 edges name 31 operations, such as RESOLVE / COMPACTIFY or BIND / SCREEN, and four kinds of mathematical act recur among them. Aggregation combines many units into a population field. Projection maps a high-dimensional state onto a lower-dimensional observable. Boundary replacement changes the domain enclosing the field. Substrate change moves from one physical carrier to another, as when biochemical kinetics become membrane excitability. These are different mathematical acts. Grouping them all under a vague word such as emergence would hide the work.
 
 A short example makes the distinction concrete. The move from `cellular-synaptic` to `local-circuit` aggregates many cellular variables into circuit-level activity and introduces network coupling. The move from `galactic-disc` to `galactic-halo` changes the dominant gravitational source and boundary assumptions. Both can be drawn as upward arrows, but the preserved quantities differ. Any claim that a pattern is the same across those arrows is `interpretive` unless the edge file supplies equations and tests. [interpretive]
 
