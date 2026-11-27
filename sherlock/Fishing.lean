@@ -10,6 +10,7 @@ import Fishing.Seismic
 import Fishing.Games
 import Fishing.Networks
 import Fishing.WKB
+import Fishing.Graviton
 import Einstein1905
 
 /-!
@@ -27,7 +28,7 @@ def rows : List Row :=
    Fishing.Cosmology.published, Fishing.Cosmology.row, Fishing.Expansion.row,
    Fishing.KaluzaKlein.row, Fishing.Kramers.row, Fishing.Locking.row,
    Fishing.Seismic.row, Fishing.Games.row, Fishing.Networks.row,
-   Fishing.WKB.row, Fishing.WKB.preverbal]
+   Fishing.WKB.row, Fishing.WKB.preverbal, Fishing.Graviton.row]
 
 #guard rows.all (·.wellFormed)
 #eval ledger rows

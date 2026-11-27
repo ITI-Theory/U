@@ -6949,6 +6949,11 @@ directly or through a core; 26 Nov, USC as Sherlock and MTC, the `{{usc:...}}` t
       QUANT-EXP-1 follows the Lean; exp(-2S) is a probability, called an amplitude in both. COID-PREVERBAL-1
       reuses KG-1: the pre-verbal claim (large k, rapid memory decay) needs the decay the master equation
       lacks.
+- [x] (27 Nov, round 6, from GRAV-1's bait) COID-GRAV-2 (`Fishing/Graviton.lean`): a nonzero k is a graviton
+      mass ħkc; GWTC-3 bounds it (m_g ≤ 1.27 × 10⁻²³ eV/c², a range of at least 1.5 × 10¹⁶ m). The solar
+      system's scale as gravity's k is excluded (about 2 × 10⁻¹⁸ eV); the Hubble scale's, H₀/c, is allowed by
+      ten orders; on the Lean's dial only σ ≥ 18 is long enough. So gravity, if it is the field's response, is
+      its cosmic mode, not the local scale's: a constraint on the scale law k(σ). 15 rows in the ledger.
 - [ ] Physics fishing, further catches from the cheatsheet (the method's rows; the Lean decides).
 - [x] (27 Nov, author: "compile ISSUES.md as well, heavily linked to chats already") ISSUES.md as a
       Lean model: `sherlock/Issue` (statuses, boxes, AUTHOR steps, the header's rules as functions),
