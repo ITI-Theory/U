@@ -4189,6 +4189,9 @@ other work.
       How to use it: one course lesson (the Einstein backtest) and the docs. The fishing's corrections: new
       versions, place by place (ISS-130). A technical book (Manning, Pragmatic, No Starch; chat of 20 Nov):
       parked until USC ships as a product. Work in ISS-131.
+- [ ] (ISS-131, 27 Nov) Read the write-up: SH1 "A second run", P3 "The Protocol as Code" (its next version;
+      upload to Zenodo when happy), the course ch. 15 "Backtest: Einstein, 1905". Built in bld/papers and
+      bld/textbook.
 
 ## ISS-082: The voices: the author's own, and a licence-clean public one — PARKED
 {{Tags area.app, area.instrument}}
@@ -7227,13 +7230,20 @@ and their verdicts change: that is the witness.
 Decided on the desk (ISS-081, 27 Nov 16:09; author: "lets go with that"). The USC work of 26-27 Nov (ISS-126 to
 ISS-130) is written up where each part belongs, with its numbers taken from the make targets, never typed:
 
-- [ ] SH1 (paper/soma/sherlock-compiler; no DOI, pending review) grows a case study: Sherlock on its own
+- [x] (27 Nov, 13a3fb3) SH1 (paper/soma/sherlock-compiler; no DOI, pending review) grows a case study: Sherlock on its own
       programme's chats, issues, app and equations; the Einstein backtest; the fishing and what it found
       (ISS-130). What it did and how it works.
-- [ ] P3's next version (paper/soma/mathematical-co-identification; status needs-new-version already): the
+- [x] (27 Nov, 13a3fb3) P3's next version (paper/soma/mathematical-co-identification; status needs-new-version already): the
       protocol is executable; its steps are Lean rows (sherlock/Method), each with its verdict. The author uploads.
-- [ ] The course (Part2/book/field-atlas-textbook), chapter 15 Evidence and Proof: one section, the Einstein
+- [x] (27 Nov, 13a3fb3) The course (Part2/book/field-atlas-textbook), chapter 15 Evidence and Proof: one section, the Einstein
       backtest as the worked example of the protocol; a homework item.
-- [ ] The docs: how to use it (sherlock/README.md: the make targets, `chats.py ideas --grep --by`, the tags).
+- [x] (27 Nov, 13a3fb3) The docs: how to use it (docs/SHERLOCK.md, "USC: the working record": the make targets,
+      `chats.py ideas --grep --by`, the tags).
 - [x] A technical book on USC (Manning, Pragmatic, No Starch; chat of 20 Nov, tagged there as
       DECISION-20261120-usc-technical-book): parked until USC ships as a product (a VS Code or Neovim plugin).
+- [x] (27 Nov) Sherlock run on the write-up itself: delta found every old claim unchanged; the three affidavits
+      re-frozen at 13a3fb3 with new claims (SH1 K13-K15, P3 C12-C15, course C9-C10); `make -C sherlock check`:
+      428 of 428 kernel-checked. The σ distances and the 13 per cent grid chance are exact fraction checks.
+- [ ] (AUTHOR, on the desk ISS-081) Read the three sections; P3's next version to Zenodo when you are happy.
+- [ ] A template that reads a build's output (the record's sizes in SH1 K15 are sourced values for now), so a
+      count in prose is checked against `make` instead of against itself.

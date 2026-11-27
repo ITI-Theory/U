@@ -1,3 +1,5 @@
+# 27 Nov 2026 (ISS-131): re-frozen at 13a3fb3 for the next version ("The Protocol as Code");
+# delta: all 11 claims unchanged; C12-C15 cover the new section.
 # Sherlock affidavit (DRAFT): Mathematical Co-identification: A Method for
 # Structural Import Across Scientific Domains (P3). Schema: sherlock/registry.py.
 # All counts were recomputed by counting the paper's own headings and numbered
@@ -12,8 +14,8 @@ document: P3
 title: "Mathematical Co-identification: A Method for Structural Import Across Scientific Domains"
 source:
   file: paper/soma/mathematical-co-identification/mathematical-co-identification.md
-  commit: 3973fb1
-  sha256: 8832d558de6590ada4e3fa0f374d8431508c2c26ac34039b0c18d09f9f1d8896
+  commit: 13a3fb3
+  sha256: 34c1489a148454ce05d198f5083c90256db9523a107503665d9c89590af713b1
 lean: []
 microtheories: {}
 claims:
@@ -246,3 +248,56 @@ claims:
 #   is declared `axiom` (as the text implies) rather than a proved theorem.
 # - no other named Lean theorems, axioms or sorries are cited in this paper
 #   (lean: [] above is accurate as drafted).
+  - id: C12
+    quote: 'It holds sixteen rows: the backtest validated at `S3`, two rows falsified, and thirteen exploratory rows at `S1` with 32 open assumptions between them.'
+    lines: [1009, 1010, 1011]
+    kind: internal-arithmetic
+    finding: >-
+      the protocol as code (ISS-131): 1 + 2 + 13 = 16 rows, and the table's Open column, read top to
+      bottom, sums to 32
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [1, 2, 13, 16]}, {template: sum, args: [0, 5, 1, 2, 2, 2, 3, 0, 3, 3, 2, 2, 2, 1, 2, 2, 32]}]
+    values:
+      - {quantity: USC-MethodRows, value: 16}
+      - {quantity: USC-OpenAssumptions, value: 32}
+    disposition: none
+  - id: C13
+    quote: 'the published $\Omega_\Lambda = 7/11 = 0.636$ lies 6.6σ below Planck 2018 ($0.6847 \pm 0.0073$; rule 3)'
+    lines: [1014, 1015]
+    kind: internal-arithmetic
+    finding: >-
+      the protocol as code (ISS-131): 0.6847 - 7/11 = 5317/110000 = 0.04834, between 6.6 and 6.7 times
+      0.0073 (0.04818 and 0.04891): 6.6σ as stated
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: diff, args: [0.6847, '7/11', '5317/110000']}, {template: lt, args: [0.04818, '5317/110000']}, {template: lt, args: ['5317/110000', 0.04891]}]
+    disposition: none
+  - id: C14
+    quote: 'which gives $\Omega_\Lambda = 15/22$ within 0.4σ of Planck. But a grid of 22nds puts some point that close to any value about 13 per cent of the time.'
+    lines: [1024, 1025, 1026]
+    kind: internal-arithmetic
+    finding: >-
+      the protocol as code (ISS-131): 0.6847 - 15/22 = 317/110000 = 0.00288 < 0.4 × 0.0073 = 0.00292;
+      a window of ±0.4σ on a grid of spacing 1/22 is hit with chance 0.8 × 0.0073 × 22 =
+      0.128, about 13 per cent
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: diff, args: [0.6847, '15/22', '317/110000']}, {template: lt, args: ['317/110000', 0.00292]}, {template: lt, args: [0.125, 0.12848]}, {template: lt, args: [0.12848, 0.135]}]
+    disposition: none
+  - id: C15
+    quote: 'a direct comparison of $\Delta E$ with $\Delta m\,c^2$ to four parts in $10^7$'
+    lines: [1001, 1002]
+    kind: cross-paper
+    finding: >-
+      the protocol as code (ISS-131): Rainville et al. (Nature 438, 2005): agreement to 4 parts in 10^7;
+      the course (ch. 15) quotes the same; sourced
+    verdict: not-provable
+    label: sourced
+    lean: null
+    values:
+      - {quantity: Rainville2005-Precision, value: 4e-7}
+    disposition: none

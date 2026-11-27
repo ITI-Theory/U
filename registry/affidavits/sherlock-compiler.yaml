@@ -1,3 +1,5 @@
+# 27 Nov 2026 (ISS-131): re-frozen at 13a3fb3 after "A second run" was added; delta: all 12 claims
+# unchanged; K13-K15 cover the new section.
 # Sherlock affidavit: SH1 v3, Sherlock: A Neuro-Symbolic Compiler for Free-Form Text.
 # Sherlock run on the paper that describes it (author, 11 Oct 23:28: "make sure you run
 # sherlock on it"), the writing loop in full. v2 (frozen at 42d3827, the old path
@@ -11,8 +13,8 @@ document: SH1
 title: "Sherlock: A Neuro-Symbolic Compiler for Free-Form Text"
 source:
   file: paper/soma/sherlock-compiler/sherlock-compiler.md
-  commit: ff0ddeb
-  sha256: fe0b96cee647660b78d5c1f53cf7c6331ac52c1609b10e8fe31ccfe40639c35e
+  commit: 13a3fb3
+  sha256: f5ddbaebc50f432afc53d4dbfadad50626ae192b3d17133f3d0325d9e8e7f437
 lean: []
 microtheories: {}
 claims:
@@ -141,4 +143,54 @@ claims:
     label: kernel-verified
     lean: null
     check: [{template: sum, args: [1, 1, 2]}]
+    disposition: none
+  - id: K13
+    quote: 'Sixteen rows were registered: the backtest, validated;'
+    lines: [745]
+    kind: internal-arithmetic
+    finding: >-
+      the second run (ISS-131): 1 validated + 2 falsified + 13 exploratory = 16 rows, as the
+      fishing ledger printed them at 13a3fb3 (make -C sherlock fishing)
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [1, 2, 13, 16]}]
+    values:
+      - {quantity: USC-MethodRows, value: 16}
+      - {quantity: USC-OpenAssumptions, value: 32}
+    disposition: none
+  - id: K14
+    quote: 'The budget $7/11 + 3/11 + 1/22$ sums to $21/22$, so the documents'' "95.5 per cent of the total" is a shortfall, not a success.'
+    lines: [752, 753]
+    kind: internal-arithmetic
+    finding: >-
+      the second run (ISS-131): 7/11 + 3/11 + 1/22 = 21/22 exactly, and 21/22 = 0.9545...
+      rounds to the documents' 95.5 per cent; the missing 1/22 is the shortfall
+    verdict: confirmed
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: ['7/11', '3/11', '1/22', '21/22']}, {template: lt, args: [0.9545, '21/22']}, {template: lt, args: ['21/22', 0.9555]}]
+    disposition: none
+  - id: K15
+    quote: '349 exported chats with 6,507 prompts,'
+    lines: [698, 699]
+    kind: cross-paper
+    finding: >-
+      the second run (ISS-131): the record's sizes as the build printed them at 13a3fb3: make chats
+      (349 chats, 6507 prompts), make issues (131 issues, 820 boxes), make links (523 nodes,
+      532 edges), make equations (54 places, 22 documents, 10 classes), make app-audit (93
+      screens). No template reads a build's output; recorded as values so that a document
+      quoting them differently is flagged
+    verdict: not-provable
+    label: sourced
+    lean: null
+    values:
+      - {quantity: USC-Chats, value: 349}
+      - {quantity: USC-Prompts, value: 6507}
+      - {quantity: USC-Issues, value: 131}
+      - {quantity: USC-IssueBoxes, value: 820}
+      - {quantity: USC-LinkNodes, value: 523}
+      - {quantity: USC-LinkEdges, value: 532}
+      - {quantity: USC-EquationPlaces, value: 54}
+      - {quantity: USC-AppScreens, value: 93}
     disposition: none
