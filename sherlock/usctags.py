@@ -54,9 +54,9 @@ def strip(text: str) -> str:
 def problems(tags: list[dict]) -> list[str]:
     out, ids, opened, forks = [], {}, {}, set()
     for t in tags:
-        where = f"{t['file'].name}:{t['line']}"
+        where = f"{t['file'].as_posix()}:{t['line']}"
         if t["kind"] == "?":
-            out.append(f"{t['file'].name}:{t['line']}: a malformed {{{{usc:...}}}} tag")
+            out.append(f"{t['file'].as_posix()}:{t['line']}: a malformed {{{{usc:...}}}} tag")
             continue
         a = t["attrs"]
         if not any(str(t["file"]).startswith(str(p)) for p in ALLOWED):
@@ -93,7 +93,7 @@ def problems(tags: list[dict]) -> list[str]:
         elif t["kind"] == "branch" and (t["file"], a.get("ref")) not in forks:
             out.append(f"{where}: branch ref {a.get('ref')!r} names no fork")
     for (f, i), line in opened.items():
-        out.append(f"{f.name}:{line}: {i!r} is never ended")
+        out.append(f"{f.as_posix()}:{line}: {i!r} is never ended")
     return out
 
 
@@ -144,6 +144,10 @@ def main() -> int:
         print(f"tags: {len(tags)} tags in {len(fs)} files")
     for p in ps:
         print("  !!", p)
+    # The findings in compiler style, for editors (U.Dot nvim sherlock.lua; ISS-129): path:line: error: message.
+    OUT.parent.mkdir(parents=True, exist_ok=True)
+    (OUT.parent / "usc.txt").write_text("".join(re.sub(r"^(.*?:\d+): ", r"\1: error: ", q) + "\n" for q in ps),
+                                       encoding="utf-8", newline="\n")
     return 1 if ps else 0
 
 

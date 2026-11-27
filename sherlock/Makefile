@@ -16,7 +16,7 @@ NEXTKB_URL := https://www.qrg.northwestern.edu/nextkb/nextkb_files_20190107.zip
 NEXTKB_ZIP := $(RAW)/nextkb_files_20190107.zip
 NEXTKB_SHA := 5489856b64c9db1c69965ecb6a9a82382ddffd3fdf76c571b8bbde97405d7b79
 
-.PHONY: issues tags app-audit usm method backtests fishing chats writers studio help fetch lean-gen lean affidavits all clean check ledger delta rules-gen types towers readings readings-lean skyline clinical level-types leakage grammar impact presence model rivals bofh standalone gallery privacy provenance features views
+.PHONY: issues tags app-audit usm equations method backtests fishing chats writers studio help fetch lean-gen lean affidavits all clean check ledger delta rules-gen types towers readings readings-lean skyline clinical level-types leakage grammar impact presence model rivals bofh standalone gallery privacy provenance features views
 
 help:
 	$(info Sherlock (ISS-055), outputs in bld/sherlock/)
@@ -40,6 +40,7 @@ help:
 	$(info   gallery     every picture in A Gallery of Thoughts is the programme's own (ISS-097))
 	$(info   issues      ISSUES.md as a Lean model: the format's rules, loose ends, the author's desk (Issue/, IssueQueries; ISS-126))
 	$(info   tags        the {{usc:...}} tags in the originals (chats, ISSUES.md): checked, as Lean, joined to the issues (ISS-126))
+	$(info   equations   every equation of the papers, books and levels, classed and matched to its Lean (ISS-128; minutes))
 	$(info   usm         the USM as a model: options from 4D up, what each shows, which papers nothing shows (ISS-127))
 	$(info   app-audit   USC on the Soma Machine: screenshots, OCR, the page's text, checked in Lean (LEVELS="..."; Windows OCR; ISS-127))
 	$(info   chats       the chats as Lean models: Me/chats and their affidavits (FILES="..." limits it); private, built in bld/)
@@ -200,6 +201,12 @@ issues:
 tags: issues
 	$(PYTHON) usctags.py lean
 	lake build Tag Tags TagQueries
+
+# The programme's equations (ISS-128): listed by the Lua writer, classed, matched to the Lean.
+equations: method
+	$(PYTHON) equations.py
+	lake build EquationsData
+	cd .. && LEAN_NUM_THREADS=2 lake build Fishing.Equations
 
 # The USM as a model (ISS-127): from the page's controls, the registry and Dist/PAPERS.yaml.
 usm:

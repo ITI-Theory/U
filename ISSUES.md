@@ -7007,7 +7007,14 @@ correct": parse the Pandoc LaTeX into a typed form, render the Lean back to LaTe
 checker as the gate, not a language model's reading. The cheatsheet's master equation is the first test:
 its two signs (ISS-126) are exactly the error this would catch.
 
-- [ ] A Lua filter that lists every display equation with its file, line and id (no script writes markup).
+- [x] (27 Nov) `lib/format/equations-writer.lua` (a pandoc writer: every math element as JSON, its line
+      from source positions) and `sherlock/equations.py` (`make -C sherlock equations`): 377 equations,
+      366 display, in 78 sources (the English papers and books, and the registry's levels, which the app
+      shows), each classed if it is a form of the master equation; `sherlock/Fishing/Equations.lean` names
+      the Lean witness of each class (a missing theorem does not compile). Census: no document writes the
+      static screened form; Helmholtz (∇² + k²) in 17 files, Klein-Gordon in 4; three write both with one
+      letter k (P10 temporal dynamics, the cheatsheet, the philosophy book): the ISS-126 places. The app's
+      stellar level shows Helmholtz, its local-circuit level Klein-Gordon.
 - [ ] A Lean-to-LaTeX printer for named definitions and theorems, and the match, equation by equation.
 - [ ] The cheatsheet first; then the papers through their affidavits.
 
@@ -7023,6 +7030,11 @@ Code and Neovim plugins (18 Nov).
 
 - [ ] One USC server, two thin clients: a language server whose diagnostics are the fishing (errors first,
       then warnings: open assumptions, untriaged threads, malformed tags), for VS Code and Neovim alike.
-- [ ] Chats in Neovim at chat time: tag as you go (`{{usc:...}}`, usc_tags.ebnf), the model rebuilt.
+- [x] (27 Nov, author: "never used... so start barebones?") The barebones profile: U.Dot `nvim-usc/init.lua`
+      (no plugin manager, nothing downloaded) and `bin/usc-vim`; the existing `nvim/lua/sherlock.lua` gains
+      `:UscCheck` (the tag checks as diagnostics, from bld/sherlock/usc.txt), `:[range]UscIdea [disp] [ref]
+      [note]` (tag the lines as an IDEA where it was said; asks for what is missing) and `:UscIdeas`; it finds
+      U from a chat in Me ($USC_U or ~/prj/git/ITI-Theory/U). Tested headless (U.Dot 337dae9).
+- [ ] AUTHOR: first use: `usc-vim` on a chat in Me/chats/Inbox, `<space>ui` on a good line.
 - [ ] The Soma Machine's shell (MOTHER `/shell`) as the editor's home, the models one key away.
 
