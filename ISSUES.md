@@ -7850,6 +7850,27 @@ Lean, aesop, no Mathlib). The model needs both (the equations and the knowledge)
 project, requiring OpenCyc by path; its top file `TTheory.lean` the one a reader opens, chapters under `TTheory/`,
 prose in `/-! -/` blocks, the papers' equations imported from their proofs, not restated.
 
+**The big picture (27 Nov 22:5x; the author: "no python, strings just for displaying ... all at typelevel, mixing in
+mathlib and physlib ... T-theory, all of it, modelled in lean"):**
+1. Foundations, libraries: Mathlib and physlib (with OSforGFF) for the mathematics and physics; OpenCyc as native
+   Lean for common knowledge (collections as types, `fact A ⊑ B`, collection-types as classes, microtheories as
+   namespaces; generated whole from NextKB by a Lean metaprogram); `TTheory.Core` for how far each thing stands
+   (Claim, Witness, Refutation, `#status`: the receipt of every claim is its axioms, as an ATMS label).
+2. The languages, tagless-final: one class per kind of thing T-Theory talks about (emotions, as EmotionLang already;
+   fields and their equations; the ladder of scales, sectors, models and paths; the eleven dimensions; study and
+   experiment designs), each written once and read by interpreters: meaning (Mathlib/physlib/sets, with proofs),
+   text (the papers' and books' sentences, LaTeX), OpenCyc (typing), the app's data (the Soma Machine; what the
+   registry YAML is today) and JSON (the binary). Strings only ever as an interpreter's output.
+3. The model: `TTheory.lean`, read top to bottom. A chapter per paper (P1 to P27), each read like the paper: its
+   equations as Mathlib/physlib, its claims with witnesses or refutations, the papers' own proofs imported, never
+   restated. The books are views over the papers' chapters; the Field Atlas over the ladder. Datasets as modules
+   (Pantheon+, the Berkeley 13 emotions), imported wherever compared. Bridges between domains as tagged instances.
+4. The knowledge of T-Theory: the chats and ISSUES.md as Lean (a thread's state from a witness); cite_check, a
+   document's sentences against the model's claims (the affidavits' successor); always recompiled, so a retracted
+   premise takes everything resting on it down with it.
+5. The product: one `lean_exe sherlock` (REPL, `--json`, `--lsp`), the editors thin glue; the libraries (OpenCyc,
+   TTheory) released with their compiled files (ISS-140); a Python API for third parties only.
+
 - [ ] Step 1, slowly: the DSL's first words (entity typed by its Cyc class; claim with its evidence label) and the
       first chapter written in it: the ladder (levels, sectors, the models, the paths), so that the 31, the sectors'
       5+4+10+5+7, canonical-5's 28 and Sector V's missing stellar-cluster follow by compilation. Shown to the author
