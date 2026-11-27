@@ -7888,6 +7888,15 @@ prose in `/-! -/` blocks, the papers' equations imported from their proofs, not 
       B (structures, extends): reads well and catches the category error, but cannot scope a microtheory (extends is
       global) and turns OpenCyc's assertions into definitions, so #status calls them kernel-verified: provenance lost.
       Both natives compile in seconds at this size.
+- [x] (27 Nov) The REPL use (the author: "another BIG usage of a BIG lean model is in a REPL, a user can start
+      modelling something, easily ... typelevel design is the goal ... formal notation U ... a people experiment ...
+      speak german OR english AND live in ZH for 10 years"): TTheory/Experiments/StudyDesign.lean. OpenCyc's words
+      natively (languageSpoken and residesInRegion typed by their arg1Isa/arg2Isa; Person genls SocialBeing genls
+      IntelligentAgent, so a person fits languageSpoken by Lean's own coercions); the criterion as sets,
+      (German ∪ English) ∩ Zürich₁₀; a Participant is a person with the proof. Anna (German, 12 years) builds; Ben
+      (English, 5 years) does not compile; a city as a language and a language as a place are type errors; "15 years
+      never admits anyone new" proved. Core gained a fifth state, refuted (Moriarty's attack): Ben's claim is refuted,
+      its receipt naming ben_years only. Years of residence are the study's own notion, not OpenCyc's, and say so.
 - [ ] Step 2, the scale: the whole NextKB taxonomy (103,321 genls; 333,488 isa; 26,154 disjointWith) generated in the
       A + C form, measured (build time, memory, coercion search); then P1 against it. disjointWith and individuals
       with several types still to design.

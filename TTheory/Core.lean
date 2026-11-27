@@ -12,7 +12,9 @@ The state of a claim is computed, never typed (`#status`):
 * **kernel-verified**: a witness resting on Lean's standard axioms alone;
 * **derived under assumptions**: a witness resting on further axioms, which are named;
 * **frontier**: a witness through `sorry`, stated exactly but not yet proved;
-* **open**: no witness at all.
+* **open**: no witness at all;
+* **refuted**: a refutation, a proof that the claim is false (Moriarty's attack); its receipt says what
+  the refutation rests on.
 -/
 
 namespace TTheory
@@ -29,6 +31,12 @@ class Witness (c : Claim) : Prop where
   proof : c.statement
 
 theorem Witness.of {c : Claim} (h : c.statement) : Witness c := ⟨h⟩
+
+/-- A refutation of a claim: a proof that it is false. -/
+class Refutation (c : Claim) : Prop where
+  disproof : ¬ c.statement
+
+theorem Refutation.of {c : Claim} (h : ¬ c.statement) : Refutation c := ⟨h⟩
 
 open Lean Meta Elab Command
 
@@ -59,22 +67,28 @@ elab "#status " t:term : command => liftTermElabM do
   let ty := mkApp (mkConst ``List [Level.zero]) (mkConst ``TTheory.Claim)
   let e ← instantiateMVars (← Term.elabTermEnsuringType t ty)
   let mut lines : Array MessageData := #[]
-  let mut counts : Array Nat := #[0, 0, 0, 0]
+  let mut counts : Array Nat := #[0, 0, 0, 0, 0]
   for c in ← listElems e do
     let id ← strField ``TTheory.Claim.id c
     let text ← strField ``TTheory.Claim.text c
-    let (k, state) ← match ← synthInstance? (mkApp (mkConst ``TTheory.Witness) c) with
-      | none => pure (3, "open")
-      | some w =>
-        let ax ← axiomsOf (← instantiateMVars w)
-        if ax.contains ``sorryAx then pure (2, "frontier (sorry)")
-        else
-          let extra := ax.filter (fun a => !standardAxioms.contains a)
-          if extra.isEmpty then pure (0, "kernel-verified")
-          else pure (1, s!"derived under assumptions: {extra.toList}")
+    let receipt := fun (ax : Array Name) => (ax.filter (fun a => !standardAxioms.contains a)).toList
+    let (k, state) ← match ← synthInstance? (mkApp (mkConst ``TTheory.Refutation) c) with
+      | some r =>
+        let ax ← axiomsOf (← instantiateMVars r)
+        let extra := receipt ax
+        pure (4, if extra.isEmpty then "refuted" else s!"refuted, resting on: {extra}")
+      | none => match ← synthInstance? (mkApp (mkConst ``TTheory.Witness) c) with
+        | none => pure (3, "open")
+        | some w =>
+          let ax ← axiomsOf (← instantiateMVars w)
+          if ax.contains ``sorryAx then pure (2, "frontier (sorry)")
+          else
+            let extra := receipt ax
+            if extra.isEmpty then pure (0, "kernel-verified")
+            else pure (1, s!"derived under assumptions: {extra}")
     counts := counts.modify k (· + 1)
     lines := lines.push m!"{id} [{state}]: {text}"
   logInfo (MessageData.joinSep lines.toList "\n" ++
-    m!"\n{counts[0]!} kernel-verified, {counts[1]!} derived under assumptions, {counts[2]!} frontier, {counts[3]!} open")
+    m!"\n{counts[0]!} kernel-verified, {counts[1]!} derived under assumptions, {counts[2]!} frontier, {counts[3]!} open, {counts[4]!} refuted")
 
 end TTheory
