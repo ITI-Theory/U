@@ -7614,6 +7614,9 @@ then one paper and the app.
 - [x] (27 Nov) `make help` grouped by the three products (the theory, the Soma Machine, the compiler), then release
       and housekeeping; new targets `evolution`, `background`, `usc`, `explorer`, `release-check` shown; every old
       line kept.
-- [ ] The org page (.github) and t-theory.org say the same three products as the README.
+- [x] (27 Nov) The org page (.github profile): a "three products, one package" table after The Programme (the
+      author's two layers and tagline kept), U's line in Repositories widened; `make -C sherlock presence`: 15 linked,
+      0 gaps.
+- [ ] t-theory.org (web/) says the same three products (after the app's release build).
 - [ ] Recall searches the text as well as the topics (`usc.py recall --text`): the 20 Nov sentence above was found
       by grep, not by recall (ISS-136).
