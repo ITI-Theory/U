@@ -6208,6 +6208,7 @@ cheat sheets at make dist on Monday). New gates since the morning: 12a every che
 its own, 14d every Gallery picture the programme's own.
 Out of scope for the 21st (kept open, not blockers): ISS-105's levels-view shell and art pass,
 ISS-107 the films, ISS-112 the clock, ISS-111 the voice.
+- [x] (27 Nov) The chats' threads queued here (`chats.py route`, checked against this issue): 20261006_190130 release.
 
 ## ISS-115: Externalising emotions: what Sherlock needs before a piece can carry them — OPEN
 
@@ -6509,6 +6510,9 @@ feelings can drive named parameters rather than guessed CCs, and presets can be 
       private material in a public film). ABLETON: the passed takes into Live for the treatment (EQ,
       dynamics, the room: the SSL chain, the autoSeries for first settings), bounced as stems. Then the
       film. Private takes stay in Me.
+- [x] (27 Nov) The chats' threads queued here (`chats.py route`, checked against this issue): 20261006_190130 music-score, 20261016_220251 day-to-orchestra, 20261017_134719 score-196, composer-conductor,
+      split-counterpoint, morph-scales, sources-structure, 20261019_174001 suite-structure, 20261109_001116
+      emotion-to-music and wall-of-sound-knob.
 
 ## ISS-119: The film written up: a paper (P26) and its chapter in Music and the Arts — OPEN
 
@@ -6693,6 +6697,9 @@ Monday it's symphonic orchestration". The rule, kept in docs/agent/CURRENT.md an
 - [ ] AUTHOR: push today's commits (U main, Dist, Me: nothing pushed since the morning).
 - [ ] AUTHOR: ISS-116's marker is in the public history (commit 86181e5, 18 Oct; removed from the tree
       19 Oct): rewrite the history or leave it.
+- [x] (27 Nov) The chats' threads queued here (`chats.py route`, checked against this issue): 20261111_003044 studio-screens and controllers, 20261017_213255 emotion-mixer, 20261019_202005 synth-as-fx,
+      20261111_011130 dj-routing and controller-cheatsheet, 20261008_190711 music-studio, 20261109_001116
+      reading-workflow, 20261113_211502 guitar-rig.
 
 ## ISS-121: The [T]-Elevator (the Televator): one device for every move, and the moving map — OPEN
 
@@ -6739,6 +6746,7 @@ between descriptions.
 - [~] (19 Oct: checked headless, UAT app-televator, panels in bld/televator/) Checked headless (every move, every floor), a UAT entry, plates for the books (the Gallery, the
       Atlas: the Televator and the moving map as figures), and the philosophy reading drafted for the
       Philosophy book (the author's call).
+- [x] (27 Nov) The chats' threads queued here (`chats.py route`, checked against this issue): 20261025_160728 app-features (the elevator keeps the scale feeling), 20261007_222230 sideways-time.
 
 ## ISS-122: The rooms: the Music Room and the Cinema (beside the Engine Room and the Gallery) — OPEN
 
@@ -6830,6 +6838,8 @@ the theme instead of inventing notes); 3 the orchestration and the printed score
       curiosity inverts it, awe spreads it into canon), one movement on the foam's theme; MIDI and MusicXML; heard in Live.
 - [ ] AUTHOR: is the hook the author's method only, or a feature for users (18 Oct: the Soma Machine generates no
       notes for others; its free output is information about music)?
+- [x] (27 Nov) The chats' threads queued here (`chats.py route`, checked against this issue): 20261020_124851 the-hook and voice-seed, 20261023_202404 voice-to-song, 20261101_161018 voice-orchestra,
+      20261113_110301 text-to-song, text-to-song-rule and vocal-models, 20261118_215825 symphony-before-release.
 
 ## ISS-125: Scenes, recorded once: the 30-minute film "Be the size" and the tours from the same scenes — OPEN
 
