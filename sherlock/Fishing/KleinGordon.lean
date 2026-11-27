@@ -17,6 +17,8 @@ time-dependent form (∂ₜ²/v² - ∇² + k²)Φ = -J is the Klein-Gordon oper
    solution. `kernel_tachyonic`: it solves the equation with the opposite sign of k² (an imaginary
    mass). `kernel_relaxes`: it solves the first-order relaxation K' = -kv K. Decay in time needs a
    damping term γ∂ₜ (the telegraph equation), which the master equation does not have.
+   `kernel_euclidean`: in imaginary time it is a solution: the kernel is the field's Euclidean correlation,
+   right in a Euclidean (Osterwalder-Schrader) setting, wrong as a real-time memory.
 4. `swapped`: the equation as written decays in space (the Yukawa response, from the gravity catch)
    and oscillates in time. The cheatsheet states the opposite twice: it writes the stationary form
    as Helmholtz (oscillating in space) and the memory kernel as a decay in time.
@@ -110,6 +112,14 @@ theorem kernel_tachyonic {v : ℝ} (hv : v ≠ 0) (k t : ℝ) :
   field_simp
   ring
 
+/-- 3d. The kernel is the field's Euclidean correlation: in imaginary time (τ = i t, so ∂ₜ² = -∂τ²) the
+    operator becomes -∂τ²/v² + k², and e^{-kvτ} solves it: `kernel_tachyonic` is exactly that equation (up to
+    sign). So e^{-τ/τₘ} is right as a Euclidean correlation (P14, the Osterwalder-Schrader setting) and wrong as a
+    real-time memory (the cheatsheet, P10), where the field rings at ω = kv. -/
+theorem kernel_euclidean {v : ℝ} (hv : v ≠ 0) (k t : ℝ) :
+    -((k * v) ^ 2 * kernel k v t / v ^ 2) + k ^ 2 * kernel k v t = 0 := by
+  linear_combination -(kernel_tachyonic hv k t)
+
 /-- 3c. It is not a mode of the master equation as written: K''/v² + k² K = 2k² K ≠ 0. -/
 theorem kernel_not_mode {k v : ℝ} (hk : k ≠ 0) (hv : v ≠ 0) (t : ℝ) :
     (k * v) ^ 2 * kernel k v t / v ^ 2 + k ^ 2 * kernel k v t ≠ 0 := by
@@ -150,6 +160,7 @@ def row : Method.Row where
 
 #print axioms dispersion
 #print axioms kernel_not_mode
+#print axioms kernel_euclidean
 #print axioms swapped
 
 end Fishing.KleinGordon

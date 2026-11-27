@@ -232,3 +232,19 @@ claims:
 #   causal | `TemporalDynamics.lean` | `somaticRetardedPropagator_isRetarded`"
 #   — a ledger claim belonging to the companion temporal-dynamics affidavit,
 #   not re-checked here.
+  - id: E10
+    quote: In the USF context this motivates the Somatic Memory Kernel
+    lines:
+    - 274
+    - 275
+    - 276
+    - 277
+    kind: ledger
+    finding: 'right in this paper''s setting: e^{-kvτ} solves the Euclidean (imaginary-time) equation, the clustering of OS4;
+      carried into real time as a memory (P10, the cheatsheet) it is not a solution, so the step from ''motivates'' to a memory
+      needs the Wick rotation undone or a damping term'
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    ledger: sherlock/Fishing/KleinGordon.lean (kernel_euclidean, kernel_not_mode); ISS-126
+    disposition: open (USC fishing, 27 Nov)

@@ -8,8 +8,8 @@ document: P10
 title: "Temporal Dynamics of the Universal Somatic Field: Retarded Propagators, Transition Rates, and the Memory of Feeling"
 source:
   file: paper/soma/soma-temporal-dynamics/soma-temporal-dynamics.md
-  commit: ceb8ca1
-  sha256: 868f0be2bde3a7542a70220a849b69ba94d10ba77845aa1be696866c8db19256
+  commit: 6318048
+  sha256: c735762f756a706399b5990889730fb6e2d6ba7ecb06aa77ae2533a33bedb060
 lean: []
 microtheories: {}
 symbols:
@@ -206,3 +206,39 @@ claims:
 # LEAN: lines 478-489, the proposed dependent-type signature for $G_R$ — not
 #   yet a Lean declaration; a ledger candidate once (if) `ScaleUniverse.lean` or
 #   a sibling module adds it.
+  - id: T9
+    quote: (\nabla^2 + k^2)\,\Phi_{\mu\nu}(x) = -J_{\mu\nu}(x)
+    lines:
+    - 88
+    - 100
+    kind: ledger
+    finding: 'the stationary form (∇² + k²: k a wavenumber) and the time-dependent form (Klein-Gordon: k a mass) use one letter
+      for two physics, as in the cheatsheet (CS9)'
+    verdict: contradicted
+    label: kernel-verified
+    lean: null
+    ledger: sherlock/Fishing/Gravity.lean (yukawa_not_oscillating); sherlock/Fishing/KaluzaKlein.lean (two_signs); ISS-126
+    disposition: open (USC fishing, 27 Nov)
+  - id: T10
+    quote: K(\tau) = \int d^3x\; G_R(x,\tau;\,0,0) = K_0\,e^{-\tau/\tau_m}\,\theta(\tau)
+    lines:
+    - 178
+    kind: ledger
+    finding: the spatial integral of the retarded Green's function is its zero-momentum mode, which for this operator rings
+      at ω = kv and does not decay; e^{-τ/τₘ} is the field's Euclidean correlation, not its real-time response
+    verdict: contradicted
+    label: kernel-verified
+    lean: null
+    ledger: sherlock/Fishing/KleinGordon.lean (rest_mode, kernel_not_mode, kernel_euclidean); ISS-126
+    disposition: open (USC fishing, 27 Nov)
+  - id: T11
+    quote: \langle T \rangle = \frac{2\pi}{\omega_A \omega_B}\,e^{\Delta V / D}
+    lines:
+    - 263
+    kind: ledger
+    finding: Kramers' overdamped escape time with the friction set to 1 (it omits γ), as in the cheatsheet (CS12)
+    verdict: consistent
+    label: derived-under-assumptions
+    lean: null
+    ledger: sherlock/Fishing/Kramers.lean (curvatures, arrhenius); ISS-126
+    disposition: open (USC fishing, 27 Nov)

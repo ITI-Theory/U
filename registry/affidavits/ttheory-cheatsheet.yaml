@@ -124,11 +124,11 @@ claims:
   - 40
   kind: ledger
   finding: the memory kernel is not a solution of the master equation as written (it needs the opposite sign of k² or a damping
-    term); the equation oscillates in time at ω = kv
+    term); the equation oscillates in time at ω = kv; e^{-τ/τₘ} is the field's Euclidean (imaginary-time) correlation (kernel_euclidean), right in P14's setting, not a real-time memory
   verdict: contradicted
   label: kernel-verified
   lean: null
-  ledger: sherlock/Fishing/KleinGordon.lean (kernel_not_mode, dispersion); ISS-126
+  ledger: sherlock/Fishing/KleinGordon.lean (kernel_not_mode, dispersion, kernel_euclidean); ISS-126
   disposition: open (USC fishing, 27 Nov)
 - id: CS11
   quote: trauma wells are deep narrow minima

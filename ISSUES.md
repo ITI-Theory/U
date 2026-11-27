@@ -6984,6 +6984,12 @@ directly or through a core; 26 Nov, USC as Sherlock and MTC, the `{{usc:...}}` t
       effective mass), each with its verdict, label and the Fishing theorem as its ledger; CS1, CS5, CS7 and CS8
       moved to the current text (the sorries closed in October, the quantum-advantage line gone).
       `python sherlock/registry.py check`: OK, 45 affidavits.
+- [x] (27 Nov) The memory kernel, resolved: e^{-kvτ} is the field's Euclidean (imaginary-time) correlation
+      (`Fishing.KleinGordon.kernel_euclidean`: it solves -∂τ²/v² + k²), right where P14 uses it (OS4's clustering,
+      "motivates"), not a solution in real time, where P10 derives it as ∫d³x G_R: the zero-momentum mode, which
+      rings at ω = kv (`rest_mode`). The fix is a word ("Euclidean correlation") or a damping term. The same catches
+      added to the affidavits of P10 (T9-T11, re-frozen at 6318048), P14 (E10), the geophysics book (G7) and the
+      philosophy book (P8, P9); registry check OK.
 - [ ] Physics fishing, further catches from the cheatsheet (the method's rows; the Lean decides).
 - [x] (27 Nov, author: "compile ISSUES.md as well, heavily linked to chats already") ISSUES.md as a
       Lean model: `sherlock/Issue` (statuses, boxes, AUTHOR steps, the header's rules as functions),

@@ -137,3 +137,28 @@ claims:
     - 1
     - 6
   disposition: none
+- id: P8
+  quote: (\nabla^2+k^2)G(x,x')=\delta(x-x'),
+  lines:
+  - 174
+  - 180
+  kind: ledger
+  finding: the stationary Helmholtz form and the time-dependent Klein-Gordon form with one letter k for two physics, as in
+    the cheatsheet (CS9)
+  verdict: contradicted
+  label: kernel-verified
+  lean: null
+  ledger: sherlock/Fishing/Gravity.lean (yukawa_not_oscillating); sherlock/Fishing/KaluzaKlein.lean (two_signs); ISS-126
+  disposition: open (USC fishing, 27 Nov)
+- id: P9
+  quote: K(\tau)=K_0 e^{-\tau/\tau_m}\theta(\tau)
+  lines:
+  - 166
+  kind: ledger
+  finding: the memory kernel is not a real-time solution of the master equation; it is its Euclidean correlation (CS10, P10
+    T10)
+  verdict: contradicted
+  label: kernel-verified
+  lean: null
+  ledger: sherlock/Fishing/KleinGordon.lean (kernel_not_mode, kernel_euclidean); ISS-126
+  disposition: open (USC fishing, 27 Nov)

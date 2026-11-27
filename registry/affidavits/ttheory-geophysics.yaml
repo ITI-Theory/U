@@ -133,3 +133,18 @@ claims:
     - 1
     - 3
   disposition: none
+- id: G7
+  quote: P_{\text{nucl}}\approx \exp\left[-\frac{2}{\hbar_{\text{geo}}}
+  lines:
+  - 212
+  - 213
+  - 214
+  - 215
+  kind: ledger
+  finding: without the 2m the WKB exponent is √2 smaller than the programme's Lean (LimbicTunnel's action, derived as the
+    integral), as in the cheatsheet (CS13)
+  verdict: contradicted
+  label: kernel-verified
+  lean: null
+  ledger: sherlock/Fishing/WKB.lean (action_integral, cheatsheet_drops_mass); ISS-126
+  disposition: open (USC fishing, 27 Nov)
