@@ -1,0 +1,35 @@
+# Sherlock affidavit: [T]-Theory: The Evolution (ISS-139).
+id: ttheory-evolution
+document: BOOK
+title: '[T]-Theory: The Evolution'
+source:
+  file: books/T-Theory/evolution/book-evolution.md
+  commit: c9aeedc
+  sha256: 1f1013ff2a1ba2c22fb71272c406a7db6307019ebda8b029ed925d41001df239
+lean: []
+microtheories: {}
+claims:
+  - id: E1
+    quote: 'The beginning is in the eleven conversations of April and May 2026 that open Phase Dot,'
+    lines: [53]
+    kind: cross-paper
+    finding: >-
+      The Evolution (ISS-139): Me/chats/phase-dot/index.yaml lists 11 conversations (split_phasedot.py, 27 Nov)
+    verdict: not-provable
+    label: sourced
+    lean: null
+    values:
+      - {quantity: PhaseDot-Conversations, value: 11}
+    disposition: none
+  - id: E2
+    quote: 'Six months later that plug-in was built.'
+    lines: [70]
+    kind: internal-arithmetic
+    finding: >-
+      The Evolution (ISS-139): Sheer Luck as a plug-in on 6 May (Phase Dot 20260506_05, prompts 39-42); the VS Code
+      extension's 0.2.0 on 27 Nov: month 11 minus month 5 is 6
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: diff, args: [11, 5, 6]}]
+    disposition: none

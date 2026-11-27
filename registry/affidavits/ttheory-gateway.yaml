@@ -1,0 +1,39 @@
+# Sherlock affidavit: [T]-Theory: A Universal Field Theory of Mind, Body, and Cosmos (Gateway) (ISS-139).
+id: ttheory-gateway
+document: BOOK
+title: '[T]-Theory: A Universal Field Theory of Mind, Body, and Cosmos (Gateway)'
+source:
+  file: books/T-Theory/gateway/book-gateway.md
+  commit: c9aeedc
+  sha256: 9cdbd018e204b1e0df93bce3c10840410c43f6b8c39c32938955540fa8950bc7
+lean: []
+microtheories: {}
+claims:
+  - id: G1
+    quote: 'uses a Green''s-function or energy-landscape grammar across fifteen domains;'
+    lines: [89]
+    kind: cross-paper
+    finding: >-
+      Gateway (ISS-139): fifteen domains, as books/T-Theory/Makefile's DOMAINS (15 books, the Gateway
+      among them) and the org page's fifteen domain books
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [15, 15]}]
+    values:
+      - {quantity: TTheory-DomainBooks, value: 15}
+    disposition: none
+  - id: G2
+    quote: 'it uses an eleven-dimensional product structure: ordinary spacetime plus internal sectors associated with propagation, limbic thresholding, and cortical structure.'
+    lines: [91]
+    kind: cross-paper
+    finding: >-
+      Gateway (ISS-139): spacetime 4, propagation 3, limbic 1, cortex 3: 4 + 3 + 1 + 3 = 11, as P20's
+      decomposition (Background, the field and its dimensions)
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [4, 3, 1, 3, 11]}]
+    values:
+      - {quantity: TTheory-Dimensions, value: 11}
+    disposition: none
