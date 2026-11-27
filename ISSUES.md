@@ -7972,6 +7972,15 @@ mathlib and physlib ... T-theory, all of it, modelled in lean"):**
       SHA-256 and what the translation changed; software that ships OpenCyc shows the credit (ISS-140); papers using it
       cite Forbus and Hinrichs (2017). All TTheory files now have the header and no line over 100 characters; all
       compile, the states unchanged.
+- [x] (27 Nov) Abstract against body (the author: "will we be able, in lean, to say that say, the abstract is fully
+      defined in the body? ... if we dont actually have an abstract or body per se"): the abstract becomes a list of
+      its own phrases, each with the claim of the body that carries it; "defined" comes free (a claim cannot even be
+      stated unless its words are defined), "established" is computed. Core: `#covers abstract body` (and #status
+      factored into `stateOf`). P1: 4 of 6 of the abstract established; open: complex PTSD as a configuration of the
+      landscape (stated: an asymmetric coupling makes the flow no longer the descent of any energy, Appendix B.2) and
+      the percept as a pole of the propagator (proved for nostalgia only, the companion's; startle not). New and
+      proved: sub-perceptual persistence (a mode below its threshold still drives every mode coupled to it). The body
+      proves 9 claims the abstract never mentions. P1: 13 kernel-verified, 2 open. The first piece of cite_check.
 - [ ] Moriarty in Lean: the attacker that searches for refutations (and for microtheory combinations with no instance).
 - [ ] The aso: to cyc: functor: the Somatic Field Ontology mapped to OpenCyc's concepts; where it will not map is a
       finding ("morphism friction": a hidden dualist assumption in the prose).

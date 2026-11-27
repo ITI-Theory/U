@@ -10,6 +10,7 @@ import Mathlib.Analysis.Calculus.Deriv.Mul
 import Mathlib.Analysis.Calculus.Deriv.Pi
 import Mathlib.Analysis.Calculus.Deriv.Comp
 import Mathlib.Analysis.Calculus.Deriv.MeanValue
+import Mathlib.Analysis.Calculus.ContDiff.Defs
 
 /-!
 # P1 · The Soma-Field: A Wave-Based Model of Emotional Dynamics
@@ -150,6 +151,34 @@ theorem companion_force (e : Field8) (i : Fin N8) :
     fieldForce8 e i = -partialAt (somaEnergy W8 0) e i := by
   rw [partialAt, (soma_force W8 W8_symm 0 e i).deriv]
   simp [fieldForce8]
+
+/-! ## Sub-perceptual persistence
+
+The abstract's first phenomenon: emotional states persist below perception. In the model, a mode
+under its threshold is not perceived, but it still drives every mode it is coupled to: the field
+acts on what it does not show. -/
+
+/-- Sub-perceptual persistence: changing mode `i` to any other value, perceived or not, changes
+    the force on every mode `j` coupled to it (kernel-verified). -/
+theorem sub_perceptual_persistence {n : ℕ} (W : Fin n → Fin n → ℝ) (hW : ∀ i j, W i j = W j i)
+    (b e : Fin n → ℝ) (i j : Fin n) (x : ℝ) (hji : W j i ≠ 0) (hx : x ≠ e i) :
+    velocity (somaEnergy W b) (Function.update e i x) 0 j ≠ velocity (somaEnergy W b) e 0 j := by
+  simp only [soma_velocity W hW, Pi.zero_apply, add_zero]
+  have term : ∀ k, W j k * Function.update e i x k =
+      W j k * e k + (if k = i then W j i * (x - e i) else 0) := by
+    intro k
+    by_cases h : k = i
+    · subst h
+      rw [Function.update_self, if_pos rfl]
+      ring
+    · rw [Function.update_of_ne h, if_neg h, add_zero]
+  have key : ∑ k, W j k * Function.update e i x k = ∑ k, W j k * e k + W j i * (x - e i) := by
+    rw [Finset.sum_congr rfl fun k _ => term k, Finset.sum_add_distrib, Finset.sum_ite_eq']
+    simp only [Finset.mem_univ, if_true]
+  rw [key]
+  intro h
+  have h0 : W j i * (x - e i) = 0 := by linarith
+  exact mul_ne_zero hji (sub_ne_zero.2 hx) h0
 
 /-! ## The three-layer architecture
 
@@ -431,15 +460,65 @@ def cEscape : Claim where
     (∀ᶠ y in nhdsWithin x {x}ᶜ, H x < H y) → ∀ γ : ℝ → Fin n → ℝ, Continuous γ → γ 0 = x → γ 1 ≠ x →
     ∃ t ∈ Set.Icc (0 : ℝ) 1, H x < H (γ t)
 
+def cSubPerceptual : Claim where
+  id := "P1.subperceptual"
+  text := "A mode below its threshold still drives every mode coupled to it."
+  statement := ∀ n (W : Fin n → Fin n → ℝ), (∀ i j, W i j = W j i) → ∀ (b e : Fin n → ℝ)
+    (i j : Fin n) (x : ℝ), W j i ≠ 0 → x ≠ e i →
+    velocity (somaEnergy W b) (Function.update e i x) 0 j ≠ velocity (somaEnergy W b) e 0 j
+
+instance : Witness cSubPerceptual := .of fun _ W hW b e i j x hji hx =>
+  sub_perceptual_persistence W hW b e i j x hji hx
+
+def cThreshold : Claim where
+  id := "P1.eq12"
+  text := "Emotion i is perceived iff |E_i| > T_i; the companion's `perceptible` is exactly that."
+  statement := ∀ e i, perceptible e i ↔ Perceived threshold8 e i
+
+instance : Witness cThreshold := .of companion_perceptible
+
+def cPoleNostalgia : Claim where
+  id := "P1.pole.nostalgia"
+  text := "The companion's nostalgia attractor lies near a pole of the propagator (residual < 1)."
+  statement := ∃ ev : ℝ, residual8ℝ nostalgiaPatternℝ ev < 1
+
+instance : Witness cPoleNostalgia := .of perceptIsPropagatorPole_nostalgia
+
+def cPoles : Claim where
+  id := "P1.poles"
+  text := "Every stored attractor of the companion lies near a pole of the propagator."
+  statement := ∀ p ∈ [nostalgiaPatternℝ, startlePatternℝ], ∃ ev : ℝ, residual8ℝ p ev < 1
+
+def cPTSD : Claim where
+  id := "P1.cptsd"
+  text := "Complex PTSD (Appendix B.2): an asymmetric coupling makes the flow no longer the \
+    descent of any energy."
+  statement := ∀ n (W : Fin n → Fin n → ℝ), (∃ i j, W i j ≠ W j i) →
+    ¬ ∃ H : (Fin n → ℝ) → ℝ, ContDiff ℝ 2 H ∧
+      ∀ e i, HasDerivAt (fun x => H (Function.update e i x)) (-(∑ j, W i j * e j)) (e i)
+
 /-- P1's claims, in the paper's order. -/
 def claims : List Claim :=
-  [cOneFunction, cCompanion, cForce, cHRV, cThreeLayers, cEquivalence, cPlasticity, cLayer2,
-    cDownhill, cEscape]
+  [cOneFunction, cSubPerceptual, cThreshold, cCompanion, cForce, cHRV, cThreeLayers, cEquivalence,
+    cPlasticity, cLayer2, cDownhill, cEscape, cPTSD, cPoleNostalgia, cPoles]
+
+/-- P1's abstract, phrase by phrase (its own words), each with the claim of the body that carries
+    it. -/
+def abstract : List (String × Claim) :=
+  [("not as loose metaphor, but as a mapping of shared mathematical structure", cOneFunction),
+   ("the sub-perceptual persistence of emotional states", cSubPerceptual),
+   ("the threshold at which emotion enters conscious awareness", cThreshold),
+   ("the attractor structure corresponding to fight, flight, freeze, and regulated calm", cEscape),
+   ("the formal mechanism of complex PTSD as a specific configuration of the attractor landscape",
+     cPTSD),
+   ("both are poles in the propagator of their respective field", cPoles)]
 
 instance : Witness cDownhill := .of fun _ H hH e he => downhill H hH e he
 
 instance : Witness cEscape := .of fun _ H x hx γ hγ h0 h1 => escape_needs_energy H x hx γ hγ h0 h1
 
 #status claims
+
+#covers abstract claims
 
 end TTheory.P1

@@ -92,6 +92,34 @@ private def strField (field : Name) (c : Expr) : MetaM String := do
   | .lit (.strVal s) => return s
   | e => throwError "#status: {field} is not a string literal: {e}"
 
+/-- A claim's state, computed from its witness or refutation: an index (0 kernel-verified,
+    1 derived under assumptions, 2 frontier, 3 open, 4 refuted, 5 inconsistent) and the words. -/
+private def stateOf (c : Expr) : MetaM (Nat × String) := do
+  let receipt := fun (ax : Array Name) => (ax.filter (fun a => !standardAxioms.contains a)).toList
+  let ctx ← contextOf c
+  let inCtx := if ctx.isEmpty then "" else s!" in {ctx}"
+  let w? ← synthInstance? (mkApp (mkConst ``TTheory.Witness) c)
+  let r? ← synthInstance? (mkApp (mkConst ``TTheory.Refutation) c)
+  let (k, state) ← match r?, w? with
+    | some _, some _ =>
+      pure (5, s!"inconsistent: witnessed and refuted{inCtx}, " ++ "which has no instance")
+    | some r, none =>
+      let ax ← axiomsOf (← instantiateMVars r)
+      if ax.contains ``sorryAx then pure (2, "frontier (a refutation through sorry)")
+      else
+        let extra := receipt ax
+        pure (4, if extra.isEmpty then s!"refuted{inCtx}"
+          else s!"refuted{inCtx}, resting on: {extra}")
+    | none, none => pure (3, "open")
+    | none, some w =>
+      let ax ← axiomsOf (← instantiateMVars w)
+      if ax.contains ``sorryAx then pure (2, "frontier (sorry)")
+      else
+        let extra := receipt ax
+        if extra.isEmpty then pure (0, s!"kernel-verified{inCtx}")
+        else pure (1, s!"derived under assumptions{inCtx}: {extra}")
+  return (k, state)
+
 /-- `#status claims`: each claim's state as the model stands now, computed from its witness. -/
 elab "#status " t:term : command => liftTermElabM do
   let ty := mkApp (mkConst ``List [Level.zero]) (mkConst ``TTheory.Claim)
@@ -101,34 +129,47 @@ elab "#status " t:term : command => liftTermElabM do
   for c in ← listElems e do
     let id ← strField ``TTheory.Claim.id c
     let text ← strField ``TTheory.Claim.text c
-    let receipt := fun (ax : Array Name) => (ax.filter (fun a => !standardAxioms.contains a)).toList
-    let ctx ← contextOf c
-    let inCtx := if ctx.isEmpty then "" else s!" in {ctx}"
-    let w? ← synthInstance? (mkApp (mkConst ``TTheory.Witness) c)
-    let r? ← synthInstance? (mkApp (mkConst ``TTheory.Refutation) c)
-    let (k, state) ← match r?, w? with
-      | some _, some _ =>
-        pure (5, s!"inconsistent: witnessed and refuted{inCtx}, " ++ "which has no instance")
-      | some r, none =>
-        let ax ← axiomsOf (← instantiateMVars r)
-        if ax.contains ``sorryAx then pure (2, "frontier (a refutation through sorry)")
-        else
-          let extra := receipt ax
-          pure (4, if extra.isEmpty then s!"refuted{inCtx}"
-            else s!"refuted{inCtx}, resting on: {extra}")
-      | none, none => pure (3, "open")
-      | none, some w =>
-        let ax ← axiomsOf (← instantiateMVars w)
-        if ax.contains ``sorryAx then pure (2, "frontier (sorry)")
-        else
-          let extra := receipt ax
-          if extra.isEmpty then pure (0, s!"kernel-verified{inCtx}")
-          else pure (1, s!"derived under assumptions{inCtx}: {extra}")
+    let (k, state) ← stateOf c
     counts := counts.modify k (· + 1)
     lines := lines.push m!"{id} [{state}]: {text}"
   logInfo (MessageData.joinSep lines.toList "\n" ++
     m!"\n{counts[0]!} kernel-verified, {counts[1]!} derived under assumptions, " ++
     m!"{counts[2]!} frontier, {counts[3]!} open, {counts[4]!} refuted, " ++
     m!"{counts[5]!} inconsistent")
+
+/-- `#covers abstract body`: does the body establish what the abstract says? `abstract` pairs each
+    phrase of a document's abstract with the claim that carries it; `body` is the chapter's claims.
+    Each phrase is shown with its claim's state; then the claims the body proves that the abstract
+    does not mention. A phrase is established when its claim is kernel-verified or derived under
+    assumptions. -/
+elab "#covers " a:term:max b:term:max : command => liftTermElabM do
+  let claimTy := mkConst ``TTheory.Claim
+  let pairTy := mkApp2 (mkConst ``Prod [Level.zero, Level.zero]) (mkConst ``String) claimTy
+  let listOf := fun (t : Expr) => mkApp (mkConst ``List [Level.zero]) t
+  let ae ← instantiateMVars (← Term.elabTermEnsuringType a (listOf pairTy))
+  let be ← instantiateMVars (← Term.elabTermEnsuringType b (listOf claimTy))
+  let mut lines : Array MessageData := #[]
+  let mut ids : Array String := #[]
+  let mut established := 0
+  let pairs ← listElems ae
+  for p in pairs do
+    let p ← whnf p
+    let args := p.getAppArgs
+    let phrase ← match ← whnf args[2]! with
+      | .lit (.strVal s) => pure s
+      | e => throwError "#covers: the phrase is not a string literal: {e}"
+    let c := args[3]!
+    let id ← strField ``TTheory.Claim.id c
+    ids := ids.push id
+    let (k, state) ← stateOf c
+    if k ≤ 1 then established := established + 1
+    lines := lines.push m!"\"{phrase}\"\n    -> {id} [{state}]"
+  let mut extra : Array String := #[]
+  for c in ← listElems be do
+    let id ← strField ``TTheory.Claim.id c
+    unless ids.contains id do extra := extra.push id
+  logInfo (MessageData.joinSep lines.toList "\n" ++
+    m!"\nthe abstract: {established} of {pairs.length} established by the body" ++
+    m!"\nthe body also proves (not in the abstract): {extra.toList}")
 
 end TTheory
