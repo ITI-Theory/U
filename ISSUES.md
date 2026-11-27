@@ -7605,7 +7605,9 @@ then one paper and the app.
 - [x] (27 Nov, author: "remove") The root's leftovers removed: `a.md` and `opening_page.pdf` (RC1.1's noir page,
       referenced by nothing) and `docker-compose.yml.OBSOLETE`; git keeps their history.
 - [ ] `bin/release-check`: every section PASS.
-- [ ] `make help`: read as a stranger would (one screen, grouped, every target described).
+- [x] (27 Nov) `make help` grouped by the three products (the theory, the Soma Machine, the compiler), then release
+      and housekeeping; new targets `evolution`, `background`, `usc`, `explorer`, `release-check` shown; every old
+      line kept.
 - [ ] The org page (.github) and t-theory.org say the same three products as the README.
 - [ ] Recall searches the text as well as the topics (`usc.py recall --text`): the 20 Nov sentence above was found
       by grep, not by recall (ISS-136).

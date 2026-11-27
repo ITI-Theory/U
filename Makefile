@@ -19,45 +19,60 @@ include lib/mk/dist.mk
 
 .DEFAULT_GOAL := help
 
-.PHONY: help all build papers papers-html omnibus atlas atlas-html textbook textbook-html books vol1 vol2 vol3 lean app check clean \
+.PHONY: help evolution background usc explorer all build papers papers-html omnibus atlas atlas-html textbook textbook-html books vol1 vol2 vol3 lean app check clean \
 	registry-papers registry-papers-royal registry-fractal lean-appendix \
 	fractal-thesis cheatsheet uat-build uat-check uat-run remind release-build release-check \
 	uat-stage-papers uat-stage-ttheory uat-stage-lulu-proofs uat-stage-full uat-stage-mirror dist generate operator-generate list issues-html issues adm
 
 help:
-	$(info U build targets (outputs in bld/, see docs/BUILD.md))
+	$(info U build targets (outputs in bld/, see docs/BUILD.md); start with the README)
+	$(info )
+	$(info The theory (USF): papers and books)
 	$(info   all             papers, books and the Field Atlas)
 	$(info   papers          build all papers and the A4 omnibus)
 	$(info   papers-html     build paper HTML files)
 	$(info   omnibus         build the papers omnibus)
-	$(info   atlas           build the Field Atlas A3 edition)
-	$(info   atlas-html      build the Field Atlas HTML edition)
-	$(info   textbook        build [T]-Theory: A Course (A4 course book))
-	$(info   textbook-html   build the course book HTML edition)
 	$(info   books           build all T-Theory books)
 	$(info   vol1            build T-Theory volume 1)
 	$(info   vol2            build T-Theory volume 2)
 	$(info   vol3            build T-Theory volume 3)
+	$(info   evolution       build [T]-Theory: The Evolution (the chats condensed: how it came about; draft, ISS-133))
+	$(info   background      build [T]-Theory: Background, Book 0 (what to know first; draft, ISS-134))
+	$(info   textbook        build [T]-Theory: A Course (A4 course book))
+	$(info   textbook-html   build the course book HTML edition)
+	$(info   atlas           build the Field Atlas A3 edition)
+	$(info   atlas-html      build the Field Atlas HTML edition)
 	$(info   lean            build Lean proofs)
 	$(info   lean-update     update Lean dependencies, apply patches, rebuild)
+	$(info )
+	$(info The Soma Machine (USM))
 	$(info   app             build the Soma Machine app)
 	$(info   app-start       run the app locally (http://127.0.0.1:5173); mother-bridge for the MOTHER panel)
 	$(info   relay           the screens' channel for tablets (LAN=1: the home network; prints the address and token))
 	$(info   app-publish     publish the app to www.t-theory.org/app/ (DRY=1 first))
 	$(info   observatory-guide  build the Observatory Guide (NotebookLM source) in bld/app/)
 	$(info   ask NB=mother|hal Q="..."  ask MOTHER or H-AL one question (paced; DRY=1 shows it only))
-	$(info   uat-stage-papers / uat-stage-ttheory  stage a UAT track in uat/staging/)
-	$(info   remind          the author's open steps from ISSUES.md (ARGS=--titles); also HAL remind)
-	$(info   wizard          the Wizard's checks (built the right thing): each book's scope covered, Cyc neighbours, never written (ISS-092); ARGS=field-atlas)
+	$(info   emotionml       export the film scores (registry/scores) as W3C EmotionML in bld/scores/)
+	$(info )
+	$(info The compiler (USC): Sherlock and the checks)
+	$(info   usc             USC's findings in seconds, no Lean: tags, citations, open assumptions (bld/sherlock/usc.txt))
+	$(info   make -C sherlock help  Sherlock: affidavits checked in Lean against OpenCyc (paper SH1))
 	$(info   sherlock-setup  Sherlock's local build: Mathlib cache, NextKB, OpenCyc in Lean, affidavits, ledger (several GB) (ISS-090))
 	$(info   moriarty        Sherlock's adversary: plant faults (registry/moriarty.yaml), count what is caught; misses are DOTs (ISS-094))
+	$(info   wizard          the Wizard's checks (built the right thing): each book's scope covered, Cyc neighbours, never written (ISS-092); ARGS=field-atlas)
+	$(info   explorer        package the VS Code extension, [T]-Theory Explorer (apps/vscode/bld/*.vsix; ISS-132))
+	$(info )
+	$(info Release and acceptance)
+	$(info   check           run the papers, books and Atlas validators)
+	$(info   release-check   bin/release-check: every release check, section by section)
 	$(info   uat-run         the UAT step by step in a terminal (ARGS=--new|--report|--step ID); also HAL uat)
 	$(info   uat-nlm TRACK=papers|ttheory  NotebookLM UAT: swap the standing notebook's sources, ask, report (DRY=1 first))
-	$(info   make -C sherlock help  Sherlock: affidavits checked in Lean against OpenCyc (paper SH1))
-	$(info   emotionml       export the film scores (registry/scores) as W3C EmotionML in bld/scores/)
-	$(info   check           run the papers, books and Atlas validators)
-	$(info   clean           remove repo-root bld/)
+	$(info   uat-stage-papers / uat-stage-ttheory  stage a UAT track in uat/staging/)
+	$(info   remind          the author's open steps from ISSUES.md (ARGS=--titles); also HAL remind)
+	$(info )
+	$(info Housekeeping)
 	$(info   generate        regenerate lib/mk/dist.mk from Dist/PAPERS.yaml)
+	$(info   clean           remove repo-root bld/)
 	@:
 
 all: papers books atlas
@@ -85,6 +100,18 @@ textbook-html:
 
 books:
 	$(MAKE) -C $(BOOKS_DIR) all
+
+evolution:
+	$(MAKE) -C $(BOOKS_DIR) evolution
+
+background:
+	$(MAKE) -C $(BOOKS_DIR) background
+
+usc:
+	$(MAKE) -C sherlock usc
+
+explorer:
+	cd apps/vscode && npm run package
 
 vol1:
 	$(MAKE) -C $(BOOKS_DIR) vol1
