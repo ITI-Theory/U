@@ -1,0 +1,23 @@
+# Sherlock affidavit: the Field Atlas, sectors/1-quantum-to-classical.md (ISS-139: its levels and paths against the registry).
+id: atlas-sector-1
+document: BOOK
+title: 'The Field Atlas: Sector I: Quantum to Classical'
+source:
+  file: Part2/book/field-atlas/sectors/1-quantum-to-classical.md
+  commit: 8d19285
+  sha256: 5ccb35a12f5ce3f164a7005f751c92a994e12dd0f96baa7874ab1453f4801e10
+lean: []
+microtheories: {}
+claims:
+  - id: A1
+    quote: 'not a single settled theory stretched across five powers of description.'
+    lines: [9]
+    kind: internal-count
+    finding: >-
+      the Field Atlas (ISS-139): Sector I's front matter lists five levels (quantum-foam, string-boundary, nuclear,
+      atomic, molecular), as the ladder table and canonical-5's band I
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [5, 5]}]
+    disposition: none

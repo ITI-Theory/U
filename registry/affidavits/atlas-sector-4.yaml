@@ -1,0 +1,35 @@
+# Sherlock affidavit: the Field Atlas, sectors/4-geological-to-stellar.md (ISS-139: its levels and paths against the registry).
+id: atlas-sector-4
+document: BOOK
+title: 'The Field Atlas: Sector IV: Geological to Stellar'
+source:
+  file: Part2/book/field-atlas/sectors/4-geological-to-stellar.md
+  commit: 8d19285
+  sha256: 69601b4af05dcfc0dc9284b289051fc58c6607713cc2a9eb02bbd9e00264222b
+lean: []
+microtheories: {}
+claims:
+  - id: G1
+    quote: 'Its path label is **Geological to Stellar**, and the sequence is deliberately physical:'
+    lines: [7]
+    kind: internal-count
+    finding: >-
+      registry/paths/geological-to-stellar, the same label and the same five levels in the same order (geological,
+      planetary, orbital-system, stellar, compact-object), as the sector's front matter
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [5, 5]}]
+    disposition: none
+  - id: G2
+    quote: 'Scale-Invariant Oscillators across Twenty Scale Levels*'
+    lines: [15]
+    kind: internal-count
+    finding: >-
+      the title as Dist/PAPERS.yaml's (the USF paper); its "twenty" counts the catalogue's named levels 01 to 20, sigma
+      0 (the foam) making twenty-one (registry/README.md, the models; the USF-ScaleLevelCount DIFFER, ISS-130)
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [20, 20]}]
+    disposition: none

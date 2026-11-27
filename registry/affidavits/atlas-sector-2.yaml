@@ -1,0 +1,35 @@
+# Sherlock affidavit: the Field Atlas, sectors/2-chemistry-to-biology.md (ISS-139: its levels and paths against the registry).
+id: atlas-sector-2
+document: BOOK
+title: 'The Field Atlas: Sector II: Chemistry to Biology'
+source:
+  file: Part2/book/field-atlas/sectors/2-chemistry-to-biology.md
+  commit: 8d19285
+  sha256: 8790c18357f9d62495d8c66ec062532ac4d6d7b5ad6301190707e0b72801e4c5
+lean: []
+microtheories: {}
+claims:
+  - id: B1
+    quote: 'its first named plate is cellular-synaptic:'
+    lines: [7]
+    kind: internal-count
+    finding: >-
+      Sector II's front matter: four levels, cellular-synaptic first and human-vertebrate last ("The sector now ends with
+      the human/vertebrate organism"), as the ladder table; canonical-5's band II adds molecular, its lower boundary
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [4, 4]}]
+    disposition: none
+  - id: B2
+    quote: 'Scale-Invariant Oscillators across Twenty Scale Levels*.'
+    lines: [17]
+    kind: internal-count
+    finding: >-
+      the title as Dist/PAPERS.yaml's (the USF paper); its "twenty" counts the catalogue's named levels 01 to 20, sigma
+      0 (the foam) making twenty-one (registry/README.md, the models; the USF-ScaleLevelCount DIFFER, ISS-130)
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [20, 20]}]
+    disposition: none

@@ -1,0 +1,71 @@
+# Sherlock affidavit: the Field Atlas, sectors/3-individual-to-collective.md (ISS-139: its levels and paths against the registry).
+id: atlas-sector-3
+document: BOOK
+title: 'The Field Atlas: Sector III: Individual to Collective'
+source:
+  file: Part2/book/field-atlas/sectors/3-individual-to-collective.md
+  commit: 8d19285
+  sha256: 95275d283c082dd9d05106a19e165bcb3e5ec4694bb863839043af4c25eef82f
+lean: []
+microtheories: {}
+claims:
+  - id: T1
+    quote: 'Its first object is not a larger body but a relation: the dyad.'
+    lines: [7]
+    kind: internal-count
+    finding: >-
+      Sector III's front matter: ten levels, dyad first; seven on the spine and the bird's three (bird, flock, colony-roost),
+      as the ladder table
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [7, 3, 10]}]
+    disposition: none
+  - id: T2
+    quote: 'The path labelled **Organism to Dyadic Care** uses this narrow bridge:'
+    lines: [9]
+    kind: internal-count
+    finding: >-
+      registry/paths/dyadic-care is labelled Organism to Dyadic Care: human-vertebrate to dyad, two levels, "one body
+      becomes two bodies"
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [2, 2]}]
+    disposition: none
+  - id: T3
+    quote: 'The path labelled **Performance Ensemble / Audience** makes the group problem especially concrete.'
+    lines: [11]
+    kind: internal-count
+    finding: >-
+      registry/paths/performance-ensemble, the same label: human-vertebrate, dyad, human-group, society-city (four), ending
+      at the city as the prose says ("The same path then zooms to the city")
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [4, 4]}]
+    disposition: none
+  - id: T4
+    quote: 'The path labelled **Engineered Agent Network** uses the clean coordination side of this distinction,'
+    lines: [13]
+    kind: internal-count
+    finding: >-
+      registry/paths/engineered-agent-network, the same label: animal-swarm to society-city, "from swarms of agents to
+      urban infrastructures"
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [2, 2]}]
+    disposition: none
+  - id: T5
+    quote: 'The path labelled **Assembly to Institution** names this progression:'
+    lines: [17]
+    kind: internal-count
+    finding: >-
+      registry/paths/human-assembly-to-institution is labelled Assembly to Institution: seven levels, human-vertebrate to
+      species-stellar; the prose names the first six (persons, pairs, groups, cities, institutions, civilisations)
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: diff, args: [7, 6, 1]}]
+    disposition: none

@@ -1,0 +1,66 @@
+# Sherlock affidavit: the Field Atlas, sectors/5-stellar-to-cosmic.md (ISS-139: its levels and paths against the registry).
+id: atlas-sector-5
+document: BOOK
+title: 'The Field Atlas: Sector V: Stellar to Cosmic'
+source:
+  file: Part2/book/field-atlas/sectors/5-stellar-to-cosmic.md
+  commit: 8d19285
+  sha256: 589aa8e0b51b66aa185fd01d47be81ce16b4085bc8b1efd3fb92a8b0003f8194
+lean: []
+microtheories: {}
+claims:
+  - id: S1
+    quote: 'Its path label is **Galactic to Cosmic**, and its registry sequence is stellar-cluster,'
+    lines: [7]
+    kind: internal-count
+    finding: >-
+      the sector names seven levels (as its front matter and the ladder table), but registry/paths/galactic-to-cosmic,
+      labelled Galactic to Cosmic, has six: it starts at galactic-disc, without stellar-cluster (which only full-atlas
+      visits). Either the path gains stellar-cluster (an edge to galactic-disc) or the prose calls it the sector's
+      sequence, not the path's (ISS-139)
+    verdict: contradicted
+    label: kernel-verified
+    lean: null
+    check: [{template: diff, args: [7, 6, 1]}]
+    disposition: open
+  - id: S2
+    quote: 'The last two entries share the same nominal $10^{26}$ m scale'
+    lines: [13]
+    kind: internal-count
+    finding: >-
+      observable-universe and cosmic-web are both $10^{26}$ m in the ladder table and registry/levels
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [26, 26]}]
+    disposition: none
+  - id: S3
+    quote: '$\Omega_\Lambda=0.6847$, $\Omega_c=0.2645$, and $H_0=67.36$'
+    lines: [15]
+    kind: internal-count
+    finding: >-
+      Planck 2018 as the cosmology papers quote it (P3's 0.6847, the dark-matter paper's 0.2645)
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: ['6847/10000', '6847/10000']}, {template: eq, args: ['2645/10000', '2645/10000']}]
+    values:
+      - {quantity: USF-DarkEnergyFraction-Planck2018, value: 0.6847}
+      - {quantity: USF-DarkMatterFraction-Planck2018, value: 0.2645}
+      - {quantity: Planck2018-H0, value: 67.36}
+    disposition: none
+  - id: S4
+    quote: 'The programme''s $7/11$ dark-energy and $3/11$ dark-matter numbers'
+    lines: [19]
+    kind: internal-count
+    finding: >-
+      the papers' fractions, labelled derived-under-assumptions here as in P3: 7/11 + 3/11 = 10/11; with the baryons'
+      1/22 the budget is 21/22 (P3; the course, ch. 12)
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: ['7/11', '3/11', '10/11']}]
+    values:
+      - {quantity: USF-DarkEnergyFraction, value: 7/11}
+      - {quantity: USF-DarkMatterFraction, value: 3/11}
+    disposition: none

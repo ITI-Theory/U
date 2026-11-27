@@ -7751,6 +7751,14 @@ registry 1 of 1. Outside U, not yet: the org page and Dist's README.
       decades, 10 paths, 5 sectors, the 0--20 convention; all agree with the course and the registry. Its sector names
       differed from the sector chapters and canonical-5 in three places: corrected (415e88f; the Atlas is unpublished).
       Coverage now counts the Atlas's front pages. The models themselves under Sherlock too (registry-models).
+- [x] (27 Nov) The Field Atlas's five sectors (atlas-sector-1 to -5, 14 claims): each sector's levels as the ladder table;
+      the six paths they name (Organism to Dyadic Care, Performance Ensemble, Engineered Agent Network, Assembly to
+      Institution, Geological to Stellar, Galactic to Cosmic) by label and levels against registry/paths; Sector V's
+      Planck 2018 values and the 7/11, 3/11 agree with the papers. 495 checks.
+- [ ] AUTHOR (Sector V, S1): the sector calls stellar-cluster to cosmic-web (seven) "the registry sequence" of the path
+      Galactic to Cosmic, but that path has six (from galactic-disc; stellar-cluster is only on full-atlas). Either the
+      path gains stellar-cluster (an edge stellar-cluster--galactic-disc; the app's route changes) or the prose says
+      "the sector's sequence". Copilot's suggestion: the path, as the sector is the path's own chapter.
 
 ## ISS-140: Releases: an id in every artefact, a manifest, the models as a library, what's new — OPEN
 {{Tags area.release, area.sherlock}}
