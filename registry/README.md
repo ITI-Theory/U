@@ -20,6 +20,28 @@ This registry is the data source for the Soma Field Operator generator. It recon
   `spaceengine-objects.yaml`, a coverage checklist).
 - `questions/<question-id>.yaml`: curated "What's Different?" tours with a visitor question, short answer, view settings, optional worked example, MOTHER prompt, next question, evidence label, and sources.
 
+## Models: one zoom operator, several ladders
+
+The Zoom Operator is one continuous operator; it asks only for a path from the quantum foam to the cosmos.
+A model is one ladder of coordinates along that path, and every document, book or view that counts levels
+counts them in one model, so it should name the model it counts in (ISS-130):
+
+- `canonical-5` is the shortest ladder, a ladder of five bands (I to V, quantum to cosmic). The five bands
+  hold twenty-eight levels and list thirty-one, because the three boundary levels (molecular, human, stellar)
+  belong to two bands each.
+- `universal-21` is the papers' ladder of scale levels: twenty-one coordinates, sigma 0 (the quantum foam) to
+  sigma 20 (the cosmic web). The app's equation catalogue names twenty of them, 01 String to 20 Cosmic Web, with
+  the foam at 0; "twenty" and "twenty-one" in the papers count these two ways.
+- `bird-flock` is a named solution off the main ladders: bird, flock and colony.
+
+The Field Atlas shows every level in the registry: the Atlas's 31 levels are 21 + 6 + 1 + 3, the universal
+twenty-one, six drill-downs at the human scale (local circuit, dyad, human group, regional institution,
+civilisation, species), one at the stellar scale (stellar cluster) and the three of the bird's solution. The
+`paths/` are walks through them; `full-atlas` visits 27 of the 31.
+
+So the app asks for the model first: the USF MODEL control comes before the ZOOM OPERATOR, and the zoom
+then moves along the chosen model's ladder.
+
 ## Source resolution
 
 The generator reads `../Dist/PAPERS.yaml` as the publication authority. Paper,
