@@ -4202,6 +4202,8 @@ other work.
       twice on the spine" (spine "[T] Background", as "[T] 13 Law"); "lets do both ... transform the chats into
       something usable". Was: Background reading, the chats by concept, as the course's companion: yes or no; title
       (Copilot proposes "[T]-Theory: Background").
+- [ ] (ISS-139, 27 Nov) The Field Atlas, Sector V: the path Galactic to Cosmic gains stellar-cluster (the app's route
+      changes; Copilot's suggestion), or the sector's prose says "the sector's sequence". One word from the author.
 
 ## ISS-082: The voices: the author's own, and a licence-clean public one — PARKED
 {{Tags area.app, area.instrument}}
