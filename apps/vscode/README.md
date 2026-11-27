@@ -1,4 +1,4 @@
-# Sherlock & the Soma Machine (preview)
+# [T]-Theory Explorer (preview)
 
 All of [T]-Theory in one package, in three parts:
 

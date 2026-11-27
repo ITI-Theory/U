@@ -4,7 +4,7 @@ const path = require('path');
 const vscode = require('vscode');
 
 async function run() {
-  const ext = vscode.extensions.getExtension('iti-theory.soma-machine');
+  const ext = vscode.extensions.getExtension('iti-theory.t-theory-explorer');
   assert.ok(ext, 'the extension is present');
   await ext.activate();
   const ws = vscode.workspace.workspaceFolders[0].uri.fsPath;

@@ -2,6 +2,8 @@
 
 ## 0.2.0 (preview)
 
+- Renamed **[T]-Theory Explorer** (was Sherlock & the Soma Machine): the theory, the Soma Machine and the
+  compiler in one package.
 - USC, the Universal Semantic Compiler, beside Sherlock: its findings in Problems (tag errors, tags not yet
   triaged, the method's open assumptions), from `bld/sherlock/usc.txt`; **USC: Check** refreshes them in
   seconds, no Lean.

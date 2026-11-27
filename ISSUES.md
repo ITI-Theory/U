@@ -4192,11 +4192,15 @@ other work.
 - [ ] (ISS-131, 27 Nov) Read the write-up: SH1 "A second run", P3 "The Protocol as Code" (its next version;
       upload to Zenodo when happy), the course ch. 15 "Backtest: Einstein, 1905". Built in bld/papers and
       bld/textbook.
-- [ ] (ISS-132, 27 Nov) The big bang's decisions: the Marketplace and Open VSX publisher accounts, the
+- [x] (author, 27 Nov 17:41) The big bang: December, 1 Dec the earliest, "no stress"; the package name "[T]-Theory
+      Explorer" ("looks ok"); one repository until the release (below). Accounts still to make (ISS-132). Was: The big bang's decisions: the Marketplace and Open VSX publisher accounts, the
       extension's name (USF, USM and USC in one package), the date (Zenodo, t-theory.org, Marketplace, Neovim).
-- [ ] (ISS-133, 27 Nov) The Evolution's title: Copilot proposes "[T]-Theory: The Evolution", subtitle "How it
+- [x] (author, 27 Nov 17:41) "The Evolution ... yeah what happened": title "[T]-Theory: The Evolution"; spine "[T] The
+      Evolution". Was: The Evolution's title: Copilot proposes "[T]-Theory: The Evolution", subtitle "How it
       came about: Phase Dot, condensed"; and the package's name, "[T]-Theory Explorer" (ISS-132).
-- [ ] (ISS-134, 27 Nov) Background reading, the chats by concept, as the course's companion: yes or no; title
+- [x] (author, 27 Nov 17:41) Background: yes, "[T]-Theory: Background", "just make sure we dont end up with '[T]-Theory'
+      twice on the spine" (spine "[T] Background", as "[T] 13 Law"); "lets do both ... transform the chats into
+      something usable". Was: Background reading, the chats by concept, as the course's companion: yes or no; title
       (Copilot proposes "[T]-Theory: Background").
 
 ## ISS-082: The voices: the author's own, and a licence-clean public one — PARKED
@@ -7315,14 +7319,21 @@ Plan (each a box; the AUTHOR's are on the desk, ISS-081):
       plugin/usc.lua, doc/usc.txt, README: lazy.nvim `dir`, vim-plug `{'rtp': 'apps/nvim'}`, or the
       runtimepath), moved from U.Dot's sherlock.lua, which is now a shim loading it. Tested headless: a clean
       Neovim with the plugin (5 diagnostics in WKB.lean, the commands), usc-vim through the shim, `:help usc`.
-- [ ] AUTHOR: usc.nvim in a repository of its own (ITI-Theory/usc.nvim) so plugin managers find it by
-      name, or kept in U (installable already).
+- [x] (author, 27 Nov 17:41) One repository: "been trying to keep this all together ... keep together now, at least for as
+      long as possible, split at the very end, when we have no real option as we release". usc.nvim, the VS Code
+      extension and the app stay in U; a split only if a store demands it at the release.
 - [ ] The Marketplace page and Open VSX: the README as the page (what it does, what it needs, no AI model
       involved, not medical advice), screenshots, tags; a CHANGELOG.
 - [ ] AUTHOR: the publisher accounts (Visual Studio Marketplace: publisher `iti-theory`; Open VSX), the
       extension's name (now "Sherlock & the Soma Machine"; with USC and the books, perhaps "[T]-Theory"),
       and the date of the big bang (Zenodo, t-theory.org, the Marketplace, Neovim, together).
 - [ ] Before the release (18 Nov, the author): a chat channel, "what do you think, guys, before i release?"
+- [x] (author, 27 Nov 17:41) Decided: the date (December, 1 Dec the earliest), the name ("[T]-Theory Explorer"), one repository
+      until the release. Left: the Marketplace and Open VSX accounts (AUTHOR, desk).
+- [x] (27 Nov) Renamed "[T]-Theory Explorer" (displayName; id iti-theory.t-theory-explorer, never published;
+      README, LICENSE, the UAT step).
+- [ ] Register The Evolution and Background in Dist/PAPERS.yaml (collections) when drafted, with spine titles
+      "[T] The Evolution" and "[T] Background" (never "[T]-Theory" twice on a spine).
 
 ## ISS-133: The Evolution: the chats condensed, what actually happened (public) — IN-PROGRESS
 {{Tags area.sherlock, area.books}}
@@ -7376,7 +7387,7 @@ cites the prompts it comes from, so Sherlock can write its affidavit against the
       package better than the book: "[T]-Theory Explorer" (the Soma Machine is an explorer; USC explores the
       documents), ISS-132.
 
-## ISS-134: Background reading: what the chats explain around [T]-Theory, by concept, for the course — OPEN
+## ISS-134: [T]-Theory: Background: what the chats explain around the theory, by concept, for the course — IN-PROGRESS
 {{Tags area.books, area.sherlock}}
 {{Fields date.created=2026-11-27, date.start=, date.end=, epic=ISS-132-big-bang}}
 

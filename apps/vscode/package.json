@@ -1,7 +1,7 @@
 {
-  "name": "soma-machine",
-  "displayName": "Sherlock & the Soma Machine",
-  "description": "The Soma Machine in an editor tab; Sherlock's findings (a neuro-symbolic compiler for natural language) and USC's (the Universal Semantic Compiler: tags, loose ends, open assumptions) as compiler errors.",
+  "name": "t-theory-explorer",
+  "displayName": "[T]-Theory Explorer",
+  "description": "All of [T]-Theory in one package: the papers and books, the Soma Machine (a mind-body explorer in 3D) and the compiler (USC and Sherlock), whose findings appear as compiler errors.",
   "version": "0.2.0",
   "preview": true,
   "publisher": "iti-theory",
@@ -105,7 +105,7 @@
     },
     "configuration": [
       {
-        "title": "Sherlock & the Soma Machine",
+        "title": "[T]-Theory Explorer: Sherlock and the Soma Machine",
         "properties": {
           "sherlock.ledgerFile": {
             "type": "string",

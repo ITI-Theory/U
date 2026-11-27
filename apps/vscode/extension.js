@@ -1,4 +1,4 @@
-// Sherlock & the Soma Machine: the Soma Machine in a webview, Sherlock's
+// [T]-Theory Explorer (was Sherlock & the Soma Machine): the Soma Machine in a webview, Sherlock's
 // findings as diagnostics, and "View in Soma Machine" from Lean and documents.
 const vscode = require('vscode');
 const fs = require('fs');

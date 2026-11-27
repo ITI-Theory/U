@@ -1,4 +1,4 @@
-Sherlock & the Soma Machine, © 2026 Alistair Johnson.
+[T]-Theory Explorer (formerly Sherlock & the Soma Machine), © 2026 Alistair Johnson.
 
 - The code (the extension and the bundled Soma Machine app) is licensed under the Apache
   License 2.0: https://www.apache.org/licenses/LICENSE-2.0
