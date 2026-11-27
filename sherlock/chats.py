@@ -497,7 +497,8 @@ def ideas(by: str = "", grep: str = "") -> int:
     return 0
 
 def chronicle() -> int:
-    """The Evolution's data (ISS-133): every thread of the USF, USM and USC chats, month by month, with what
+    """The Evolution's and Background's data (ISS-133, ISS-134): every thread of the USF, USM and USC chats, month by
+    month, with its concepts and what
     became of it, as JSON for the book's Lua filter (books/T-Theory/filters/chronicle.lua). Public by design
     (author, 27 Nov: "phase dot ... raw ... private ... condensed ... public"): personal threads are counted,
     never listed (PRIVATE, as `ideas`), Ops threads are left out, and nothing is quoted from the chats: a
@@ -531,7 +532,7 @@ def chronicle() -> int:
                 "date": f"{path.stem[:4]}-{path.stem[4:6]}-{path.stem[6:8]}", "chat": path.stem[:15],
                 "thread": th.get("id", ""), "topic": " ".join(str(th.get("topic", "")).split()),
                 "product": product, "status": th.get("status", ""), "disposition": d, "ref": str(ref or th.get("ref", "") or ""),
-                "prompts": [ps[0], ps[-1]] if ps else []})
+                "concepts": sorted((own or cs) - PRIVATE), "prompts": [ps[0], ps[-1]] if ps else []})
     data = {"generated_by": "python sherlock/chats.py chronicle", "private_counted": private, "ops_left_out": ops,
             "months": [{"month": m, "threads": months[m]} for m in sorted(months)]}
     out = U / "bld" / "sherlock" / "chronicle.json"

@@ -1,0 +1,7 @@
+# Background, Book 0 (ISS-134): the domain book's PDF defaults, plus the threads laid out from data.
+defaults:
+  - defaults/book-pdf.yaml
+filters:
+  - filters/chronicle.lua
+metadata:
+  chronicle-data: ../../bld/sherlock/chronicle.json

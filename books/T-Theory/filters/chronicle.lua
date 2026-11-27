@@ -8,7 +8,9 @@
 --
 -- becomes, for each month in the range: a heading, a generated summary (counts, never typed) and the
 -- threads by product, each with what became of it. `open="true"` lists only what is still open (not yet
--- triaged, or queued to an issue). Nothing is quoted from the chats: a thread is its affidavit's topic.
+-- triaged, or queued to an issue). `concept="Physics,Einstein"` keeps the threads with any of those concepts
+-- (Background, ISS-134); `flat="true"` lists them as one dated list, without the month headings. Nothing is
+-- quoted from the chats: a thread is its affidavit's topic.
 
 local MONTHS = { "January", "February", "March", "April", "May", "June", "July", "August",
                  "September", "October", "November", "December" }
@@ -84,6 +86,14 @@ local function summary(threads)
     n, n == 1 and "" or "s", table.concat(parts, ", "), done, queued, rest)))
 end
 
+local function has_concept(t, wanted)
+  if not wanted then return true end
+  for _, c in ipairs(t.concepts or {}) do
+    if wanted[c] then return true end
+  end
+  return false
+end
+
 local function render(div)
   if not data then
     error("chronicle.lua: a .chronicle div needs the metadata field chronicle-data")
@@ -91,12 +101,32 @@ local function render(div)
   local from = div.attributes["from"] or "000000"
   local to = div.attributes["to"] or "999999"
   local only_open = div.attributes["open"] == "true"
+  local wanted = nil
+  if div.attributes["concept"] then
+    wanted = {}
+    for c in div.attributes["concept"]:gmatch("[^,%s]+") do wanted[c] = true end
+  end
+  local keep = function(t) return (not only_open or is_open(t)) and has_concept(t, wanted) end
+  if div.attributes["flat"] == "true" then
+    local all = {}
+    for _, m in ipairs(data.months) do
+      if m.month >= from and m.month <= to then
+        for _, t in ipairs(m.threads) do
+          if keep(t) then all[#all + 1] = t end
+        end
+      end
+    end
+    if #all == 0 then return pandoc.Blocks { pandoc.Para(inlines("No thread in the record yet.")) } end
+    local items = {}
+    for _, t in ipairs(all) do items[#items + 1] = item(t) end
+    return pandoc.Blocks { summary(all), pandoc.BulletList(items) }
+  end
   local blocks = pandoc.Blocks {}
   for _, m in ipairs(data.months) do
     if m.month >= from and m.month <= to then
       local threads = {}
       for _, t in ipairs(m.threads) do
-        if not only_open or is_open(t) then threads[#threads + 1] = t end
+        if keep(t) then threads[#threads + 1] = t end
       end
       if #threads > 0 then
         blocks:insert(pandoc.Header(2, month_name(m.month), pandoc.Attr("", { "unnumbered" })))

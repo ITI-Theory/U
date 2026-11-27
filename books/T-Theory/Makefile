@@ -28,7 +28,7 @@ SOURCE_BOOK_IDS := gateway physics complex-systems formal-mathematics \
 SOURCE_BOOK_PDFS := $(SOURCE_BOOK_IDS:%=$(BLD)/book-%.pdf)
 ALL_BOOKLET_PAGES := $(foreach domain,$(BOOKLET_DOMAINS),$(addprefix $(BLD)/booklet-$(domain)-,$(addsuffix .pdf,1 2 3 4)))
 
-.PHONY: evolution all pdf html booklets fractal-thesis omnibus vol1 vol2 vol3 \
+.PHONY: evolution background all pdf html booklets fractal-thesis omnibus vol1 vol2 vol3 \
         check clean help FORCE $(DOMAINS:%=book-%)
 .SECONDARY: $(ALL_BOOKLET_PAGES)
 .SECONDEXPANSION:
@@ -118,6 +118,13 @@ evolution: $(BLD)/book-evolution.pdf
 
 $(BLD)/book-evolution.pdf: evolution/book-evolution.md defaults/evolution-pdf.yaml defaults/book-pdf.yaml filters/chronicle.lua ../../bld/sherlock/chronicle.json $(BOOK_TEX) $(PROGRAMME_REFS) | $(BLD)
 	$(PANDOC) $< --defaults=defaults/evolution-pdf.yaml --output=$@
+	@echo "Built: $@"
+
+# Background, Book 0 (ISS-134): the chats by concept, the course's companion; same data as The Evolution.
+background: $(BLD)/book-background.pdf
+
+$(BLD)/book-background.pdf: background/book-background.md defaults/background-pdf.yaml defaults/book-pdf.yaml filters/chronicle.lua ../../bld/sherlock/chronicle.json $(BOOK_TEX) $(PROGRAMME_REFS) | $(BLD)
+	$(PANDOC) $< --defaults=defaults/background-pdf.yaml --output=$@
 	@echo "Built: $@"
 
 ../../bld/sherlock/chronicle.json: FORCE

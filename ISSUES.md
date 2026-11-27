@@ -7403,7 +7403,12 @@ explain a Green's function, Kramers' escape or Kaluza-Klein; what it cannot expl
 is new, is the bridge: how [T]-Theory uses each one, where, and with what status. Those bridges are what
 the chats are full of, and what a course reader lacks.
 
-- [ ] The view: `chats.py background` groups the threads by concept (the affidavits' concepts,
+- [x] (27 Nov) The skeleton, Book 0: books/T-Theory/background/book-background.md, `make -C books/T-Theory
+      background` (21 pp). Six chapters by concept (the theory's own ideas; physics, Einstein and the
+      equations; mind, body and the clinic; philosophy and history; music and the arts; knowledge, proof and
+      machines), each with its record laid out from the same data as The Evolution (chronicle.json now
+      carries each thread's concepts; chronicle.lua `concept=` and `flat=`). privacy.py: 0 leaks.
+- [ ] The entries (layer 2): the view by concept (the affidavits' concepts,
       Me/chats/affidavits/concepts.yaml) instead of by month; each entry: the standard idea (cited, not from
       the chats), its role in [T]-Theory (the papers, the Lean, the method's row if there is one), where it
       was discussed (chat and prompts), and its evidence label.
