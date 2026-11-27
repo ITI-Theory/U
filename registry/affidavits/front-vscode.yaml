@@ -1,0 +1,25 @@
+# Sherlock affidavit: apps/vscode/README.md (the Marketplace page) (ISS-139, the front doors).
+id: front-vscode
+document: FRONT
+title: 'apps/vscode/README.md (the Marketplace page)'
+source:
+  file: apps/vscode/README.md
+  commit: 0eddd77
+  sha256: e790977acca1926fc0fa0bf1a569ca16cbd8a0d13b62d5cb6d17f85df9262b3f
+lean: []
+microtheories: {}
+claims:
+  - id: F1
+    quote: 'shows the explorer in a tab: fourteen stops'
+    lines: [16]
+    kind: internal-count
+    finding: >-
+      the front doors (ISS-139): the README names 14 stops (HUMAN to SCORE), and extension.js's STOPS has 14 entries: prose against
+      code, counted 27 Nov
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [14, 14]}]
+    values:
+      - {quantity: SomaMachine-Stops, value: 14}
+    disposition: none

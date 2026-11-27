@@ -1,0 +1,22 @@
+# Sherlock affidavit: README (the front door) (ISS-139, the front doors).
+id: front-readme
+document: FRONT
+title: 'README (the front door)'
+source:
+  file: README.md
+  commit: 0eddd77
+  sha256: 5fc6c297189b0a1676e669c516043a76ae8e98745948b2eacfadcd46ab84dd10
+lean: []
+microtheories: {}
+claims:
+  - id: F1
+    quote: '**Three products, one package**'
+    lines: [12]
+    kind: internal-count
+    finding: >-
+      the front doors (ISS-139): the table under it has three rows, USF, USM and USC
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [3, 3]}]
+    disposition: none

@@ -100,6 +100,11 @@ def check() -> int:
                 unknown = [x for x in c.get(field) or [] if not (U / "registry" / folder / f"{x}.yaml").exists()]
                 if unknown:
                     errs.append(f"{where} {cid}: unknown {field} {unknown} (registry/{folder})")
+            for v in c.get("values") or []:  # values are compared across documents as numbers (report)
+                try:
+                    number(v.get("value"))
+                except (ValueError, TypeError):
+                    errs.append(f"{where} {cid}: value {v.get('value')!r} of {v.get('quantity')} is not a number")
             if "formal" in c and c["formal"].count("(") != c["formal"].count(")"):
                 errs.append(f"{where} {cid}: unbalanced formal form")
         for eq in aff.get("equations") or []:

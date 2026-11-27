@@ -1,0 +1,21 @@
+# Sherlock affidavit: docs/BUILD.md (the build standard) (ISS-139, the front doors).
+id: front-build
+document: FRONT
+title: 'docs/BUILD.md (the build standard)'
+source:
+  file: docs/BUILD.md
+  commit: 0eddd77
+  sha256: 375cb10aaa4263ef238bc1202f6f51ec5f4c8f452260bc20a38cd201de5b1cf1
+lean: []
+microtheories: {}
+claims:
+  - id: F1
+    quote: 'currently pandoc 3.10.2 with'
+    lines: [58]
+    kind: cross-paper
+    finding: >-
+      the front doors (ISS-139): `pandoc --version` on the build machine, 27 Nov: pandoc 3.10.2; a build log, not a template, checks it
+    verdict: not-provable
+    label: sourced
+    lean: null
+    disposition: none

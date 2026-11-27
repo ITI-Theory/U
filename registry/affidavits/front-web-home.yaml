@@ -1,0 +1,21 @@
+# Sherlock affidavit: web/home.md (t-theory.org) (ISS-139, the front doors).
+id: front-web-home
+document: FRONT
+title: 'web/home.md (t-theory.org)'
+source:
+  file: web/home.md
+  commit: 0eddd77
+  sha256: 12edfe7dfca59e093132f79f6d9aaf6a8c69eb271e20fb50a53ec0dbcd7247aa
+lean: []
+microtheories: {}
+claims:
+  - id: F1
+    quote: 'Text, papers, books and figures:'
+    lines: [46]
+    kind: cross-paper
+    finding: >-
+      the front doors (ISS-139): CC BY 4.0 for text, Apache-2.0 for code: as registry/licences.yaml and release-check 14c (PASS)
+    verdict: not-provable
+    label: sourced
+    lean: null
+    disposition: none

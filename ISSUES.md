@@ -7675,7 +7675,11 @@ prose by none.
 affidavit, 27 Nov: the papers 26 of 27 (not P26), the books 15 of 17 (not Gateway, not The Evolution), the course 1
 of 21, the Field Atlas 0 of 13, the front doors 0 of 7 (README, BUILD, SHERLOCK, the two editor READMEs, web/), the
 registry 1 of 1. Outside U, not yet: the org page and Dist's README.
-- [ ] The front doors first (first impressions, ISS-138): the README's claims, the editor READMEs, web/.
+- [x] (27 Nov) The front doors: affidavits for README.md (its three products), docs/BUILD.md (the pandoc version),
+      apps/vscode/README.md ("fourteen stops": 14 in the prose, 14 in extension.js's code) and web/home.md (the
+      licences): 47 of 86 covered, 439 of 439 checks. registry.py now rejects a value that is not a number in `check`
+      (it crashed the report). The other front doors (SHERLOCK.md, the Neovim README, PITCH.md) make no countable
+      claim yet.
 - [ ] P26, Gateway, The Evolution.
 - [ ] The course (20 chapters) and the Field Atlas (13): their numbers are already recomputed by verify_answers.py;
       the affidavits add the cross-document values.
