@@ -7415,3 +7415,10 @@ the chats are full of, and what a course reader lacks.
 - [ ] So that people can ask their own AI: published where AIs read (Zenodo with the papers, t-theory.org as
       HTML, an `llms.txt` index), bundled in the VS Code package (ISS-132), and a source for NotebookLM/H-AL.
 - [ ] Same rules as The Evolution: public; personal threads never listed; nothing quoted from the chats.
+- [ ] (author, 27 Nov 17:45: "maybe 'background' should become book '0' of the fractal thesis?") Copilot: yes,
+      as Book 0: what a reader needs before Book 1 (the Gateway), spine "[T] 0 Background" in the series'
+      pattern ("[T] 13 Law"), and "0" echoes Phase Dot's phase 0. Conditions: it is the series' foundation,
+      not a sixteenth domain (no G-ID, scale or field notes; books.yaml and the fractal manifest get a book 0
+      without the domain template); the course points to it as well; in the volumes it opens Vol I only if
+      Lulu's 800 pages allow, else it stands alone. The Evolution stays outside the series (history, not
+      theory). AUTHOR: confirm.
