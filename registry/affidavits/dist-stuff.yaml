@@ -1,0 +1,25 @@
+# Sherlock affidavit: Dist/stuff/README.md (ISS-139; frozen in the Dist repo).
+id: dist-stuff
+document: DIST
+title: 'Dist/stuff/README.md'
+source:
+  repo: Dist
+  file: stuff/README.md
+  commit: 92fd183
+  sha256: 3afe73bf6f0d0860c65d1323e64e234ed15eec397128c0188a8d20cf05c8908e
+lean: []
+microtheories: {}
+claims:
+  - id: S1
+    quote: 'Current distribution counts: 24 papers (P1–P24), datasets'
+    lines: [50]
+    kind: cross-paper
+    finding: >-
+      Dist (ISS-139): 24 papers and Vol I 680 pages (1 Oct): the registry now has 27 papers, and Vol I is 575 pages
+    verdict: contradicted
+    label: kernel-verified
+    lean: null
+    check: [{template: ne, args: [24, 27]}]
+    values:
+      - {quantity: Dist-ProgrammePapers, value: 24}
+    disposition: open

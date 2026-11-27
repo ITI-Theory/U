@@ -7716,6 +7716,13 @@ registry 1 of 1. Outside U, not yet: the org page and Dist's README.
 - [x] (27 Nov) Sherlock on git: `usc.py git` (every repo, Me included: CRLF in the index or the working copy,
       .gitattributes, stray names). Its first run: U.Ops had no .gitattributes (missed in the morning's LF pass; added,
       d6d96cc) and a stray `paper/-p`; now 0 errors in nine repos.
+- [x] (27 Nov) Dist's READMEs under Sherlock (nlm-max, lulu, stuff, zenodo, interactive; frozen in Dist): their values
+      disagree with each other and the registry, and the values check says so by itself: nlm-max's PDFs 31 (its README)
+      against 30 (Dist's README, and git); the programme's papers 24, 24 and 26 against the registry's 27; Vol I 680
+      pages (lulu, stuff: the two-volume split) against 575. One cause: counts copied from the registry, against the
+      rule "facts are pointed to, never copied".
+- [ ] At the release (ISS-132): Dist's READMEs point to Dist/PAPERS.yaml for counts instead of copying them; the
+      affidavits re-frozen, the values agree.
 
 ## ISS-140: Releases: an id in every artefact, a manifest, the models as a library, what's new — OPEN
 {{Tags area.release, area.sherlock}}

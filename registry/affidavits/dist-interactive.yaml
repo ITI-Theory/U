@@ -1,0 +1,25 @@
+# Sherlock affidavit: Dist/interactive/README.md (ISS-139; frozen in the Dist repo).
+id: dist-interactive
+document: DIST
+title: 'Dist/interactive/README.md'
+source:
+  repo: Dist
+  file: interactive/README.md
+  commit: 92fd183
+  sha256: bf9a555eeebe65eb1871d7667382e99d2649cb0542aca13614e11497a0930620
+lean: []
+microtheories: {}
+claims:
+  - id: I1
+    quote: 'Current public record counts live in `PAPERS.yaml`: 24 papers (P1–P24),'
+    lines: [12]
+    kind: cross-paper
+    finding: >-
+      Dist (ISS-139): "live in PAPERS.yaml", but the count is copied here, and stale: the registry has 27 papers
+    verdict: contradicted
+    label: kernel-verified
+    lean: null
+    check: [{template: ne, args: [24, 27]}]
+    values:
+      - {quantity: Dist-ProgrammePapers, value: 24}
+    disposition: open

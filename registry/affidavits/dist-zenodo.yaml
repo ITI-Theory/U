@@ -1,0 +1,25 @@
+# Sherlock affidavit: Dist/zenodo/README.md (ISS-139; frozen in the Dist repo).
+id: dist-zenodo
+document: DIST
+title: 'Dist/zenodo/README.md'
+source:
+  repo: Dist
+  file: zenodo/README.md
+  commit: 92fd183
+  sha256: a728aa7d30238ee43f0de6cdca69ba1a1b341642f3abda6b16ed9a62984d5f5f
+lean: []
+microtheories: {}
+claims:
+  - id: Z1
+    quote: 'The collection includes 25 papers (P1–P25), a paper on the Sherlock checker'
+    lines: [116]
+    kind: cross-paper
+    finding: >-
+      Dist (ISS-139): 25 papers and SH1 make 26; the registry has 27 (P26 came after this text)
+    verdict: contradicted
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [25, 1, 26]}, {template: ne, args: [26, 27]}]
+    values:
+      - {quantity: Dist-ProgrammePapers, value: 26}
+    disposition: open

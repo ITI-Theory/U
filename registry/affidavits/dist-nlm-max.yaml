@@ -1,0 +1,38 @@
+# Sherlock affidavit: Dist/nlm-max/README.md (ISS-139; frozen in the Dist repo).
+id: dist-nlm-max
+document: DIST
+title: 'Dist/nlm-max/README.md'
+source:
+  repo: Dist
+  file: nlm-max/README.md
+  commit: 92fd183
+  sha256: d5daabd60067d0cdd6e8954178c6855bc366c4616cded5340ec2bd74f06af381
+lean: []
+microtheories: {}
+claims:
+  - id: N1
+    quote: 'Current PDF count: **31 PDFs** — 24 individual papers (P1–P24), 5'
+    lines: [6]
+    kind: internal-count
+    finding: >-
+      Dist (ISS-139): 24 + 5 + 1 + 1 = 31 as listed, but nlm-max/ holds 30 PDFs in git and Dist's README says 30: one
+      collection file is gone and this count was not updated
+    verdict: contradicted
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [24, 5, 1, 1, 31]}, {template: ne, args: [31, 30]}]
+    values:
+      - {quantity: Dist-NLMMax-PDFs, value: 31}
+    disposition: open
+  - id: N2
+    quote: '| `03-ttheory-vol1-cosmos-matter.pdf` | [T]-Theory Vol I: Cosmos and Matter | 575 pages |'
+    lines: [19]
+    kind: cross-paper
+    finding: >-
+      Dist (ISS-139): Vol I at 575 pages (the three-volume split, as ISSUES.md)
+    verdict: not-provable
+    label: sourced
+    lean: null
+    values:
+      - {quantity: TTheory-VolI-Pages, value: 575}
+    disposition: open

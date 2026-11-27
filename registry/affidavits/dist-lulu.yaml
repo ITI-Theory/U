@@ -1,0 +1,26 @@
+# Sherlock affidavit: Dist/lulu/README.md (ISS-139; frozen in the Dist repo).
+id: dist-lulu
+document: DIST
+title: 'Dist/lulu/README.md'
+source:
+  repo: Dist
+  file: lulu/README.md
+  commit: 92fd183
+  sha256: e4545f933602d895aeeb519cd995a8d5d227cd5565b64a6b401fd39cbde3ac49
+lean: []
+microtheories: {}
+claims:
+  - id: L1
+    quote: 'Candidates rebuilt in U: paper omnibus 427 pages, Vol I 680 pages, Vol II'
+    lines: [59]
+    kind: cross-paper
+    finding: >-
+      Dist (ISS-139): Vol I 680 and Vol II 655 pages are the two-volume split's; the three volumes are 575, 506 and 547 pages
+      (nlm-max's README, ISSUES.md): this note is from before the split
+    verdict: contradicted
+    label: kernel-verified
+    lean: null
+    check: [{template: ne, args: [680, 575]}]
+    values:
+      - {quantity: TTheory-VolI-Pages, value: 680}
+    disposition: open
