@@ -2,3 +2,7 @@ scripts/**
 bld/**
 *.vsix
 .gitignore
+test/**
+node_modules/**
+.vscode-test/**
+package-lock.json

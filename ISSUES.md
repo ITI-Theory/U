@@ -7296,12 +7296,14 @@ clients, and a Vim user in VS Code adds vscode-neovim. The Soma Machine's own sh
 MOTHER `/shell`) is a client of the same kind, later.
 
 Plan (each a box; the AUTHOR's are on the desk, ISS-081):
-- [ ] One USC command for both editors: `python sherlock/usc.py check` writes bld/sherlock/usc.txt
+- [x] (27 Nov, cbc458d) One USC command for both editors: `python sherlock/usc.py check` writes bld/sherlock/usc.txt
       (`path:line: error|warning: message`): the tag errors, the untriaged tags, the method's open
       assumptions (the bait). The Neovim plugin (U.Dot sherlock.lua) already reads usc.txt.
-- [ ] The VS Code extension 0.2.0 reads usc.txt beside the ledger; the `.aff` language (affidavits:
+- [x] (27 Nov) The VS Code extension 0.2.0 reads usc.txt beside the ledger; the `.aff` language (affidavits:
       highlighting); the `{{usc:...}}` tags highlighted in Markdown; USC commands: check, tag the selection
-      (IDEA, LOOSE_END, DECISION, QUESTION), open the ideas list.
+      (IDEA, LOOSE_END, DECISION, QUESTION), open the ideas list. Packaged (apps/vscode/bld/
+      soma-machine-0.2.0.vsix, 9.5 MB); smoke-tested in a throwaway VS Code 1.148 (`node test/run.js`, U as
+      the workspace): the commands, USC's findings in Problems at their lines, the affidavit language: 10 ok.
 - [ ] USF in the extension: the catalogue of papers and books from Dist/PAPERS.yaml, each opening its DOI.
 - [ ] The Neovim equivalent as a plugin others can install (from U.Dot's sherlock.lua and usc-vim: a
       repository or a folder a plugin manager can load), with the same commands.
@@ -7311,3 +7313,31 @@ Plan (each a box; the AUTHOR's are on the desk, ISS-081):
       extension's name (now "Sherlock & the Soma Machine"; with USC and the books, perhaps "[T]-Theory"),
       and the date of the big bang (Zenodo, t-theory.org, the Marketplace, Neovim, together).
 - [ ] Before the release (18 Nov, the author): a chat channel, "what do you think, guys, before i release?"
+
+## ISS-133: The gold version of the chats: what actually happened, compiled from the chat models — OPEN
+{{Tags area.sherlock, area.books}}
+{{Fields date.created=2026-11-27, date.start=, date.end=, epic=}}
+
+**Author, 27 Nov 17:0x:** "we have the massive phasedot (pdf/md) why not use the usc to compress the chats
+down into what actually happened, not as chats, but as 'The Evolution' (or better...) of [T]-Theory ... it
+acts as a 'gold' version of the chats, the fluff removed ... can still have loads of open points ... i bet
+its more useful." Earlier: ISS-049 (8 Oct: chats to a cleaned knowledge base, then *Phase Dot*); Phase Dot
+(Me/books/phase-dot, private, "Conversations with Machines") is the chats as they were. No earlier chat
+found asking for a distilled version (searched 27 Nov).
+
+**Copilot's opinion (27 Nov): yes.** The chat models already hold its skeleton: every thread with its
+dates, prompts, concepts and disposition (implemented at a commit or path, queued to an issue, parked,
+discarded with a reason), the tags at the lines where things were said, and the linker joining them to the
+papers and the code. The gold version is that skeleton told as a story, and it is checkable: each sentence
+cites the prompts it comes from, so Sherlock can write its affidavit against the chats, as for a paper.
+
+- [ ] Layer 1, generated (no language model): the chronicle, period by period, of what was raised, what
+      became of it and where it lives now (commit, issue, paper), with the open points listed as they stand
+      (`chats.py` from the affidavits and tags; Markdown, built by Make and pandoc like the books).
+- [ ] Layer 2, written: the narrative per period from layer 1 (the LLM pass), every paragraph citing its
+      prompts (STAMP:Pn); Sherlock checks that the cited prompts exist and say it.
+- [ ] Private by default (ISS-116), like Phase Dot; a public cut later, filtered by visibility.
+- [ ] It doubles as H-AL's and NotebookLM's source: a few volumes instead of 349 chats (H-AL's notebook is
+      at 45 of 50 sources).
+- [ ] AUTHOR: the title ("The Evolution of [T]-Theory"? "The Making of ..."?); whether it replaces Phase Dot
+      as the book of the chats or sits beside it.

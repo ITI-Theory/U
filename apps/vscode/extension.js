@@ -153,30 +153,85 @@ const FINDING = /^(.+?):(\d+)(?::(\d+))?:\s*(error|warning|note|info):\s*(.*)$/;
 
 function folder() { return vscode.workspace.workspaceFolders?.[0]; }
 
+// The findings files: Sherlock's ledger and USC's (sherlock/usc.py check; ISS-132), same format.
+function findingFiles() {
+  return [['Sherlock', vscode.workspace.getConfiguration('sherlock').get('ledgerFile')],
+          ['USC', vscode.workspace.getConfiguration('usc').get('findingsFile')]];
+}
+
 function loadFindings(diags) {
   diags.clear();
   const ws = folder();
   if (!ws) return 0;
-  const file = path.join(ws.uri.fsPath, vscode.workspace.getConfiguration('sherlock').get('ledgerFile'));
-  if (!fs.existsSync(file)) return 0;
   const byFile = new Map();
   let count = 0;
-  for (const line of fs.readFileSync(file, 'utf8').split(/\r?\n/)) {
-    const m = FINDING.exec(line);
-    if (!m) continue;
-    const [, f, ln, col, sev, msg] = m;
-    const uri = vscode.Uri.file(path.isAbsolute(f) ? f : path.join(ws.uri.fsPath, f));
-    const l = Math.max(0, Number(ln) - 1), c = Math.max(0, Number(col || 1) - 1);
-    const d = new vscode.Diagnostic(new vscode.Range(l, c, l, 1000), msg,
-      sev === 'error' ? vscode.DiagnosticSeverity.Error : sev === 'warning' ? vscode.DiagnosticSeverity.Warning : vscode.DiagnosticSeverity.Information);
-    d.source = 'Sherlock';
-    const key = uri.toString();
-    if (!byFile.has(key)) byFile.set(key, [uri, []]);
-    byFile.get(key)[1].push(d);
-    count += 1;
+  for (const [source, rel] of findingFiles()) {
+    const file = path.join(ws.uri.fsPath, rel || '');
+    if (!rel || !fs.existsSync(file)) continue;
+    for (const line of fs.readFileSync(file, 'utf8').split(/\r?\n/)) {
+      const m = FINDING.exec(line);
+      if (!m) continue;
+      const [, f, ln, col, sev, msg] = m;
+      const uri = vscode.Uri.file(path.isAbsolute(f) ? f : path.join(ws.uri.fsPath, f));
+      const l = Math.max(0, Number(ln) - 1), c = Math.max(0, Number(col || 1) - 1);
+      const d = new vscode.Diagnostic(new vscode.Range(l, c, l, 1000), msg,
+        sev === 'error' ? vscode.DiagnosticSeverity.Error : sev === 'warning' ? vscode.DiagnosticSeverity.Warning : vscode.DiagnosticSeverity.Information);
+      d.source = source;
+      const key = uri.toString();
+      if (!byFile.has(key)) byFile.set(key, [uri, []]);
+      byFile.get(key)[1].push(d);
+      count += 1;
+    }
   }
   for (const [uri, list] of byFile.values()) diags.set(uri, list);
   return count;
+}
+
+// --- USC: tag where it was said (usc_tags.ebnf; the same as Neovim's :UscIdea) ---------------
+
+const TAG_CLASSES = [
+  ['IDEA', 'IDEA', 'an idea worth keeping'],
+  ['LOOSE_END', 'LOOSE', 'something left open: follow it up'],
+  ['DECISION', 'DECISION', 'a decision made, or to be made'],
+  ['QUESTION', 'QUESTION', 'a question still to answer'],
+];
+
+function slug(text) {
+  return text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 40) || 'tag';
+}
+
+function quoteAttr(text) { return text.replace(/"/g, "'"); }
+
+async function tagSelection() {
+  const ed = vscode.window.activeTextEditor;
+  if (!ed) return;
+  const pick = await vscode.window.showQuickPick(TAG_CLASSES.map(([status, prefix, d]) => ({ label: status, description: d, status, prefix })),
+    { placeHolder: 'USC: tag the selected lines as ...' });
+  if (!pick) return;
+  const sel = ed.selection;
+  const first = sel.start.line, last = sel.isEmpty ? sel.start.line : (sel.end.character === 0 && sel.end.line > first ? sel.end.line - 1 : sel.end.line);
+  const note = await vscode.window.showInputBox({ prompt: 'A short note (what it is)', value: ed.document.lineAt(first).text.trim().slice(0, 80) });
+  if (note === undefined) return;
+  const disp = await vscode.window.showQuickPick(['(not yet triaged)', 'implemented', 'queued', 'parked', 'discarded'], { placeHolder: 'Its disposition' });
+  if (disp === undefined) return;
+  let ref = '';
+  if (disp === 'implemented' || disp === 'queued') {
+    ref = await vscode.window.showInputBox({ prompt: `disp=${disp} needs a ref: ISS-NNN, a path or a commit` });
+    if (!ref) return;
+  }
+  const d = new Date();
+  const day = `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, '0')}${String(d.getDate()).padStart(2, '0')}`;
+  const id = `${pick.prefix}-${day}-${slug(note)}`;
+  const attrs = [`id="${id}"`, `status="${pick.status}"`];
+  if (disp !== '(not yet triaged)') attrs.push(`disp="${disp}"`);
+  if (ref) attrs.push(`ref="${quoteAttr(ref)}"`);
+  if (note) attrs.push(`note="${quoteAttr(note)}"`);
+  const eol = ed.document.eol === vscode.EndOfLine.CRLF ? '\r\n' : '\n';
+  await ed.edit(b => {
+    b.insert(new vscode.Position(last + 1 <= ed.document.lineCount - 1 ? last + 1 : last, last + 1 <= ed.document.lineCount - 1 ? 0 : ed.document.lineAt(last).text.length),
+      last + 1 <= ed.document.lineCount - 1 ? `{{usc:end id="${id}"}}${eol}` : `${eol}{{usc:end id="${id}"}}`);
+    b.insert(new vscode.Position(first, 0), `{{usc:begin ${attrs.join(' ')}}}${eol}`);
+  });
 }
 
 // Lean declaration name -> module (the city of code has a tower per module).
@@ -271,10 +326,12 @@ function activate(ctx) {
 
   const ws = folder();
   if (ws) {
-    const rel = vscode.workspace.getConfiguration('sherlock').get('ledgerFile');
-    const watcher = vscode.workspace.createFileSystemWatcher(new vscode.RelativePattern(ws, rel));
-    watcher.onDidChange(reload); watcher.onDidCreate(reload); watcher.onDidDelete(reload);
-    ctx.subscriptions.push(watcher);
+    for (const [, rel] of findingFiles()) {
+      if (!rel) continue;
+      const watcher = vscode.workspace.createFileSystemWatcher(new vscode.RelativePattern(ws, rel));
+      watcher.onDidChange(reload); watcher.onDidCreate(reload); watcher.onDidDelete(reload);
+      ctx.subscriptions.push(watcher);
+    }
   }
 
   const lenses = new Lenses();
@@ -282,7 +339,7 @@ function activate(ctx) {
     vscode.languages.registerCodeLensProvider([{ language: 'lean4' }, { pattern: '**/*.lean' }, { language: 'markdown' }], lenses),
     vscode.languages.registerCodeActionsProvider({ scheme: 'file' }, new FindingActions(), { providedCodeActionKinds: [vscode.CodeActionKind.QuickFix] }),
     vscode.workspace.onDidChangeConfiguration(e => {
-      if (e.affectsConfiguration('sherlock')) { reload(); lenses.changed.fire(); }
+      if (e.affectsConfiguration('sherlock') || e.affectsConfiguration('usc')) { reload(); lenses.changed.fire(); }
     }),
     vscode.commands.registerCommand('somaMachine.open', () => open(ctx)),
     vscode.commands.registerCommand('somaMachine.go', hash => open(ctx, hash)),
@@ -340,6 +397,28 @@ function activate(ctx) {
         const n = reload();
         vscode.window.showInformationMessage(`Sherlock: ${n === 0 ? 'no disagreements' : `${n} finding${n === 1 ? '' : 's'} in Problems`}.`);
       });
+    }),
+    // USC (ISS-132): the fast check (no Lean), tagging where it was said, the ideas list.
+    vscode.commands.registerCommand('usc.check', async () => {
+      const w = folder();
+      if (!w) return vscode.window.showWarningMessage('USC: open the U repository as the workspace first.');
+      const cmd = vscode.workspace.getConfiguration('usc').get('checkCommand');
+      const task = new vscode.Task({ type: 'shell' }, w, 'USC: check', 'usc', new vscode.ShellExecution(cmd, { env: { PYTHONIOENCODING: 'utf-8' } }));
+      const exec = await vscode.tasks.executeTask(task);
+      const done = vscode.tasks.onDidEndTaskProcess(e => {
+        if (e.execution !== exec) return;
+        done.dispose();
+        const n = reload();
+        vscode.window.setStatusBarMessage(`USC: ${n} finding${n === 1 ? '' : 's'} in Problems`, 6000);
+      });
+    }),
+    vscode.commands.registerCommand('usc.tag', tagSelection),
+    vscode.commands.registerCommand('usc.ideas', async () => {
+      const w = folder();
+      const rel = vscode.workspace.getConfiguration('usc').get('ideasFile');
+      const file = w ? path.resolve(w.uri.fsPath, rel) : rel;
+      if (!fs.existsSync(file)) return vscode.window.showWarningMessage(`USC: no ideas list at ${file} (python sherlock/usc.py ideas).`);
+      vscode.window.showTextDocument(await vscode.workspace.openTextDocument(file));
     }),
   );
 }

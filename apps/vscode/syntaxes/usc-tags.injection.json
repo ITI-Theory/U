@@ -1,0 +1,48 @@
+{
+  "scopeName": "usc.tags.injection",
+  "injectionSelector": "L:text.html.markdown, L:source.affidavit",
+  "patterns": [
+    {
+      "include": "#tag"
+    }
+  ],
+  "repository": {
+    "tag": {
+      "begin": "(\\{\\{)\\s*(usc):(\\w+)",
+      "end": "(\\}\\})",
+      "beginCaptures": {
+        "1": {
+          "name": "punctuation.definition.tag.begin.usc"
+        },
+        "2": {
+          "name": "entity.name.namespace.usc"
+        },
+        "3": {
+          "name": "keyword.control.usc"
+        }
+      },
+      "endCaptures": {
+        "1": {
+          "name": "punctuation.definition.tag.end.usc"
+        }
+      },
+      "name": "meta.tag.usc",
+      "patterns": [
+        {
+          "match": "(\\w+)\\s*(=)\\s*(\"[^\"]*\")",
+          "captures": {
+            "1": {
+              "name": "entity.other.attribute-name.usc"
+            },
+            "2": {
+              "name": "punctuation.separator.key-value.usc"
+            },
+            "3": {
+              "name": "string.quoted.double.usc"
+            }
+          }
+        }
+      ]
+    }
+  }
+}

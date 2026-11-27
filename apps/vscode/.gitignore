@@ -1,3 +1,5 @@
 media/app/
 bld/
 *.vsix
+node_modules/
+.vscode-test/

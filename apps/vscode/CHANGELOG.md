@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.2.0 (preview)
+
+- USC, the Universal Semantic Compiler, beside Sherlock: its findings in Problems (tag errors, tags not yet
+  triaged, the method's open assumptions), from `bld/sherlock/usc.txt`; **USC: Check** refreshes them in
+  seconds, no Lean.
+- **USC: Tag the Selection…**: mark lines as an idea, a loose end, a decision or a question where they were
+  said (`{{usc:begin ...}}` and `{{usc:end ...}}` lines), the same as Neovim's `:UscIdea`.
+- **USC: Open the Ideas List**.
+- The `.aff` language (affidavits, YAML with dispositions highlighted), and the `{{usc:...}}` tags
+  highlighted in Markdown and affidavits.
+
 ## 0.1.0 (preview)
 
 - The Soma Machine in an editor tab: fourteen stops, from the whole person to the synapse and

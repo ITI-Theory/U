@@ -1,0 +1,14 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Affidavit",
+  "scopeName": "source.affidavit",
+  "patterns": [
+    {
+      "name": "keyword.other.disposition.affidavit",
+      "match": "\\b(implemented|queued|parked|discarded|untriaged|pursued|deferred|dropped)\\b"
+    },
+    {
+      "include": "source.yaml"
+    }
+  ]
+}

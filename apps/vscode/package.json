@@ -1,8 +1,8 @@
 {
   "name": "soma-machine",
   "displayName": "Sherlock & the Soma Machine",
-  "description": "The Soma Machine in an editor tab, and Sherlock's findings (a neuro-symbolic compiler for natural language) as compiler errors.",
-  "version": "0.1.0",
+  "description": "The Soma Machine in an editor tab; Sherlock's findings (a neuro-symbolic compiler for natural language) and USC's (the Universal Semantic Compiler: tags, loose ends, open assumptions) as compiler errors.",
+  "version": "0.2.0",
   "preview": true,
   "publisher": "iti-theory",
   "author": "Alistair Johnson",
@@ -24,13 +24,17 @@
     "neuro-symbolic",
     "soma field",
     "visualization",
-    "three.js"
+    "three.js",
+    "affidavit",
+    "usc"
   ],
   "main": "./extension.js",
   "activationEvents": [
     "workspaceContains:bld/sherlock/ledger.txt",
+    "workspaceContains:bld/sherlock/usc.txt",
     "onLanguage:lean4",
-    "onLanguage:markdown"
+    "onLanguage:markdown",
+    "onLanguage:affidavit"
   ],
   "contributes": {
     "commands": [
@@ -63,6 +67,21 @@
         "command": "sherlock.setup",
         "title": "Set up (download and build, warned first)",
         "category": "Sherlock"
+      },
+      {
+        "command": "usc.check",
+        "title": "Check (fast: tags, loose ends, open assumptions)",
+        "category": "USC"
+      },
+      {
+        "command": "usc.tag",
+        "title": "Tag the Selection (idea, loose end, decision, question)…",
+        "category": "USC"
+      },
+      {
+        "command": "usc.ideas",
+        "title": "Open the Ideas List",
+        "category": "USC"
       }
     ],
     "menus": {
@@ -71,34 +90,89 @@
           "command": "somaMachine.viewHere",
           "when": "editorLangId == markdown || editorLangId == lean4",
           "group": "navigation@90"
+        },
+        {
+          "command": "usc.tag",
+          "when": "editorLangId == markdown",
+          "group": "navigation@91"
         }
       ]
     },
-    "configuration": {
-      "title": "Sherlock & the Soma Machine",
-      "properties": {
-        "sherlock.ledgerFile": {
-          "type": "string",
-          "default": "bld/sherlock/ledger.txt",
-          "description": "Sherlock's findings, one `file:line: error|warning: message` per line (workspace-relative)."
-        },
-        "sherlock.checkCommand": {
-          "type": "string",
-          "default": "python sherlock/ledger.py report",
-          "description": "Command that refreshes the findings file (run in the workspace folder)."
-        },
-        "sherlock.setupCommand": {
-          "type": "string",
-          "default": "make sherlock-setup",
-          "description": "Command for Sherlock: Set up (run in the workspace folder): Mathlib's cache, NextKB, OpenCyc in Lean, the affidavits, the ledger."
-        },
-        "sherlock.codeLens": {
-          "type": "boolean",
-          "default": true,
-          "description": "Show “View in Soma Machine” above Lean files and documents."
+    "configuration": [
+      {
+        "title": "Sherlock & the Soma Machine",
+        "properties": {
+          "sherlock.ledgerFile": {
+            "type": "string",
+            "default": "bld/sherlock/ledger.txt",
+            "description": "Sherlock's findings, one `file:line: error|warning: message` per line (workspace-relative)."
+          },
+          "sherlock.checkCommand": {
+            "type": "string",
+            "default": "python sherlock/ledger.py report",
+            "description": "Command that refreshes the findings file (run in the workspace folder)."
+          },
+          "sherlock.setupCommand": {
+            "type": "string",
+            "default": "make sherlock-setup",
+            "description": "Command for Sherlock: Set up (run in the workspace folder): Mathlib's cache, NextKB, OpenCyc in Lean, the affidavits, the ledger."
+          },
+          "sherlock.codeLens": {
+            "type": "boolean",
+            "default": true,
+            "description": "Show “View in Soma Machine” above Lean files and documents."
+          }
+        }
+      },
+      {
+        "title": "USC: the Universal Semantic Compiler",
+        "properties": {
+          "usc.findingsFile": {
+            "type": "string",
+            "default": "bld/sherlock/usc.txt",
+            "description": "USC's findings, one `file:line: error|warning: message` per line (workspace-relative)."
+          },
+          "usc.checkCommand": {
+            "type": "string",
+            "default": "python sherlock/usc.py check",
+            "description": "Command for USC: Check (run in the workspace folder; no Lean, seconds)."
+          },
+          "usc.ideasFile": {
+            "type": "string",
+            "default": "../../Me/chats/ideas.md",
+            "description": "The ideas list (python sherlock/usc.py ideas writes it), relative to the workspace."
+          }
         }
       }
-    }
+    ],
+    "languages": [
+      {
+        "id": "affidavit",
+        "aliases": [
+          "Affidavit",
+          "aff"
+        ],
+        "extensions": [
+          ".aff"
+        ],
+        "configuration": "./syntaxes/affidavit.language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "affidavit",
+        "scopeName": "source.affidavit",
+        "path": "./syntaxes/affidavit.tmLanguage.json"
+      },
+      {
+        "scopeName": "usc.tags.injection",
+        "path": "./syntaxes/usc-tags.injection.json",
+        "injectTo": [
+          "text.html.markdown",
+          "source.affidavit"
+        ]
+      }
+    ]
   },
   "scripts": {
     "app": "node scripts/build-app.mjs",
@@ -113,5 +187,8 @@
     "color": "#0b1020",
     "theme": "dark"
   },
-  "qna": false
+  "qna": false,
+  "devDependencies": {
+    "@vscode/test-electron": "^3.1.0"
+  }
 }
