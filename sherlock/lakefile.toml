@@ -57,3 +57,15 @@ name = "Method"
 # The method's acceptance test: the paper's own row, COID-BS-HEAT-1.
 [[lean_lib]]
 name = "MethodQueries"
+
+# U's issues as a model (ISS-126): the model (committed), the data from ISSUES.md (generated,
+# make -C sherlock issues) and the questions.
+[[lean_lib]]
+name = "Issue"
+
+[[lean_lib]]
+name = "Issues"
+srcDir = "../bld/sherlock/lean"
+
+[[lean_lib]]
+name = "IssueQueries"

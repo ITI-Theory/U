@@ -24,6 +24,13 @@ is row COID-EINSTEIN-1905 (S3); the first fishing catch, gravity, is COID-GRAV-1
 `make -C sherlock fishing`), with five open assumptions. The first is a sign contradiction in the
 cheatsheet's master equation (ISS-126, AUTHOR).
 
+**Round 2 (27 Nov, night).** The catches are the `Fishing` library (U's lakefile) and cite each
+other; `make -C sherlock fishing` prints the method's ledger (7 rows) and the bait (the open
+assumptions, the next round's targets). New rows: Klein-Gordon (the memory kernel is not a solution),
+the cosmic budget (closes at 21/22; 15/22 pre-registered), the author's expansion question (fixed
+fractions need created mass and are excluded), Kaluza-Klein on D8 (the extra dimension as the witness
+for the sign). ISSUES.md is a Lean model too (`make -C sherlock issues`), joined to the chats.
+
 **Also 27 Nov:** the Takeouts of 27 Nov imported (Me 72faf78; export_gemini reads `My Activity.json`
 and the AI Mode folder); the "write a book" chat, too big to reload in VS Code, exported to its end
 (20 Oct); chat volumes 15-17 in H-AL's notebook (HAL-UAT, 45 of 50 sources); HAL on the PATH of this

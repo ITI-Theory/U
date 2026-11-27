@@ -1,5 +1,7 @@
 import Chat
 import Chats
+import Issue
+import Issues
 
 /-!
 # Questions to the chats (USC iteration 1)
@@ -45,3 +47,24 @@ Passing mentions (a name in a joke) are not what a chat is about, so the model l
 /-! What the model adds to grep: the open threads and the triage. -/
 #eval s!"open threads (deferred or unexplored forks): {(Chat.openEnds Chats.all).length}"
 #eval Chat.openEnds Chats.all
+
+/-! The chats joined to U's issues (ISSUES.md as a model, `Issue`). -/
+
+/-- Every routed thread that names an issue: (chat, thread, issue, the issue if it exists). -/
+def routed : List (String × String × Nat × Option Issue.Issue) :=
+  Chats.all.flatMap fun c => c.threads.filterMap fun t =>
+    match t.disposition with
+    | .queued r | .implemented r =>
+        (Issue.parseRef r).map fun n => (String.ofList (c.file.toList.take 15), t.id, n, Issue.find Issues.all n)
+    | _ => none
+
+-- Every issue a thread is routed to exists.
+#guard routed.all (·.2.2.2.isSome)
+-- Loose ends: threads queued to an issue that has since closed (re-route them: implemented or dropped).
+#eval Chats.all.flatMap fun c => c.threads.filterMap fun t =>
+  match t.disposition with
+  | .queued r => (Issue.parseRef r).bind fun n =>
+      (Issue.find Issues.all n).bind fun i => if i.status == .closed then some (String.ofList (c.file.toList.take 15), t.id, n) else none
+  | _ => none
+-- Which issues the chats feed, and how many threads each.
+#eval ((routed.map (·.2.2.1)).eraseDups).map fun n => (n, (routed.filter (·.2.2.1 == n)).length)

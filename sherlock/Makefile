@@ -16,7 +16,7 @@ NEXTKB_URL := https://www.qrg.northwestern.edu/nextkb/nextkb_files_20190107.zip
 NEXTKB_ZIP := $(RAW)/nextkb_files_20190107.zip
 NEXTKB_SHA := 5489856b64c9db1c69965ecb6a9a82382ddffd3fdf76c571b8bbde97405d7b79
 
-.PHONY: method backtests fishing chats writers studio help fetch lean-gen lean affidavits all clean check ledger delta rules-gen types towers readings readings-lean skyline clinical level-types leakage grammar impact presence model rivals bofh standalone gallery privacy provenance features views
+.PHONY: issues method backtests fishing chats writers studio help fetch lean-gen lean affidavits all clean check ledger delta rules-gen types towers readings readings-lean skyline clinical level-types leakage grammar impact presence model rivals bofh standalone gallery privacy provenance features views
 
 help:
 	$(info Sherlock (ISS-055), outputs in bld/sherlock/)
@@ -38,6 +38,7 @@ help:
 	$(info   bofh        the BOFH: feelings on levels that cannot feel; jargon with no bridge for the general reader (ISS-094))
 	$(info   standalone  every cheat sheet stands on its own: identity, its own words, its own references)
 	$(info   gallery     every picture in A Gallery of Thoughts is the programme's own (ISS-097))
+	$(info   issues      ISSUES.md as a Lean model: the format's rules, loose ends, the author's desk (Issue/, IssueQueries; ISS-126))
 	$(info   chats       the chats as Lean models: Me/chats and their affidavits (FILES="..." limits it); private, built in bld/)
 	$(info   method      the method's model: P3's co-identification rows, scope labels and the loop (Method/, MethodQueries; ISS-126))
 	$(info   backtests   the system on known history first: Einstein 1905 (backtests/, Lean with U's Mathlib; ISS-126))
@@ -187,8 +188,13 @@ fishing: backtests
 	done
 	cd .. && lake env lean sherlock/Fishing.lean
 
+# U's issues as a Lean model (ISS-126): generated from ISSUES.md into bld/, checked by IssueQueries.
+issues:
+	$(PYTHON) chats.py issues
+	lake build Issue Issues IssueQueries
+
 # The chats as Lean models (USC iteration 1): Me/chats and their affidavits in Me/chats/affidavits.
-chats:
+chats: issues
 	$(PYTHON) chats.py lean $(FILES)
 	lake build Chat Chats ChatQueries
 
