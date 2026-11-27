@@ -7525,7 +7525,7 @@ Ops:
 
 ## ISS-136: Thinking with USC: recall, browse, see and write one's thoughts (four use cases) — IN-PROGRESS
 {{Tags area.sherlock, area.app}}
-{{Fields date.created=2026-11-27, date.start=2026-11-27, date.end=, epic=ISS-129}}
+{{Fields date.created=2026-11-27, date.start=2026-11-27, date.end=, epic=ISS-132-big-bang}}
 
 **Author, 27 Nov 18:40:** "say im in neovim/mother ... i want to ask H-AL about a thought i think i had ...
 'Didnt i think about the UI, with a HUD, pilot2atc something and fantastic voyage?' ... the usc version of that,
