@@ -13,6 +13,7 @@
     python sherlock/usc.py coverage          # which documents have an affidavit, group by group -> bld/sherlock/coverage.md
     python sherlock/usc.py make              # every target `make help` and the docs promise exists (static, seconds)
     python sherlock/usc.py make --stale      # which promised targets are up to date, by Make's own dry run (nothing built)
+    python sherlock/usc.py make --dead       # targets nothing calls: not the help, another rule, the docs, bin/, CI or HAL
 
 Each finding is one line, `path:line: error|warning: message`, the form VS Code's problem matchers,
 Vim's quickfix list and the extension (apps/vscode) read. Errors: the {{usc:...}} tags that break the
@@ -501,11 +502,42 @@ def make_stale() -> int:
     return 0
 
 
+def make_dead() -> int:
+    """Dead targets (ISS-139): a root target named nowhere but its own rule: not in a help line, another Makefile's
+    rules or prerequisites, README/docs, bin/, the UAT checklist, CI (.github) or HAL (T.Dot). A candidate to delete
+    or to document, never deleted here."""
+    defined = _targets("")
+    corpus = []
+    texts = list((U / "lib" / "mk").glob("*.mk")) + [U / d / "Makefile" for d in MAKE_DIRS if d and (U / d / "Makefile").exists()]
+    texts += [U / "README.md", U / "docs" / "agent" / "CURRENT.md", U / "uat" / "checklist.yaml"] + sorted((U / "docs").glob("*.md"))
+    texts += [p for p in (U / "bin").glob("*") if p.is_file()] + sorted((U / ".github").rglob("*.y*ml"))
+    tdot = U.parent / "T.Dot"
+    if tdot.exists():
+        texts += [p for p in tdot.rglob("*") if p.is_file() and p.suffix in ("", ".sh", ".py", ".md", ".yaml", ".ps1") and ".git" not in p.parts]
+    for p in texts:
+        try:
+            corpus.append(re.sub(r"(?m)^\.PHONY:.*(?:\\\n.*)*", "", p.read_text(encoding="utf-8", errors="replace")))
+        except OSError:
+            pass
+    root = (U / "Makefile").read_text(encoding="utf-8")
+    root = re.sub(r"(?m)^\.PHONY:.*(?:\\\n.*)*", "", root)  # .PHONY names every target: not a call
+    root_wo_defs = re.sub(r"(?m)^([\w./-]+(?:\s+[\w./-]+)*)\s*:(?!=)", "", root)
+    corpus.append(root_wo_defs)
+    blob = "\n".join(corpus)
+    dead = sorted(t for t in defined if "/" not in t and "." not in t and not re.search(r"(?<![\w-])" + re.escape(t) + r"(?![\w-])", blob))
+    for t in dead:
+        print(f"  {t}")
+    print(f"usc make --dead: {len(dead)} of {len(defined)} root targets named nowhere but their own rule")
+    return 0
+
+
 def main() -> int:
     if len(sys.argv) >= 3 and sys.argv[1] == "recall" and sys.argv[2] == "--text":
         return recall_text(sys.argv[3:])
     if len(sys.argv) >= 2 and sys.argv[1] == "recall":
         return recall(sys.argv[2:])
+    if len(sys.argv) >= 3 and sys.argv[1] == "make" and sys.argv[2] == "--dead":
+        return make_dead()
     if len(sys.argv) >= 3 and sys.argv[1] == "make" and sys.argv[2] == "--stale":
         return make_stale()
     if len(sys.argv) >= 2 and sys.argv[1] == "make":

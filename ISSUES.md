@@ -7695,8 +7695,10 @@ registry 1 of 1. Outside U, not yet: the org page and Dist's README.
 - [x] (27 Nov) `make -n TARGET` for every promised target: `usc.py make --stale` (nothing built) reads the dry run
       for the files it would write: 96 outputs stale or missing (bld/sherlock/stale.txt), the input of the release's
       big build; targets that write no file (a Lean build, a check) reported as always running.
-- [ ] Dead targets from Make's own database (`make -pn`): called by nothing (not help, not another target, not the
-      docs, not release-check).
+- [x] (27 Nov) Dead targets: `usc.py make --dead` (a root target named nowhere but its own rule: not the help,
+      another Makefile, the docs, bin/, the UAT checklist, CI or HAL in T.Dot). Its first run: 5 of 117, none dead but
+      all hidden (each had a comment, none was in `make help`): nlm-usage, obs-soma, show-film, visualize-coverage,
+      visualize-library; now in the help. 0 of 117.
 - [x] (27 Nov) Never built or stale, without a ledger: Make's own dependencies answer it (the dry run above). Its first
       catch: The Evolution and Background were rebuilt on every run (their data rule was FORCE); now the chronicle
       depends on what it reads (the affidavits, chats.py), and both books are up to date after one build.
