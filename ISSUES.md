@@ -7013,8 +7013,13 @@ directly or through a core; 26 Nov, USC as Sherlock and MTC, the `{{usc:...}}` t
       prompt of every routed thread (its disposition and ref on the tag; idempotent; a file whose prompts would
       change is left alone): 30 threads, 70 tags in 11 chats; the grammar's own examples in the 26 Nov chat are
       ignored by id. Routing a thread (`chats.py route`) and then `tag` keeps the originals and the model in step.
-- [ ] Tags in the papers and books: first every build's reader strips them (half the defaults read
-      plain markdown: books/T-Theory/defaults, paper/defaults/pdf-2col, omnibus, lean-appendix).
+- [x] (27 Nov) The filter for every build: `lib/format/usc-tags.lua` drops the tags after any Markdown reader has
+      parsed them (with or without +smart; a paragraph of tags goes, a tag between two lines leaves one paragraph);
+      tested to Markdown and LaTeX.
+- [ ] AUTHOR (it touches every build): add `lib/format/usc-tags.lua` first in the `filters:` of the 25 defaults
+      files (`git grep -l "^filters:" -- "*.yaml"`; the nine without unicode-glyphs.lua are books/T-Theory/defaults/
+      booklet-html and booklet-pdf and paper/defaults/book, html, lean-appendix, omnibus-royal, omnibus, pdf-2col,
+      pdf-a4), then allow tags in paper/ and books/ (usctags.py ALLOWED) and rebuild once to compare.
 - [x] (27 Nov) The list of things to do from the chats (author: "all in chats should be on some new
       list"): `python sherlock/chats.py ideas` writes Me/chats/ideas.md, every untriaged thread by
       product (325: USC 110, USM 92, USF 59, Ops 64; personal threads counted, not listed).
