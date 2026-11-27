@@ -122,8 +122,19 @@ name = "LinkQueries"
 [[lean_lib]]
 name = "Latex"
 
+# The native OpenCyc generator (ISS-141): the CycL parser it shares.
+[[lean_lib]]
+name = "CycGen"
+roots = ["Tools.CycParse"]
+
 # The native OpenCyc generator's first step (ISS-141): NextKB's KRF files read in Lean, and counted.
 # `lake exe cyc-census ../bld/sherlock/raw/nextkb`
 [[lean_exe]]
 name = "cyc-census"
 root = "Tools.CycCensus"
+
+# The native OpenCyc generator (ISS-141): all of NextKB's taxonomy as Lean (docs/LEAN.md).
+# `lake exe cyc-native ../bld/sherlock/raw/nextkb ../bld/opencyc`
+[[lean_exe]]
+name = "cyc-native"
+root = "Tools.CycNative"

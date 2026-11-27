@@ -174,3 +174,9 @@ srcDir = "sherlock"
 # Not a default target: `lake build TTheory`.
 [[lean_lib]]
 name = "TTheory"
+
+# OpenCyc as native Lean (ISS-141): generated whole by `lake exe cyc-native` (in sherlock/) into the
+# git-ignored bld/opencyc. Not a default target: `lake build OpenCycNative`.
+[[lean_lib]]
+name = "OpenCycNative"
+srcDir = "bld/opencyc"

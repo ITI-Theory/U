@@ -7981,6 +7981,71 @@ mathlib and physlib ... T-theory, all of it, modelled in lean"):**
       the percept as a pole of the propagator (proved for nostalgia only, the companion's; startle not). New and
       proved: sub-perceptual persistence (a mode below its threshold still drives every mode coupled to it). The body
       proves 9 claims the abstract never mentions. P1: 13 kernel-verified, 2 open. The first piece of cite_check.
+- [ ] (author, 28 Nov 00:xx: "when we first did nextkb, we looked at the frame and model extraction ... surely that
+      fits what we doing? ... its not 'normal' cyc") NextKB's own layers, beyond OpenCyc's taxonomy (ISS-071, ISS-088,
+      ISS-089), into the native model after the taxonomy: (1) the FrameNet semantic translations (about 24,400: word,
+      frame, the OpenCyc type it denotes, a binding template of roles to predicates) as typed data over the sorts:
+      the reading of a sentence into a claim, so the phrase-to-claim mapping of cite_check (#covers) is checked, not
+      only judged; (2) the QP frames (about 660, Forbus's qualitative proportionalities) as typed influences: P1's
+      and P6's coupling matrices are such influences, and 13 Oct's Calm-Shame sign conflict (-0.3 in P1 and P6, +0.2 in
+      P6's Appendix A) becomes an inconsistent microtheory combination, Moriarty's to find; (3) the analogy ontology
+      (QRG's structure mapping) as the aso: to cyc: functor; (4) NuLex, WordNet, VerbNet and the narrative functions
+      for the text interpreter; (5) TTheoryVocabularyMt, the programme's own 19 constants (registry/vocabulary.yaml
+      today), as Lean. readings.py and semtrans.py retire when their Lean lands.
+- [ ] (author, 28 Nov 00:00: "look for nextkb ap, 23 November 2026 ... Modeling QP ... Modeling AP ... read that one
+      carefully") Me/chats 20261123_171439, the fullest statement of the spec: QP in Lean (a sign algebra, processes
+      as structures, I+/I-/qprop+/qprop- as Aesop rules, landmarks, envisionment); AP in Lean (SME as structural
+      alignment with Lean.Meta, candidate inferences; SAGE as anti-unification into typeclass-polymorphic theorems);
+      the abstract as specification and the body as mechanism; HOLES AS EXPLICIT FIELDS of a paper's assumptions
+      structure, filled by a later paper (Paper2Model -> Paper1Assumptions), "zero sorrys"; classical against
+      field-modified Hopfield by limiting case, preserved invariants and the delta; the M-theory architecture, a
+      TTheoryCore with the document models as its projections (not their union); Lean -> LaTeX under semantic keys
+      for the Pandoc filter and {{Visualize}}; each Markdown file compiled to a Lean file in the build directory, a
+      Lake library; the chats as Lean (forks as records, mined against the papers' holes). Against what is built:
+      (a) a paper is a microtheory: its assumptions (today's 14 axioms) and its holes become fields of its class, a
+      later paper fills one by an instance, and no global axiom remains; (b) the chapters are the document models,
+      the projections, with a TTheoryCore above them (the claims machinery, now `TTheory.Core`, to be renamed);
+      (c) QP fits P1 directly: its couplings are qualitative influences, and the sign alignment (an influence's sign
+      is the sign of the force's slope, W_ij) can be proved now.
+      The author confirmed (28 Nov 00:1x): (a) yes; (b) yes, the claims machinery renamed; (c) QP after the OpenCyc
+      generation is measured.
+- [ ] (a) Each paper's chapter: its assumptions and holes as the fields of its class (P1 first, then the 14 axioms of
+      the papers' Lean), no global axioms; a later paper fills a hole by an instance.
+- [ ] (b) Rename the claims machinery (TTheory.Core to TTheory.Claims); TTheoryCore above the chapters, with the
+      projection theorems (TTheoryCore -> P<n>).
+- [x] (28 Nov 00:xx; the author: "perhaps worth you finding the other refs to all this in the chats, and reading those
+      in the same way ... design time stuff") Read, the design spans in full: Me/chats 20261118_215825, 20261120_140700,
+      20261121_171224, 20261122_173241, 20261123_014738, 20261123_171439, 20261124_002519, 20261126_140957. What they add
+      to this plan, each pointed to its chat:
+      (1) USC is artifact-agnostic (any text, MIDI, code, binaries); [T]-Theory is its flagship test; three layers:
+          Model (readable declarative Lean: entity, claim, analogy), Engine (executable Lean passes: semtrans, SME,
+          MAC/FAC, leakage, provenance, Moriarty; `partial def`, no proofs), Main (the binary, CLI and LSP) (18 Nov).
+      (2) The affidavit as readable Lean, not YAML (`.aff`; `.usc` for USC sources, 24 Nov): "a lean file where i can
+          ... code the model", e.g. a therapist's Gestalt against CBT as process theory (string diagrams, series and
+          parallel, non-separability), with Moriarty's counter-model (20 Nov).
+      (3) Generation, not only checking: a proposer, then the co-identification filter (P3's validity criteria and
+          failure modes as type-class and isomorphism constraints; theorems transported across), then the Sherlock and
+          Moriarty sieve; seeded by the master equation, Physlib and Penrose's catalogue (registry/catalogues, to Lean)
+          (22 Nov).
+      (4) The core's projection obligations, Moriarty's three gaps on the master equation: scalar against tensor (the
+          Kaluza-Klein reduction as lemmas), linear propagator against nonlinear attractors (each domain's source term
+          J or potential V), shared form against each domain's constitutive laws (22 Nov).
+      (5) FM-HN as the pattern of a projection: the 1982 and 2020 Hopfield networks as limits of one equation in beta,
+          the Correspondence Principle a theorem (LimbicHopfield.lean) (22 Nov).
+      (6) Semantic regression: document models compared across versions (a deleted paragraph breaks what rested on it);
+          a public benchmark, the Lean books (22 Nov).
+      (7) Leakage: a document citing as proved a claim that is not established is an error (18 Nov's quarantine).
+      (8) The V-model's layers: the chats are thoughts, their claims hypotheses in a layer of their own, never mixed
+          into the papers' microtheories (20 Nov; 23 Nov's chat header, epistemic_status).
+      (9) The app as instrument: a scene-graph export (concept, scale, source per object) as Lean facts; the app's
+          layer switches are microtheories opened; a non-interference theorem (with only 4D physics on, all that is seen
+          is 4D physics); a bridge seen only with both its domains on; expected against observed concepts per screen
+          state, deliberate omissions tagged with a reason (26 Nov).
+      (10) QP and AP: QPE with an ATMS for envisionments; SME's match hypotheses, mappings and candidate inferences;
+          SAGE's generalisation (23 Nov).
+      (11) Determinism: an LLM at most writes code; at run time all is procedural; "make clean all" offline proves it
+          all (22 Nov).
+      (12) Lean to LaTeX under semantic keys, one artefact per key so Make stays incremental (23 Nov).
 - [ ] Moriarty in Lean: the attacker that searches for refutations (and for microtheory combinations with no instance).
 - [ ] The aso: to cyc: functor: the Somatic Field Ontology mapped to OpenCyc's concepts; where it will not map is a
       finding ("morphism friction": a hidden dualist assumption in the prose).
@@ -7992,6 +8057,15 @@ mathlib and physlib ... T-theory, all of it, modelled in lean"):**
       used: Thing, Collection, FirstOrderCollection, NonNegativeInteger, Microtheory, CharacterString,
       PartiallyTangible, PositiveInteger, Agent-Generic, Integer, IntelligentAgent, Person, Date, List: several are
       Lean's own (ℕ, ℤ, String, List), to be mapped to them, not modelled again.
+- [x] (28 Nov 00:3x) The generator, in Lean: sherlock/Tools/CycParse.lean (the shared KRF parser, lib CycGen) and
+      sherlock/Tools/CycNative.lean, `lake exe cyc-native` (in sherlock/), writing bld/opencyc/OpenCycNative
+      (git-ignored; 920 files, 57 MB) in 13 seconds: a carrier; 165,470 constants in 34 vocabulary parts of 5,000;
+      681 microtheory modules, 443,466 facts in class parts of 2,000 (UniversalVocabularyMt alone 136 parts); 38
+      genlMt links dropped to break cycles (depth first, the link that closes a cycle). Every microtheory extends
+      BaseKB except BaseKB's own ancestors. Lessons: Lean's Array.qsort is quadratic on many equal keys (it ran 23
+      minutes without output; grouping in one pass takes a second); breaking cycles by Kahn's algorithm dropped
+      1,043 good links. The root lakefile has lean_lib OpenCycNative (srcDir bld/opencyc, not a default target).
+      First builds: the carrier 15 s; a vocabulary part of 5,000 constants 31 s.
 - [ ] Step 2, the scale: the whole NextKB taxonomy (103,321 genls; 333,488 isa; 26,154 disjointWith) generated in the
       A + C form, measured (build time, memory, coercion search); then P1 against it. disjointWith and individuals
       with several types still to design.
