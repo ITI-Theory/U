@@ -22,4 +22,5 @@ claims:
     check: [{template: diff, args: [26, -35, 61]}]
     values:
       - {quantity: Atlas-Levels, value: 31}
+      - {quantity: Atlas-SpanDecades, value: 61}
     disposition: none

@@ -6,7 +6,7 @@ in git history and in `CURRENT-2026-10-01-to-06.md.OBSOLETE`; open items live
 in [ISSUES.md](../../ISSUES.md); how we work is in [README.md](../../README.md);
 the other working documents are listed in [docs/agent/README.md](README.md).
 
-## Now (27 Nov 2026, evening; updated 21:20)
+## Now (27 Nov 2026, evening; updated 21:45)
 
 Three layers: USF (the theory: papers and books), USM (the Soma Machine, the theory made visible) and
 USC (the Universal Semantic Compiler: Sherlock plus the meta-theory compiler). The author's order:
@@ -22,6 +22,11 @@ model and a make target in `sherlock/`; how to use them is `docs/SHERLOCK.md`, "
   (`make -C sherlock fishing`): 16 rows, 1 validated (the Einstein backtest), 2 falsified (the
   cosmological budget), 13 at S1 with 32 open assumptions. Several boxes wait on the author's
   decisions (desk, ISS-081).
+- **The web closes (ISS-139, 27 Nov late).** 67 affidavits, 480 of 480 checks; values report 9 DIFFERs
+  (`bld/sherlock/values.md`). Coverage counts the Field Atlas's front pages; the ladder is covered
+  (`atlas-ladder`). The ladders resolved (ISS-130): one zoom operator, several models (canonical-5,
+  universal-21, bird-flock), written up in `registry/README.md` and checked (`registry-models`); the app
+  asks for the USF MODEL first. Music gathered on ISS-124 for later (the author's own voice).
 - **USM (ISS-127).** The app audit (93 screens): the 3D scene's INTERPRETIVE plates at 4D and 8D, and
   the buttons' contrast; fixes wait on the author's approval (desk).
 - **The write-up (ISS-131, done 27 Nov).** SH1 "A second run"; P3's next version, "The Protocol as

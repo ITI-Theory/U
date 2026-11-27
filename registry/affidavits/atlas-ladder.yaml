@@ -1,0 +1,93 @@
+# Sherlock affidavit: the Field Atlas, front/2-the-ladder.md (ISS-139: the Atlas's 31 levels at their source).
+id: atlas-ladder
+document: BOOK
+title: 'The Field Atlas: The ladder'
+source:
+  file: Part2/book/field-atlas/front/2-the-ladder.md
+  commit: 415e88f
+  sha256: 6861fbe14f126c16f0bc03d0c1c2e66c4cafa9eb696f96e80997136adea3fa05
+lean: []
+microtheories: {}
+claims:
+  - id: L1
+    quote: 'The table lists the thirty-one registry levels in atlas order.'
+    lines: [3]
+    kind: internal-count
+    finding: >-
+      the Field Atlas (ISS-139): the table's rows by sector are 5 + 4 + 10 + 5 + 7 = 31, the same levels as the five sector
+      chapters' front matter and registry/levels; the course (ch. 1, 4) and registry/README.md agree
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [5, 4, 10, 5, 7, 31]}]
+    values:
+      - {quantity: Atlas-Levels, value: 31}
+    disposition: none
+  - id: L2
+    quote: 'Quantum Foam | $10^{-35}$ m'
+    lines: [7]
+    kind: internal-arithmetic
+    finding: >-
+      the first row against the last (Cosmic Web, $10^{26}$ m): 26 - (-35) = 61 orders of magnitude, as the course's ch. 1
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: diff, args: [26, -35, 61]}]
+    values:
+      - {quantity: Atlas-SpanDecades, value: 61}
+    disposition: none
+  - id: L3
+    quote: 'the ten paths have their own chapter'
+    lines: [3]
+    kind: internal-count
+    finding: >-
+      registry/paths has ten paths (animal-to-flock, bird-flock, dyadic-care, engineered-agent-network, full-atlas,
+      galactic-to-cosmic, geological-to-stellar, human-assembly-to-institution, micro-to-life, performance-ensemble)
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [10, 10]}]
+    values:
+      - {quantity: Atlas-Paths, value: 10}
+    disposition: none
+  - id: L4
+    quote: 'The book uses five canonical sectors,'
+    lines: [41]
+    kind: internal-count
+    finding: >-
+      registry/models/canonical-5.yaml's five bands; the table's sector names now match the sector chapters' titles and the
+      model's labels (27 Nov: three differed, Microphysical substrate, Geological to Compact Object and Galactic to Cosmic
+      Web; corrected in 415e88f, the Atlas being unpublished)
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [5, 5]}]
+    values:
+      - {quantity: USF-CanonicalBands, value: 5}
+    disposition: none
+  - id: L5
+    quote: 'Some programme papers also use a universal 0--20 ladder convention.'
+    lines: [41]
+    kind: internal-count
+    finding: >-
+      registry/models/universal-21.yaml: sigma 0 to 20, twenty-one coordinates (registry/README.md, the models)
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: diff, args: [20, -1, 21]}]
+    values:
+      - {quantity: USF-UniversalCoordinates, value: 21}
+    disposition: none
+  - id: L6
+    quote: 'The bird--flock--roost side-path demonstrates overlap explicitly,'
+    lines: [41]
+    kind: internal-count
+    finding: >-
+      the table places each level once: canonical-5's 28 distinct levels (its three boundary levels in the lower sector)
+      and the bird's three in Sector III; canonical-5 lists the boundaries in two bands and keeps the bird as its own model
+      (bird-flock): the same 31
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [28, 3, 31]}]
+    disposition: none

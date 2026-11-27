@@ -7747,6 +7747,10 @@ registry 1 of 1. Outside U, not yet: the org page and Dist's README.
       finds the dark-matter distance quoted 1.1 (the course) and 1.4 (P3) (ISS-130). 62 affidavits, 465 checks.
 - [x] (27 Nov) The course's chapters 1, 4 and 13 too (the Atlas's 31 levels; 61 orders of magnitude; 4+3+1+3=11, as
       Gateway): 65 affidavits, 467 checks; the values agree.
+- [x] (27 Nov) The Field Atlas's ladder (atlas-ladder, 6 claims): 31 levels (5+4+10+5+7, as the sector chapters), 61
+      decades, 10 paths, 5 sectors, the 0--20 convention; all agree with the course and the registry. Its sector names
+      differed from the sector chapters and canonical-5 in three places: corrected (415e88f; the Atlas is unpublished).
+      Coverage now counts the Atlas's front pages. The models themselves under Sherlock too (registry-models).
 
 ## ISS-140: Releases: an id in every artefact, a manifest, the models as a library, what's new — OPEN
 {{Tags area.release, area.sherlock}}
