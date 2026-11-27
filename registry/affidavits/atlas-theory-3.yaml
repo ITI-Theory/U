@@ -1,0 +1,85 @@
+# Sherlock affidavit: the Field Atlas, theory/3-zoom-operator-and-scale.md (ISS-139: the zoom against the registry).
+id: atlas-theory-3
+document: BOOK
+title: 'The Field Atlas: The zoom operator and scale'
+source:
+  file: Part2/book/field-atlas/theory/3-zoom-operator-and-scale.md
+  commit: 6d2eb62
+  sha256: 863fbd3233e543316d4081e7af709188ad11016bf4ad823d98bfdc5567efe032
+lean: []
+microtheories: {}
+claims:
+  - id: Z1
+    quote: 'The registry currently contains thirty-one levels from quantum foam to cosmic web.'
+    lines: [9]
+    kind: internal-count
+    finding: >-
+      the Field Atlas (ISS-139): registry/levels has 31 level files, quantum-foam to cosmic-web
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [31, 31]}]
+    values:
+      - {quantity: Atlas-Levels, value: 31}
+    disposition: none
+  - id: Z2
+    quote: 'Each level file records characteristic length scale, response time, substrate, field variable, equation, and evidence badges.'
+    lines: [9]
+    kind: internal-count
+    finding: >-
+      all 31 level files have length_scale, response_time, substrate, field, equation and claims (counted 27 Nov)
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [31, 31]}]
+    disposition: none
+  - id: Z3
+    quote: 'path-edge files such as `molecular--cellular-synaptic.md` and `galactic-halo--galaxy-cluster.md`.'
+    lines: [47]
+    kind: internal-count
+    finding: >-
+      both exist, each on two paths (full-atlas and micro-to-life; full-atlas and galactic-to-cosmic)
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [2, 2]}]
+    disposition: none
+  - id: Z4
+    quote: 'The registry''s 58 edges name 31 operations,'
+    lines: [49]
+    kind: internal-count
+    finding: >-
+      58 edge files under registry/paths, every one with a render_operation, a kernel and a claim badge; 31 distinct
+      operations. Until 27 Nov the chapter and the caption of figure T3.4 said the edges "specify" four types
+      (aggregation, projection, boundary change, substrate change), which no edge field carries: those are the chapter's
+      sorting; corrected in 6d2eb62
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [58, 58]}, {template: eq, args: [31, 31]}]
+    values:
+      - {quantity: Atlas-Edges, value: 58}
+      - {quantity: Atlas-EdgeOperations, value: 31}
+    disposition: none
+  - id: Z5
+    quote: 'P11 calls this a scale-invariant Green-function architecture;'
+    lines: [7]
+    kind: internal-count
+    finding: >-
+      Dist/PAPERS.yaml's P11: "The Zoomable Universal Somatic Field: A Scale-Invariant Green's Function Architecture"
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [11, 11]}]
+    disposition: none
+  - id: Z6
+    quote: '`human-group` sits between dyadic and social levels on one path,'
+    lines: [81]
+    kind: internal-count
+    finding: >-
+      dyad, human-group, society-city in that order on human-assembly-to-institution (and on performance-ensemble)
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [2, 2]}]
+    disposition: none

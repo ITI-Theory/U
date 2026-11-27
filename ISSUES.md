@@ -7767,6 +7767,10 @@ registry 1 of 1. Outside U, not yet: the org page and Dist's README.
       and P22's 3/11 the non-compact spatial three inside M4. Text and figure T4.1 corrected (f294c1a; unpublished).
       Confirmed from the Lean: 7/11 rests on LocalGR's two axioms; greens_fn_is_SHO proves the identity, not True;
       omega_dm_fraction says 3/11. 507 checks.
+- [x] (27 Nov) The Field Atlas's ch. 3, the zoom operator (atlas-theory-3, 6 claims) against the registry: 31 levels,
+      each with its six fields; the named edge files; P11's title. Caught: the chapter and figure T3.4 said the edges
+      "specify" four types; the 58 edges name 31 operations and carry no type: the four are the chapter's sorting
+      (corrected, 6d2eb62). 514 checks.
 
 ## ISS-140: Releases: an id in every artefact, a manifest, the models as a library, what's new — OPEN
 {{Tags area.release, area.sherlock}}
