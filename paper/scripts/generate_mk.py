@@ -182,6 +182,6 @@ for e in entries:
         lines.append(cp(src, f"{DIST}/nlm-uat/{slug}-AFTER.pdf"))
 lines.append("")
 
-(OUT / "dist.mk").write_text("\n".join(lines), encoding="utf-8")
+(OUT / "dist.mk").write_text("\n".join(lines), encoding="utf-8", newline="\n")
 n = len([e for e in entries if e.get("file")])
 print(f"Generated lib/mk/dist.mk  ({n} entries, source: {YAML.name})")

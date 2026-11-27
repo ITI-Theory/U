@@ -31,6 +31,8 @@ ALLOWED = {".ignore", ".vscode/settings.json", "bin/release-check",
 # Historical records, never rewritten: field notes, and Phase Dot (pasted chat transcripts,
 # whose compose files and the like belong to other machines, not to this repository)
 APPEND_ONLY = {"paper/FIELD-NOTES.md"}
+# Pages generated from prose (`make issues-html` renders ISSUES.md): prose, as their source is, not code.
+GENERATED_PROSE = {"prj/.adm/site/Issues.html"}
 RECORD = re.compile(r"^uat/.*/hal-[^/]*-answers\.md$")
 TEXT = {".md", ".py", ".lua", ".sh", ".js", ".mjs", ".ts", ".yaml", ".yml",
         ".tex", ".json", ".toml", ".txt", ".html", ".css", ".lean", ".mk", ""}
@@ -91,7 +93,7 @@ def main() -> int:
         text = read(rel)
         if text is None:
             continue
-        if rel not in ALLOWED and not rel.endswith(".md") and SUFFIX in text:
+        if rel not in ALLOWED and rel not in GENERATED_PROSE and not rel.endswith(".md") and SUFFIX in text:
             line = text[: text.index(SUFFIX)].count("\n") + 1
             failures.append(f"{rel}:{line}: code or build file uses a {SUFFIX} path")
         if rel.endswith(".md"):
