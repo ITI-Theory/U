@@ -6842,6 +6842,12 @@ the theme instead of inventing notes); 3 the orchestration and the printed score
       notes for others; its free output is information about music)?
 - [x] (27 Nov) The chats' threads queued here (`chats.py route`, checked against this issue): 20261020_124851 the-hook and voice-seed, 20261023_202404 voice-to-song, 20261101_161018 voice-orchestra,
       20261113_110301 text-to-song, text-to-song-rule and vocal-models, 20261118_215825 symphony-before-release.
+- [ ] (author, 27 Nov: "look through chats ... there is LOADS on how to do it, and perhaps a conclusion that I must sing
+      it. I still want to do this ... another big area, for later") The chats agree: the theme is the author's own
+      voice (the box above, 20 Oct; the text-to-song rule, 13 Nov). Queued here and on ISS-120 from the chats (27 Nov):
+      the production plan (Phase Dot, 9 May), Push 2 and Scaler 3 (17 Aug), the music-only mini PC (13 Aug); and two
+      from 18 Nov, not built: a movement's brief as a requirement in Lean with its check ("the foam as early-60s surf
+      music"; Sherlock on scores), and copyright when a movement is "inspired by" a song or person.
 
 ## ISS-125: Scenes, recorded once: the 30-minute film "Be the size" and the tours from the same scenes — OPEN
 
@@ -7283,9 +7289,16 @@ and their verdicts change: that is the witness.
       (ch. 14) says "about one standard deviation", dividing the gap 0.0082 by the matter fraction's uncertainty 0.0073
       (1.1); P3's new section and the method's row (COID-COSMO-1) say 1.4, with the dark-matter fraction's own. Both
       read "consistent with chance"; one number, with its uncertainty named, in both (`Cosmo-DarkMatter-Sigma`).
-- [ ] (27 Nov) Two ladders a reader will confuse: the Field Atlas's thirty-one levels (the course, ch. 1 and 4) and the
-      USF's scale levels, twenty or twenty-one (the papers). Each document that names one should say which ladder,
-      and how the two map (the 20 named positions inside the Atlas's 31?).
+- [x] (27 Nov) Two ladders a reader will confuse: the Field Atlas's thirty-one levels (the course, ch. 1 and 4) and the
+      USF's scale levels, twenty or twenty-one (the papers). The author: "the zoom operator just requires a path from
+      foam to cosmos ... one has just 5 levels ... in the atlas we drill down at human level ... in the USM you pick the
+      config first". Already so in the data: registry/models (canonical-5, universal-21, bird-flock), the app's USF
+      MODEL control before its ZOOM OPERATOR. Written up in registry/README.md ("Models: one zoom operator, several
+      ladders": the Atlas's 31 = 21 + 6 at the human scale + 1 stellar + 3 the bird's); affidavit registry-models (6
+      claims; Atlas-Levels 31 agrees across the course and the registry).
+- [ ] The documents that count levels name their model: the course (ch. 1, 4: the Atlas's 31), the papers ("twenty"
+      = the catalogue's named 01 to 20, "twenty-one" = sigma 0 to 20 with the foam; the USF-ScaleLevelCount DIFFER),
+      the books. Papers at their next version only.
 
 ## ISS-131: Writing up USC: what it did, how it works, how to use it — IN-PROGRESS
 {{Tags area.sherlock, area.papers, area.books}}

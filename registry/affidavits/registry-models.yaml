@@ -1,0 +1,90 @@
+# Sherlock affidavit: registry/README.md, the models (ISS-130, ISS-139: one zoom operator, several ladders).
+id: registry-models
+document: REGISTRY
+title: 'registry/README.md (Models: one zoom operator, several ladders)'
+source:
+  file: registry/README.md
+  commit: 4901c53
+  sha256: c64cb11d567ec827ad37fc100bfb1a2204962c528271affe3228e105be5a8756
+lean: []
+microtheories: {}
+claims:
+  - id: R1
+    quote: 'a ladder of five bands (I to V, quantum to cosmic).'
+    lines: [29]
+    kind: internal-count
+    finding: >-
+      the shortest ladder (ISS-130): registry/models/canonical-5.yaml has five coordinates, I to V, as zoom-implementations.js's
+      canonicalBands: prose against data, counted 27 Nov
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [5, 5]}]
+    values:
+      - {quantity: USF-CanonicalBands, value: 5}
+    disposition: none
+  - id: R2
+    quote: 'hold twenty-eight levels and list thirty-one,'
+    lines: [30]
+    kind: internal-count
+    finding: >-
+      canonical-5's bands list 5+5+8+5+8 = 31 entries over 28 distinct levels; the 3 repeated are molecular, human-vertebrate
+      and stellar, the band boundaries (zoom-implementations.js's ranges share their end points)
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: diff, args: [31, 28, 3]}]
+    disposition: none
+  - id: R3
+    quote: 'twenty-one coordinates, sigma 0 (the quantum foam) to'
+    lines: [32]
+    kind: internal-count
+    finding: >-
+      registry/models/universal-21.yaml has 21 coordinates, 0 quantum-foam to 20 cosmic-web; zoom-implementations.js names
+      20 equations (01 String to 20 Cosmic Web): the two counts behind the papers' USF-ScaleLevelCount DIFFER (ISS-130)
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [21, 21]}, {template: diff, args: [21, 20, 1]}]
+    values:
+      - {quantity: USF-UniversalCoordinates, value: 21}
+    disposition: none
+  - id: R4
+    quote: 'the Atlas''s 31 levels are 21 + 6 + 1 + 3,'
+    lines: [37]
+    kind: internal-count
+    finding: >-
+      registry/levels has 31 levels: the 21 of universal-21, plus local-circuit, dyad, human-group, regional-institutional,
+      civilisational-solar, species-stellar (6), stellar-cluster (1) and bird, flock, colony-roost (bird-flock, 3); the
+      course's Atlas-Levels (ch. 1 and 4) agree
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: sum, args: [21, 6, 1, 3, 31]}]
+    values:
+      - {quantity: Atlas-Levels, value: 31}
+    disposition: none
+  - id: R5
+    quote: '`full-atlas` visits 27 of the 31.'
+    lines: [40]
+    kind: internal-count
+    finding: >-
+      registry/paths/full-atlas/path.yaml has 27 nodes: the 21 and the 6 human-scale drill-downs less species-stellar, plus
+      stellar-cluster; bird, flock, colony-roost and species-stellar are on other paths
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: eq, args: [27, 27]}]
+    disposition: none
+  - id: R6
+    quote: 'the USF MODEL control comes before the ZOOM OPERATOR,'
+    lines: [42]
+    kind: internal-count
+    finding: >-
+      the app asks for the model first (the author, 27 Nov: "in the USM, you pick the config first"): in
+      apps/instrument/visuals/soma-field-operator/index.html the USF MODEL select is line 95, the ZOOM OPERATOR slider line 112
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: lt, args: [95, 112]}]
+    disposition: none
