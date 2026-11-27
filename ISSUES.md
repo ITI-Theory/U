@@ -7821,22 +7821,40 @@ generated, not in git ... so we must export as artifacts ... am i right?"
 
 **Author, 27 Nov 21:4x:** "for the levels, eg this 31. why not fully model this in lean, so we are building up a model
 of what t-theory actually is, its in the chats ... so all the logic of How many ... is not some number rather, the
-result of looking at the lean model ... this is critical". Asked (source of truth; scope), the author chose: **Lean is
-the source** (the YAML and the app are generated from Lean) and **all of it**: the whole of what T-Theory is, from the
-chats as well, one model built up step by step.
+result of looking at the lean model ... this is critical". Asked, the author chose **Lean the source** (the YAML and
+the app generated from it) and **all of it**. Then (21:5x): "look in chats, recent ones. there is description of why
+lean works so well ... check this vs your design, then its OBVIOUS why python is useless. need to slow down here ...
+there is a big drift from my spec"; and, the reading confirmed: "a python api is still handy ... for 3rd parties ...
+but not for me ... i want a lean model of all equations and as much of the rest too. so a user can open the top
+t-theory lean file and start reading it ... i want the paper/book as lean ... but obv not every word".
 
-Where it stood: the registry (31 levels, 5 sectors, 3 models, 10 paths, 58 edges) is YAML, checked by Python for its
-pointers only; the affidavits' counts were counted in Python and typed in, Lean checking only the arithmetic; the
-papers' Lean has its own ScaleLevel = Fin 21, joined to nothing; `Usm` (ISS-127) is generated from the YAML (the
-other direction).
+**The spec** (pointed to, not copied): Me/chats 20261118_215825 (Sherlock as a Lean DSL, `Sherlock/DSL.lean` and
+`Sherlock/Model/`: entity, claim, analogy, cyc_rule, cite_check; cyc_rule replacing Cyc/ + gen_rules.py, cite_check
+replacing ledger.py, leakage.py, provenance.py; one `lean_exe sherlock` with the Cyc base compiled in, `--json`
+diagnostics and `--lsp`, in a one-click .vsix; editors thin glue) and 20261126_140957 (Lean as a knowledge compiler:
+every theorem a witness; facts cascade by aesop forward rules and typeclass instances; a core kernel apart from tagged
+bridges; `sorry` the frontier, logged as open questions; slices; "not just modeling T-Theory, modeling the knowledge
+of T-Theory").
 
-- [ ] Step 1, the Atlas's structure: a committed library `TTheory` (sherlock/TTheory): the levels as an inductive
-      type, sectors, the models (universal-21 as sigma : Fin 21, the papers' ScaleLevel), the paths and edges; every
-      count a theorem by `decide` (31 levels; 5+4+10+5+7; canonical-5 lists 31 and holds 28; full-atlas 27; Sector V
-      7 against its path's 6). An export (JSON) and a check that the YAML and the Atlas's front matter agree with it.
-- [ ] Step 2: the affidavits cite those theorems (`lean:`), not typed numbers; Tools/Names.lean imports TTheory.
-- [ ] Step 3: the YAML's structure generated from Lean (the registry's prose fields stay YAML until modelled); `Usm`
-      reads TTheory instead of the YAML.
-- [ ] Step 4 on: the model's claims and concepts (registry/model.yaml, concepts/), the papers' equations, the eleven
-      dimensions (M4 x P3 x L1 x C3; 1+3+7), the cosmology's fractions; then what the chats say T-Theory is.
+**The drift (Copilot's, recorded 27 Nov):** none of the DSL exists. sherlock/ has 46 Python files and this session
+added more (usc.py's recall, browse, board, coverage, make, git, new; chats.py's features); the affidavits are YAML
+with numbers typed in: Python extracts and decides, Lean does arithmetic. A number in Python is no witness: nothing
+follows from it, it is not typed against Cyc, and a contradiction is found only if someone wrote that comparison.
+The first plan for this issue (Lean counts, a JSON export, Python comparing the YAML) repeated the drift; dropped.
+No new Python tools from here on; the Python retires piece by piece as its Lean replacement lands; a Python API
+later, for third parties only.
 
+**Where it goes:** two Lean worlds today, both Lean v4.33.0 with the same aesop and batteries pins: U's root project
+(SomaField: the papers' proofs, Mathlib, physlib, OSforGFF) and sherlock/ (OpenCyc: Cyc, the KB, the affidavits'
+Lean, aesop, no Mathlib). The model needs both (the equations and the knowledge): a library `TTheory` in the root
+project, requiring OpenCyc by path; its top file `TTheory.lean` the one a reader opens, chapters under `TTheory/`,
+prose in `/-! -/` blocks, the papers' equations imported from their proofs, not restated.
+
+- [ ] Step 1, slowly: the DSL's first words (entity typed by its Cyc class; claim with its evidence label) and the
+      first chapter written in it: the ladder (levels, sectors, the models, the paths), so that the 31, the sectors'
+      5+4+10+5+7, canonical-5's 28 and Sector V's missing stellar-cluster follow by compilation. Shown to the author
+      before the next piece.
+- [ ] The equations: each paper's equations as Lean (the proofs' own where they exist), chapter by chapter.
+- [ ] cite_check: a document's claims against the model (the affidavits' successor).
+- [ ] The binary: `lean_exe sherlock` (`--json`, `--lsp`); the editors call it.
+- [ ] The YAML and the app's data generated from the model; `Usm` reads it.
