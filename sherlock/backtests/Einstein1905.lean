@@ -1,4 +1,5 @@
 import Mathlib
+import Method
 
 /-!
 # The Einstein backtest, 1905 (USC; ISS-126)
@@ -128,6 +129,32 @@ theorem mass_drop_exact {c v L E0 E1 H0 H1 m0 m1 C : ℝ} (hc : c ≠ 0) (hγ : 
   linear_combination k
 
 -- The receipt: only Lean's standard axioms (no sorry, nothing assumed beyond the stated hypotheses).
+/-- The backtest as a row of the method (P3 §10.1): Einstein's step is a co-identification, the
+    v² coefficient of the radiating body's kinetic energy identified with Newton's ½m. History ran
+    the loop: the prediction has passed independent tests, so the row is S3. -/
+def row : Method.Row where
+  id := "COID-EINSTEIN-1905"
+  source := "Newtonian kinetic energy ½mv²: mass as the coefficient of v²/2"
+  target := "the drop L(γ - 1) in a radiating body's kinetic energy (Einstein, November 1905)"
+  signature := [(.units, "energy: L(γ - 1) ≈ (L/c²) v²/2 for small v, a mass times v²/2"),
+    (.operatorForm, "quadratic in v at leading order: γ - 1 ≈ v²/2c² (F_slope)")]
+  imported := "the mass is the coefficient of v²/2: Δm = L/c² (mass_limit, einstein_1905)"
+  assumptions := [
+    ⟨"energy is conserved in both frames", .cited "Einstein, November 1905: the premises (Emission)"⟩,
+    ⟨"the pulses carry Lγ in the moving frame", .cited "Einstein, June 1905, §8"⟩,
+    ⟨"the kinetic energy is Newtonian up to a constant (Planck's lemma, 1907)",
+      .lean ``Backtest.Einstein1905.mass_drop_exact⟩]
+  prediction := "a body that emits energy L loses mass L/c²"
+  disconfirmation := "a measured mass defect differing from ΔE/c² (rule 3)"
+  negativeControl := ⟨"conservation alone: the premises without Planck's lemma say nothing of mass",
+    .lean ``Backtest.Einstein1905.gap⟩
+  status := .validated
+  scope := .S3
+  tests := [("Cockcroft and Walton (1932): lithium mass defect against the energy released", true),
+    ("Rainville et al., Nature 438 (2005): ΔE = Δm c² to 4 parts in 10⁷", true)]
+
+#guard row.wellFormed
+
 #print axioms kinetic_drop
 #print axioms gap
 #print axioms einstein_1905

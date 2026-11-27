@@ -17,6 +17,13 @@ acceptance test (the model answers what grep did: USC, putting the models togeth
 of descent, Einstein) passes. 115 chats fail the triage; 25 threads are open. `python sherlock/chats.py
 route STAMP THREAD DISPOSITION [REF]` routes a thread. The generated modules are private (bld/).
 
+**The method as a model (27 Nov, late).** P3, the author's methodology paper (mathematical
+co-identification), is now Lean: `sherlock/Method` (registration rows, scope labels S1-S3,
+disconfirmation rules, negative control, the loop; `make -C sherlock method`). The Einstein backtest
+is row COID-EINSTEIN-1905 (S3); the first fishing catch, gravity, is COID-GRAV-1 (S1,
+`make -C sherlock fishing`), with five open assumptions. The first is a sign contradiction in the
+cheatsheet's master equation (ISS-126, AUTHOR).
+
 **Also 27 Nov:** the Takeouts of 27 Nov imported (Me 72faf78; export_gemini reads `My Activity.json`
 and the AI Mode folder); the "write a book" chat, too big to reload in VS Code, exported to its end
 (20 Oct); chat volumes 15-17 in H-AL's notebook (HAL-UAT, 45 of 50 sources); HAL on the PATH of this
@@ -30,9 +37,10 @@ audio. Details in ISS-118 and ISS-120 and `registry/studio/standard.yaml`.
 ## Next
 
 1. The name is settled: the Universal Semantic Compiler (author, 27 Nov; T.Ops naming standard).
-2. AUTHOR: triage the chats that fail (`Chat.untriaged`), starting with the USC chats of 18-26 Nov.
-3. ISS-126: the chats in Me/chats/notebooks and Me/archive/sessions; join the chat models to the
-   paper models (MTC, a core the documents project from); the Einstein backtest; the `{{usc:...}}`
+2. AUTHOR: the master equation's sign (ISS-126): +k² (oscillation) or -k² (a mass, decay)?
+3. AUTHOR: triage the chats that fail (`Chat.untriaged`), starting with the USC chats of 18-26 Nov.
+4. ISS-126: further fishing catches as Method rows; the chats in Me/chats/notebooks and Me/archive/sessions; join the chat models to the
+   paper models (MTC, a core the documents project from); the `{{usc:...}}`
    tags and their Lua filter.
-4. The release epic (ISS-114, planned for 21 Oct) is still open: its state since 20 Oct to review
+5. The release epic (ISS-114, planned for 21 Oct) is still open: its state since 20 Oct to review
    with the author.

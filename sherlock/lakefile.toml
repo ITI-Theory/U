@@ -49,3 +49,11 @@ srcDir = "../bld/sherlock/lean"
 # Questions to the chats, and the acceptance test of iteration 1.
 [[lean_lib]]
 name = "ChatQueries"
+
+# The method's model: P3's co-identification procedure, registration rows and the loop (ISS-126).
+[[lean_lib]]
+name = "Method"
+
+# The method's acceptance test: the paper's own row, COID-BS-HEAT-1.
+[[lean_lib]]
+name = "MethodQueries"

@@ -6858,7 +6858,25 @@ directly or through a core; 26 Nov, USC as Sherlock and MTC, the `{{usc:...}}` t
       energy). The language-model half (a NotebookLM notebook with the June paper only) found Δm = L/c²
       and named Planck's lemma as the unstated assumption; it knew the history (contaminated).
       Me/notebooklm/Einstein-1905/README.md.
-- [ ] Physics fishing à la Einstein on [T]-Theory: the cheatsheet's premises (USF first), the same
-      discipline (derive, list every unstated assumption, exact or approximate; the Lean decides).
+- [x] (27 Nov) The method as a model (author: "my paper on the methodology itself ... model to
+      implementation"): P3's registration template (§10.1), scope labels (§10.4), disconfirmation
+      rules (§10.2), negative control (§10.5) and loop (§3.4) in `sherlock/Method` (`make -C sherlock
+      method`); a Lean witness is a name literal, so a row citing a missing theorem does not compile.
+      Acceptance test: the paper's own row, COID-BS-HEAT-1, at S1 with one loose end (the assumed
+      regularity), S2 only once it has a witness (sherlock/MethodQueries.lean). The Einstein backtest
+      is the row COID-EINSTEIN-1905 (S3: Cockcroft and Walton, Rainville et al. 2005).
+- [x] (27 Nov) Physics fishing, first catch, gravity: `sherlock/fishing/Gravity.lean` (`make -C sherlock
+      fishing`), row COID-GRAV-1 at S1. Proved: e^{-kr}/r solves (∇² - k²)f = 0 and cos(kr)/r solves
+      (∇² + k²)f = 0 away from the source; the first does not solve the second; both are Newton's 1/r at
+      k = 0, and the first tends to it as k → 0; the strength (Newton's G) is not fixed by the
+      equation. Five assumptions open: the sign below, the field as the gravitational potential, the
+      coupling G, attraction, and k(σ) at solar-system scales.
+- [ ] AUTHOR: the master equation's sign. The cheatsheet (books/T-Theory/booklet/booklet_body.md, I)
+      writes the stationary form (∇² + k²)G = -δ (k a wavenumber: oscillation), but its time-dependent
+      form (∂ₜ²/v² - ∇² + k²)Φ = -J has the static limit (∇² - k²)Φ = J (k a mass: decay), and the rest
+      of the page (correlation length 1/k, decay e^{-kvτ}, the GFF of mass k) reads the second;
+      `UniversalSomaticField.greens_fn_is_SHO` proves the first. Which is meant, or both (scales)?
+      Published papers not edited.
+- [ ] Physics fishing, further catches from the cheatsheet (the method's rows; the Lean decides).
 - [ ] The `{{usc:...}}` tags (26 Nov: the EBNF) and their Lua filter.
 - [x] (27 Nov) USF, USM and USC in the naming standard (T.Ops `docs/standards/naming.md`).

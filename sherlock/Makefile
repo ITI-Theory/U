@@ -16,7 +16,7 @@ NEXTKB_URL := https://www.qrg.northwestern.edu/nextkb/nextkb_files_20190107.zip
 NEXTKB_ZIP := $(RAW)/nextkb_files_20190107.zip
 NEXTKB_SHA := 5489856b64c9db1c69965ecb6a9a82382ddffd3fdf76c571b8bbde97405d7b79
 
-.PHONY: backtests chats writers studio help fetch lean-gen lean affidavits all clean check ledger delta rules-gen types towers readings readings-lean skyline clinical level-types leakage grammar impact presence model rivals bofh standalone gallery privacy provenance features views
+.PHONY: method backtests fishing chats writers studio help fetch lean-gen lean affidavits all clean check ledger delta rules-gen types towers readings readings-lean skyline clinical level-types leakage grammar impact presence model rivals bofh standalone gallery privacy provenance features views
 
 help:
 	$(info Sherlock (ISS-055), outputs in bld/sherlock/)
@@ -39,7 +39,9 @@ help:
 	$(info   standalone  every cheat sheet stands on its own: identity, its own words, its own references)
 	$(info   gallery     every picture in A Gallery of Thoughts is the programme's own (ISS-097))
 	$(info   chats       the chats as Lean models: Me/chats and their affidavits (FILES="..." limits it); private, built in bld/)
+	$(info   method      the method's model: P3's co-identification rows, scope labels and the loop (Method/, MethodQueries; ISS-126))
 	$(info   backtests   the system on known history first: Einstein 1905 (backtests/, Lean with U's Mathlib; ISS-126))
+	$(info   fishing     the method on [T]-Theory: gravity in the USF (fishing/, Lean with U's Mathlib; ISS-126))
 	$(info   privacy     what is private stays private: Phase Dot, H-AL's answers, the film notes (needs Me; ISS-116))
 	$(info   provenance  whose emotions a score carries, and whether the author has attested it (ISS-115))
 	$(info   features    every Soma Machine feature tagged science or show, and the author's approvals (ISS-095))
@@ -169,8 +171,16 @@ gallery:
 	$(PYTHON) gallery_sources.py
 
 # Backtests (ISS-126): known results the system must find before it is pointed at the programme.
-backtests:
+# The method's model (ISS-126): P3's registration rows; the backtests and the fishing are rows of it.
+method:
+	lake build Method MethodQueries
+
+backtests: method
 	cd .. && lake env lean sherlock/backtests/Einstein1905.lean
+
+# Fishing (ISS-126): the method pointed at [T]-Theory, from the cheatsheet's premises.
+fishing: method
+	cd .. && lake env lean sherlock/fishing/Gravity.lean
 
 # The chats as Lean models (USC iteration 1): Me/chats and their affidavits in Me/chats/affidavits.
 chats:
