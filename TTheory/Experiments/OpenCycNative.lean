@@ -3,7 +3,7 @@ Copyright (c) 2026 Alistair Johnson. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE-APACHE.
 Authors: Alistair Johnson
 -/
-import TTheory.Core
+import TTheory.Claims
 
 /-!
 # Experiment (ISS-141): OpenCyc as native Lean, two ways, on P1's vocabulary

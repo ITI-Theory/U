@@ -3,7 +3,7 @@ Copyright (c) 2026 Alistair Johnson. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE-APACHE.
 Authors: Alistair Johnson
 -/
-import TTheory.Core
+import TTheory.Claims
 import TTheory.P1
 
 /-!
@@ -19,7 +19,7 @@ meaning, with proofs; their text, the sentences of the papers and books; their O
 Soma Machine's data.
 
 **How far each thing stands.** A chapter ends with its claims and `#status`, which computes each
-claim's state from its witness (`TTheory.Core`): kernel-verified; derived under assumptions (the
+claim's state from its witness (`TTheory.Claims`): kernel-verified; derived under assumptions (the
 assumptions named); frontier (`sorry`); open (no witness); refuted (a proof that it is false).
 Witnesses chain: a claim built on another stands or falls with it, so a new proof or a changed
 import moves the states on the next build. Nothing is set by hand.

@@ -26,19 +26,12 @@ NextKB's data under CC BY 4.0, and every generated file says so (NextKB's `licen
 
 namespace OpenCycGen
 
-private def keywords : List String :=
-  ["at", "by", "do", "else", "end", "fun", "have", "if", "import", "in", "let", "match", "open",
-    "show", "then", "this", "with", "where", "from", "for", "unless", "return", "try", "catch",
-    "finally", "mut", "def", "theorem", "lemma", "class", "instance", "structure", "inductive",
-    "namespace", "section", "variable", "universe", "axiom", "opaque", "abbrev", "example",
-    "notation", "macro", "syntax", "deriving", "extends", "mutual", "local", "private",
-    "protected", "noncomputable", "partial", "unsafe", "attribute", "set_option", "Type", "Prop",
-    "Sort", "calc", "suffices", "obtain", "nomatch", "nofun", "termination_by", "decreasing_by"]
-
-/-- A Lean identifier for a Cyc constant: as it is where Lean allows, else in guillemets. -/
+/-- A Lean identifier for a Cyc constant: as it is if it starts with a capital and has only letters,
+    digits and `_` (Lean's keywords are lowercase, but for `Type`, `Prop` and `Sort`), else in
+    guillemets (Mathlib adds keywords, such as `alias`, so no list of them is safe). -/
 def ident (s : String) : String :=
-  let plain := s.length > 0 && (s.front.isAlpha || s.front == '_') &&
-    s.all (fun c => c.isAlphanum || c == '_') && !keywords.contains s
+  let plain := s.length > 0 && s.front.isUpper && s.all (fun c => c.isAlphanum || c == '_') &&
+    !["Type", "Prop", "Sort"].contains s
   if plain then s else "«" ++ s ++ "»"
 
 /-- A collection or individual, referred to from a microtheory. OpenCyc's `Thing` is everything. -/

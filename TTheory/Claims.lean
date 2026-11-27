@@ -6,7 +6,7 @@ Authors: Alistair Johnson
 import Lean
 
 /-!
-# The core: claims, witnesses, and their state
+# Claims, witnesses, and their state
 
 A document's claim is a proposition. A **witness** for it is a proof, registered as an instance of
 `Witness`; Lean's instance search chains witnesses, so a rule

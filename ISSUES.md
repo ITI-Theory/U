@@ -8011,7 +8011,7 @@ mathlib and physlib ... T-theory, all of it, modelled in lean"):**
       generation is measured.
 - [ ] (a) Each paper's chapter: its assumptions and holes as the fields of its class (P1 first, then the 14 axioms of
       the papers' Lean), no global axioms; a later paper fills a hole by an instance.
-- [ ] (b) Rename the claims machinery (TTheory.Core to TTheory.Claims); TTheoryCore above the chapters, with the
+- [ ] (b) Rename the claims machinery (TTheory.Core to TTheory.Claims: done 28 Nov); TTheoryCore above the chapters, with the
       projection theorems (TTheoryCore -> P<n>).
 - [x] (28 Nov 00:xx; the author: "perhaps worth you finding the other refs to all this in the chats, and reading those
       in the same way ... design time stuff") Read, the design spans in full: Me/chats 20261118_215825, 20261120_140700,
@@ -8084,6 +8084,9 @@ mathlib and physlib ... T-theory, all of it, modelled in lean"):**
 - [ ] Controlled English, next: verbs (OWL properties), cardinality; the words resolved through NextKB's lexicon
       to OpenCyc's constants; the generated microtheories verbalised (the fact names read as ACE); P1's abstract
       in controlled English against its claims.
+- [x] (28 Nov 00:4x) Sanity check asked by the author ("this is getting more complicated ... in the right
+      direction?"). Offered: one full P1 slice first, new ideas parked. The author's decision: keep going broadly
+      as now; all of it (USC in Lean) in the December release.
 - [ ] Step 2, the scale: the whole NextKB taxonomy (103,321 genls; 333,488 isa; 26,154 disjointWith) generated in the
       A + C form, measured (build time, memory, coercion search); then P1 against it. disjointWith and individuals
       with several types still to design.

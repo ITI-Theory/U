@@ -54,7 +54,7 @@ Third-party material keeps its own licence, and its header says so:
 - **`axiom` only for a paper's stated assumption**, named for what it assumes and listed by `#print axioms`.
   OpenCyc needs none (its facts are microtheory fields).
 - **`sorry` only as a marked frontier**: a claim stated exactly and not yet proved. `#status` shows it.
-- **Claims** are `Claim`s with a witness or a refutation as an instance (`TTheory.Core`); their state is computed
+- **Claims** are `Claim`s with a witness or a refutation as an instance (`TTheory.Claims`); their state is computed
   by `#status`, never typed.
 - **A chapter** (one per paper, `TTheory/P<n>.lean`) reads like the paper: a module header naming the paper
   (its id, pointing to `Dist/PAPERS.yaml`), sections in the paper's order with a few lines of its argument,
