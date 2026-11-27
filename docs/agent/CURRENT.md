@@ -38,15 +38,18 @@ laptop (`U.Dot/bin/HAL1 init`); `audio` merged into `main` and tagged `pre-usc-2
 of work again. NotebookLM's `cold` profile (johnsonusm.com) still fails to authenticate.
 
 **The night of 27 Nov (author asleep; read this first).** Three layers, each with its Lean model and a
-make target in `sherlock/` (`make -C sherlock help`):
-- USF, the theory: the method's rows (`fishing`: 16 rows, the bait), the equations (`equations`, ISS-128:
-  the master equation's sign census), provisional decisions in ISS-126 for the author to overrule.
-- USM, the app: `usm` (options from 4D up, `visible_mono`, coverage: 15 of 27 papers on screen) and
-  `app-audit` (screenshots, Windows OCR and the page's text; 93 screens; INTERPRETIVE drawn at 4D and 8D on
-  the six human and collective levels; the dimension buttons unreadable), ISS-127.
-- USC, the compiler: `issues` (ISSUES.md as Lean), `tags` (the `{{usc:...}}` tags in the originals; `chats.py
-  tag` writes them from the model), `links` (the models joined: papers, issues, chats, rows), `chats`; the ideas
-  list Me/chats/ideas.md (309 threads); Neovim: U.Dot `bin/usc-vim` (ISS-129).
+make target in `sherlock/` (`make -C sherlock help`); every finding is in ISS-126 to ISS-129.
+- USF, the theory: `fishing` (16 method rows from the cheatsheet, the bait: what each leaves open);
+  `equations` (393 equations, the master equation's sign census, and every catch found again across the corpus:
+  58 places to edit, bld/sherlock/equations.md); the catches are claims in Sherlock's affidavits (the cheatsheet
+  CS9 to CS21, P10, P14, the geophysics and philosophy books). Provisional decisions in ISS-126 for the author to
+  overrule. The sharpest: the memory kernel e^{-kvτ} is the field's Euclidean correlation, not a real-time memory.
+- USM, the app: `usm` (options from 4D up, `visible_mono`; 15 of 27 papers on screen) and `app-audit`
+  (screenshots, Windows OCR and the page's text, 93 screens: INTERPRETIVE drawn at 4D and 8D on the six human and
+  collective levels; the dimension buttons unreadable), ISS-127. App changes left for the author.
+- USC, the compiler: `issues`, `tags` (`chats.py tag` writes the model's routed threads into the originals: 96
+  tags), `links` (papers, issues, chats and rows in one graph), `chats`; the ideas list Me/chats/ideas.md (296
+  threads; 29 routed overnight, evidence checked); Neovim: U.Dot `bin/usc-vim` (ISS-129).
 
 **Rules that stand (author, 18-19 Oct):** music is made in Ableton Live, never outside it; the music
 is private (the Soma Machine passes its emotional score in, generates nothing); Phase Plant takes no
