@@ -7854,6 +7854,21 @@ prose in `/-! -/` blocks, the papers' equations imported from their proofs, not 
       first chapter written in it: the ladder (levels, sectors, the models, the paths), so that the 31, the sectors'
       5+4+10+5+7, canonical-5's 28 and Sector V's missing stellar-cluster follow by compilation. Shown to the author
       before the next piece.
+- [x] (27 Nov 22:xx) P1 begun as Lean, `TTheory/P1.lean`, the author's choice ("lets do it on my first paper first";
+      the form approved: "yes"). Its core compiles with no sorry: eqs (1)-(3) one function (Hopfield = Ising = soma);
+      the companion SomaField.lean is eq (3) with b = 0 and its `perceptible` is eq (12); eq (13)'s force proved
+      (-dH/de_i = (We)_i + b_i for symmetric W) and the companion's fieldForce8 is it; eq (16) proved to be eq (13)
+      for the tilted energy (15); the somatic equivalence principle; eq (18) and the paper's Layer 2 special case;
+      (14) noise falls with HRV coherence; (17) Pi monotone in its three terms.
+- [ ] (author, 27 Nov: "in the chats there was talk of external data sets to compare against etc. for the FMHN ...
+      so the idea would be that discussion has the lean for that, and is then available somewhere else") A dataset
+      comparison is written once in Lean, in its own module, where the chat discussed it (the module names the chat
+      and thread), and every paper that uses it imports it: `TTheory/Data/...`. From the chats so far: the UC
+      Berkeley / PNAS 13 auditory-emotion dimensions for the instrument (20260716_203112, 20260612_184004); the
+      modern Hopfield network (2018) on identical datasets (Phase Dot 20260516_11); a benchmark solver on public
+      datasets (20261126_140957); Pantheon+ for the cosmology (20260812_202133, now sherlock/Fishing/Cosmology.lean);
+      QUANT-EXP-1, P2's dataset. How the data itself enters Lean (a pinned file and its summary as rationals, as the
+      fishing does) to be designed with the author.
 - [ ] The equations: each paper's equations as Lean (the proofs' own where they exist), chapter by chapter.
 - [ ] cite_check: a document's claims against the model (the affidavits' successor).
 - [ ] The binary: `lean_exe sherlock` (`--json`, `--lsp`); the editors call it.

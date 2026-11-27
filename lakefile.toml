@@ -169,3 +169,8 @@ srcDir = "sherlock/backtests"
 [[lean_lib]]
 name = "Fishing"
 srcDir = "sherlock"
+
+# [T]-Theory as a Lean model (ISS-141): the top file TTheory.lean, a chapter per paper under TTheory/.
+# Not a default target: `lake build TTheory`.
+[[lean_lib]]
+name = "TTheory"
