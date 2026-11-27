@@ -1,10 +1,13 @@
 # Sherlock & the Soma Machine (preview)
 
-**The Soma Machine** is the [T]-Theory programme's instrument: a mind–body
-explorer from the whole person down to the synapse and out to the cosmos, in
-3D. This extension puts it in an editor tab. It also shows **Sherlock**, a
-neuro-symbolic compiler for natural language, in the editor: its findings
-appear as compiler errors.
+All of [T]-Theory in one package, in three parts:
+
+- **The theory** (USF): the programme's papers and books, each opening its DOI.
+- **The Soma Machine** (USM): the programme's instrument, a mind–body explorer
+  from the whole person down to the synapse and out to the cosmos, in 3D, in an
+  editor tab.
+- **The compiler** (USC, the Universal Semantic Compiler, with **Sherlock**): it
+  checks what documents claim, and its findings appear as compiler errors.
 
 ![The stone in the ureter: pain as waves](media/ureter.png)
 
@@ -25,6 +28,23 @@ appear as compiler errors.
   Lean declaration offers a quick fix: *View in Soma Machine*.
 
 ![A Lean module as a tower in the city of code](media/tower.png)
+
+- **[T]-Theory: Open a Paper or Book…** lists the programme's papers, datasets
+  and books and opens the one you pick at its DOI.
+- **USC's findings** appear in Problems too (`bld/sherlock/usc.txt`): tags that
+  break the grammar, tags not yet triaged, and the method's open assumptions at
+  their lines in the Lean. **USC: Check** refreshes them in seconds, without Lean.
+- **USC: Tag the Selection…** marks lines as an idea, a loose end, a decision or
+  a question where they were said; **USC: Open the Ideas List** shows what the
+  programme's conversations leave open.
+- Affidavits (`.aff`) open as their own language, and `{{usc:...}}` tags are
+  highlighted in Markdown.
+
+## Neovim
+
+The same commands are in Neovim: `usc.nvim`, in the repository at `apps/nvim`
+(`:help usc`). A Vim user who prefers VS Code can add the vscode-neovim
+extension; this extension works beside it.
 
 ## What it needs
 
@@ -48,6 +68,8 @@ hour or more. It does not install Lean.
 - `sherlock.checkCommand`: what **Sherlock: Check** runs (default `python sherlock/ledger.py report`).
 - `sherlock.setupCommand`: what **Sherlock: Set up** runs (default `make sherlock-setup`).
 - `sherlock.codeLens`: show the *View in Soma Machine* lens (default on).
+- `usc.findingsFile`, `usc.checkCommand`, `usc.ideasFile`: where USC's findings
+  are, what **USC: Check** runs, and where the ideas list is.
 
 ## Note
 
