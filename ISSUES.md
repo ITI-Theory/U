@@ -7418,7 +7418,7 @@ cites the prompts it comes from, so Sherlock can write its affidavit against the
       (27 Nov) Started: Origins (13 April to 29 May: OpenCyc in Lean, the turning point of 6 May, Sheer Luck, the
       first README, "put them together as a book?") and November (the checker becomes a compiler). Summer
       (the cast, the builds, the bold numbers, thoughts as code) and Autumn (the release, the bridge, the music)
-      written the same evening: every period has its story, 45 citations, all checked. The citation is a span, `[text]{.chat ref="STAMP" p="N-M"}`, rendered by chronicle.lua
+      written the same evening: every period has its story, 41 citations, all checked. The citation is a span, `[text]{.chat ref="STAMP" p="N-M"}`, rendered by chronicle.lua
       and checked by `usc.py check` (the chat must exist, the prompts must be in it; a negative test passes):
       the first tag the books defined for USC (the circle, ISS-126).
 - [ ] Triage feeds it: 216 of the 285 threads are not yet triaged; each routed thread changes its line.
