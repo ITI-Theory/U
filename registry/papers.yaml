@@ -67,7 +67,7 @@ canonical_papers:
     level: "masters"
     doi: "10.5281/zenodo.20287981"
     status: needs-new-version
-    notes: "Hardened proof status, simulation language, and claim scope on 2026-10-01; upload new version."
+    notes: "Hardened proof status, simulation language, and claim scope on 2026-10-01; 2026-11-27: 'The Protocol as Code' added (the protocol as Lean rows, the Einstein backtest, the failure ledger; ISS-131); upload new version."
     file: papers/mathematical-co-identification.pdf
     make_class: citeproc
     make_langs: multi
@@ -415,7 +415,7 @@ canonical_papers:
     level: "masters"
     doi: null
     status: pending-review
-    notes: "Sherlock (v2, 11 Oct 2026): a neuro-symbolic compiler for natural language (a natural language compiler, NLC); affidavits for 23 programme papers checked in Lean 4 against themselves, each other, the programme's Lean and OpenCyc; structure mapping; OpenCyc collections as Lean types. Lean in U sherlock/."
+    notes: "Sherlock (v2, 11 Oct 2026): a neuro-symbolic compiler for natural language (a natural language compiler, NLC); affidavits for 23 programme papers checked in Lean 4 against themselves, each other, the programme's Lean and OpenCyc; structure mapping; OpenCyc collections as Lean types. Lean in U sherlock/. 2026-11-27: 'A second run' added (USC on the working record: chats, issues, app, equations, the method, the Einstein backtest; ISS-131)."
     file: papers/sherlock-compiler.pdf
     zenodo_file: zenodo/SH1-sherlock-compiler.pdf
     make_class: citeproc
