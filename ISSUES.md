@@ -6852,7 +6852,13 @@ directly or through a core; 26 Nov, USC as Sherlock and MTC, the `{{usc:...}}` t
 - [ ] The chats outside the Inbox (Me/chats/notebooks, Me/archive/sessions).
 - [ ] Join the chat models to the paper models (MTC; a core T-Theory model the documents project
       from, 23 Nov).
-- [ ] The Einstein backtest (26 Nov): his work to June 1905 in, does the system find November 1905
-      and the gap Planck found.
+- [x] (27 Nov) The Einstein backtest (26 Nov): `sherlock/backtests/Einstein1905.lean` (`make -C sherlock
+      backtests`): the kinetic drop exact; the gap Planck found as a counter-model; with the missing lemma
+      explicit, E = mc² as the limit (Newtonian) and exactly (the June paper's relativistic kinetic
+      energy). The language-model half (a NotebookLM notebook with the June paper only) found Δm = L/c²
+      and named Planck's lemma as the unstated assumption; it knew the history (contaminated).
+      Me/notebooklm/Einstein-1905/README.md.
+- [ ] Physics fishing à la Einstein on [T]-Theory: the cheatsheet's premises (USF first), the same
+      discipline (derive, list every unstated assumption, exact or approximate; the Lean decides).
 - [ ] The `{{usc:...}}` tags (26 Nov: the EBNF) and their Lua filter.
 - [x] (27 Nov) USF, USM and USC in the naming standard (T.Ops `docs/standards/naming.md`).
