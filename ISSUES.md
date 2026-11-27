@@ -7602,8 +7602,8 @@ then one paper and the app.
       lives, where to start reading and checking; "Working on this repo" unchanged below it.
 - [x] (27 Nov) Local strays removed (untracked, never on GitHub): books/T-Theory/NUL (a Windows device name that
       broke searches), an empty `-p` from a failed `mkdir -p`, a `__pycache__`.
-- [ ] The root's leftovers: `a.md` and `opening_page.pdf` (RC1.1's noir page, referenced by nothing) and
-      `docker-compose.yml.OBSOLETE` (AUTHOR: remove, rename, or move out of the root).
+- [x] (27 Nov, author: "remove") The root's leftovers removed: `a.md` and `opening_page.pdf` (RC1.1's noir page,
+      referenced by nothing) and `docker-compose.yml.OBSOLETE`; git keeps their history.
 - [ ] `bin/release-check`: every section PASS.
 - [ ] `make help`: read as a stranger would (one screen, grouped, every target described).
 - [ ] The org page (.github) and t-theory.org say the same three products as the README.
