@@ -7053,6 +7053,10 @@ directly or through a core; 26 Nov, USC as Sherlock and MTC, the `{{usc:...}}` t
       list"): `python sherlock/chats.py ideas` writes Me/chats/ideas.md, every untriaged thread by
       product (325: USC 110, USM 92, USF 59, Ops 64; personal threads counted, not listed).
 - [x] (27 Nov) USF, USM and USC in the naming standard (T.Ops `docs/standards/naming.md`).
+- [ ] (27 Nov evening, queued from the chats) A readable Lean model of how USC itself works, and of what any
+      document describes, e.g. a therapist's Gestalt against CBT (20261120_140700 readable-model); generated
+      Lean models in which a new equation is a witness that infers new facts, with no database
+      (20261126_140957 lean-inference; the fishing's `bait` is the first instance).
 
 ## ISS-127: USM as a model: what the Soma Machine shows, and its options from 4D up — OPEN
 {{Tags area.app, area.sherlock, area.visualize, project.soma-field-operator}}
@@ -7114,6 +7118,14 @@ the body's vessels by the Televator); 26 Nov (the visual audit: USC on the app's
       directions and angles). The chat's prototype and instructions for Claude are prompts 8-9.
 - [x] (27 Nov) The chats' threads queued here (`chats.py route`): 20261121_220226 body-voyage and
       shrink-by-zoom, 20261126_140957 visual-audit.
+- [ ] (27 Nov evening) The USM ideas the chats left unrouted, queued here so none is lost (Me/chats/ideas.md):
+      the HUD (20261121_220226 hud: SpaceEngine's, a bottom bar, movable panels; and 20261120_172621
+      sherlock-glasses: the glasses display of His Last Vow); a somatic rhythm curve per scale with a live
+      trace (rhythm-per-scale); flying over the levels abstractly, not as a flight simulator (flying-abstract);
+      the heartbeat as a constant poke at the human scale, heat maps, the Gestalt body scan, cymatics
+      (heartbeat-poke); the dimensions as a view: 4D, the 3D EMF, the limbic 1D, the mind's 3D as a sideways
+      shift at every level (20261126_140957 dimensions); USC in the Engine Room: a SheerLuck view, a REPL,
+      axState (20261120_140700 usc-in-sm). Each becomes an option in the USM model first (`make -C sherlock usm`).
 
 ## ISS-128: Equations: every Pandoc equation matched to its Lean — OPEN
 {{Tags area.sherlock, area.proofs, area.papers}}
@@ -7247,3 +7259,5 @@ ISS-130) is written up where each part belongs, with its numbers taken from the 
 - [ ] (AUTHOR, on the desk ISS-081) Read the three sections; P3's next version to Zenodo when you are happy.
 - [ ] A template that reads a build's output (the record's sizes in SH1 K15 are sourced values for now), so a
       count in prose is checked against `make` instead of against itself.
+- [ ] (queued from 20261121_171224 document-triad) Document all three layers, not only USC: USF (the theory's
+      own guide), USM (how to use the app and what it shows), USC (docs/SHERLOCK.md, done).
