@@ -465,6 +465,53 @@ def ideas() -> int:
     return 0
 
 
+def tag_routed() -> int:
+    """Tag the originals from the model: every routed thread gets a {{usc:...}} span around its first prompt,
+    with its disposition and ref (ISS-126: "tag the originals, we have git"). Idempotent; a file whose prompts
+    would change is left as it was."""
+    import yaml
+    MARK = re.compile(r"^\s*(?:#+ )?\*\*Your prompt:\*\*|^## (?:User|Author)\b")
+    NEXT = re.compile(r"^\s*(?:#+ )?\*\*(?:Your prompt|Search's response):\*\*|^## ")
+    done = skipped = 0
+    for a in sorted(AFF.glob("*.aff")):
+        aff = yaml.safe_load(a.read_text(encoding="utf-8")) or {}
+        routed = [th for th in aff.get("threads") or [] if th.get("disposition", "untriaged") != "untriaged" and th.get("prompts")]
+        f = INBOX / (a.stem + ".md")
+        if not routed or not f.exists():
+            continue
+        text = f.read_text(encoding="utf-8")
+        before = [(q["index"], q["text"]) for q in parse(f)["prompts"]]
+        lines = text.split("\n")
+        prompts = {q["index"]: q["line"] for q in parse(f)["prompts"]}
+        inserts = []
+        for th in routed:
+            tid = f"THREAD-{a.stem[:15]}-{th['id']}"
+            if f'id="{tid}"' in text or th["prompts"][0] not in prompts:
+                continue
+            ln = prompts[th["prompts"][0]] - 1
+            start = next((j for j in range(ln, -1, -1) if MARK.match(lines[j])), ln)
+            end = next((j for j in range(ln + 1, len(lines)) if NEXT.match(lines[j])), len(lines))
+            attrs = f'id="{tid}" status="IDEA" disp="{th["disposition"]}"'
+            if th.get("ref"):
+                attrs += f' ref="{str(th["ref"]).replace(chr(34), chr(39))}"'
+            attrs += f' note="{str(th.get("topic", "")).replace(chr(34), chr(39))[:120]}"'
+            inserts += [(start, "{{usc:begin " + attrs + "}}"), (end, f'{{{{usc:end id="{tid}"}}}}')]
+        if not inserts:
+            continue
+        new = list(lines)
+        for pos, tag in sorted(inserts, key=lambda x: x[0], reverse=True):
+            new.insert(pos, tag)
+        f.write_text("\n".join(new), encoding="utf-8", newline="\n")
+        if [(q["index"], q["text"]) for q in parse(f)["prompts"]] != before:
+            f.write_text(text, encoding="utf-8", newline="\n")
+            skipped += 1
+            print(f"  !! {f.name}: the prompts would change; left as it was")
+            continue
+        done += len(inserts) // 2
+    print(f"tag: {done} routed threads tagged in the originals; {skipped} files left as they were")
+    return 1 if skipped else 0
+
+
 def chat_files(given: list[str]) -> list[Path]:
     return [Path(f).resolve() for f in given] if given else sorted(INBOX.glob("*.md"))
 
@@ -472,7 +519,7 @@ def chat_files(given: list[str]) -> list[Path]:
 def main() -> int:
     sys.stdout.reconfigure(encoding="utf-8")
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
-    ap.add_argument("command", choices=["parse", "lean", "todo", "route", "triage", "issues", "ideas"])
+    ap.add_argument("command", choices=["parse", "lean", "todo", "route", "triage", "issues", "ideas", "tag"])
     ap.add_argument("files", nargs="*")
     a = ap.parse_args()
     if a.command == "triage":
@@ -481,6 +528,8 @@ def main() -> int:
         return issues_lean()
     if a.command == "ideas":
         return ideas()
+    if a.command == "tag":
+        return tag_routed()
     if a.command == "route":
         if len(a.files) not in (3, 4):
             print("usage: chats.py route STAMP THREAD DISPOSITION [REF]")

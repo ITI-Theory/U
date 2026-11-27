@@ -27,21 +27,26 @@ TAG = re.compile(r'\{\{\s*usc:(\w+)((?:\s+\w+\s*=\s*"[^"]*")*)\s*\}\}')
 ATTR = re.compile(r'(\w+)\s*=\s*"([^"]*)"')
 ALLOWED = [U / "ISSUES.md", ME / "chats"]
 OWN_LINE = re.compile(r'^[ \t*>-]*(\{\{\s*usc:\w+(?:\s+\w+\s*=\s*"[^"]*")*\s*\}\})[^\n]*$', re.M)
-# Example lines quoted in chats (the grammar's own examples, 26 Nov): mentions, not tags.
-MENTIONS = {"20261126_140957_aimode_nextkb_dataset_also_supports_sketching_via_another_app_does.md": [(1400, 2000)]}
+# Examples quoted in chats (the grammar's own, 26 Nov), by their ids: mentions, not tags. By id, not by line,
+# since tags added later move the lines.
+MENTIONS = {"20261126_140957_aimode_nextkb_dataset_also_supports_sketching_via_another_app_does.md":
+            {"P14-OS3", "P14-BR1", "N10", "N10-A", "N10-B", "N11"}}
 
 
 def scan(path: Path) -> list[dict]:
     text = path.read_text(encoding="utf-8", errors="replace")
-    skip = MENTIONS.get(path.name, [])
+    skip = MENTIONS.get(path.name, set())
     tags = []
     for line_no, line in enumerate(text.split("\n"), 1):
-        if any(a <= line_no <= b for a, b in skip) or "usc:" not in line:
+        if "usc:" not in line:
             continue
         own = OWN_LINE.match(line)
         if own:
             for m in TAG.finditer(own[0]):
-                tags.append({"file": path, "line": line_no, "kind": m[1], "attrs": dict(ATTR.findall(m[2]))})
+                attrs = dict(ATTR.findall(m[2]))
+                if attrs.get("id") in skip or attrs.get("ref") in skip:
+                    continue
+                tags.append({"file": path, "line": line_no, "kind": m[1], "attrs": attrs})
         elif re.match(r"^[ \t*>-]*\{\{\s*usc:", line):
             tags.append({"file": path, "line": line_no, "kind": "?", "attrs": {}, "stray": 1})
     return tags

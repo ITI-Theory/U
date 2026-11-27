@@ -6857,8 +6857,10 @@ directly or through a core; 26 Nov, USC as Sherlock and MTC, the `{{usc:...}}` t
 - [x] (27 Nov) Joined directly (the 23 Nov design's first way, a union): the linker `sherlock/links.py`
       and `LinkQueries.lean` (`make -C sherlock links`): papers, issues, chats and the method's rows in one
       graph, with only the edges the sources state (an issue naming a paper, issue or chat; a routed thread;
-      a tag; a row's citations); every edge lands (guard). 27 Nov: 519 nodes, 456 edges; P5 and P19 are
-      linked by nothing (though P19 is the app's second most cited source); 10 chats reach an issue.
+      a tag; a row's citations); every edge lands (guard). 27 Nov: 519 nodes, 456 edges; two papers are
+      linked by nothing, The Physical Substrate of the Soma-Field and the swarm propagator paper (though the
+      latter is the app's second most cited source; named here by title, so this note does not link them);
+      10 chats reach an issue.
 - [ ] Join the chat models to the paper models (MTC; a core T-Theory model the documents project
       from, 23 Nov).
 - [x] (27 Nov) The Einstein backtest (26 Nov): `sherlock/backtests/Einstein1905.lean` (`make -C sherlock
