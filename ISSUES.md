@@ -6843,8 +6843,12 @@ directly or through a core; 26 Nov, USC as Sherlock and MTC, the `{{usc:...}}` t
       threads.
 - [ ] AUTHOR: route the threads of the chats that fail the triage (implemented, queued, parked,
       discarded).
-- [ ] The older chats: every export format, their affidavits; the acceptance test extended (putting
-      the models together, 5 and 12 Jun).
+- [x] (27 Nov) Iteration 2: every export format parsed (Copilot, USER:/MODEL:, old non-UTF-8 dumps;
+      long chats in chunks); every chat in Me/chats/Inbox read (349 affidavits); the acceptance test
+      extended to the history (putting the models together from 5 Jun; the tags' line of descent,
+      13 May, 7 and 11 Aug, 26 Nov; Sherlock's origin in the June brainstorms). 115 chats fail the
+      triage, 25 threads open. `python sherlock/chats.py route` routes a thread.
+- [ ] The chats outside the Inbox (Me/chats/notebooks, Me/archive/sessions).
 - [ ] Join the chat models to the paper models (MTC; a core T-Theory model the documents project
       from, 23 Nov).
 - [ ] The Einstein backtest (26 Nov): his work to June 1905 in, does the system find November 1905
