@@ -1,0 +1,25 @@
+# Sherlock affidavit: [T]-Theory: A Course, Fields, Waves and Scale (ISS-139).
+id: ttheory-course-ch01
+document: COURSE
+title: '[T]-Theory: A Course, Fields, Waves and Scale'
+source:
+  file: Part2/book/field-atlas-textbook/chapters/01-fields-waves-scale.md
+  commit: 9d88bd6
+  sha256: 5ce5ea872c830d01d7de97ac564b09a3a29dc560733f299b44d70142834f47af
+lean: []
+microtheories: {}
+claims:
+  - id: F1
+    quote: 'The Field Atlas registers thirty-one levels, from quantum foam at about $10^{-35}\,\mathrm{m}$ to the cosmic web at about $10^{26}\,\mathrm{m}$. That span is 61 orders of'
+    lines: [103]
+    kind: internal-arithmetic
+    finding: >-
+      The course (ISS-139): 26 - (-35) = 61 orders of magnitude; the Atlas's 31 levels (not the papers' 20 or 21 scale levels of
+      the USF: two different ladders, ISS-130)
+    verdict: consistent
+    label: kernel-verified
+    lean: null
+    check: [{template: diff, args: [26, -35, 61]}]
+    values:
+      - {quantity: Atlas-Levels, value: 31}
+    disposition: none

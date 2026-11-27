@@ -1,0 +1,23 @@
+# Sherlock affidavit: [T]-Theory: A Course, Zooming (ISS-139).
+id: ttheory-course-ch04
+document: COURSE
+title: '[T]-Theory: A Course, Zooming'
+source:
+  file: Part2/book/field-atlas-textbook/chapters/04-zooming.md
+  commit: 9d88bd6
+  sha256: f98f7b99e334428d0fb35e8108891193791c8281c68b343e160dff992b5712b1
+lean: []
+microtheories: {}
+claims:
+  - id: Z1
+    quote: 'The Field Atlas walks through thirty-one levels, from the atom to the cosmic web,'
+    lines: [5]
+    kind: cross-paper
+    finding: >-
+      The course (ISS-139): the Atlas's 31 levels, as chapter 1
+    verdict: not-provable
+    label: sourced
+    lean: null
+    values:
+      - {quantity: Atlas-Levels, value: 31}
+    disposition: none

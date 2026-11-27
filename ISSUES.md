@@ -7283,6 +7283,9 @@ and their verdicts change: that is the witness.
       (ch. 14) says "about one standard deviation", dividing the gap 0.0082 by the matter fraction's uncertainty 0.0073
       (1.1); P3's new section and the method's row (COID-COSMO-1) say 1.4, with the dark-matter fraction's own. Both
       read "consistent with chance"; one number, with its uncertainty named, in both (`Cosmo-DarkMatter-Sigma`).
+- [ ] (27 Nov) Two ladders a reader will confuse: the Field Atlas's thirty-one levels (the course, ch. 1 and 4) and the
+      USF's scale levels, twenty or twenty-one (the papers). Each document that names one should say which ladder,
+      and how the two map (the 20 named positions inside the Atlas's 31?).
 
 ## ISS-131: Writing up USC: what it did, how it works, how to use it — IN-PROGRESS
 {{Tags area.sherlock, area.papers, area.books}}
@@ -7729,6 +7732,8 @@ registry 1 of 1. Outside U, not yet: the org page and Dist's README.
       affidavits re-frozen, the values agree.
 - [x] (27 Nov) The course's cosmology under Sherlock (ch. 12 and 14) and P3's 1.4 sigma as a claim: the values check
       finds the dark-matter distance quoted 1.1 (the course) and 1.4 (P3) (ISS-130). 62 affidavits, 465 checks.
+- [x] (27 Nov) The course's chapters 1, 4 and 13 too (the Atlas's 31 levels; 61 orders of magnitude; 4+3+1+3=11, as
+      Gateway): 65 affidavits, 467 checks; the values agree.
 
 ## ISS-140: Releases: an id in every artefact, a manifest, the models as a library, what's new — OPEN
 {{Tags area.release, area.sherlock}}
