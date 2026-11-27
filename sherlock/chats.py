@@ -17,6 +17,11 @@ chats are queried in Lean (Chat/Query.lean) instead of grepped.
     python sherlock/chats.py route STAMP THREAD DISPOSITION [REF]   # the author's triage of a thread
         (STAMP: the chat's time stamp, e.g. 20261126_140957; DISPOSITION: implemented REF (a path or
         commit), queued REF (ISS-NNN), parked, discarded REF (the reason), untriaged)
+    python sherlock/chats.py issues             # U's ISSUES.md as Lean (bld/sherlock/lean/Issues.lean)
+    python sherlock/chats.py ideas [--grep WORD] [--by kind|product|date]
+                                                # what the chats leave behind, by kind -> Me/chats/ideas.md;
+                                                # with --grep or --by, searched and printed instead
+    python sherlock/chats.py tag                # a {{usc:...}} tag in the original for every routed thread
 
 FILE defaults to every chat in Me/chats/Inbox. The chats are private: the generated modules are
 built in bld/ (ignored) and never committed.

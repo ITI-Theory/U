@@ -408,6 +408,11 @@ def frontier() -> None:
     close("P15.5 half width", 1.96 * se2, 0.045, 0.0005)
     close("P15.5 lower", p_ - 1.96 * se2, 0.835, 0.001)
     close("P15.5 upper", p_ + 1.96 * se2, 0.925, 0.001)
+    for b, gm1, ratio, tol in ((0.5, 0.1547, 1.238, 5e-4), (0.1, 0.005038, 1.0076, 5e-5), (0.01, None, 1.000075, 5e-7)):
+        g1 = 1 / math.sqrt(1 - b * b) - 1
+        if gm1 is not None:
+            relclose(f"P15.6 gamma-1 at {b}", g1, gm1, 5e-4)
+        close(f"P15.6 ratio at {b}", 2 * g1 / b ** 2, ratio, tol)
 
 
 def captions() -> None:

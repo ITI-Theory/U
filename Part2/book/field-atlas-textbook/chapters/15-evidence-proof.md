@@ -2,9 +2,9 @@
 
 {{Visualize | ch:evidence-proof | energy-landscape:soma | U="(x^2 - 1)^2 - 0.3*x + 0.04*sin(14*x)"; x=[-1.6,1.6]; ball=-0.96; aspect=3; opener=true }} A rugged landscape with a state caught in a shallow valley: the problem QUANT-EXP-1 simulates, and a picture that is a model, not a measurement.
 
-Every chapter of this course has labelled its claims: `kernel-verified`, `derived-under-assumptions`, `simulated`, `empirical-result`, `interpretive`, `open-hypothesis`. This last chapter is about the labels themselves. It explains what each kind of evidence checks and what it cannot check, shows a computer proof and what it proves, and works through the programme's quantum experiment as a laboratory exercise in reading a simulation: how much three successes in three runs really show. It ends with the review protocol that any new claim, from the programme or anyone else, should pass.
+Every chapter of this course has labelled its claims: `kernel-verified`, `derived-under-assumptions`, `simulated`, `empirical-result`, `interpretive`, `open-hypothesis`. This last chapter is about the labels themselves. It explains what each kind of evidence checks and what it cannot check, shows a computer proof and what it proves, runs Einstein's 1905 argument through a proof checker, and works through the programme's quantum experiment as a laboratory exercise in reading a simulation: how much three successes in three runs really show. It ends with the review protocol that any new claim, from the programme or anyone else, should pass.
 
-**Chapter outline.** [-@sec:ev-relations] Four kinds of relation · [-@sec:ev-proof] What a proof checks · [-@sec:ev-simulation] What a simulation shows · [-@sec:ev-lab] Laboratory: QUANT-EXP-1 · [-@sec:ev-review] Review and replication
+**Chapter outline.** [-@sec:ev-relations] Four kinds of relation · [-@sec:ev-proof] What a proof checks · [-@sec:ev-backtest] Backtest: Einstein, 1905 · [-@sec:ev-simulation] What a simulation shows · [-@sec:ev-lab] Laboratory: QUANT-EXP-1 · [-@sec:ev-review] Review and replication
 
 ::: {.maths-you-need}
 Probability, the normal curve and the square-root law (@sec:m-chance-averages, @sec:m-chance-normal); the Boltzmann factor and escape over barriers (@sec:m-chance-boltzmann); energy landscapes (@sec:m-vec-stability).
@@ -78,6 +78,38 @@ One of the programme's synthesis papers says that "the current repository still 
 **Solution.** Removing block comments (`/- … -/`) and line comments (`-- …`) from the programme's Lean files and counting what remains gives $2 + 2 + 1 = 5$: two in `BRECVEMAVariational.lean`, two in `DyadicField.lean`, one in `SomaNetwork.lean`. That was the count in early October 2026; all five have since been closed, so the count today is 0. Either way the sentence's seven was wrong; counting comments as well gives a larger number still, which is probably how such slips arise.
 
 **Significance.** Prose about proofs drifts from the proofs as both change. The programme's checker, Sherlock, does this check for every paper: it extracts each Lean name a paper cites and what the paper says about it ("axiom", "kernel-checked", "sorry"), asks Lean, and lists every disagreement (@sec:ev-review).
+:::
+
+## Backtest: Einstein, 1905 {#sec:ev-backtest}
+
+::: {.learning-objectives}
+- run a famous argument through a proof checker and read what it finds;
+- locate an unstated assumption by building a counter-model;
+- write an import as a registered row with assumptions, tests and a negative control.
+:::
+
+A method that claims to find structure should first be tried on a case whose answer is known. Such a trial is a **backtest**: the method is given only what was known at the time, and its output is compared with what history found. The programme's checker was backtested this way on Einstein's short paper of November 1905, the one that ends with $E = mc^2$, before it was pointed at the programme's own claims. A language model has read about $E = mc^2$ many times, so the part of the test that counts is the formal one: Lean knows nothing about 1905.
+
+Einstein's argument is short. A body at rest emits two equal pulses of light, total energy $L$, in opposite directions. Energy is conserved in the rest frame, so the body's energy drops by $L$. In a frame moving at speed $v$ the same pulses carry $L\gamma$, with $\gamma = 1/\sqrt{1 - v^2/c^2}$, so the body's energy there drops by $L\gamma$. The difference between the two energies is the body's kinetic energy, and it drops by
+
+$$K_0 - K_1 = L(\gamma - 1) \approx \frac{L}{c^2}\,\frac{v^2}{2}.$$
+
+The right-hand side looks like the kinetic energy of a mass $L/c^2$. Einstein concluded that the body has lost that much mass.
+
+::: {.example #ex:ev-backtest title="What the checker found in Einstein's argument" show="tour=whats-different"}
+Give Lean the two conservation laws as premises and ask it to prove that the mass drops by $L/c^2$.
+
+**Strategy.** Prove what follows; when a step will not go through, look for a counter-model: numbers that satisfy every premise and break the conclusion.
+
+**Solution.** The drop in kinetic energy, $L(\gamma - 1)$, follows exactly from the premises (`kinetic_drop`). The mass does not: the premises never mention mass, so a body whose mass stays the same satisfies them all (`gap`). The missing step is an assumption Einstein used without stating it: that the body's kinetic energy is $\tfrac12 m v^2$ up to a constant that the emission does not change. Max Planck pointed this out in 1907. With the assumption written in, Lean proves $\Delta m = 2L(\gamma - 1)/v^2$ at speed $v$, and that this tends to $L/c^2$ as $v \to 0$ (`einstein_1905`). With the relativistic kinetic energy $mc^2(\gamma - 1)$ instead, $\Delta m = L/c^2$ holds exactly (`mass_drop_exact`). `#print axioms` lists only Lean's standard axioms for all four.
+
+**Significance.** The backtest found what history found: the result, and the hole in its first proof that took two years to name. A formal check is useful less for confirming a famous answer than for showing exactly which assumption carries it.
+:::
+
+The backtest is also a worked example of the registration protocol that @sec:ev-review asks of any new claim. Written as a row, Einstein's step is an import: the coefficient of $v^2/2$ in the radiating body's kinetic energy is identified with Newton's mass. The row lists its three assumptions, each with a witness (two cited, the hidden one a Lean theorem); its prediction, that a body emitting energy $L$ loses mass $L/c^2$; the result that would refute it, a measured mass defect differing from $\Delta E/c^2$; and its negative control, the premises without Planck's assumption, which say nothing about mass. History then ran the tests: Cockcroft and Walton's lithium experiment in 1932, and a direct comparison in 2005 that agreed to four parts in ten million. The checker accepts the row as validated only because every assumption has a witness and the tests passed; with the hidden assumption left open, the same tests could not lift it above a structural claim.
+
+::: {.check-your-learning}
+Why is "the premises do not mention mass" a proof that the conclusion does not follow, and not merely a doubt? (Answer: because a counter-model exists. An unchanged mass satisfies every premise and breaks the conclusion, so no valid proof from those premises alone can reach it.)
 :::
 
 ## What a simulation shows {#sec:ev-simulation}
@@ -201,6 +233,12 @@ The Soma Machine shows every level with its evidence badges. **Try it:** `#tour=
 axiom
 : a statement assumed, not proved; a proof is only as good as its axioms
 
+backtest
+: trying a method on a case whose answer is already known, with only what was known at the time
+
+counter-model
+: values that satisfy every premise and break the conclusion; it shows the conclusion does not follow
+
 difference class
 : what a new claim adds: a number, a behaviour, a cross-scale link, a reinterpretation, or the standard limit
 
@@ -249,6 +287,8 @@ Response grammar
 
 **[-@sec:ev-proof]** A proof assistant checks that statements follow from definitions, not that definitions fit the world; `sorry` and extra axioms are gaps.
 
+**[-@sec:ev-backtest]** Backtested on Einstein's 1905 argument, a proof checker finds the result and the assumption its first proof left unstated (Planck, 1907); a counter-model shows the gap.
+
 **[-@sec:ev-simulation]** Simulations need code, seeds, sweeps and controls. Three of three bounds a rate above $0.47$; zero of forty-eight bounds it below $6\,\%$.
 
 **[-@sec:ev-lab]** QUANT-EXP-1 is a `simulated` result about a model; its biological reading is an `open-hypothesis` and it makes no clinical claim.
@@ -261,10 +301,11 @@ Response grammar
 ::: {.review-questions}
 1. Why can a neat analogy not be promoted to a derivation by drawing it well?
 2. What does Lean check, and what must a human reader still audit?
-3. Why do three successes in three runs say less than they seem to?
-4. Explain, using the Boltzmann factor, why the cold classical runs never crossed the ridge.
-5. Design one more negative control for QUANT-EXP-1.
-6. Which difference class is hardest to establish, and why?
+3. What did the backtest of Einstein's 1905 argument find that a reader of the paper might miss?
+4. Why do three successes in three runs say less than they seem to?
+5. Explain, using the Boltzmann factor, why the cold classical runs never crossed the ridge.
+6. Design one more negative control for QUANT-EXP-1.
+7. Which difference class is hardest to establish, and why?
 :::
 
 ## Worked Homework {.unnumbered}
@@ -327,4 +368,16 @@ In a planned bootstrap of $200$ trajectories, the quantum method succeeds $176$ 
 **Solution.** $p = 0.88$, standard error $0.023$, interval $0.88 \pm 0.045$, that is $0.835$ to $0.925$. A rate of $0.80$ lies outside it.
 
 **Significance.** With two hundred runs, a difference of eight percentage points becomes detectable. Comparing the quantum rate with the classical rate at the noise-equivalent temperature is exactly the planned noise-equivalence test.
+:::
+
+::: {.problems #pr:ev-mass-drop title="How fast is the limit?"}
+With Planck's assumption, the backtest gives $\Delta m = 2L(\gamma - 1)/v^2$ at speed $v$. Express $\Delta m$ as a multiple of $L/c^2$ at $v = 0.5c$, $0.1c$ and $0.01c$.
+:::
+
+::: {.solution}
+**Strategy.** Write $\beta = v/c$; then $\Delta m = (L/c^2)\cdot 2(\gamma - 1)/\beta^2$ with $\gamma = 1/\sqrt{1 - \beta^2}$.
+
+**Solution.** At $\beta = 0.5$: $\gamma - 1 = 0.1547$, ratio $1.238$. At $\beta = 0.1$: $\gamma - 1 = 0.005038$, ratio $1.0076$. At $\beta = 0.01$: ratio $1.000075$.
+
+**Significance.** The Newtonian assumption is exact only in the limit, which is why the 1905 argument gives $E = mc^2$ as a limit; with the relativistic kinetic energy the ratio is $1$ at every speed.
 :::

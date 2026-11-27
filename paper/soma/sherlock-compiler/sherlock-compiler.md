@@ -35,7 +35,11 @@ abstract: |
   labels: kernel-verified arithmetic, derivations under OpenCyc's consensus
   (which is not mathematics), and interpretation. The text so far has been
   scientific papers, an advertisement and handwritten notes; natural language
-  in general is the claim to be tested.
+  in general is the claim to be tested. A second run, six weeks later, takes
+  that test further: Sherlock is pointed at the programme's working record
+  (349 chats, 131 issues, the app's screens and every equation in the documents),
+  at the method the programme says it uses, and at Einstein's 1905 derivation of
+  E = mc² as a calibration with a known answer.
 ---
 
 # Introduction
@@ -678,6 +682,114 @@ checks read ("0 extra axioms", a G₂ obligation "closed" by a flat product, a s
 advantage"); a one-off scan of the programme's G₂ wording, one of Moriarty's stress tests,
 found them.
 
+# A second run: the programme's working record
+
+The snapshot above reads finished documents. A research programme is mostly
+not finished documents. It is conversations in which ideas are proposed and
+dropped, an issue list in which work is promised, an app that shows the theory,
+and equations written many times in many places. On 26 and 27 November 2026
+Sherlock was pointed at all of these. In the programme it now runs as one
+instance of a wider compiler, the Universal Semantic Compiler (USC): the same
+back end (claims, models and queries in Lean) with a front end for each kind of
+text. The numbers below come from the build targets that regenerate them
+(`make -C sherlock chats links fishing equations usm`) at the commit that adds
+this section.
+
+**The chats.** The author's conversations with language models, 349 exported
+chats with 6,507 prompts, are compiled into Lean, one module per chat. A
+language model writes an affidavit for each chat, as it does for a paper. Here
+the affidavit lists threads, not claims: what was raised, at which prompts, and
+whether it was pursued, deferred or dropped. Each thread then needs a
+disposition (implemented, queued to an issue, parked or discarded with a
+reason), and the model's queries list every thread that has none. The issue
+list (131 issues, 820 checkboxes) is compiled the same way, and a linker joins
+the two with the papers and the code (523 nodes, 532 edges). A thread routed to
+an issue that does not exist fails the build.
+
+**Tags where things were said.** A loose end in a conversation is easy to lose
+because it is not where the work is tracked. A small tag language
+(`{{usc:begin id="…" status="LOOSE_END" …}}`, with a grammar in EBNF) marks a
+loose end, an idea, a decision or a question at the line where it occurs, in
+the chat itself. The tags are compiled into the same model, and an untriaged
+tag is listed until it is routed. The test case was concrete. A conversation of
+20 November had suggested a technical book on Sherlock for one of three named
+publishers. No thread's summary mentioned it, so the model could not find it
+and a search of the model returned nothing. A text search found it, and it is
+now a tagged decision (parked) at the line where it was offered. A model is
+only as complete as its front end's summaries. The tags are how the gaps it
+cannot see are written back into the source.
+
+**The method, executable.** The programme's methodology paper,
+*Mathematical Co-identification*, registers each import of a structure from
+one field into another as a row: assumptions, a prediction, a disconfirmation
+condition and a negative control, with scope labels `S1` to `S3`. These rules
+were written in Lean as a model in which the labels are computed from the
+evidence. A row cannot rise above `S1` while an assumption lacks a checked
+witness, and a failed test falsifies it. Run on the paper's own worked example
+(Black-Scholes to the heat equation), the model finds the one assumption the
+example only assumes.
+
+**A calibration with a known answer.** Before the method was pointed at the
+programme, it was given Einstein's argument of November 1905 for $E = mc^2$. A
+language model has read about $E = mc^2$, so the part of the test that counts
+is the formal one. From the two conservation laws Lean proves the drop
+$L(\gamma - 1)$ in the radiating body's kinetic energy. It then proves, by a
+counter-model, that nothing about mass follows. The missing step is a lemma
+Einstein used without stating: the kinetic energy is Newtonian up to a
+constant, which is Planck's point of 1907. With the lemma written in, Lean
+proves $\Delta m \to L/c^2$ as $v \to 0$, and with the relativistic kinetic
+energy it proves $\Delta m = L/c^2$ exactly. The backtest found what history
+found, including the hole in the first proof.
+
+**Fishing.** The method was then pointed at the programme's own summary sheet,
+one import at a time. Sixteen rows were registered: the backtest, validated;
+two rows on the cosmological budget, falsified against Planck 2018; and
+thirteen exploratory rows that carry 32 open assumptions between them. The
+open assumptions are the bait for the next round. A theorem proved for one
+row closes the same assumption in every row that cites it, and the model
+shows which. Three of the catches change what the programme's documents say.
+
+- The budget $7/11 + 3/11 + 1/22$ sums to $21/22$, so the documents' "95.5 per
+  cent of the total" is a shortfall, not a success.
+- The memory kernel $e^{-kv\tau}$ is the field's Euclidean correlation. It is
+  correct in imaginary time and wrong when read as a memory in real time.
+- The master equation's $k^2$ term reads as a mass in some places and as a
+  wavenumber in others.
+
+An equation census found the same equation in 54 places in 22 documents,
+sorted into 10 classes, each beside the Lean that settles it. It shows, for
+instance, the Green's function written with three different source signs. The
+seventeen corrections that follow are an issue in the programme's tracker,
+each with its places and its Lean witness. They are made in new versions, never
+by editing a published paper.
+
+**The app.** The programme's app, the Soma Machine, shows each level of the
+theory with its evidence label. A model of the app was built from its code,
+then checked against the app as a user sees it: 93 screens were captured in a
+headless browser and read back by optical character recognition. Lean compared
+what each screen should show with what it shows. The page's evidence row was
+right on every screen. The 3D scene was not: at the 4D and 8D settings it
+showed an interpretive label on six biological levels where the rule from the
+code says it should not.
+
+Three lessons from the second run, in the manner of the first.
+
+**A model shows its own blind spots only through a second front end.** The
+technical book was invisible to the chat model and visible to a text search.
+The fix was not a better search but a tag written back into the source, so
+that the next compile sees it.
+
+**Calibrate on a case history has settled.** The Einstein backtest is cheap,
+and it set the standard for everything after it. A catch counts when an
+assumption is named and a counter-model shows it is needed, not when the
+conclusion is reached.
+
+**Checking a programme's method is checking its working record.** The
+programme's papers were consistent with one another in ways its conversations
+and its app were not. Ideas proposed and never routed, a label leaking into one
+view of the app, and an equation written with three signs were all found by
+reading what the programme does, not only what it publishes.
+
 # Conclusion
 
 An affidavit is cheap to write and exact to check. Run over a research
@@ -701,7 +813,11 @@ ledger over every affidavit's document; the reports are in `bld/sherlock/`.
 type spike is `sherlock/Types/Spike.lean`. Exhibit A is
 `TheTensor/Score.lean` (A1 to A5) and `TheTensor/Language.lean` (A6),
 Exhibit B `TheTensor/Containers.lean`, Exhibit C `ClaudeAdvert.lean`,
-Exhibit D `ZSF/`. The River Film score is also exported as W3C EmotionML
+Exhibit D `ZSF/`. The second run is
+`make -C sherlock chats links fishing equations usm` (the chats, issues,
+tags and links; the method's rows; the equation census; the app's model) and
+`make -C sherlock app-audit` (the 93 screens, about 35 minutes); the Einstein
+backtest is `sherlock/backtests/Einstein1905.lean`. The River Film score is also exported as W3C EmotionML
 [@burkhardt2014emotionml] by `make emotionml`.
 
 # References

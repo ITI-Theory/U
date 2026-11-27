@@ -163,3 +163,45 @@ programme's definitions marked as such); OpenCyc's own constants where they exis
 `FieldAxioms.lean` ("X IS Y") should be restated as a map with its typing (the readings check
 already reports each such sentence's literal reading), and whether the concept registry and the
 app's type guard should read the same types.
+
+## USC: the working record (chats, issues, tags, the app, the method)
+
+Sherlock is one instance of the Universal Semantic Compiler (USC; ISS-126 to ISS-131). The same back end
+(Lean models and queries) reads the programme's working record as well as its documents. What it did on
+26-27 Nov is written up in SH1 ("A second run"), P3's next version ("The Protocol as Code") and the course,
+chapter 15 ("Backtest: Einstein, 1905"). Everything below runs from `U/sherlock/`. At most two Lean processes
+run at a time, so run the targets one after another.
+
+| Command | What it builds or does |
+|:--|:--|
+| `make chats` | every chat in `Me/chats/Inbox` with its affidavit (`Me/chats/affidavits/*.aff`), as Lean in `bld/` (private, never committed); runs `tags` and `issues` first |
+| `make issues` | `ISSUES.md` as Lean: issues, boxes, refs |
+| `make tags` | the `{{usc:...}}` tags, checked and compiled; a ref to an issue that does not exist fails |
+| `make links` | papers, issues, chats and the method's rows in one graph; what nothing links to |
+| `make method` / `backtests` | P3's protocol as Lean (`Method/`), and the Einstein backtest (`backtests/Einstein1905.lean`) |
+| `make fishing` | the method's rows on [T]-Theory (`Fishing/`): the ledger and the bait (open assumptions) |
+| `make equations` | every equation in the documents, classed, beside its Lean (`bld/sherlock/equations.md`) |
+| `make usm` / `app-audit` | the app as a model; the app as seen (screenshots, Windows OCR, about 35 minutes) |
+| `python chats.py todo` | the chats with no affidavit yet |
+| `python chats.py route STAMP THREAD DISP [REF]` | route a thread: `implemented REF`, `queued ISS-NNN`, `parked`, `discarded REASON` |
+| `python chats.py triage` | witnesses that do not hold, possible witnesses, loose ends: `Me/chats/triage.md` |
+| `python chats.py ideas` | what the chats leave behind, by kind and product: `Me/chats/ideas.md` |
+| `python chats.py ideas --grep WORD --by kind\|product\|date` | search it; printed, nothing written |
+| `python chats.py tag` | write a tag into the original chat for every routed thread (idempotent) |
+| `python usctags.py check` | the tag checks alone; `strip FILE` prints a file as the builds see it |
+
+**Tagging a line.** Put the tag on its own line, where the thing was said: in a chat (`Me/chats/Inbox`) or in
+`ISSUES.md`, the only places allowed until the builds strip tags (ISS-081):
+
+```text
+{{usc:begin id="LOOSE-20261127-memory-kernel" status="LOOSE_END" disp="queued" ref="ISS-130" note="..."}}
+...the lines it covers...
+{{usc:end id="LOOSE-20261127-memory-kernel"}}
+```
+
+The classes for the working record are `IDEA`, `LOOSE_END`, `DECISION` and `QUESTION` (the grammar is
+`usc_tags.ebnf`). `disp` is one of `implemented`, `queued`, `parked` or `discarded`. `implemented` and `queued`
+need a `ref`. A tag without `disp` is listed as untriaged by `make tags` and in `ideas.md` until it is routed. A
+tag inside a line of prose is a mention and is ignored. Tags survive a re-export of a chat
+(`Me/chats/scripts/usc_keep.py`), and `chats.py parse` blanks tag lines, so prompt numbers do not move.
+

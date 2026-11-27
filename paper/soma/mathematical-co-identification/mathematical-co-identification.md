@@ -34,6 +34,11 @@ abstract: |
   co-identification from mere analogy. A falsifiability protocol is provided
   to pre-register import claims, define disconfirmation criteria, and separate
   exploratory structural matches from publication-grade theorem transfer.
+  The protocol is also given as code: its rows, scope labels and disconfirmation
+  rules are a small model in the Lean 4 proof assistant, checked against this
+  paper's own worked example, backtested on Einstein's 1905 derivation of
+  E = mc², and run over the programme's own imports to give a public ledger of
+  the rows it validates, the rows it falsifies and the assumptions it leaves open.
 
 keywords:
   - mathematical co-identification
@@ -933,6 +938,126 @@ Tracked claim IDs in ledger scope: `COID-PROP-1`, `COID-ENG-2`, `COID-RG-5`,
 Promotion gate: a row may be relabeled `S3` only when a ledger entry reports
 independent-operator `PASS`, explicit bundle hash, and linked derivation/test
 artifacts for that claim ID.
+
+# The Protocol as Code
+
+The registration template, scope labels and disconfirmation rules of the
+previous section depend on the author applying them. Written as code, they
+apply themselves. They have been written as a small model in the Lean 4 proof
+assistant (`sherlock/Method` in the programme's repository; ISS-126).
+
+**The row.** A row is a record with the fields of the Minimal Registration
+Template. Each assumption carries a witness of one of four kinds: a Lean
+theorem, checked by the kernel; a cited source; an assumption the source's own
+derivation makes; or an open note. Only the first two count as checked. The
+labels are functions of the row, not words beside it:
+
+- a row is falsified exactly when a disconfirmation rule has fired;
+- it cannot rise above `S1` while any assumption lacks a checked witness, or
+  before a test has passed;
+- `S3` requires a validated status;
+- a row without a negative control is not registered.
+
+A row that breaks these rules fails the model's well-formedness check. A
+witness that names a Lean theorem that does not exist does not compile.
+
+**The loop.** The loop of the procedure (observation, hypothesis, proof,
+prediction, test) becomes two operations on a row. A test of the prediction
+either passes, which raises an exploratory row to partially validated, and to
+`S2` only if no assumption is open, or fails, which falsifies the row under
+rule 3. A witness found for an assumption changes that assumption and nothing
+else. Two properties are proved in the kernel: a failed test always falsifies,
+and a pass cannot lift a row above `S1` while an assumption is open. The open
+assumptions of all rows together are the next turn's search list: what one
+import leaves open is where the next search looks, and a theorem proved once
+closes the assumption in every row that cites it.
+
+**The acceptance test.** The model's first test is this paper's own worked
+example, `COID-BS-HEAT-1`, entered exactly as registered above. It is well
+formed and at `S1`, with exactly one open assumption: Step C's "sufficient
+regularity for classical solution methods", which the paper marks as assumed
+in the standard derivation. A passing numerical test therefore leaves the row
+at `S1`. Once the regularity has a witness, the same pass lifts it to `S2`.
+Applied mechanically, the protocol finds the one place where the paper's own
+example rests on an assumption it does not check.
+
+**A backtest.** Before the model was pointed at Soma-field claims, it was given
+a case whose outcome history has settled: Einstein's argument of November 1905
+for $E = mc^2$ [@einstein1905inertia]. A body at rest emits light of energy
+$L$. In a frame moving at speed $v$ the light carries $L\gamma$, so energy
+conservation in both frames gives a drop of $L(\gamma - 1) \approx (L/c^2)\,v^2/2$
+in the body's kinetic energy. Lean proves that drop exactly from the two
+conservation laws. It then proves, by a counter-model in which the mass is
+unchanged, that nothing about mass follows from those premises. The step to
+mass needs a lemma Einstein used without stating: that the kinetic energy is
+Newtonian up to a constant, Planck's point of 1907. With that lemma written
+in, Lean proves $\Delta m = 2L(\gamma - 1)/v^2 \to L/c^2$ as $v \to 0$. With the
+relativistic kinetic energy instead, it proves $\Delta m = L/c^2$ exactly.
+
+As a row, `COID-EINSTEIN-1905` identifies the coefficient of $v^2/2$ in the
+radiating body's kinetic energy with Newton's mass. Its hidden lemma is
+witnessed by a Lean theorem, and its negative control is the counter-model
+itself. Its tests are Cockcroft and Walton's lithium mass defect
+[@cockcroft1932disintegration] and a
+direct comparison of $\Delta E$ with $\Delta m\,c^2$ to four parts in $10^7$
+[@rainville2005direct]. Every assumption witnessed and two independent passes
+make it the model's one `S3` row. It is also the second external example the
+reviewer table above asks for. Its identification is of a coefficient, not an
+operator, which a parabolic transfer such as Black-Scholes does not exercise.
+
+**The failure ledger.** The same model was then run over imports the Soma-field
+programme makes (Table 1). It holds sixteen rows: the backtest validated at
+`S3`, two rows falsified, and thirteen exploratory rows at `S1` with 32 open
+assumptions between them. The two falsifications both concern the
+programme's cosmological budget.
+
+- `COID-COSMO-1`: the published $\Omega_\Lambda = 7/11 = 0.636$ lies 6.6σ below
+  Planck 2018 ($0.6847 \pm 0.0073$; rule 3) [@planck2018cosmology]. Its negative control records that
+  $\Omega_c = 3/11$ passes at 1.4σ by the same counting, so a pass in one row
+  does not save another.
+- `COID-COSMO-3`: reading the fractions as fixed at every epoch would need a
+  single equation of state, hence a constant deceleration parameter and no
+  decelerating era. The observed change of sign falsifies that reading
+  (rule 3).
+
+`COID-COSMO-2`, the flat closure of the same budget, is pre-registered rather
+than counted as a pass. It moves the missing $1/22$ to dark energy, which gives
+$\Omega_\Lambda = 15/22$ within 0.4σ of Planck. But a grid of 22nds puts some
+point that close to any value about 13 per cent of the time. That is §7's
+over-identification failure mode, caught by the protocol rather than by
+judgement.
+
+The table above asked for "a public failure ledger with rejected rows". This
+is that ledger. Because it is generated by the build
+(`make -C sherlock fishing`), it changes when the evidence does, not when the
+prose is revised.
+
+| Row | Source structure | Target in the programme | Status | Scope | Open |
+|:--|:--|:--|:--|:--|--:|
+| `COID-EINSTEIN-1905` | Newtonian kinetic energy | a radiating body's energy drop | validated | `S3` | 0 |
+| `COID-GRAV-1` | screened Poisson (Yukawa) Green's function | the field's static response to a mass | exploratory | `S1` | 5 |
+| `COID-GRAV-2` | massive graviton (GWTC-3 bound) | gravity as the field's static response | exploratory | `S1` | 1 |
+| `COID-KG-1` | Klein-Gordon equation | the time-dependent master equation and memory kernel | exploratory | `S1` | 2 |
+| `COID-KK-1` | Kaluza-Klein reduction on $S^1/\mathbb{Z}_2$ | the master equation's mass term | exploratory | `S1` | 2 |
+| `COID-COSMO-1` | dimension counting, 7 + 3 + 1 = 11 | $\Omega_\Lambda, \Omega_c, \Omega_b$ | falsified | `S1` | 2 |
+| `COID-COSMO-2` | Friedmann closure | the budget, which closes at 21/22 | exploratory | `S1` | 3 |
+| `COID-COSMO-3` | FLRW dilution | fractions fixed at every epoch | falsified | `S1` | 0 |
+| `COID-KRAMERS-1` | Kramers escape | trauma persistence in a double well | exploratory | `S1` | 3 |
+| `COID-WKB-1` | WKB barrier penetration | limbic tunnelling | exploratory | `S1` | 3 |
+| `COID-PREVERBAL-1` | an exponential memory kernel | the pre-verbal manifold | exploratory | `S1` | 2 |
+| `COID-ADLER-1` | Adler's locking equation | rapport as frequency locking | exploratory | `S1` | 2 |
+| `COID-SQ-1` | algebraic connectivity (Fiedler) | a network's synchronisation rate | exploratory | `S1` | 2 |
+| `COID-NASH-1` | exact potential games | Nash equilibria as attractors | exploratory | `S1` | 1 |
+| `COID-GR-1` | a critical point's moment law | Gutenberg-Richter's $b \approx 1$ | exploratory | `S1` | 2 |
+| `COID-CLIN-1` | Kramers and Arrhenius dwell times | the clinical operators | exploratory | `S1` | 2 |
+
+: The ledger of registered imports, as generated on 27 November 2026 (`make -C sherlock fishing`). "Open" counts the assumptions without a checked witness. {#tbl:coid-ledger}
+
+The ledger's main finding is that thirteen of the programme's sixteen rows
+remain at `S1`, and each carries its open assumptions by name. That does not
+mean these imports are wrong. It means each says exactly what it still needs,
+which is the difference between a co-identification and an analogy that this
+paper set out to draw.
 
 # Conclusions
 
