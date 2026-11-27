@@ -7928,6 +7928,15 @@ mathlib and physlib ... T-theory, all of it, modelled in lean"):**
 - [x] (27 Nov) No Cyc words in the model (the author: "i dont think i would expect to see/use 'genls' in the final
       version. thats a cyc thing, not lean"): `fact A ⊑ B` (every A is a B: an axiom Lean applies as a coercion);
       OpenCyc's vocabulary only in the provenance beside a fact (microtheory, fact id).
+- [x] (27 Nov) "just import all the Px models ... and see what happens" (the author; the big model may be BASED on the
+      papers' Lean, not restate it): TTheory/Experiments/AllPapers.lean. Found: USF_OSAxioms (OSforGFF) cannot load
+      beside the three physlib papers (MTheoryIsomorphism, RenormalisationGroup, ScaleUniverse): both libraries
+      define a top-level `SpaceTime`. The other 28 and EmotionCyc (OpenCyc's UniversalVocabularyMt) load together:
+      615 theorems, 1,023 definitions, and 14 axioms, the programme's whole set of assumptions in one list (LocalGR 3,
+      BFSS 2, LocalGeometry 2, UniversalSomaticField 2, G2Compactification, BRECVEMAVariational, RG, SwarmPropagator,
+      LimbicTunnel's quant_exp_1).
+- [ ] The SpaceTime clash: OSforGFF beside physlib (our patch in lean/patches/v4.33 renames, or upstream).
+- [ ] The 14 axioms as a chapter of the model: what each assumes, which paper states it, what rests on it.
 - [ ] Step 2, the scale: the whole NextKB taxonomy (103,321 genls; 333,488 isa; 26,154 disjointWith) generated in the
       A + C form, measured (build time, memory, coercion search); then P1 against it. disjointWith and individuals
       with several types still to design.
