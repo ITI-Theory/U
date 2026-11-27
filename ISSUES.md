@@ -7744,7 +7744,8 @@ generated, not in git ... so we must export as artifacts ... am i right?"
 - [x] (27 Nov) What's new between two commits or tags: `usc.py new REV1 [REV2]` (the issues model at both, compared:
       opened, closed, changed status, boxes added and ticked). Since this morning's tag (pre-usc-2026-11-27): 14
       issues opened, 200 boxes added, 102 ticked.
-- [ ] The same for the other models: the chats (threads routed), the affidavits (claims changed: `delta` per
-      document already), the links (edges added).
+- [x] (27 Nov) The chats too: Me's commit as of each U commit's date, every thread's route compared. Since 16:00:
+      150 boxes added, 65 ticked; 38 threads recorded (Phase Dot's), 137 earlier threads routed (85 queued, 52 done).
+- [ ] The affidavits (claims changed: `delta` per document already) and the links (edges added).
 - [ ] AUTHOR: the release id's form (`2026.12`?), then the colophon line, the PDF metadata and Dist/MANIFEST.
 - [ ] The public models as a Lake package, built at the release.

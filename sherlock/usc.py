@@ -601,7 +601,51 @@ def whats_new(rev1: str, rev2: str = "HEAD") -> int:
     print(f"  {len(closed)} closed" + "".join(f"\n    {i}: {b[i]['title'][:90]}" for i in closed))
     print(f"  {len(moved)} changed status" + "".join(f"\n    {i}: {a[i]['status']} -> {b[i]['status']}" for i in moved))
     print(f"  {added} boxes added, {ticked} ticked")
+    _chats_new(rev1, rev2)
     return 0
+
+
+def _routes_at(me_rev: str) -> dict:
+    """Every thread's disposition in Me's affidavits at a commit of Me."""
+    import subprocess
+    import yaml
+    me = U.parent.parent / "Me"
+    names = subprocess.run(["git", "-C", str(me), "ls-tree", "-r", "--name-only", me_rev, "chats/affidavits"],
+                           capture_output=True, text=True, encoding="utf-8").stdout.split()
+    out = {}
+    for n in names:
+        if not n.endswith(".aff"):
+            continue
+        text = subprocess.run(["git", "-C", str(me), "show", f"{me_rev}:{n}"], capture_output=True, text=True,
+                              encoding="utf-8", errors="replace").stdout
+        try:
+            aff = yaml.safe_load(text) or {}
+        except yaml.YAMLError:
+            continue
+        for t in aff.get("threads") or []:
+            out[(Path(n).stem, t.get("id"))] = t.get("disposition", "untriaged")
+    return out
+
+
+def _chats_new(rev1: str, rev2: str) -> None:
+    """The chats' side of what's new (ISS-140): Me's commit as of each U commit's date, the routes compared."""
+    import collections
+    import subprocess
+    me = U.parent.parent / "Me"
+    def me_at(rev):
+        when = subprocess.run(["git", "log", "-1", "--format=%cI", rev], cwd=U, capture_output=True, text=True).stdout.strip()
+        return subprocess.run(["git", "-C", str(me), "rev-list", "-1", f"--before={when}", "HEAD"],
+                              capture_output=True, text=True).stdout.strip()
+    a, b = me_at(rev1), me_at(rev2)
+    if not (a and b):
+        return
+    ra, rb = _routes_at(a), _routes_at(b)
+    new_threads = [k for k in rb if k not in ra]
+    moved = collections.Counter(rb[k] for k in rb if k in ra and ra[k] == "untriaged" and rb[k] != "untriaged")
+    fates = collections.Counter(rb[k] for k in new_threads)
+    print(f"  chats (Me {a[:7]} to {b[:7]}): {len(new_threads)} threads recorded ("
+          + ", ".join(f"{v} {k}" for k, v in fates.most_common()) + f"); {sum(moved.values())} earlier threads routed"
+          + (" (" + ", ".join(f"{v} {k}" for k, v in moved.most_common()) + ")" if moved else ""))
 
 
 def main() -> int:
