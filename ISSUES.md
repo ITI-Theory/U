@@ -6978,6 +6978,12 @@ directly or through a core; 26 Nov, USC as Sherlock and MTC, the `{{usc:...}}` t
       and, in the Lean, a flat ℝ³ × ℝ × ℝ³ (`X7_is_7D_product`). Calabi-Yau threefolds are 6-dimensional (10D
       string theory); M-theory's seven compact dimensions call for G₂. Suggested wording: "derived" becomes
       "modelled by the harmonic oscillator (physlib)", and Calabi-Yau becomes G₂ (open), flat in the Lean.
+- [x] (27 Nov) The catches in Sherlock's record: the cheatsheet's affidavit (registry/affidavits/ttheory-cheatsheet.yaml)
+      re-frozen at af1e2b8 and given CS9 to CS20, one claim per catch (the sign, the memory kernel, "deep narrow",
+      Kramers' γ, WKB's 2m, SQ ≡ λ₁, Gutenberg-Richter's b, Nash, Calabi-Yau, high β, the pre-verbal claim, the
+      effective mass), each with its verdict, label and the Fishing theorem as its ledger; CS1, CS5, CS7 and CS8
+      moved to the current text (the sorries closed in October, the quantum-advantage line gone).
+      `python sherlock/registry.py check`: OK, 45 affidavits.
 - [ ] Physics fishing, further catches from the cheatsheet (the method's rows; the Lean decides).
 - [x] (27 Nov, author: "compile ISSUES.md as well, heavily linked to chats already") ISSUES.md as a
       Lean model: `sherlock/Issue` (statuses, boxes, AUTHOR steps, the header's rules as functions),

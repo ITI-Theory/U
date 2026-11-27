@@ -4,8 +4,8 @@ document: CS1
 title: '[T]-Theory Cheatsheet'
 source:
   file: books/T-Theory/booklet/booklet_body.md
-  commit: 960d403
-  sha256: 7718e9ff31597328fe6c57da3e8d55d931afa68262b6a053723a8a91d4f50042
+  commit: af1e2b8
+  sha256: d3e390ddf7f74590d00e524331290aaaa39f8a755dd711e64b27b68a841b99db
 lean: []
 microtheories: {}
 claims:
@@ -14,12 +14,12 @@ claims:
   lines:
   - 3
   kind: ledger
-  finding: the cheatsheet asserts a zero-sorry proof surface, which the current proof-status ledger contradicts because five
-    real sorries remain
-  verdict: contradicted
+  finding: 're-frozen at af1e2b8 (27 Nov): no real sorry remains in the programme''s Lean since October 2026 (THEORY-STATUS);
+    axioms remain, which the header''s ''Proved'' does not say; earlier (960d403) contradicted: five sorries then'
+  verdict: consistent
   label: sourced
   lean: null
-  ledger: docs/agent/THEORY-STATUS.md; paper/soma/lean-proofs-appendix/lean-proofs-appendix.md
+  ledger: docs/agent/THEORY-STATUS.md
 - id: CS2
   quote: Scale invariance $10^{-35}\text{m}\to10^{26}\text{m}$ (61 orders of magnitude)
   lines:
@@ -60,13 +60,14 @@ claims:
   lean: null
   ledger: registry/affidavits/zoomable-somatic-field.yaml
 - id: CS5
-  quote: barrier cases; classical simulation achieves it in 0/48. Quantum advantage is real.
+  quote: 'QUANT-EXP-1 (an exact 8-qubit simulation, no hardware): in the model, annealing shifts'
   lines:
+  - 118
   - 119
   kind: ledger
-  finding: the cheatsheet turns QUANT-EXP-1 into a quantum-advantage claim; the evidence ledger limits it to an exact statevector
-    simulation, not quantum hardware or runtime advantage
-  verdict: contradicted
+  finding: 're-frozen at af1e2b8: the cheatsheet now limits QUANT-EXP-1 to an exact simulation, a model result (the quantum-advantage
+    claim of 960d403 was removed, ISS-094)'
+  verdict: consistent
   label: sourced
   lean: null
   ledger: docs/agent/THEORY-STATUS.md
@@ -82,20 +83,18 @@ claims:
   lean: null
   ledger: docs/agent/THEORY-STATUS.md
 - id: CS7
-  quote: '**Lean 4 kernel verification: 0 sorries · 0 extra axioms**'
+  quote: '**Lean 4: no `sorry`; the axioms are declared and labelled**'
   lines:
   - 241
   kind: ledger
-  finding: the verification-status line conflicts with the current appendix, which says five real sorries remain and several
-    files contain axioms
-  verdict: contradicted
+  finding: 're-frozen at af1e2b8: no real sorry in paper/proofs (checked 27 Nov) and the axioms are labelled; at 960d403 the
+    line claimed 0 sorries and 0 extra axioms, contradicted then'
+  verdict: consistent
   label: sourced
   lean: null
   ledger: paper/soma/lean-proofs-appendix/lean-proofs-appendix.md
 - id: CS8
-  quote: 'All five OS axioms machine-checked (`USF_OSAxioms.lean` via OSforGFF ·
-
-    `gaussianFreeField_satisfies_all_OS_axioms`).'
+  quote: All five OS axioms machine-checked for the free field (`USF_OSAxioms.lean` via OSforGFF ·
   lines:
   - 243
   - 244
@@ -106,3 +105,154 @@ claims:
   label: sourced
   lean: null
   ledger: docs/agent/THEORY-STATUS.md
+- id: CS9
+  quote: (\nabla^2 + k^2)\,G(x,x') = -\delta^3(x-x')
+  lines:
+  - 31
+  - 34
+  kind: ledger
+  finding: the stationary form has k a wavenumber (oscillation), the time-dependent form's static limit k a mass (decay);
+    the same letter, two physics; the decaying response does not solve the oscillating form
+  verdict: contradicted
+  label: kernel-verified
+  lean: null
+  ledger: sherlock/Fishing/Gravity.lean (yukawa_not_oscillating), sherlock/Fishing/KaluzaKlein.lean (two_signs); ISS-126
+  disposition: open (USC fishing, 27 Nov)
+- id: CS10
+  quote: K(\tau) = K_0\,e^{-\tau/\tau_m}\,\theta(\tau),\quad \tau_m = \frac{1}{kv_s}
+  lines:
+  - 40
+  kind: ledger
+  finding: the memory kernel is not a solution of the master equation as written (it needs the opposite sign of k² or a damping
+    term); the equation oscillates in time at ω = kv
+  verdict: contradicted
+  label: kernel-verified
+  lean: null
+  ledger: sherlock/Fishing/KleinGordon.lean (kernel_not_mode, dispersion); ISS-126
+  disposition: open (USC fishing, 27 Nov)
+- id: CS11
+  quote: trauma wells are deep narrow minima
+  lines:
+  - 95
+  kind: ledger
+  finding: in Kramers' escape a narrower well (larger curvature) is left faster; depth holds a trauma, narrowness does not
+  verdict: contradicted
+  label: kernel-verified
+  lean: null
+  ledger: sherlock/Fishing/Kramers.lean (narrower_faster, deeper_slower); ISS-126
+  disposition: open (USC fishing, 27 Nov)
+- id: CS12
+  quote: \langle T \rangle = \frac{2\pi}{\omega_A\,\omega_B}\,e^{\Delta V / D}
+  lines:
+  - 109
+  kind: ledger
+  finding: 'Kramers'' overdamped escape time with the friction set to 1 (it omits γ: 2πγ/(ω_A ω_B))'
+  verdict: consistent
+  label: derived-under-assumptions
+  lean: null
+  ledger: sherlock/Fishing/Kramers.lean (curvatures, arrhenius); ISS-126
+  disposition: open (USC fishing, 27 Nov)
+- id: CS13
+  quote: P \approx \exp\!\left(-\frac{2}{\hbar_\text{geo}}\int_{q_1}^{q_2}\!\sqrt{V(q) - E}\;dq\right)
+  lines:
+  - 115
+  - 116
+  kind: ledger
+  finding: without the 2m the exponent is √2 smaller than the Lean's WKB action (LimbicTunnel wkbAction, now derived as the
+    integral); equal only if m = 1/2; and exp(-2S) is a probability, not an amplitude
+  verdict: contradicted
+  label: kernel-verified
+  lean: null
+  ledger: sherlock/Fishing/WKB.lean (action_integral, cheatsheet_drops_mass); ISS-126
+  disposition: open (USC fishing, 27 Nov)
+- id: CS14
+  quote: $\text{SQ} \equiv \lambda_1(\hat{L}_{ij})$; measures synchronisation rate
+  lines:
+  - 171
+  - 190
+  kind: ledger
+  finding: the lowest eigenvalue of every graph Laplacian is 0, so SQ ≡ λ₁ measures nothing; the synchronisation rate is the
+    Fiedler value λ₂
+  verdict: contradicted
+  label: kernel-verified
+  lean: null
+  ledger: sherlock/Fishing/Networks.lean (lowest_is_zero); Mathlib card_connectedComponent_eq_finrank_ker_toLin'_lapMatrix;
+    ISS-126
+  disposition: open (USC fishing, 27 Nov)
+- id: CS15
+  quote: Gutenberg-Richter $b \approx 1$ derived from universality class.
+  lines:
+  - 181
+  - 192
+  kind: ledger
+  finding: b = 3β/2 (magnitude is log moment), so b = 1 needs a moment exponent β = 2/3; no class is named, and mean field
+    gives b = 3/4; the geophysics book's own premises send b to 0 at criticality
+  verdict: unclear
+  label: derived-under-assumptions
+  lean: null
+  ledger: sherlock/Fishing/Seismic.lean (b_from_moment, mean_field, gap_kills_b); ISS-126
+  disposition: open (USC fishing, 27 Nov)
+- id: CS16
+  quote: $\text{Nash}(G) = \arg\min H(\mathbf{e})$; game theory = attractor dynamics
+  lines:
+  - 186
+  kind: ledger
+  finding: 'true for exact potential games (symmetric couplings), false in general: matching pennies has no pure Nash equilibrium,
+    so no energy''s minima are its equilibria'
+  verdict: unclear
+  label: kernel-verified
+  lean: null
+  ledger: sherlock/Fishing/Games.lean (potential_max_nash, no_energy); ISS-126
+  disposition: open (USC fishing, 27 Nov)
+- id: CS17
+  quote: term of the Calabi-Yau moduli metric (the curled-up dimensions' shapes). This constrains
+  lines:
+  - 148
+  - 149
+  - 159
+  kind: ledger
+  finding: in the Lean ω² = k/m is physlib's harmonic oscillator; no Calabi-Yau metric is in paper/proofs; the compact space
+    is G₂ (open) elsewhere and a flat ℝ³ × ℝ × ℝ³ in the Lean (X7_is_7D_product); Calabi-Yau threefolds are 6-dimensional
+  verdict: contradicted
+  label: sourced
+  lean: null
+  ledger: paper/proofs/MTheoryIsomorphism.lean (trajectory_equationOfMotion); paper/proofs/BRECVEMAVariational.lean (moduli_space_is_G2_homotopy,
+    an axiom); ISS-126
+  disposition: open (USC fishing, 27 Nov)
+- id: CS18
+  quote: high $\beta$ $\Rightarrow$ deeper trauma wells on
+  lines:
+  - 212
+  - 213
+  kind: ledger
+  finding: with D = 1/β the well's depth is W whatever β is; a higher β lengthens the escape exponentially from the same well
+  verdict: contradicted
+  label: kernel-verified
+  lean: null
+  ledger: sherlock/Fishing/Clinical.lean (dwell_grows_with_beta); paper/proofs/LimbicTunnel.lean (barrier_height); ISS-126
+  disposition: open (USC fishing, 27 Nov)
+- id: CS19
+  quote: large $k$, rapid
+  lines:
+  - 224
+  - 225
+  kind: ledger
+  finding: rapid memory decay at large k rests on the memory kernel's decay, which the master equation as written does not
+    have (CS10)
+  verdict: unclear
+  label: derived-under-assumptions
+  lean: null
+  ledger: sherlock/Fishing/WKB.lean (preverbal); sherlock/Fishing/KleinGordon.lean (kernel_not_mode); ISS-126
+  disposition: open (USC fishing, 27 Nov)
+- id: CS20
+  quote: The **effective mass** $k$ sets the spatial correlation length $\ell = 1/k$.
+  lines:
+  - 45
+  kind: ledger
+  finding: 'consistent with the time-dependent form (Klein-Gordon: k a mass, the static response e^{-kr}/r), not with the
+    stationary form (CS9)'
+  verdict: consistent
+  label: kernel-verified
+  lean: null
+  ledger: sherlock/Fishing/Gravity.lean (yukawa_solves); sherlock/Fishing/KleinGordon.lean (dispersion); ISS-126
+  disposition: open (USC fishing, 27 Nov)
