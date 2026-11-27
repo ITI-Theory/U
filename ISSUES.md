@@ -7897,6 +7897,16 @@ prose in `/-! -/` blocks, the papers' equations imported from their proofs, not 
       (English, 5 years) does not compile; a city as a language and a language as a place are type errors; "15 years
       never admits anyone new" proved. Core gained a fifth state, refuted (Moriarty's attack): Ben's claim is refuted,
       its receipt naming ben_years only. Years of residence are the study's own notion, not OpenCyc's, and say so.
+- [x] (27 Nov) Tagless-final (the author: "are we doing this ... relevant? also in chats"): already the programme's
+      pattern (paper/proofs/EmotionOntology.lean, "Final Tagless Emotion DSL": one vocabulary, five interpreters; the
+      chats of 12 Jun, 8 Oct, 9 Nov), and the mechanism for "Lean the source, the rest generated": every output an
+      interpreter of the one term. TTheory/Experiments/StudyTagless.lean: `class Criteria`, the criterion once,
+      `(German ⊔ English) ⊓ Zürich₁₀`, and three interpreters: meaning (a set of people: Anna admitted, Ben refuted),
+      text ("(speaks German or speaks English), and has lived in Zürich for at least 10 years") and CycL (the years
+      marked study:, not OpenCyc's).
+- [x] (27 Nov) No Cyc words in the model (the author: "i dont think i would expect to see/use 'genls' in the final
+      version. thats a cyc thing, not lean"): `fact A ⊑ B` (every A is a B: an axiom Lean applies as a coercion);
+      OpenCyc's vocabulary only in the provenance beside a fact (microtheory, fact id).
 - [ ] Step 2, the scale: the whole NextKB taxonomy (103,321 genls; 333,488 isa; 26,154 disjointWith) generated in the
       A + C form, measured (build time, memory, coercion search); then P1 against it. disjointWith and individuals
       with several types still to design.
