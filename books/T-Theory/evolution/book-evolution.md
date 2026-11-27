@@ -82,10 +82,52 @@ p="74-76"}
 
 # Summer 2026: the theory takes shape
 
+June set the cast and the method. The checker got its characters, [Sherlock and Moriarty, in an audit run
+by the Cookie Monster]{.chat ref="20260605_204722" p="1-24"}, and the programme its shape, [the fractal thesis
+as a dependent type over its domains]{.chat ref="20260605_204722" p="37-181"}. The proofs met reality: [the
+Lean builds failing, and the build rules that followed]{.chat ref="20260612_184004" p="381-661"}, and two finds
+that shaped the physics, [the free field as the Gaussian free field that satisfies the Osterwalder-Schrader
+axioms]{.chat ref="20260612_184004" p="181"} and [the dark-matter derivation from the spatial vacuum]{.chat
+ref="20260612_184004" p="301-601"}. The question of a better model than Hopfield's [was answered with
+M-theory, field theory and Green's functions proved in Lean]{.chat ref="20260613_155133" p="7-18"}.
+
+July asked whether it could be explained: [to a child, in three sentences, and whether it is a new
+field]{.chat ref="20260716_203112" p="1-5"}; it found a first test, [Hopfield's learning time against the
+limbic shortcut]{.chat ref="20260716_203112" p="10-11"}, and a first audience, [a teacher, and a master's
+thesis for teachers of children with special needs]{.chat ref="20260717_100350" p="7-15"}.
+
+August was the month of breadth. The theory reached [the swarm and the spread of an accent]{.chat
+ref="20260805_170944" p="29-33"} and [the law]{.chat ref="20260805_170944" p="35-39"}; it produced its two
+boldest numbers, [the cosmological constant]{.chat ref="20260811_232415" p="1-7"} and [a dark-matter share of
+3/11]{.chat ref="20260811_232415" p="8-9"}, and the instinct to [stress-test them against other
+predictions]{.chat ref="20260813_152749" p="1-6"}, which the compiler would act on in November. Music entered
+the field as [Juslin's BRECVEMA solved inside the eleven-dimensional field]{.chat ref="20260817_235530"
+p="12-21"}; physics as [the poke, the energy that creates a particle]{.chat ref="20260825_025816" p="5-9"}.
+And the working method found its form: [range tags in the Markdown, stripped by a Lua filter]{.chat
+ref="20260807_120707" p="1-15"}, and [thoughts as code, the chats compiled like source]{.chat
+ref="20260811_182331" p="15-18"}, the seed of everything the last chapter describes.
+
 ::: {.chronicle from="202606" to="202608"}
 :::
 
 # Autumn 2026: the papers, the books and the release
+
+September gathered the material: [the equations of Penrose's *Road to Reality* as a Pandoc list]{.chat
+ref="20260922_160144" p="3-5"}, the wish to [let people without the conditions feel C-PTSD, autism and ADHD in
+the explorer]{.chat ref="20260928_223150" p="17-19"}, and [a philosophy book in Russell's manner]{.chat
+ref="20260928_223150" p="34-35"}. October built it. A single conversation carried [the release: the registry of
+papers, the Makefiles, the volumes and their acceptance tests]{.chat ref="20261006_190130" p="1-641"}, and
+beside it [the bridge to NotebookLM]{.chat ref="20261006_190130" p="41-221"}, [Sherlock with no database, Lean
+as the reasoner]{.chat ref="20261006_190130" p="281-381"} and [an adversary for every check]{.chat
+ref="20261008_190711" p="40"}. Figures became data: [a Visualize macro whose parameters an AI fills in]{.chat
+ref="20261003_202706" p="6-9"}.
+
+The second half of October turned to sound and to explaining. The music grew from [the day as five to ten
+tracks, then an orchestral movement]{.chat ref="20261016_220251" p="1-7"} to [a hook typed as a question and
+its answer]{.chat ref="20261020_124851" p="5"}; the checker was explained as [an AI writing the model and Lean
+checking it, with Moriarty trying to break it]{.chat ref="20261025_160728" p="5-15"}; and the cosmology met new
+data in [DESI's question whether the dark-matter share grows]{.chat ref="20261026_191719" p="9-22"}, the
+question the fishing answered a month later.
 
 ::: {.chronicle from="202609" to="202610"}
 :::
