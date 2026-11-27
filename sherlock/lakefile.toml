@@ -117,3 +117,7 @@ srcDir = "../bld/sherlock/lean"
 
 [[lean_lib]]
 name = "LinkQueries"
+
+# Lean back to LaTeX (ISS-128): #latex name.
+[[lean_lib]]
+name = "Latex"

@@ -1,6 +1,7 @@
 import Mathlib
 import Method
 import EquationsData
+import Latex
 import Fishing.Gravity
 import Fishing.KleinGordon
 import Fishing.KaluzaKlein
@@ -40,5 +41,12 @@ def files (c : String) : List String := ((ofClass c).map fun e => (e.1.splitOn "
 #eval witnesses.map fun (c, _) => (c, (ofClass c).length, (files c).length)
 -- The documents that use the master equation with both signs of k² and one letter: the ISS-126 places.
 #eval (files "helmholtz").filter (files "klein-gordon").contains
+
+-- The witnesses rendered back to LaTeX (read by `sherlock/equations.py report`).
+#latex Fishing.Gravity.wave_solves
+#latex Fishing.Gravity.yukawa_solves
+#latex Fishing.KleinGordon.dispersion
+#latex Fishing.KaluzaKlein.kk_reduction
+#latex Fishing.KaluzaKlein.two_signs
 
 end Fishing.Equations

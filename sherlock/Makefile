@@ -208,6 +208,7 @@ equations: method
 	$(PYTHON) equations.py
 	lake build EquationsData
 	cd .. && LEAN_NUM_THREADS=2 lake build Fishing.Equations
+	cd .. && lake env lean sherlock/Fishing/Equations.lean 2>&1 | $(PYTHON) sherlock/equations.py report
 
 # The USM as a model (ISS-127): from the page's controls, the registry and Dist/PAPERS.yaml.
 usm:

@@ -7076,7 +7076,11 @@ its two signs (ISS-126) are exactly the error this would catch.
       static screened form; Helmholtz (∇² + k²) in 17 files, Klein-Gordon in 4; three write both with one
       letter k (P10 temporal dynamics, the cheatsheet, the philosophy book): the ISS-126 places. The app's
       stellar level shows Helmholtz, its local-circuit level Klein-Gordon.
-- [ ] A Lean-to-LaTeX printer for named definitions and theorems, and the match, equation by equation.
+- [x] (27 Nov) Lean back to LaTeX: `sherlock/Latex.lean`, `#latex name` (the statement pretty-printed by Lean, its
+      notation mapped to LaTeX); `make -C sherlock equations` writes bld/sherlock/equations.md, each class's Lean
+      witnesses rendered beside every document that writes that form, with its line.
+- [ ] The match, equation by equation: the Lean states operators pointwise (f'' + (2/r) f' ± k² f), the documents
+      as ∇² ± k²; a normal form for both, then a mismatch is an error.
 - [ ] The cheatsheet first; then the papers through their affidavits.
 - [x] (27 Nov) The chats' threads queued here: 20261123_171439 equations.
 
