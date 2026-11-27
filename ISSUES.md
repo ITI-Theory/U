@@ -6968,6 +6968,10 @@ directly or through a core; 26 Nov, USC as Sherlock and MTC, the `{{usc:...}}` t
       (lib/format/visualize-reader.lua). The exporters that rewrite a chat in place carry the tags over
       or refuse (Me/chats/scripts/usc_keep.py). First tags: five ideas in four chats, queued to ISS-127,
       128 and 129; the chats' prompts unchanged by them.
+- [x] (27 Nov) The originals tagged from the model: `python sherlock/chats.py tag` puts a span around the first
+      prompt of every routed thread (its disposition and ref on the tag; idempotent; a file whose prompts would
+      change is left alone): 30 threads, 70 tags in 11 chats; the grammar's own examples in the 26 Nov chat are
+      ignored by id. Routing a thread (`chats.py route`) and then `tag` keeps the originals and the model in step.
 - [ ] Tags in the papers and books: first every build's reader strips them (half the defaults read
       plain markdown: books/T-Theory/defaults, paper/defaults/pdf-2col, omnibus, lean-appendix).
 - [x] (27 Nov) The list of things to do from the chats (author: "all in chats should be on some new

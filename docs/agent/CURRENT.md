@@ -37,6 +37,17 @@ and the AI Mode folder); the "write a book" chat, too big to reload in VS Code, 
 laptop (`U.Dot/bin/HAL1 init`); `audio` merged into `main` and tagged `pre-usc-2026-11-27`: one line
 of work again. NotebookLM's `cold` profile (johnsonusm.com) still fails to authenticate.
 
+**The night of 27 Nov (author asleep; read this first).** Three layers, each with its Lean model and a
+make target in `sherlock/` (`make -C sherlock help`):
+- USF, the theory: the method's rows (`fishing`: 16 rows, the bait), the equations (`equations`, ISS-128:
+  the master equation's sign census), provisional decisions in ISS-126 for the author to overrule.
+- USM, the app: `usm` (options from 4D up, `visible_mono`, coverage: 15 of 27 papers on screen) and
+  `app-audit` (screenshots, Windows OCR and the page's text; 93 screens; INTERPRETIVE drawn at 4D and 8D on
+  the six human and collective levels; the dimension buttons unreadable), ISS-127.
+- USC, the compiler: `issues` (ISSUES.md as Lean), `tags` (the `{{usc:...}}` tags in the originals; `chats.py
+  tag` writes them from the model), `links` (the models joined: papers, issues, chats, rows), `chats`; the ideas
+  list Me/chats/ideas.md (309 threads); Neovim: U.Dot `bin/usc-vim` (ISS-129).
+
 **Rules that stand (author, 18-19 Oct):** music is made in Ableton Live, never outside it; the music
 is private (the Soma Machine passes its emotional score in, generates nothing); Phase Plant takes no
 audio. Details in ISS-118 and ISS-120 and `registry/studio/standard.yaml`.
