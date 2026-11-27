@@ -6,7 +6,7 @@ in git history and in `CURRENT-2026-10-01-to-06.md.OBSOLETE`; open items live
 in [ISSUES.md](../../ISSUES.md); how we work is in [README.md](../../README.md);
 the other working documents are listed in [docs/agent/README.md](README.md).
 
-## Now (27 Nov 2026, evening; updated 18:40)
+## Now (27 Nov 2026, evening; updated 19:30)
 
 Three layers: USF (the theory: papers and books), USM (the Soma Machine, the theory made visible) and
 USC (the Universal Semantic Compiler: Sherlock plus the meta-theory compiler). The author's order:
@@ -33,11 +33,14 @@ model and a make target in `sherlock/`; how to use them is `docs/SHERLOCK.md`, "
   the selection, the ideas list, the `.aff` language, the papers and books by DOI; `node test/run.js` in
   apps/vscode: 13 ok); usc.nvim (U apps/nvim, installable; U.Dot's sherlock.lua is a shim). Waiting on the
   author: accounts, the name ("[T]-Theory Explorer" proposed), the date.
-- **The chats in three forms.** Phase Dot (raw, private, Me; its Part I now split into 11 dated conversations
-  with affidavits, Me/chats/phase-dot, `make -C Me/chats phasedot`); The Evolution (by time, public, ISS-133,
-  `make -C books/T-Theory evolution`); Background, Book 0 (by concept, the course's companion, ISS-134,
-  `make -C books/T-Theory background`). Both from `chats.py chronicle` (301 threads). Their prose (layer 2)
-  is next; the record improves with every routed thread.
+- **The chats in three forms.** Phase Dot (raw, private, Me; Part I split into 11 conversations, Me/chats/phase-dot,
+  a second source of chats for every tool except the collation); The Evolution (by time, public, ISS-133: all four
+  periods written, 41 citations of conversations, each checked by `usc.py check`; `make -C books/T-Theory
+  evolution`); Background, Book 0 (by concept, ISS-134: 12 entries, each the standard idea, its role and the method's
+  verdict, with its own affidavit; `make -C books/T-Theory background`). The chronicle never lists the author's
+  own health (a guard in chats.py; 9 threads marked Health on 27 Nov).
+- **Thinking with USC (ISS-136).** `usc.py recall WORD ...` / `:UscRecall`: "didn't I think about ...?" answered
+  from the record. Next: the picker ("something else I wanted"), a thought graph, writing prompts in Neovim.
 - **Triage, 27 Nov evening.** 78 threads routed with evidence or queued to the issue that covers them;
   the 16 loose ends no issue covered are in ISS-135. 200 threads remain untriaged (`Me/chats/ideas.md`).
 - **Decided (author, 27 Nov):** the big bang in December (1 Dec the earliest, no stress); "[T]-Theory
