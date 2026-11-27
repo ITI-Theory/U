@@ -256,3 +256,17 @@ claims:
   lean: null
   ledger: sherlock/Fishing/Gravity.lean (yukawa_solves); sherlock/Fishing/KleinGordon.lean (dispersion); ISS-126
   disposition: open (USC fishing, 27 Nov)
+- id: CS21
+  quote: '**Cosmological limit:** $\kappa_\text{bio} \to 0$ recovers the linearised Einstein'
+  lines:
+  - 144
+  - 145
+  kind: ledger
+  finding: the Lean takes the linearised Einstein equation as an axiom (linearised_einstein, LocalGR.lean:60, until Mathlib's
+    PDE stack covers it) and has no κ_bio limit; 'recovers' is assumed, not derived
+  verdict: not-provable
+  label: sourced
+  lean: null
+  ledger: paper/proofs/LocalGR.lean (axiom linearised_einstein); sherlock/Fishing/Gravity.lean (the Newtonian limit only);
+    ISS-126
+  disposition: open (USC fishing, 27 Nov)

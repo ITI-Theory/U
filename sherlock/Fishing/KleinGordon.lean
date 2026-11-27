@@ -149,7 +149,7 @@ def row : Method.Row where
     ⟨"the static limit is screened in space", .lean ``Fishing.Gravity.yukawa_solves⟩,
     ⟨"III's ω² = v²k² is the rest frequency", .lean ``Fishing.KleinGordon.rest_mode⟩,
     ⟨"τₘ = 1/(kv) is a decay time",
-      .open_ "under Klein-Gordon 1/(kv) is the rest period over 2π; decay needs a damping term γ∂ₜ (the telegraph equation): AUTHOR, ISS-126"⟩,
+      .open_ "under Klein-Gordon 1/(kv) is the rest period over 2π; e^{-kvτ} decays only in Euclidean time (kernel_euclidean); a real-time decay needs a damping term γ∂ₜ: AUTHOR, ISS-126"⟩,
     ⟨"the retarded propagator carries e^{-kvτ} on the light cone",
       .open_ "the massive retarded propagator is δ(τ - r/v)/(4πr) plus a J₁ tail inside the cone (Morse and Feshbach), no exponential; not formalised"⟩]
   prediction := "a poke rings at ω = kv and its static field is screened over ℓ = 1/k; nothing decays in time without damping"
