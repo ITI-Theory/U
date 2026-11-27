@@ -7585,3 +7585,27 @@ Sherlock could check), and whom to approach and how. The threads, queued here:
 - [ ] AUTHOR: after the big bang (ISS-132), or before it: the first paper for review and the journal.
 - [ ] The AI-use declaration as a Sherlock check: every paper says what the AI did, in the journal's words.
 - [ ] The cover letter, from the paper's affidavit (what it claims, what is proved, what is open).
+
+## ISS-138: First impressions: polish before "please review" — IN-PROGRESS
+{{Tags area.release}}
+{{Fields date.created=2026-11-27, date.start=2026-11-27, date.end=, epic=ISS-132-big-bang}}
+
+**Author, 27 Nov 19:08:** "in chats ... the first time the AI 'saw' the root github dir ... they were impressed by
+the very organised make system. it's the first thing you see ... first impressions count. so ... we are almost
+there, lets finish it off and say 'sorry, i cant do any more, pls review?' ... lets polish first". The record:
+20261120_140700 (an assistant, on first seeing the repository: "an impressive amount of engineering and
+structure ... a full Makefile/Pandoc build pipeline, Lean 4 formal verification"); 20261122_173241
+first-impressions. What a reviewer sees first, in order: the GitHub root, the README's first screen, `make help`,
+then one paper and the app.
+
+- [x] (27 Nov) The README's first screen: what [T]-Theory is, its evidence rule, the three products and where each
+      lives, where to start reading and checking; "Working on this repo" unchanged below it.
+- [x] (27 Nov) Local strays removed (untracked, never on GitHub): books/T-Theory/NUL (a Windows device name that
+      broke searches), an empty `-p` from a failed `mkdir -p`, a `__pycache__`.
+- [ ] The root's leftovers: `a.md` and `opening_page.pdf` (RC1.1's noir page, referenced by nothing) and
+      `docker-compose.yml.OBSOLETE` (AUTHOR: remove, rename, or move out of the root).
+- [ ] `bin/release-check`: every section PASS.
+- [ ] `make help`: read as a stranger would (one screen, grouped, every target described).
+- [ ] The org page (.github) and t-theory.org say the same three products as the README.
+- [ ] Recall searches the text as well as the topics (`usc.py recall --text`): the 20 Nov sentence above was found
+      by grep, not by recall (ISS-136).

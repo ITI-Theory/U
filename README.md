@@ -1,11 +1,25 @@
-# U — Universal Somatic Field: Research Programme
+# [T]-Theory: the Universal Somatic Field (U)
 
-Formal model of emotional field dynamics as a tensor-valued Hopfield network, grounded in
-M-theory compactification, type-checked in Lean 4, and applied across academic domains.
+A research programme that models how something felt here responds to something done there, from a guitar
+string to a feeling, a group and the night sky, as one field: formal models type-checked in Lean 4, read
+across many domains, with every claim labelled by its evidence (a proof checks a model, not nature;
+[docs/agent/THEORY-STATUS.md](docs/agent/THEORY-STATUS.md)).
 
 **Author**: Alistair Johnson · Independent Researcher · Zurich, Switzerland
 **ORCID**: [0009-0007-2194-0850](https://orcid.org/0009-0007-2194-0850)
 **Org**: [ITI-Theory](https://github.com/ITI-Theory) · **Distribution**: [ITI-Theory/Dist](https://github.com/ITI-Theory/Dist) · **Web**: [t-theory.org](https://www.t-theory.org) (the Soma Machine)
+
+**Three products, one package** (the release is in preparation, ISS-132):
+
+| | What it is | Where |
+|:--|:--|:--|
+| **USF**, the theory | the papers and books | `paper/`, `books/`, `Part2/`; DOIs in [`Dist/PAPERS.yaml`](https://github.com/ITI-Theory/Dist/blob/main/PAPERS.yaml) |
+| **USM**, the Soma Machine | the theory made visible, from the whole person to the cosmos | [t-theory.org](https://www.t-theory.org); `apps/` |
+| **USC**, the Universal Semantic Compiler | Sherlock and its tools: what documents claim, checked in Lean | `sherlock/`, [docs/SHERLOCK.md](docs/SHERLOCK.md); `apps/vscode` ([T]-Theory Explorer), `apps/nvim` (usc.nvim) |
+
+**Where to start reading:** *[T]-Theory: Background* (Book 0, what to know first; draft), *[T]-Theory: A
+Course* (`make textbook`), and *[T]-Theory: The Evolution* (how it came about; draft). **Where to start
+checking:** `make help`, then `make -C sherlock help`.
 
 Papers, DOIs and their publication status are kept in one place only:
 [`Dist/PAPERS.yaml`](https://github.com/ITI-Theory/Dist/blob/main/PAPERS.yaml).
