@@ -75,8 +75,10 @@ elab "#status " t:term : command => liftTermElabM do
     let (k, state) ← match ← synthInstance? (mkApp (mkConst ``TTheory.Refutation) c) with
       | some r =>
         let ax ← axiomsOf (← instantiateMVars r)
-        let extra := receipt ax
-        pure (4, if extra.isEmpty then "refuted" else s!"refuted, resting on: {extra}")
+        if ax.contains ``sorryAx then pure (2, "frontier (a refutation through sorry)")
+        else
+          let extra := receipt ax
+          pure (4, if extra.isEmpty then "refuted" else s!"refuted, resting on: {extra}")
       | none => match ← synthInstance? (mkApp (mkConst ``TTheory.Witness) c) with
         | none => pure (3, "open")
         | some w =>

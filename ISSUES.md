@@ -7937,6 +7937,13 @@ mathlib and physlib ... T-theory, all of it, modelled in lean"):**
       LimbicTunnel's quant_exp_1).
 - [ ] The SpaceTime clash: OSforGFF beside physlib (our patch in lean/patches/v4.33 renames, or upstream).
 - [ ] The 14 axioms as a chapter of the model: what each assumes, which paper states it, what rests on it.
+- [x] (27 Nov) Individuals and disjointness, both ways (the author: "explore"): TTheory/Experiments/Individuals.lean,
+      on NextKB's FemaleHuman, HumanAdult ⊑ HomoSapiens and HumanAdult disjoint from Embryo. Every collection a type:
+      works, but a second type for Anna needs a second term and an identity axiom, disjointness a ≠ through a common
+      supertype, and the refutation of "Anna is an embryo" rests on 8 assumptions. Sorts as types, the rest as Mathlib
+      sets: one Anna, two memberships, Mathlib's Disjoint, and the refutation rests on exactly the 5 facts that matter;
+      a language as an organism is still a type error. Core fixed: a refutation through sorry is a frontier, not
+      refuted.
 - [ ] Step 2, the scale: the whole NextKB taxonomy (103,321 genls; 333,488 isa; 26,154 disjointWith) generated in the
       A + C form, measured (build time, memory, coercion search); then P1 against it. disjointWith and individuals
       with several types still to design.
