@@ -380,7 +380,8 @@ def coverage() -> int:
         ("The papers", [f"paper/soma/{p['slug']}/{p['slug']}.md" for p in reg["canonical_papers"]]),
         ("The books", rel((U / "books" / "T-Theory").glob("*/book-*.md"))),
         ("The course", rel((U / "Part2" / "book" / "field-atlas-textbook" / "chapters").glob("*.md"))),
-        ("The Field Atlas", rel(list((U / "Part2" / "book" / "field-atlas").glob("theory/*.md"))
+        ("The Field Atlas", rel(list((U / "Part2" / "book" / "field-atlas").glob("front/*.md"))
+                                + list((U / "Part2" / "book" / "field-atlas").glob("theory/*.md"))
                                 + list((U / "Part2" / "book" / "field-atlas").glob("sectors/**/*.md")))),
         ("The front doors", [p for p in ["README.md", "docs/BUILD.md", "docs/SHERLOCK.md", "apps/vscode/README.md",
                                           "apps/nvim/README.md", "web/home.md", "web/PITCH.md"] if (U / p).exists()]),
