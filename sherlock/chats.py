@@ -22,6 +22,7 @@ chats are queried in Lean (Chat/Query.lean) instead of grepped.
                                                 # what the chats leave behind, by kind -> Me/chats/ideas.md;
                                                 # with --grep or --by, searched and printed instead
     python sherlock/chats.py tag                # a {{usc:...}} tag in the original for every routed thread
+    python sherlock/chats.py chronicle          # The Evolution's data, month by month -> bld/sherlock/chronicle.json
 
 FILE defaults to every chat in Me/chats/Inbox. The chats are private: the generated modules are
 built in bld/ (ignored) and never committed.
@@ -495,6 +496,52 @@ def ideas(by: str = "", grep: str = "") -> int:
           ("Loose ends", "Drift", "Pursued, not yet routed")) + f"; {private} private); {len(tags)} untriaged tags -> {ME / 'chats' / 'ideas.md'}")
     return 0
 
+def chronicle() -> int:
+    """The Evolution's data (ISS-133): every thread of the USF, USM and USC chats, month by month, with what
+    became of it, as JSON for the book's Lua filter (books/T-Theory/filters/chronicle.lua). Public by design
+    (author, 27 Nov: "phase dot ... raw ... private ... condensed ... public"): personal threads are counted,
+    never listed (PRIVATE, as `ideas`), Ops threads are left out, and nothing is quoted from the chats: a
+    thread is its affidavit's topic, its date, its prompts and its disposition."""
+    import yaml
+    months: dict[str, list] = {}
+    private = ops = 0
+    for path in sorted(AFF.glob("*.aff")):
+        if not re.match(r"\d{8}_", path.stem):
+            continue
+        aff = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+        for th in aff.get("threads") or []:
+            own = set(th.get("concepts") or [])
+            cs = own | set(aff.get("concepts") or [])
+            if own & PRIVATE or not (cs - PRIVATE):
+                private += 1
+                continue
+            product = next((k for k, v in PRODUCTS.items() if own & v), None) or next(
+                (k for k, v in PRODUCTS.items() if cs & v), "Ops")
+            if product == "Ops":
+                ops += 1
+                continue
+            ps = th.get("prompts") or []
+            d = th.get("disposition", "untriaged")
+            ref = ""
+            if isinstance(d, dict):
+                d, ref = next(iter(d.items()))
+            elif isinstance(d, str) and " " in d:
+                d, ref = d.split(" ", 1)
+            months.setdefault(path.stem[:6], []).append({
+                "date": f"{path.stem[:4]}-{path.stem[4:6]}-{path.stem[6:8]}", "chat": path.stem[:15],
+                "thread": th.get("id", ""), "topic": " ".join(str(th.get("topic", "")).split()),
+                "product": product, "status": th.get("status", ""), "disposition": d, "ref": str(ref or th.get("ref", "") or ""),
+                "prompts": [ps[0], ps[-1]] if ps else []})
+    data = {"generated_by": "python sherlock/chats.py chronicle", "private_counted": private, "ops_left_out": ops,
+            "months": [{"month": m, "threads": months[m]} for m in sorted(months)]}
+    out = U / "bld" / "sherlock" / "chronicle.json"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(json.dumps(data, ensure_ascii=False, indent=1), encoding="utf-8", newline="\n")
+    n = sum(len(v) for v in months.values())
+    print(f"chronicle: {n} threads in {len(months)} months ({private} personal counted, {ops} Ops left out) -> {out}")
+    return 0
+
+
 def tag_routed() -> int:
     """Tag the originals from the model: every routed thread gets a {{usc:...}} span around its first prompt,
     with its disposition and ref (ISS-126: "tag the originals, we have git"). Idempotent; a file whose prompts
@@ -550,7 +597,7 @@ def chat_files(given: list[str]) -> list[Path]:
 def main() -> int:
     sys.stdout.reconfigure(encoding="utf-8")
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
-    ap.add_argument("command", choices=["parse", "lean", "todo", "route", "triage", "issues", "ideas", "tag"])
+    ap.add_argument("command", choices=["parse", "lean", "todo", "route", "triage", "issues", "ideas", "tag", "chronicle"])
     ap.add_argument("files", nargs="*")
     ap.add_argument("--by", default="", help="ideas: group the search by kind, product or date")
     ap.add_argument("--grep", default="", help="ideas: only threads whose topic or id contains this")
@@ -563,6 +610,8 @@ def main() -> int:
         return ideas(a.by, a.grep)
     if a.command == "tag":
         return tag_routed()
+    if a.command == "chronicle":
+        return chronicle()
     if a.command == "route":
         if len(a.files) not in (3, 4):
             print("usage: chats.py route STAMP THREAD DISPOSITION [REF]")

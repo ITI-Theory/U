@@ -28,7 +28,7 @@ SOURCE_BOOK_IDS := gateway physics complex-systems formal-mathematics \
 SOURCE_BOOK_PDFS := $(SOURCE_BOOK_IDS:%=$(BLD)/book-%.pdf)
 ALL_BOOKLET_PAGES := $(foreach domain,$(BOOKLET_DOMAINS),$(addprefix $(BLD)/booklet-$(domain)-,$(addsuffix .pdf,1 2 3 4)))
 
-.PHONY: all pdf html booklets fractal-thesis omnibus vol1 vol2 vol3 \
+.PHONY: evolution all pdf html booklets fractal-thesis omnibus vol1 vol2 vol3 \
         check clean help FORCE $(DOMAINS:%=book-%)
 .SECONDARY: $(ALL_BOOKLET_PAGES)
 .SECONDEXPANSION:
@@ -111,6 +111,17 @@ $(BLD)/ttheory-vol%.pdf: defaults/assembly.md defaults/vol%.yaml defaults/volume
 $(BLD)/ttheory-omnibus.pdf: defaults/assembly.md defaults/omnibus.yaml defaults/omnibus-pdf.yaml $(BOOK_TEX) defaults/fractal-manifest.yaml filters/ttheory-assemble.lua $(BLD)/noir-page.pdf $(ALL_BOOKLET_PAGES) $(PROGRAMME_REFS) | $(BLD)
 	$(PANDOC) defaults/assembly.md --defaults=defaults/omnibus.yaml --output=$@
 	@echo "Built: $@"
+
+# The Evolution (ISS-133): the chats condensed, public; its chronicle is generated from the chat models
+# (`chats.py chronicle`, from the private Me/chats). Not in `pdf` while it is drafted.
+evolution: $(BLD)/book-evolution.pdf
+
+$(BLD)/book-evolution.pdf: evolution/book-evolution.md defaults/evolution-pdf.yaml defaults/book-pdf.yaml filters/chronicle.lua ../../bld/sherlock/chronicle.json $(BOOK_TEX) $(PROGRAMME_REFS) | $(BLD)
+	$(PANDOC) $< --defaults=defaults/evolution-pdf.yaml --output=$@
+	@echo "Built: $@"
+
+../../bld/sherlock/chronicle.json: FORCE
+	cd ../.. && $(PYTHON) sherlock/chats.py chronicle
 
 # Compatibility target names for callers that have not yet been repointed to $(BLD).
 bld/%.pdf: $(BLD)/%.pdf

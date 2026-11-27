@@ -4194,6 +4194,8 @@ other work.
       bld/textbook.
 - [ ] (ISS-132, 27 Nov) The big bang's decisions: the Marketplace and Open VSX publisher accounts, the
       extension's name (USF, USM and USC in one package), the date (Zenodo, t-theory.org, Marketplace, Neovim).
+- [ ] (ISS-133, 27 Nov) The Evolution's title: Copilot proposes "[T]-Theory: The Evolution", subtitle "How it
+      came about: Phase Dot, condensed"; and the package's name, "[T]-Theory Explorer" (ISS-132).
 
 ## ISS-082: The voices: the author's own, and a licence-clean public one — PARKED
 {{Tags area.app, area.instrument}}
@@ -7314,9 +7316,9 @@ Plan (each a box; the AUTHOR's are on the desk, ISS-081):
       and the date of the big bang (Zenodo, t-theory.org, the Marketplace, Neovim, together).
 - [ ] Before the release (18 Nov, the author): a chat channel, "what do you think, guys, before i release?"
 
-## ISS-133: The gold version of the chats: what actually happened, compiled from the chat models — OPEN
+## ISS-133: The Evolution: the chats condensed, what actually happened (public) — IN-PROGRESS
 {{Tags area.sherlock, area.books}}
-{{Fields date.created=2026-11-27, date.start=, date.end=, epic=}}
+{{Fields date.created=2026-11-27, date.start=2026-11-27, date.end=, epic=ISS-132-big-bang}}
 
 **Author, 27 Nov 17:0x:** "we have the massive phasedot (pdf/md) why not use the usc to compress the chats
 down into what actually happened, not as chats, but as 'The Evolution' (or better...) of [T]-Theory ... it
@@ -7331,13 +7333,30 @@ discarded with a reason), the tags at the lines where things were said, and the 
 papers and the code. The gold version is that skeleton told as a story, and it is checkable: each sentence
 cites the prompts it comes from, so Sherlock can write its affidavit against the chats, as for a paper.
 
-- [ ] Layer 1, generated (no language model): the chronicle, period by period, of what was raised, what
+- [x] (27 Nov) Layer 1, generated (no language model): the chronicle, period by period, of what was raised, what
       became of it and where it lives now (commit, issue, paper), with the open points listed as they stand
       (`chats.py` from the affidavits and tags; Markdown, built by Make and pandoc like the books).
 - [ ] Layer 2, written: the narrative per period from layer 1 (the LLM pass), every paragraph citing its
       prompts (STAMP:Pn); Sherlock checks that the cited prompts exist and say it.
-- [ ] Private by default (ISS-116), like Phase Dot; a public cut later, filtered by visibility.
+- [x] (author, 27 Nov 17:09) Public: "phase dot ... raw ... private ... condensed ... public"; "the 'how' it all
+      came about (the journey) as interesting as the treasure" (his Indiana Jones holiday, 20261122_173241).
 - [ ] It doubles as H-AL's and NotebookLM's source: a few volumes instead of 349 chats (H-AL's notebook is
       at 45 of 50 sources).
-- [ ] AUTHOR: the title ("The Evolution of [T]-Theory"? "The Making of ..."?); whether it replaces Phase Dot
-      as the book of the chats or sits beside it.
+- [x] (27 Nov) Layer 1 built: `python sherlock/chats.py chronicle` -> bld/sherlock/chronicle.json (285 threads
+      in 9 months; personal threads counted, never listed; Ops left out; nothing quoted from the chats), laid
+      out by books/T-Theory/filters/chronicle.lua (`::: {.chronicle from= to= open=}`: per month a generated
+      summary, then the threads by product with their fate). The book: books/T-Theory/evolution/
+      book-evolution.md; `make -C books/T-Theory evolution` (46 pp; not in `pdf` while drafted). privacy.py:
+      0 leaks.
+- [x] (author, 27 Nov) Phase Dot itself (the raw chats, four A4 volumes) stays private in Me and off U's build
+      (Me/books/phase-dot has its own Makefile; nothing in U builds it); printed at Lulu for the author only.
+- [ ] USC needs one Phase Dot source: the original Me/books/phase-dot/phase-dot.md (the April-May 2026
+      transcripts, the origin) is not in Me/chats/Inbox, so the chronicle starts nearly empty (Feb-Apr: 3
+      threads). Give it an affidavit (split into its conversations) so the Origins chapter has its record.
+- [ ] Layer 2: the narrative of each period, written from the chronicle, every paragraph citing its prompts.
+- [ ] Triage feeds it: 216 of the 285 threads are not yet triaged; each routed thread changes its line.
+- [ ] AUTHOR (desk): the title. Copilot's opinion, 27 Nov: "[T]-Theory: The Evolution" (the spine carries
+      [T]-Theory, so the title can be the one word, as "Law" is), subtitle "How it came about: Phase Dot,
+      condensed" (keeps the link to Phase Dot; "compressed" reads like a zip file). "Explore" fits the VS Code
+      package better than the book: "[T]-Theory Explorer" (the Soma Machine is an explorer; USC explores the
+      documents), ISS-132.
