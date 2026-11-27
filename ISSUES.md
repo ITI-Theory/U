@@ -7872,6 +7872,25 @@ prose in `/-! -/` blocks, the papers' equations imported from their proofs, not 
       paper/proofs/EmotionCyc.lean already does (a name compiles only if OpenCyc proves its type; 25 of 28 names in
       EmotionOntology failed). For P1: its emotions, mechanisms and Table 2 typed in `TTheory/P1/Cyc.lean` (apart:
       it imports UniversalVocabularyMt); a fifth state, refuted, when OpenCyc proves the negation.
+- [x] (27 Nov 23:xx) The author: "genls should be replaced by native lean implementation ... pls stop and check the cyc
+      model vs the various ones discussed in chat". Checked: sherlock/Cyc is the FIRST answer of Me/chats
+      20260413_015018 (opaque isa/genls over string terms, every NextKB fact an axiom, Aesop searching); the author's
+      own question there, "if i were to start from scratch, what would be the lean way", got collections as types,
+      genls as Lean's hierarchy, rules as type classes, microtheories as namespaces; that thread's tag (implemented,
+      sherlock/Cyc) is a misrouting. SherlockBS2: classes as Lean types, DL operators as notation. 26 Nov: witnesses,
+      ATMS labels, AGM entrenchment, always recompile. The author chose A + C (types, genls as coercions, rules as
+      classes) and an experiment of both, P1 first, "dont assume that its too large to slurp in".
+- [x] (27 Nov) Experiment, step 1, on P1's own NextKB facts. String model (TTheory/P1/Cyc.lean): works, receipts
+      name the NextKB facts (ATMS labels), Anxiety open; 8 minutes for four Aesop queries over UniversalVocabularyMt.
+      A + C (TTheory/Experiments/OpenCycNative.lean): genls chains are Lean's own coercions; a microtheory's genls is
+      a scoped instance, true only where it is opened (checked both ways); a category error (the limbic system as an
+      agent) is a type error; collection-types (BrainRegionType) are classes; receipts kept (each genls an axiom).
+      B (structures, extends): reads well and catches the category error, but cannot scope a microtheory (extends is
+      global) and turns OpenCyc's assertions into definitions, so #status calls them kernel-verified: provenance lost.
+      Both natives compile in seconds at this size.
+- [ ] Step 2, the scale: the whole NextKB taxonomy (103,321 genls; 333,488 isa; 26,154 disjointWith) generated in the
+      A + C form, measured (build time, memory, coercion search); then P1 against it. disjointWith and individuals
+      with several types still to design.
 - [ ] The chats' threads: a thread's state (implemented, queued) from a witness in the model, not routed by hand.
 - [ ] (author, 27 Nov: "in the chats there was talk of external data sets to compare against etc. for the FMHN ...
       so the idea would be that discussion has the lean for that, and is then available somewhere else") A dataset
