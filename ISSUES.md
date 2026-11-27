@@ -7641,6 +7641,10 @@ then one paper and the app.
       Dist are old builds without the author and the licence): both are `make dist`, the promotion step of ISS-114.
       Warnings: the open research gaps (tracked), 46 records pending upload (ISS-001), two `#check_failure` in
       EmotionCyc.lean (deliberate: Plutchik's trust has no OpenCyc type).)
+      Second run, the same evening: 27 PASS, 4 WARN, 2 FAIL; the two FAILs are the promotion step (10, 12a), and the
+      new WARN is the omnibus older than the rebuilt Lean appendix (`make uat-build`, the release's big build).
+- [ ] AUTHOR, at the release: read the builds, then `make uat-build` and `make dist` (ISS-114's steps): release-check
+      all PASS.
 - [x] (27 Nov) `make help` grouped by the three products (the theory, the Soma Machine, the compiler), then release
       and housekeeping; new targets `evolution`, `background`, `usc`, `explorer`, `release-check` shown; every old
       line kept.
