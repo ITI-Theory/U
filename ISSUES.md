@@ -7471,7 +7471,7 @@ the chats are full of, and what a course reader lacks.
       begun, 30 pp.
 - [x] (27 Nov) The theory's own ideas: the field and its dimensions (4+3+1+3 in P20; 7+3+1 in P21), the zoom (P11;
       its two counts of levels caught, ISS-130), the Televator: 22 entries, every chapter with entries.
-- [ ] The affidavit re-frozen with the new entries (it is frozen at 80a3fbf).
+- [x] (27 Nov) The affidavit re-frozen at fc3b35c (delta: its 3 claims unchanged); 436 of 436 checks.
 - [ ] The entries (layer 2): the view by concept (the affidavits' concepts,
       Me/chats/affidavits/concepts.yaml) instead of by month; each entry: the standard idea (cited, not from
       the chats), its role in [T]-Theory (the papers, the Lean, the method's row if there is one), where it

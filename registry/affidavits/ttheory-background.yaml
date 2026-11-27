@@ -1,12 +1,13 @@
 # Sherlock affidavit: [T]-Theory: Background, Book 0 (ISS-134). USC on its own book: the numbers the
 # entries take from the method's rows, checked against the rows' sources and the other documents.
+# Re-frozen at fc3b35c (27 Nov, 22 entries); delta: the claims unchanged.
 id: ttheory-background
 document: BACKGROUND
 title: '[T]-Theory: Background'
 source:
   file: books/T-Theory/background/book-background.md
-  commit: 80a3fbf
-  sha256: 917062eec8b8e5131eb5270fa4e6d25da43b44260054c4cbb45efd78900e9834
+  commit: fc3b35c
+  sha256: acdffe16a0154bee4ef26cd1a96e6ec7ba7b80735b1c89cdedeaab1f3ecbd4a8
 lean: []
 microtheories: {}
 claims:
