@@ -6849,7 +6849,10 @@ directly or through a core; 26 Nov, USC as Sherlock and MTC, the `{{usc:...}}` t
       extended to the history (putting the models together from 5 Jun; the tags' line of descent,
       13 May, 7 and 11 Aug, 26 Nov; Sherlock's origin in the June brainstorms). 115 chats fail the
       triage, 25 threads open. `python sherlock/chats.py route` routes a thread.
-- [ ] The chats outside the Inbox (Me/chats/notebooks, Me/archive/sessions).
+- [x] (27 Nov) The chats outside the Inbox, checked by prompt text against the model: Me/archive/sessions'
+      three transcripts are older exports of Inbox chats (1010 of 1018 prompts in 20260612_184004 HAL usage,
+      108 of 108 in 20261006_190130 write_a_book, 163 of 164 in 20260516_230924 quantum acoustic); its fourth
+      file and Me/chats/notebooks (47 files) are notes and NotebookLM artifacts, no prompts. Nothing to add.
 - [x] (27 Nov) Queued here from the chats: 20261126_140957 architecture-md (USC's ARCHITECTURE.md).
 - [ ] Join the chat models to the paper models (MTC; a core T-Theory model the documents project
       from, 23 Nov).
@@ -6933,6 +6936,12 @@ directly or through a core; 26 Nov, USC as Sherlock and MTC, the `{{usc:...}}` t
       an empirical input until a class with β = 2/3 is named ("derived" dropped); Kramers' formula
       gets its friction γ back; trauma wells are "deep", not "deep narrow". These are the cheatsheet
       corrections to make when the booklet is next revised (books/T-Theory/booklet/booklet_body.md).
+- [x] (27 Nov, round 5) COID-WKB-1 (`Fishing/WKB.lean`): the Lean's WKB action (LimbicTunnel `wkbAction`,
+      defined, not derived) is now derived: ∫₋₁¹ √(2V) dx = √(2W)·4/3 for V = W(x² - 1)² at E = 0, m = 1;
+      the cheatsheet's formula (√(V - E), no 2m) gives an exponent √2 smaller, equal only if m = 1/2, and
+      QUANT-EXP-1 follows the Lean; exp(-2S) is a probability, called an amplitude in both. COID-PREVERBAL-1
+      reuses KG-1: the pre-verbal claim (large k, rapid memory decay) needs the decay the master equation
+      lacks.
 - [ ] Physics fishing, further catches from the cheatsheet (the method's rows; the Lean decides).
 - [x] (27 Nov, author: "compile ISSUES.md as well, heavily linked to chats already") ISSUES.md as a
       Lean model: `sherlock/Issue` (statuses, boxes, AUTHOR steps, the header's rules as functions),

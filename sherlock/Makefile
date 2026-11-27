@@ -185,7 +185,7 @@ backtests: method
 
 # Fishing (ISS-126): the method pointed at [T]-Theory, from the cheatsheet's premises.
 # One module at a time (at most two Lean processes); Fishing is the catalogue: the ledger and the bait.
-FISH := Fishing.Gravity Fishing.KleinGordon Fishing.Cosmology Fishing.Scales Fishing.Expansion Fishing.KaluzaKlein Fishing.Kramers Fishing.Locking Fishing.Seismic Fishing.Games Fishing.Networks Fishing
+FISH := Fishing.Gravity Fishing.KleinGordon Fishing.Cosmology Fishing.Scales Fishing.Expansion Fishing.KaluzaKlein Fishing.Kramers Fishing.Locking Fishing.Seismic Fishing.Games Fishing.Networks Fishing.WKB Fishing
 fishing: backtests
 	@cd .. && for m in $(FISH); do echo "lean $$m"; \
 	  LEAN_NUM_THREADS=2 lake build $$m > "$(LOG)" 2>&1 || { tail -n 30 "$(LOG)"; exit 1; }; tail -n 1 "$(LOG)"; \

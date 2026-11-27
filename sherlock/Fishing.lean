@@ -9,6 +9,7 @@ import Fishing.Locking
 import Fishing.Seismic
 import Fishing.Games
 import Fishing.Networks
+import Fishing.WKB
 import Einstein1905
 
 /-!
@@ -25,7 +26,8 @@ def rows : List Row :=
   [Backtest.Einstein1905.row, Fishing.Gravity.row, Fishing.KleinGordon.row,
    Fishing.Cosmology.published, Fishing.Cosmology.row, Fishing.Expansion.row,
    Fishing.KaluzaKlein.row, Fishing.Kramers.row, Fishing.Locking.row,
-   Fishing.Seismic.row, Fishing.Games.row, Fishing.Networks.row]
+   Fishing.Seismic.row, Fishing.Games.row, Fishing.Networks.row,
+   Fishing.WKB.row, Fishing.WKB.preverbal]
 
 #guard rows.all (·.wellFormed)
 #eval ledger rows
