@@ -497,6 +497,18 @@ def cPTSD : Claim where
     ¬ ∃ H : (Fin n → ℝ) → ℝ, ContDiff ℝ 2 H ∧
       ∀ e i, HasDerivAt (fun x => H (Function.update e i x)) (-(∑ j, W i j * e j)) (e i)
 
+/-- What P1 still needs: its holes, as the fields of a class, not `sorry`s (the 23 Nov spec). Both
+    are phrases of the abstract that the body does not yet prove. A later paper fills them with an
+    instance (or a theorem `P2Model → P1.Holes`), and both claims are kernel-verified on the next
+    build, nothing set by hand. -/
+class Holes : Prop where
+  poles : cPoles.statement
+  cptsd : cPTSD.statement
+
+instance [h : Holes] : Witness cPoles := .of h.poles
+
+instance [h : Holes] : Witness cPTSD := .of h.cptsd
+
 /-- P1's claims, in the paper's order. -/
 def claims : List Claim :=
   [cOneFunction, cSubPerceptual, cThreshold, cCompanion, cForce, cHRV, cThreeLayers, cEquivalence,

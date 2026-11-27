@@ -8011,6 +8011,11 @@ mathlib and physlib ... T-theory, all of it, modelled in lean"):**
       generation is measured.
 - [ ] (a) Each paper's chapter: its assumptions and holes as the fields of its class (P1 first, then the 14 axioms of
       the papers' Lean), no global axioms; a later paper fills a hole by an instance.
+- [x] (a), P1 (28 Nov 01:xx): P1 has no global axioms (each assumption is a hypothesis of its theorem); its holes
+      are `P1.Holes`, a class whose fields are the two open claims (poles, C-PTSD), with witnesses conditional on
+      it. Tested: a hypothetical later paper giving `instance : P1.Holes` (through sorry) moved both claims from
+      open to frontier on the next build; with proofs they would be kernel-verified. The 14 programme axioms (in
+      paper/proofs) become fields the same way as their papers become chapters.
 - [ ] (b) Rename the claims machinery (TTheory.Core to TTheory.Claims: done 28 Nov); TTheoryCore above the chapters, with the
       projection theorems (TTheoryCore -> P<n>).
 - [x] (28 Nov 00:xx; the author: "perhaps worth you finding the other refs to all this in the chats, and reading those
