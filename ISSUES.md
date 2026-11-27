@@ -7604,7 +7604,13 @@ then one paper and the app.
       broke searches), an empty `-p` from a failed `mkdir -p`, a `__pycache__`.
 - [x] (27 Nov, author: "remove") The root's leftovers removed: `a.md` and `opening_page.pdf` (RC1.1's noir page,
       referenced by nothing) and `docker-compose.yml.OBSOLETE`; git keeps their history.
-- [ ] `bin/release-check`: every section PASS.
+- [ ] `bin/release-check`: every section PASS. (27 Nov, first run: 24 PASS, 3 WARN, 6 FAIL. Fixed the same evening:
+      14 (the registry mirror, `make generate`), 15 (the generated issues page counted as code; now prose, as
+      ISSUES.md), 18 (the big bang's epic file), 4 (`make lean-appendix`). Left for the release itself, after the
+      author has read the builds: 10 (P25, SH1, P26 and Vol III not yet in Dist) and 12a (the two cheat sheets in
+      Dist are old builds without the author and the licence): both are `make dist`, the promotion step of ISS-114.
+      Warnings: the open research gaps (tracked), 46 records pending upload (ISS-001), two `#check_failure` in
+      EmotionCyc.lean (deliberate: Plutchik's trust has no OpenCyc type).)
 - [x] (27 Nov) `make help` grouped by the three products (the theory, the Soma Machine, the compiler), then release
       and housekeeping; new targets `evolution`, `background`, `usc`, `explorer`, `release-check` shown; every old
       line kept.
