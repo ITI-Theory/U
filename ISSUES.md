@@ -7860,6 +7860,17 @@ prose in `/-! -/` blocks, the papers' equations imported from their proofs, not 
       (-dH/de_i = (We)_i + b_i for symmetric W) and the companion's fieldForce8 is it; eq (16) proved to be eq (13)
       for the tilted energy (15); the somatic equivalence principle; eq (18) and the paper's Layer 2 special case;
       (14) noise falls with HRV coherence; (17) Pi monotone in its three terms.
+- [x] (27 Nov) Witnesses and states (the spec of 26 Nov; the author: "the use of witnesses to trigger new states as
+      other includes change"): `TTheory/Core.lean`, a Claim and a `Witness` class whose instances chain, and
+      `#status`, which computes each claim's state from its witness's axioms (kernel-verified; derived under
+      assumptions, the axioms named; frontier, sorry; open). P1: 8 kernel-verified, 2 open (downhill, escape).
+      Tested: with the force's witness removed, eq (13) and the companion derived from it both went open; a sorry
+      witness showed as frontier.
+- [ ] Cyc for what is not an equation (the author: "by using cyc tags ... a compile time check?"): yes, as
+      paper/proofs/EmotionCyc.lean already does (a name compiles only if OpenCyc proves its type; 25 of 28 names in
+      EmotionOntology failed). For P1: its emotions, mechanisms and Table 2 typed in `TTheory/P1/Cyc.lean` (apart:
+      it imports UniversalVocabularyMt); a fifth state, refuted, when OpenCyc proves the negation.
+- [ ] The chats' threads: a thread's state (implemented, queued) from a witness in the model, not routed by hand.
 - [ ] (author, 27 Nov: "in the chats there was talk of external data sets to compare against etc. for the FMHN ...
       so the idea would be that discussion has the lean for that, and is then available somewhere else") A dataset
       comparison is written once in Lean, in its own module, where the chat discussed it (the module names the chat

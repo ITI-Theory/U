@@ -1,3 +1,4 @@
+import TTheory.Core
 import SomaField
 import Mathlib.Analysis.Calculus.Deriv.Add
 import Mathlib.Analysis.Calculus.Deriv.Mul
@@ -224,5 +225,137 @@ theorem plasticity_mono {S S' dW dW' C C' : ℝ} (hS : 0 < S') (hSS : S' ≤ S) 
   gcongr
 
 end ThreeLayers
+
+/-! ## The energy landscape: attractors
+
+The landscape has valleys, hills and saddles; the field always moves downhill. The paper proposes that the
+major valleys are the autonomic states of polyvagal theory (Table 2): regulated calm the global minimum,
+fight a shallow high-energy minimum, flight a saddle or shallow minimum, freeze a deep but isolated one.
+Escape from freeze requires first *gaining* energy: the clinical point that arousal must be titrated. -/
+
+/-- Table 2's attractors. -/
+inductive Attractor
+  | regulatedCalm | fight | flight | freeze
+  deriving DecidableEq, Repr
+
+/-- The polyvagal states (Porges). -/
+inductive Polyvagal
+  | ventralVagal | sympathetic | dorsalVagal
+  deriving DecidableEq, Repr
+
+/-- Table 2: each attractor's polyvagal correlate (the paper's proposal). -/
+def Attractor.polyvagal : Attractor → Polyvagal
+  | .regulatedCalm => .ventralVagal
+  | .fight => .sympathetic
+  | .flight => .sympathetic
+  | .freeze => .dorsalVagal
+
+/-- Table 2: each attractor's place in the landscape (the paper's proposal). -/
+inductive Basin
+  | globalMinimum | shallowHighEnergy | saddleOrShallow | deepIsolated
+  deriving DecidableEq, Repr
+
+def Attractor.basin : Attractor → Basin
+  | .regulatedCalm => .globalMinimum
+  | .fight => .shallowHighEnergy
+  | .flight => .saddleOrShallow
+  | .freeze => .deepIsolated
+
+/-! ## P1's claims and their witnesses
+
+Each claim in the paper's words, its statement, and its witness where the model has one. A witness may be
+built from other witnesses: the companion's claim below is derived from the force claim, so it stands or
+falls with it. `#status` at the end computes each claim's state. -/
+
+open TTheory
+
+def cOneFunction : Claim where
+  id := "P1.eq1-3"
+  text := "The Hopfield, Ising and soma energies are one expression: structure, not metaphor."
+  statement := ∀ n, @isingEnergy n = @hopfieldEnergy n ∧ @somaEnergy n = @hopfieldEnergy n
+
+instance : Witness cOneFunction := .of fun _ => ⟨rfl, rfl⟩
+
+def cForce : Claim where
+  id := "P1.eq13"
+  text := "The field flows down its energy: for symmetric couplings, ė = We + b + η."
+  statement := ∀ n (W : Fin n → Fin n → ℝ), (∀ i j, W i j = W j i) → ∀ b e η : Fin n → ℝ,
+    velocity (somaEnergy W b) e η = fun i => ∑ j, W i j * e j + b i + η i
+
+instance : Witness cForce := .of fun _ W hW b e η => soma_velocity W hW b e η
+
+def cCompanion : Claim where
+  id := "P1.companion"
+  text := "SomaField.lean is the paper's model: eight BRECVEMA modes, no bias; its threshold is eq. (12) and its force eq. (13)'s."
+  statement := (∀ e, energy8 e = somaEnergy W8 0 e) ∧ (∀ e i, perceptible e i ↔ Perceived threshold8 e i) ∧
+    (∀ e i, fieldForce8 e i = -partialAt (somaEnergy W8 0) e i)
+
+/-- Derived from the force claim's witness: the companion's force is eq. (13)'s. -/
+instance [h : Witness cForce] : Witness cCompanion := .of
+  ⟨companion_energy, companion_perceptible, fun e i => by
+    have hv := congrFun (h.proof N8 W8 W8_symm 0 e 0) i
+    simp only [velocity, Pi.zero_apply, add_zero] at hv
+    rw [hv]
+    simp [fieldForce8]⟩
+
+def cThreeLayers : Claim where
+  id := "P1.eq16"
+  text := "The three-layer equation (16) is the downhill flow of the tilted energy (15), with regulation and HRV-scaled noise."
+  statement := ∀ n (H₀ : (Fin n → ℝ) → ℝ) (α Hdot σ₀ C : ℝ) (β R ξ e : Fin n → ℝ),
+    (∀ i, HasDerivAt (fun x => H₀ (Function.update e i x)) (partialAt H₀ e i) (e i)) →
+    velocity3 H₀ α Hdot β R σ₀ C ξ e = velocity (tilted H₀ α Hdot β) e (fun i => R i + sigmaEff σ₀ C * ξ i)
+
+instance : Witness cThreeLayers := .of fun _ _ _ _ _ _ _ _ _ _ h => velocity3_is_tilted_flow h
+
+def cEquivalence : Claim where
+  id := "P1.equivalence"
+  text := "The somatic equivalence principle: the field cannot tell a cardiac tilt from any other forcing of the same size."
+  statement := ∀ n (H₀ : (Fin n → ℝ) → ℝ) (α Hdot σ₀ C : ℝ) (β R ξ e J : Fin n → ℝ),
+    (∀ i, J i = α * Hdot * β i) →
+    velocity3 H₀ α Hdot β R σ₀ C ξ e = fun i => -partialAt H₀ e i + J i + R i + sigmaEff σ₀ C * ξ i
+
+instance : Witness cEquivalence := .of fun _ _ _ _ _ _ _ _ _ _ _ hJ => somatic_equivalence hJ
+
+def cLayer2 : Claim where
+  id := "P1.layer2"
+  text := "The two-term Langevin equation is the Layer 2 special case (R_PFC = 0, C_HRV = 1)."
+  statement := ∀ n (H : (Fin n → ℝ) → ℝ) (σ₀ : ℝ) (ξ e : Fin n → ℝ),
+    velocity18 H 0 σ₀ 1 ξ e = velocity H e (fun i => σ₀ * ξ i)
+
+instance : Witness cLayer2 := .of fun _ _ _ _ _ => layer2_special_case
+
+def cHRV : Claim where
+  id := "P1.eq14"
+  text := "High HRV coherence narrows effective noise."
+  statement := ∀ σ₀ C C' : ℝ, 0 < σ₀ → 0 < C → C < C' → sigmaEff σ₀ C' < sigmaEff σ₀ C
+
+instance : Witness cHRV := .of fun _ _ _ => sigmaEff_falls
+
+def cPlasticity : Claim where
+  id := "P1.eq17"
+  text := "Complex PTSD as chronically low Π across all three terms: lowering any term lowers Π."
+  statement := ∀ S S' dW dW' C C' : ℝ, 0 < S' → S' ≤ S → dW ≤ dW' → C ≤ C' →
+    plasticity S dW C ≤ plasticity S' dW' C'
+
+instance : Witness cPlasticity := .of fun _ _ _ _ _ _ => plasticity_mono
+
+def cDownhill : Claim where
+  id := "P1.downhill"
+  text := "The field always moves downhill: without noise, its energy never rises."
+  statement := ∀ n (H : (Fin n → ℝ) → ℝ), Differentiable ℝ H → ∀ e : ℝ → Fin n → ℝ,
+    (∀ t, HasDerivAt e (velocity H (e t) 0) t) → Antitone (fun t => H (e t))
+
+def cEscape : Claim where
+  id := "P1.escape"
+  text := "Escape from freeze requires first increasing the field's energy."
+  statement := ∀ n (H : (Fin n → ℝ) → ℝ) (x : Fin n → ℝ),
+    (∀ᶠ y in nhdsWithin x {x}ᶜ, H x < H y) → ∀ γ : ℝ → Fin n → ℝ, Continuous γ → γ 0 = x → γ 1 ≠ x →
+    ∃ t ∈ Set.Icc (0 : ℝ) 1, H x < H (γ t)
+
+/-- P1's claims, in the paper's order. -/
+def claims : List Claim :=
+  [cOneFunction, cCompanion, cForce, cHRV, cThreeLayers, cEquivalence, cPlasticity, cLayer2, cDownhill, cEscape]
+
+#status claims
 
 end TTheory.P1
