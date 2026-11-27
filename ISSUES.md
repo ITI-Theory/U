@@ -7362,6 +7362,7 @@ Plan (each a box; the AUTHOR's are on the desk, ISS-081):
       README, LICENSE, the UAT step).
 - [ ] Register The Evolution and Background in Dist/PAPERS.yaml (collections) when drafted, with spine titles
       "[T] The Evolution" and "[T] Background" (never "[T]-Theory" twice on a spine).
+- [x] (27 Nov) Queued here: 20261106_155243 outreach (after the release: comments off, pull requests on, a chat channel).
 
 ## ISS-133: The Evolution: the chats condensed, what actually happened (public) — IN-PROGRESS
 {{Tags area.sherlock, area.books}}
@@ -7485,6 +7486,8 @@ the chats are full of, and what a course reader lacks.
       without the domain template); the course points to it as well; in the volumes it opens Vol I only if
       Lulu's 800 pages allow, else it stands alone. The Evolution stays outside the series (history, not
       theory). AUTHOR: confirm.
+- [x] (27 Nov) Queued here: 20260807_144656 public-notebook and 20260807_144833 ask-the-theory ('come and ask the
+      theory': a public notebook with a few sources instead of fifty).
 
 ## ISS-135: Ideas from the chats waiting for a home (the loose ends no issue covered) — OPEN
 {{Tags area.sherlock}}
@@ -7566,3 +7569,19 @@ use this as a concrete use case".
    - [ ] Tag while writing (`<space>ui`): the prompt is tagged before it is sent ("chats at chat time").
    - [ ] Send from Neovim to the agent (the Copilot CLI in a terminal split, or VS Code's chat through a command),
      so the draft, the tags and the prompt are one file in the record.
+
+## ISS-137: Peer review and the first journal: the papers out into the world — OPEN
+{{Tags area.papers, area.release}}
+{{Fields date.created=2026-11-27, date.start=, date.end=, epic=ISS-132-big-bang}}
+
+No issue covered it, though the chats return to it again and again (triage, 27 Nov): the preprint servers
+(OSF, bioRxiv and PsyArXiv refused; arXiv needs an endorsement), the first journal (Elsevier's BioSystems, for
+the field-modified Hopfield network and the Soma-Field papers), a cover letter, the AI-use declaration (which
+Sherlock could check), and whom to approach and how. The threads, queued here:
+20260516_230924 preprint-servers, 20260812_202133 audience, 20260928_223150 approach-google,
+20261120_140700 publishers-review, 20261122_173241 proof-and-experiment and first-paper-review,
+20261126_140957 first-paper.
+
+- [ ] AUTHOR: after the big bang (ISS-132), or before it: the first paper for review and the journal.
+- [ ] The AI-use declaration as a Sherlock check: every paper says what the AI did, in the journal's words.
+- [ ] The cover letter, from the paper's affidavit (what it claims, what is proved, what is open).
