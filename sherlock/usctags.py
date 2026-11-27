@@ -1,6 +1,6 @@
 """The {{usc:...}} tags (sherlock/usc_tags.ebnf): scan, check, and compile to Lean (ISS-126).
 
-  python sherlock/usctags.py check [FILES]   the checks; the default files are U/ISSUES.md and Me/chats/Inbox
+  python sherlock/usctags.py check [FILES]   the checks; the default files are U/ISSUES.md, Me/chats/Inbox and Me/chats/phase-dot
   python sherlock/usctags.py lean  [FILES]   bld/sherlock/lean/Tags.lean (private: the chats' tags)
   python sherlock/usctags.py strip FILE      print FILE without its tags (what the builds see)
 
@@ -105,7 +105,7 @@ def problems(tags: list[dict]) -> list[str]:
 def files(given: list[str]) -> list[Path]:
     if given:
         return [Path(g).resolve() for g in given]
-    return [U / "ISSUES.md"] + sorted((ME / "chats" / "Inbox").glob("*.md"))
+    return [U / "ISSUES.md"] + sorted((ME / "chats" / "Inbox").glob("*.md")) + sorted((ME / "chats" / "phase-dot").glob("*.md"))
 
 
 def s(x: str) -> str:

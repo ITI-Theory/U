@@ -24,7 +24,7 @@ chats are queried in Lean (Chat/Query.lean) instead of grepped.
     python sherlock/chats.py tag                # a {{usc:...}} tag in the original for every routed thread
     python sherlock/chats.py chronicle          # The Evolution's data, month by month -> bld/sherlock/chronicle.json
 
-FILE defaults to every chat in Me/chats/Inbox. The chats are private: the generated modules are
+FILE defaults to every chat in Me/chats/Inbox and Me/chats/phase-dot. The chats are private: the generated modules are
 built in bld/ (ignored) and never committed.
 """
 from __future__ import annotations
@@ -41,8 +41,31 @@ import yaml
 U = Path(__file__).resolve().parents[1]
 ME = U.parent.parent / "Me"
 INBOX = ME / "chats" / "Inbox"
+# Phase Dot's conversations (April-May 2026), split from the book (Me/chats/scripts/split_phasedot.py): a second
+# source of chats beside the Inbox, read by every tool here but never by Phase Dot 2's collation (ISS-133).
+PHASEDOT = ME / "chats" / "phase-dot"
 AFF = ME / "chats" / "affidavits"
 OUT = U / "bld" / "sherlock" / "lean"
+AFF_PD = ME / "chats" / "affidavits" / "phase-dot"
+
+
+def aff_for(chat_file: Path) -> Path:
+    """A chat's affidavit: Me/chats/affidavits/<stem>.aff, or affidavits/phase-dot/<stem>.aff."""
+    return (AFF_PD if chat_file.parent == PHASEDOT else AFF) / (chat_file.stem + ".aff")
+
+
+def chat_for(aff: Path) -> Path:
+    return (PHASEDOT if aff.parent == AFF_PD else INBOX) / (aff.stem + ".md")
+
+
+def all_affs() -> list[Path]:
+    return sorted(AFF.glob("*.aff")) + sorted(AFF_PD.glob("*.aff"))
+
+
+def stamp_of(stem: str) -> str:
+    """The chat's stamp: 20261126_140957 for an export, 20260428_03 for a Phase Dot conversation."""
+    m = re.match(r"\d{8}_\d+", stem)
+    return m[0] if m else stem[:15]
 
 ENTRY = re.compile(r"^## Author \(([^)]+)\)[ \t]*$", re.M)
 TURN = re.compile(r"^## (Author|User|Assistant)\b(.*)$", re.M)  # User: Copilot's export ("## User - <time>")
@@ -139,7 +162,7 @@ def parse(path: Path) -> dict:
                 stop = marks[i + 1][0] if i + 1 < len(marks) else len(text)
                 when = STAMP.search(rest or "")
                 add(text[end: stop], when.group(1) if when else "", start)
-    return {"file": path.name, "date": str(head.get("date", "")), "source": str(head.get("source", "")),
+    return {"file": path.name, "path": str(path), "date": str(head.get("date", "")), "source": str(head.get("source", "")),
             "account": str(head.get("account", "")), "title": str(head.get("title", "")),
             "prompts": prompts, "offers": offers}
 
@@ -150,7 +173,7 @@ def vocabulary() -> set[str]:
 
 
 def affidavit(chat: dict, vocab: set[str]) -> tuple[dict | None, list[str]]:
-    path = AFF / (Path(chat["file"]).stem + ".aff")
+    path = aff_for(Path(chat["path"]))
     if not path.exists():
         return None, []
     try:
@@ -226,7 +249,7 @@ def lean_module(name: str, chat: dict, aff: dict | None) -> str:
 
 def route(stamp: str, thread: str, disposition: str, ref: str) -> int:
     """Set one thread's disposition in a chat's affidavit (the line is edited, the rest kept)."""
-    affs = sorted(AFF.glob(f"{stamp}*.aff"))
+    affs = sorted(AFF.glob(f"{stamp}*.aff")) + sorted(AFF_PD.glob(f"{stamp}*.aff"))
     if len(affs) != 1:
         print(f"route: {len(affs)} affidavits match {stamp!r}")
         return 1
@@ -293,6 +316,9 @@ def witness_holds(ref: str) -> bool:
     for token in re.findall(r"[\w.-]+/[\w./-]+", ref):
         if any((repo / token).exists() for repo in REPOS):
             return True
+    for token in re.findall(r"(?<![/\w])[\w-]+\.(?:md|py|lean|yaml|json|lua|js)\b", ref):  # a file at a repo's root
+        if any((repo / token).is_file() for repo in REPOS):
+            return True
     return False
 
 
@@ -304,12 +330,12 @@ def triage() -> int:
     from collections import Counter
     known = issues()
     threads = []
-    for path in sorted(AFF.glob("*.aff")):
+    for path in all_affs():
         lines = path.read_text(encoding="utf-8").splitlines()
         aff = yaml.safe_load("\n".join(lines)) or {}
         for t in aff.get("threads") or []:
             line = next((i + 1 for i, l in enumerate(lines) if re.search(r"\{id: " + re.escape(str(t.get("id"))) + ",", l)), 1)
-            threads.append({"aff": path, "line": line, "stamp": path.stem[:15], **t,
+            threads.append({"aff": path, "line": line, "stamp": stamp_of(path.stem), **t,
                             "words": words(t.get("topic", "")) + [c.lower() for c in t.get("concepts") or []]})
     docs = [t["words"] for t in threads] + [i["words"] for i in known.values()]
     df = Counter(w for d in docs for w in set(d))
@@ -356,10 +382,20 @@ def triage() -> int:
         if len(group) >= 1:
             seen.update(group)
             links.append([a] + [threads[j] for j in group])
+    # The chats stay alive (author, 27 Nov): an idea decided in one chat decides its twin in another, so an
+    # untriaged twin of a routed thread is flagged with the decision it may share.
+    for g in links:
+        decided = [t for t in g if t.get("disposition", "untriaged") != "untriaged"
+                   and not str(t.get("ref", "")).startswith("duplicate of")]
+        for t in g:
+            if t.get("disposition", "untriaged") == "untriaged" and decided:
+                d = decided[0]
+                warnings.append(f"{t['aff'].name}:{t['line']}: warning: {t['id']}: the same idea as {d['stamp']} {d['id']}, "
+                                f"{d['disposition']} {d.get('ref', '')}: the same here?")
     out = ["# Chat triage (fishing)", "", f"Generated by `python sherlock/chats.py triage` from {len(threads)} threads and "
            f"{len(known)} issues. Suggestions only: the author routes (`chats.py route`).", "",
            f"## Errors ({len(errors)}): a witness that does not hold", ""] + [f"- {e}" for e in errors] + [
-           "", f"## Warnings ({len(warnings)}): an untriaged thread that looks like an issue", ""] + [f"- {w}" for w in warnings] + [
+           "", f"## Warnings ({len(warnings)}): an untriaged thread that looks like an issue, or a twin of a decided one", ""] + [f"- {w}" for w in warnings] + [
            "", f"## Loose ends ({len(loose)}): deferred or unexplored, and no issue covers them", ""] + [f"- {w}" for w in loose] + [
            "", f"## Links ({len(links)}): one idea in several chats", ""]
     for g in sorted(links, key=len, reverse=True):
@@ -454,7 +490,7 @@ def ideas(by: str = "", grep: str = "") -> int:
     from usctags import files as tag_files, scan as tag_scan
     KIND = {"unexplored_fork": "Loose ends", "deferred": "Loose ends", "drifted": "Drift", "pursued": "Pursued, not yet routed"}
     rows, private = [], 0
-    for path in sorted(AFF.glob("*.aff"), reverse=True):
+    for path in sorted(all_affs(), key=lambda a: a.stem, reverse=True):
         aff = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
         for th in aff.get("threads") or []:
             if th.get("disposition", "untriaged") != "untriaged":
@@ -470,7 +506,7 @@ def ideas(by: str = "", grep: str = "") -> int:
             span = f"{ps[0]}-{ps[-1]}" if len(ps) > 1 else (str(ps[0]) if ps else "-")
             rows.append({"kind": KIND.get(th.get("status"), "Pursued, not yet routed"), "product": product,
                          "date": f"{path.stem[:4]}-{path.stem[4:6]}-{path.stem[6:8]}", "id": th.get("id"),
-                         "topic": th.get("topic", "").strip(), "where": f"{path.stem[:15]}, prompts {span}"})
+                         "topic": th.get("topic", "").strip(), "where": f"{stamp_of(path.stem)}, prompts {span}"})
     tags = [tg for f in tag_files([]) for tg in tag_scan(f)
             if tg["kind"] == "begin" and tg["attrs"].get("status") in ("IDEA", "LOOSE_END", "DECISION", "QUESTION")
             and not tg["attrs"].get("disp")]
@@ -514,9 +550,9 @@ def chronicle() -> int:
     thread is its affidavit's topic, its date, its prompts and its disposition."""
     import yaml
     months: dict[str, list] = {}
-    private = ops = 0
+    private = ops = dupes = 0
     # The chats, and Phase Dot's conversations (Me/chats/affidavits/phase-dot: the origin, April-May 2026).
-    sources = [(a, "chat") for a in sorted(AFF.glob("*.aff"))] + [(a, "Phase Dot") for a in sorted((AFF / "phase-dot").glob("*.aff"))]
+    sources = [(a, "Phase Dot" if a.parent == AFF_PD else "chat") for a in all_affs()]
     for path, origin in sources:
         if not (stamp := re.match(r"\d{8}_\d+", path.stem)):
             continue
@@ -532,6 +568,9 @@ def chronicle() -> int:
             if product == "Ops":
                 ops += 1
                 continue
+            if str(th.get("ref", "")).startswith("duplicate of"):
+                dupes += 1
+                continue
             ps = th.get("prompts") or []
             d = th.get("disposition", "untriaged")
             ref = ""
@@ -545,12 +584,13 @@ def chronicle() -> int:
                 "product": product, "status": th.get("status", ""), "disposition": d, "ref": str(ref or th.get("ref", "") or ""),
                 "concepts": sorted((own or cs) - PRIVATE), "prompts": [ps[0], ps[-1]] if ps else []})
     data = {"generated_by": "python sherlock/chats.py chronicle", "private_counted": private, "ops_left_out": ops,
+            "duplicates_left_out": dupes,
             "months": [{"month": m, "threads": months[m]} for m in sorted(months)]}
     out = U / "bld" / "sherlock" / "chronicle.json"
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(data, ensure_ascii=False, indent=1), encoding="utf-8", newline="\n")
     n = sum(len(v) for v in months.values())
-    print(f"chronicle: {n} threads in {len(months)} months ({private} personal counted, {ops} Ops left out) -> {out}")
+    print(f"chronicle: {n} threads in {len(months)} months ({private} personal counted, {ops} Ops and {dupes} duplicates left out) -> {out}")
     return 0
 
 
@@ -562,10 +602,10 @@ def tag_routed() -> int:
     MARK = re.compile(r"^\s*(?:#+ )?\*\*Your prompt:\*\*|^## (?:User|Author)\b")
     NEXT = re.compile(r"^\s*(?:#+ )?\*\*(?:Your prompt|Search's response):\*\*|^## ")
     done = skipped = 0
-    for a in sorted(AFF.glob("*.aff")):
+    for a in all_affs():
         aff = yaml.safe_load(a.read_text(encoding="utf-8")) or {}
         routed = [th for th in aff.get("threads") or [] if th.get("disposition", "untriaged") != "untriaged" and th.get("prompts")]
-        f = INBOX / (a.stem + ".md")
+        f = chat_for(a)
         if not routed or not f.exists():
             continue
         text = f.read_text(encoding="utf-8")
@@ -574,7 +614,7 @@ def tag_routed() -> int:
         prompts = {q["index"]: q["line"] for q in parse(f)["prompts"]}
         inserts = []
         for th in routed:
-            tid = f"THREAD-{a.stem[:15]}-{th['id']}"
+            tid = f"THREAD-{stamp_of(a.stem)}-{th['id']}"
             if f'id="{tid}"' in text or th["prompts"][0] not in prompts:
                 continue
             ln = prompts[th["prompts"][0]] - 1
@@ -603,7 +643,7 @@ def tag_routed() -> int:
 
 
 def chat_files(given: list[str]) -> list[Path]:
-    return [Path(f).resolve() for f in given] if given else sorted(INBOX.glob("*.md"))
+    return [Path(f).resolve() for f in given] if given else sorted(INBOX.glob("*.md")) + sorted(PHASEDOT.glob("*.md"))
 
 
 def main() -> int:
@@ -635,7 +675,7 @@ def main() -> int:
         return 0
     if a.command == "todo":
         for c in chats:
-            if not (AFF / (Path(c["file"]).stem + ".aff")).exists():
+            if not aff_for(Path(c["path"])).exists():
                 print(f"{c['file']}  ({len(c['prompts'])} prompts)")
         return 0
     vocab, problems, taken, names = vocabulary(), [], set(), []
@@ -651,7 +691,7 @@ def main() -> int:
     root = [f"import Chats.{n}" for n in names] + ["", "/-! Every chat, generated by sherlock/chats.py (private; never commit). -/",
             "def Chats.all : List Chat.Chat := ["] + [f"  Chats.{n}.chat" + ("," if i < len(names) - 1 else "") for i, n in enumerate(names)] + ["]", ""]
     (OUT / "Chats.lean").write_text("\n".join(root), encoding="utf-8", newline="\n")
-    read = sum(1 for c in chats if (AFF / (Path(c["file"]).stem + ".aff")).exists())
+    read = sum(1 for c in chats if aff_for(Path(c["path"])).exists())
     print(f"chats: {len(chats)} chats ({read} with an affidavit), {sum(len(c['prompts']) for c in chats)} prompts -> {OUT / 'Chats'}")
     for p in problems:
         print("  !!", p)

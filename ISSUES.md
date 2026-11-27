@@ -7080,6 +7080,16 @@ directly or through a core; 26 Nov, USC as Sherlock and MTC, the `{{usc:...}}` t
       (20261126_140957 lean-inference; the fishing's `bait` is the first instance).
 - [x] (27 Nov) The chats' threads queued here: 20260612_184004 federated-to-one (the Lean as one unified model),
       20260605_204722 combine-two-models, 20261118_215825 python-to-lean (a readable model in Lean).
+- [x] (27 Nov 18:12, author: "the chats ... are always alive, as external stuff can change not their content but
+      state/semantics. eg, a 'should we ..' can change if i later do it, or later reject it somewhere else")
+      Triage keeps them alive: a thread queued on an issue that has CLOSED is flagged ("implemented now?"), and
+      now an untriaged thread whose twin in another chat has been decided is flagged with that decision ("the
+      same here?"; duplicates excepted). First catches: the Twisters (16 May) to ISS-120, the extended V-model
+      (20 Nov) implemented by chats.py. The state lives in the affidavits and tags; every build recompiles it.
+- [ ] (author, 27 Nov: "as you do [the books] and use usc on them ... use those models to help define the tags
+      as well ... circular development?") Copilot: yes, as compilers bootstrap; the books' prose needs a citation
+      of prompts (STAMP:Pn) the grammar does not have yet. Each grammar change is checked against every chat and
+      book (make tags, chats, the books) so the loop converges.
 
 ## ISS-127: USM as a model: what the Soma Machine shows, and its options from 4D up — OPEN
 {{Tags area.app, area.sherlock, area.visualize, project.soma-field-operator}}
@@ -7391,7 +7401,11 @@ cites the prompts it comes from, so Sherlock can write its affidavit against the
       phase-dot/YYYYMMDD_NN_<slug>.md, private; (2) the pasted text has no prompt markers, so their affidavits
       cite sections and lines instead of prompts (Chat model: a `section` locator beside `prompts`); (3) the LLM
       pass writes the affidavits, Part I first (the origin), a few sessions' work; (4) chronicle reads them.
-      AUTHOR: whether they join Me/chats/Inbox (then they count in the triage) or stay beside it.
+      (author, 27 Nov 18:12: "ok, thats fine") They stay beside the Inbox, and every tool reads them as a second
+      source of chats (chats.py: models, triage, ideas, tags, chronicle; usctags.py), never Phase Dot 2's
+      collation (which prints phase-dot.md whole). Two are the same conversations as exports (13 Apr OpenCyc in
+      Lean, 28 Apr "Bots"): the exports are the masters, the Phase Dot threads routed "duplicate of chat ..." and
+      left out of the books. 360 chats, 6,670 prompts in the Lean models. The splitter keeps the tags (usc_keep).
 - [x] (27 Nov) Done: Me/chats/scripts/split_phasedot.py (`make -C Me/chats phasedot`) cuts Part I into its 11
       dated conversations (a conversation starts at a dated section; the 51 undated sections are pasted
       material inside it), Me/chats/phase-dot/; chats.parse reads their format (a prompt is the line before a
@@ -7459,6 +7473,7 @@ or drop it with a reason (AUTHOR; `chats.py route STAMP THREAD DISPOSITION [REF]
 appears, with its fate, in The Evolution's open points (ISS-133).
 
 USF:
+- [ ] Study the tectonic region of Glarus: video of the rock strata (Phase Dot 20260506_05, glarus-strata)
 - [ ] Migrant flows related to the swarm and estuary work in the papers: a new paper? (20260801_144037, swarm-flows)
 - [ ] Run the tunnelling code tested on a simulated quantum computer on a real one (20260930_221057, real-quantum)
 - [ ] The Eiger North Face as the mirror for a laser measuring the valley's wobble (20261101_161018, eiger-laser)
