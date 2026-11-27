@@ -6,7 +6,7 @@ in git history and in `CURRENT-2026-10-01-to-06.md.OBSOLETE`; open items live
 in [ISSUES.md](../../ISSUES.md); how we work is in [README.md](../../README.md);
 the other working documents are listed in [docs/agent/README.md](README.md).
 
-## Now (27 Nov 2026, evening; updated 20:55)
+## Now (27 Nov 2026, evening; updated 21:20)
 
 Three layers: USF (the theory: papers and books), USM (the Soma Machine, the theory made visible) and
 USC (the Universal Semantic Compiler: Sherlock plus the meta-theory compiler). The author's order:
@@ -48,9 +48,10 @@ model and a make target in `sherlock/`; how to use them is `docs/SHERLOCK.md`, "
   opened for the publishing threads no issue covered.
 - **Decided (author, 27 Nov):** the big bang in December (1 Dec the earliest, no stress); "[T]-Theory
   Explorer"; one repository until the release; The Evolution and Background (spines "[T] ...").
-- **The web closes (ISS-139).** `usc.py coverage`: 43 of 86 documents have an affidavit (the registry now too; its
-  first catch fixed). `usc.py make` (in `usc.py check`): every target `make help` and the docs promise exists. Next:
-  the front doors' affidavits, P26, Gateway, The Evolution; the build ledger (never built, stale).
+- **The web closes (ISS-139).** `usc.py coverage`: 50 of 86 documents have an affidavit: every paper (27), every book
+  (17), the registry and four front doors; the course (1 of 21) and the Field Atlas (0 of 13) next. `usc.py make`
+  and the values report are in `usc.py check` (37 warnings: 32 open assumptions, 5 values quoted differently since
+  October). Next: the build ledger (never built, stale), the course and the Atlas.
 - **First impressions (ISS-138).** README's first screen, a clean root, `make help` grouped, the org page;
   release-check 27 PASS, 2 FAIL (both the promotion step, after the author reads the builds). The thoughts' Kanban
   board: `usc.py board` (ISS-136).
