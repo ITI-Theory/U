@@ -77,7 +77,7 @@ def strs(xs) -> str:
 
 def lean() -> int:
     lv, shell = levels(), shell_labels()
-    rules, forbidden, obs = [], [], []
+    rules, forbidden, obs, omissions = [], [], [], []
     for lab in shell:
         rules.append(f'{{ label := {s(lab)}, layer := "shell" }}')
     for stem in sorted({p.name.split("--")[0] for p in SHOTS.glob("*--*D.png")}):
@@ -92,7 +92,8 @@ def lean() -> int:
             below = {str(level.get("claims", {}).get(ROW[d], "")).upper() for d in (4, 8, 11) if d <= dim}
             for d in (8, 11):
                 w = str(level.get("claims", {}).get(ROW[d], "")).upper()
-                if d > dim and w and w not in below:
+                # Only INTERPRETIVE: SOURCED and FORMAL also badge other panels on every screen.
+                if d > dim and w == "INTERPRETIVE" and w not in below:
                     forbidden.append(f'{{ label := {s(w)}, level := {s(stem)}, dim := {dim}, layer := {s(ROW[d])} }}')
         vocab = shell + [level["label"].upper()] + CLAIMS
         for dim in (4, 8, 11):
@@ -107,6 +108,11 @@ def lean() -> int:
             dtext = norm(" | ".join(i["text"] for i in dj["items"]))
             dtok = set(dtext.split())
             rendered = (dj.get("render") or {}).get("dimension") or dim
+            if dim == 11 and rendered == 8:
+                # The app's own rule, as code: below sigma 7 there is no 11D (main.js elevenDimensionalAvailable).
+                mind = str(level.get("claims", {}).get("mind", "")).upper()
+                omissions.append(f'{{ label := {s(mind)}, level := {s(stem)}, dim := 11, '
+                                 f'reason := "11D is not available below sigma 7 (main.js elevenDimensionalAvailable): the app shows 8D" }}')
             obs.append(f'{{ level := {s(stem)}, dim := {dim}, rendered := {rendered}, '
                        f'seen := {strs(sorted({v for v in vocab if v and seen_in(v, otext, otok)}))}, '
                        f'dom := {strs(sorted({v for v in vocab if v and seen_in(v, dtext, dtok)}))} }}')
@@ -115,7 +121,7 @@ def lean() -> int:
            "def rules : List Rule := [\n  " + ",\n  ".join(rules) + "\n]", "",
            "def forbidden : List Forbidden := [\n  " + ",\n  ".join(forbidden) + "\n]", "",
            "def observations : List Observation := [\n  " + ",\n  ".join(obs) + "\n]", "",
-           "def omissions : List Omission := []", "", "end AppAudit", ""]
+           "def omissions : List Omission := [\n  " + ",\n  ".join(omissions) + "\n]", "", "end AppAudit", ""]
     OUT.mkdir(parents=True, exist_ok=True)
     (OUT / "AppAudit.lean").write_text("\n".join(out), encoding="utf-8", newline="\n")
     print(f"app audit: {len(rules)} rules, {len(forbidden)} soundness rules, {len(obs)} screens -> {OUT / 'AppAudit.lean'}")

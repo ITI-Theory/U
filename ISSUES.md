@@ -7010,6 +7010,15 @@ the body's vessels by the Televator); 26 Nov (the visual audit: USC on the app's
 - [ ] The options in the app: start in a 4D world, as now, and turn the features on one by one
       (theoretical physics on or off, ...); other theories' models (philosophy) as alternatives.
 - [ ] USC on the visuals: the visual audit (26 Nov), the screens checked against the model.
+- [x] (27 Nov) The full audit: 31 levels × 4D, 8D, 11D, 93 screens (35 min; findings in bld/app-audit/
+      findings.txt); every screen rendered the dimension asked for. Errors: INTERPRETIVE drawn in the 3D scene
+      at 4D and 8D on 12 screens, the six human and collective levels (animal-swarm, bird, dyad, flock,
+      human-group, human-vertebrate: the places' plates, not in the page), where the page's claim is SOURCED
+      or FORMAL. Unreadable on screen though in the page: the 11D button on 93 screens, 8D on 89, 4D on 63
+      (the dimension buttons' contrast), the claim badges on 76. The six levels below σ 7 show 8D for 11D,
+      the app's own rule (main.js elevenDimensionalAvailable): generated as tagged omissions.
+- [ ] Fix the two systematic findings in the app: the places' INTERPRETIVE plates gated to 11D (or
+      relabelled by layer), and the dimension buttons' and claim badges' contrast; rerun the audit.
 - [ ] The Fantastic Voyage (21 Nov, threads body-voyage, shrink-by-zoom): biology at the finest level.
 - [x] (27 Nov) The chats' threads queued here (`chats.py route`): 20261121_220226 body-voyage and
       shrink-by-zoom, 20261126_140957 visual-audit.
