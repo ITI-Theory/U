@@ -7485,6 +7485,15 @@ and their verdicts change: that is the witness.
       equation (refuted: FieldEquation's G can be 0). Put the equation in the structure (as greens_fn_is_SHO's
       conclusions), or say these are type-inhabitation facts. (4) universe_is_11D_organism ("conscious by
       definition") is ⟨11, rfl⟩ of a structure holding only dim = 11.
+- [ ] (28 Nov, found by the Lean model, TTheory/P21.lean: refuted) The cosmological constant (P21): (1) "The 7.1%
+      agreement between 7/11 and the current Omega_Lambda = 0.6847 is an empirical consistency check": against
+      Planck's 0.6847 +- 0.0073 it is more than 6.5 sigma low (Fishing.Cosmology.published_misses), so it is a
+      miss, not a consistency check; say the percentage and the sigma together (ISS-106). (2) The figure's
+      "Hubble wavenumber H0/c = 7.29e-27": 67.36 km/s/Mpc gives 7.2816e-27 m^-1, i.e. 7.28. (3) The DESI table's
+      "1:4029 odds" for 4.1 sigma: the two-sided p of 4.07 sigma is about 4.7e-5 (about 1:21,000); 1:4029 is p
+      = 2.5e-4, about 3.7 sigma. To check (not Lean-verified: no Gaussian tail in the model yet). (4) "the
+      content of the open axiom calabi_yau_rg_coefficients": its statement (a rigid attractor and scale factors
+      above 1) says nothing about a 7% correction.
 
 ## ISS-131: Writing up USC: what it did, how it works, how to use it — IN-PROGRESS
 {{Tags area.sherlock, area.papers, area.books}}
@@ -8396,6 +8405,10 @@ mathlib and physlib ... T-theory, all of it, modelled in lean"):**
       (P11), the well and drift, consciousness and volitional theorems chained; the 3D G as oscillator,
       characteristicLength and FieldEquation's field equation refuted (ISS-130); modal HoTT open. The table
       against the Lean dial agrees (TTheory.P20.Dial). 6 kv, 1 open, 3 refuted.
+- [x] (28 Nov 06:09) P21 as a chapter: the arithmetic (H0/c from 67.36 km/s/Mpc as a rational; Lambda_obs, 21/11,
+      0.929, 0.49, sqrt(3 Omega) = 1.43, 3.207, the DESI sigmas) and omega_lambda_fraction checked; consistency
+      with Planck refuted via Fishing.Cosmology; H0/c = 7.29e-27 refuted; w = -1 and the correction open
+      (RenormalisationGroup not imported: Physlib). 2 kv, 2 open, 2 refuted.
 - [ ] Step 2, the scale: the whole NextKB taxonomy (103,321 genls; 333,488 isa; 26,154 disjointWith) generated in the
       A + C form, measured (build time, memory, coercion search); then P1 against it. disjointWith and individuals
       with several types still to design.

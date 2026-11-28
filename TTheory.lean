@@ -24,6 +24,7 @@ import TTheory.P17
 import TTheory.P18
 import TTheory.P19
 import TTheory.P20
+import TTheory.P21
 
 /-!
 # [T]-Theory
@@ -85,4 +86,6 @@ import moves the states on the next build. Nothing is set by hand.
   forces the averaging matrix; the Gram diagonal and the CEMI scale refuted; P12's axiom inconsistent.
 * `TTheory.P20`: The Universal Somatic Field: the 1D SHO and the radial equation proved; the 3D G
   as the oscillator, characteristicLength and the equation-free FieldEquation refuted.
+* `TTheory.P21`: The cosmological constant: the arithmetic and 7/11 checked; "consistent with
+  Planck" refuted (more than 6.5σ); the caption's H₀/c rounding refuted; w = -1 and the correction open.
 -/
