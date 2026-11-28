@@ -8,6 +8,7 @@ import TTheory.P1
 import TTheory.P2
 import TTheory.P3
 import TTheory.P4
+import TTheory.P5
 
 /-!
 # [T]-Theory
@@ -36,4 +37,6 @@ import moves the states on the next build. Nothing is set by hand.
   is the method itself: rows, the target check, the negative control).
 * `TTheory.P4`: The research programme's synthesis: its claims chained to P1, P2 and P3, its
   numbers checked against P2's.
+* `TTheory.P5`: The physical substrate: the bridges' logic checked, the predictions open until
+  measured.
 -/

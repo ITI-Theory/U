@@ -7359,6 +7359,13 @@ and their verdicts change: that is the witness.
 - [ ] (28 Nov, ISS-141) LimbicTunnel.lean's axiom quant_exp_1 states `0 < wkbAmplitude W`, which the same file
       proves; its comment says the axiom carries the empirical rate, which it does not. Retire it, or give it the
       run's content (P2.Record has the numbers).
+- [ ] (28 Nov, met while modelling P4 and P5, ISS-141) Two papers cite the programme's own papers under old
+      titles: P4's table and P5's references give P2 as "Quantum Soma and the Penrose Gap" (Dist/PAPERS.yaml: "Quantum
+      Topology and Trauma: From The Emperor's New Mind to a Testable Model of Attractor Reachability") and P5 gives P1 as
+      "... and Its Clinical Implications". And "co-identification" has two senses: P3's method (a relabelling between
+      domains, `TTheory.Method`) and P5's Bridge 3 ("the observer's soma-field ... modified by contact with
+      another's", registry/papers.yaml's P3 title "A Formal Model of Therapeutic Attunement"). For the author: one
+      sense per word, or name the second (attunement); titles from Dist/PAPERS.yaml at the next versions.
 
 ## ISS-131: Writing up USC: what it did, how it works, how to use it — IN-PROGRESS
 {{Tags area.sherlock, area.papers, area.books}}
@@ -8204,6 +8211,11 @@ mathlib and physlib ... T-theory, all of it, modelled in lean"):**
       their witnesses (a chain: they stand or fall with them); two of its numbers refuted against P2 (ISS-130).
       P2 gained its two tables as data, and its claim that they agree is refuted. #status names the contexts of a
       claim built from conjuncts (P4.prediction-2: in P2.Assumptions and P2.Record).
+- [x] (28 Nov 03:xx) P5 as a chapter: the bridges' logic checked (lowering a barrier alone crosses nothing; the
+      crossing factor rises as it falls; under Bridge 1, an assumption in P5.Bridges, a released region has the
+      higher factor), P5's worked example bounded by P2's noise curve (W -12 to -6 lowers T* from 0.124 to 0.094,
+      both far above the cold 0.02), the four predictions open over named observables until a study records them.
+      4 kernel-verified, 4 open; the abstract 2 of 4 (its predictions are untested, as they should read).
 - [ ] Step 2, the scale: the whole NextKB taxonomy (103,321 genls; 333,488 isa; 26,154 disjointWith) generated in the
       A + C form, measured (build time, memory, coercion search); then P1 against it. disjointWith and individuals
       with several types still to design.
