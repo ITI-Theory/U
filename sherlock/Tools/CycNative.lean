@@ -220,7 +220,21 @@ end OpenCyc
   let (ordered, parents, dropped) := order mtList kb.genlMt
   let mut mtMods : Array String := #[]
   let mut nFacts := 0
+  -- each microtheory's fact names, so that one an ancestor already asserts is inherited, not
+  -- declared again (Lean refuses a field a parent class declares)
+  let mut own : Std.HashMap String (Std.HashSet String) := {}
+  let mut inherited := 0
   for m in ordered do
+    let mut anc : Array String := #[]
+    let mut ancSeen : Std.HashSet String := {}
+    let mut todo := parents.getD m #[]
+    while !todo.isEmpty do
+      let a := todo.back!
+      todo := todo.pop
+      if !ancSeen.contains a then
+        ancSeen := ancSeen.insert a
+        anc := anc.push a
+        todo := todo ++ parents.getD a #[]
     let mut seen : Std.HashSet String := {}
     let mut facts : Array Fact := #[]
     for (_, p, a, b) in (slot[m]?.map (groups[·]!)).getD #[] do
@@ -232,7 +246,9 @@ end OpenCyc
         else ⟨s!"«{a} ∩ {b} = ∅»", s!"_root_.Disjoint {ref a} {ref b}"⟩
       if !seen.contains f.name then
         seen := seen.insert f.name
-        facts := facts.push f
+        if anc.any (fun a => (own.getD a {}).contains f.name) then inherited := inherited + 1
+        else facts := facts.push f
+    own := own.insert m seen
     nFacts := nFacts + facts.size
     let fm := fileOf m
     let ps := parents.getD m #[]
@@ -266,7 +282,8 @@ end OpenCyc
     "\n".intercalate ((["OpenCycNative.Carrier", "OpenCycNative.Vocabulary"] ++
       mtMods.toList).map (s!"import {·}")) ++ "\n")
   IO.println s!"vocabulary: {decls.size} constants in {vparts.size} parts; microtheories: \
-    {ordered.size}, {nFacts} facts; genlMt links dropped to break cycles: {dropped}"
+    {ordered.size}, {nFacts} facts ({inherited} inherited, not repeated); genlMt links dropped to \
+    break cycles: {dropped}"
   return 0
 
 end OpenCycGen
