@@ -60,8 +60,8 @@ theorem occupancy_short : (114.88 : ℚ) * 50 = 5744 ∧ 5594 + 45 = 5639 := by 
 
 /-! ## The hypotheses, and the pilot's record -/
 
-/-- The pilot's H1 measure: target (grief) occupancy in the directed blocks and in the baseline block,
-    in percent. -/
+/-- The pilot's H1 measure: target (grief) occupancy in the directed blocks and in the baseline
+    block, in percent. -/
 opaque griefDirected : ℚ
 opaque griefBaseline : ℚ
 /-- H2 and H3, as the tests would decide them. -/
@@ -127,13 +127,14 @@ instance : Witness cH1 := .of fun [h : Pilot] => by rw [h.h1.1, h.h1.2]; norm_nu
 
 def cH2 : Claim where
   id := "P9.H2"
-  text := "H2 (barrier asymmetry): transition latency into freeze exceeds latency into regulated calm."
+  text := "H2 (barrier asymmetry): transition latency into freeze exceeds latency into regulated \
+    calm."
   statement := freezeSlowerThanCalm
 
 def cH3 : Claim where
   id := "P9.H3"
-  text := "H3 (temperature effect): elevated T_eff reduces dwell time and increases transitions per \
-    minute."
+  text := "H3 (temperature effect): elevated T_eff reduces dwell time and increases transitions \
+    per minute."
   statement := warmerMoreTransitions
 
 /-- P9's claims, in the paper's order. -/
