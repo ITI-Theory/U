@@ -27,6 +27,7 @@ import TTheory.P20
 import TTheory.P21
 import TTheory.P22
 import TTheory.P23
+import TTheory.P24
 
 /-!
 # [T]-Theory
@@ -94,4 +95,6 @@ import moves the states on the next build. Nothing is set by hand.
   checked; the shortfall is not curvature; w = 0 and the corrections open.
 * `TTheory.P23`: The [T]-Theory phenomena: the fixed point open; the seeds (type inhabitation),
   the lens laws and a merged dominant mode proved.
+* `TTheory.P24`: G₂ symmetry breaking: W8ℝ is the table; the unique split and its norms checked;
+  ‖W₈‖ = 3.877, "relaxes toward 6/5" and the holonomy axiom's fit to W₈ refuted.
 -/

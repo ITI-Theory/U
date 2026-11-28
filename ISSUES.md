@@ -7494,6 +7494,15 @@ and their verdicts change: that is the witness.
       = 2.5e-4, about 3.7 sigma. To check (not Lean-verified: no Gaussian tail in the model yet). (4) "the
       content of the open axiom calabi_yau_rg_coefficients": its statement (a rigid attractor and scale factors
       above 1) says nothing about a 7% correction.
+- [ ] (28 Nov, found by the Lean model, TTheory/P24.lean: refuted) G2 symmetry breaking (P24): (1) ||W8||_F =
+      3.877: ||W8||_F^2 = 15.04 exactly, so 3.8781..., i.e. 3.878 (||dW||_F = 1.876 and the ratio 0.484 check).
+      (2) "Each coupling relaxes toward 6/5": the G2 ideal (6/5) I8 has 0 between mechanisms, as the same
+      paragraph's "the negative couplings return to zero" says; and the abstract's "all eight mechanisms equally
+      coupled" means equally self-coupled and mutually uncoupled. (3) moduli_space_is_G2_homotopy's hypotheses
+      (trace 0, AJ row sum 0) fail for W8 (trace 48/5; every row sum non-zero, as its comment notes): the axiom
+      never applies to the model's matrix. (4) delta_W_dof's docstring, "dW has 7 independent degrees of
+      freedom": traceless symmetric 8x8 matrices have 35; the paper's "seven independent eigenvalue
+      directions" is the right statement.
 
 ## ISS-131: Writing up USC: what it did, how it works, how to use it — IN-PROGRESS
 {{Tags area.sherlock, area.papers, area.books}}
@@ -8417,6 +8426,10 @@ mathlib and physlib ... T-theory, all of it, modelled in lean"):**
       (usf_is_fixed_point, usf_all_scales_inhabited) kernel-verified as type inhabitation (P20's G = 0); the
       therapeutic lens's laws; a merged dominant mode that is neither pattern (two modes, one coupling). 3 kv,
       1 open.
+- [x] (28 Nov 06:30) P24 as a chapter: W8R = the paper's table (64 entries by rfl through the private wOffR); the
+      split unique (trace fixes the multiple of I); ||dW||^2 = 3.52, ||W8||^2 = 15.04, 1.876, 0.484, the listed
+      eigenvalues' sum and squares checked; 3.877, "relaxes toward 6/5" and the holonomy axiom's fit refuted
+      (ISS-130); Schur open. 2 kv, 1 open, 3 refuted.
 - [ ] Step 2, the scale: the whole NextKB taxonomy (103,321 genls; 333,488 isa; 26,154 disjointWith) generated in the
       A + C form, measured (build time, memory, coercion search); then P1 against it. disjointWith and individuals
       with several types still to design.
