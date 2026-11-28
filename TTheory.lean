@@ -48,7 +48,8 @@ Soma Machine's data.
 claim's state from its witness (`TTheory.Claims`): kernel-verified; derived under assumptions (the
 assumptions named); frontier (`sorry`); open (no witness); refuted (a proof that it is false).
 Witnesses chain: a claim built on another stands or falls with it, so a new proof or a changed
-import moves the states on the next build. Nothing is set by hand.
+import moves the states on the next build. Nothing is set by hand. The whole model's state in one
+line: `lake env lean TTheory/Census.lean`.
 
 **The chapters.** One per paper, read like the paper; the papers' ids, titles and DOIs are in
 `Dist/PAPERS.yaml`. The plan and its state: ISSUES.md, ISS-141.
@@ -76,7 +77,8 @@ import moves the states on the next build. Nothing is set by hand.
 * `TTheory.P12`: Experimental benchmarks: the cited theorems chained, Britain 1939 and Kuramoto
   proved; the gate exp(-W) refuted; the swarm module's variational axiom inconsistent.
 * `TTheory.P13`: The missing limbic layer: the coupling equations and figures checked; the cold
-  limit proved (one-step retrieval of the nearest pattern); the 1982 limit and strict descent refuted.
+  limit proved (one-step retrieval of the nearest pattern); the 1982 limit and strict descent
+  refuted.
 * `TTheory.P14`: The USF as a Euclidean QFT: the OS axioms derived under the identification m = k;
   the propagators matched; decay at the library's rate k/2, rate k open; the cited G_R and the
   quartic interaction refuted.
@@ -89,11 +91,13 @@ import moves the states on the next build. Nothing is set by hand.
 * `TTheory.P18`: The pre-verbal manifold (N = 1): collapse and return chained to P2 and P17; the
   reading and the ten cohort predictions open. The case history is not modelled.
 * `TTheory.P19`: The swarm propagator: costs, table and eigenvalues checked; one-step consensus
-  forces the averaging matrix; the Gram diagonal and the CEMI scale refuted; P12's axiom inconsistent.
+  forces the averaging matrix; the Gram diagonal and the CEMI scale refuted; P12's axiom
+  inconsistent.
 * `TTheory.P20`: The Universal Somatic Field: the 1D SHO and the radial equation proved; the 3D G
   as the oscillator, characteristicLength and the equation-free FieldEquation refuted.
 * `TTheory.P21`: The cosmological constant: the arithmetic and 7/11 checked; "consistent with
-  Planck" refuted (more than 6.5σ); the caption's H₀/c rounding refuted; w = -1 and the correction open.
+  Planck" refuted (more than 6.5σ); the caption's H₀/c rounding refuted; w = -1 and the correction
+  open.
 * `TTheory.P22`: Dark matter as 3/11: fractions, budget, chance (about 20%) and the KK scales
   checked; the shortfall is not curvature; w = 0 and the corrections open.
 * `TTheory.P23`: The [T]-Theory phenomena: the fixed point open; the seeds (type inhabitation),

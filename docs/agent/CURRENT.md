@@ -6,13 +6,19 @@ in git history and in `CURRENT-2026-10-01-to-06.md.OBSOLETE`; open items live
 in [ISSUES.md](../../ISSUES.md); how we work is in [README.md](../../README.md);
 the other working documents are listed in [docs/agent/README.md](README.md).
 
-## Now (27 Nov 2026, evening; updated 21:45)
+## Now (28 Nov 2026, morning; updated 07:00)
 
 Three layers: USF (the theory: papers and books), USM (the Soma Machine, the theory made visible) and
 USC (the Universal Semantic Compiler: Sherlock plus the meta-theory compiler). The author's order:
 **USC first, USF points, then USM correctness**; Neovim in USM later (ISS-129). Every layer has a Lean
 model and a make target in `sherlock/`; how to use them is `docs/SHERLOCK.md`, "USC: the working record".
 
+- **[T]-Theory as a Lean model (ISS-141, overnight 27-28 Nov).** Every paper has a chapter (P1-P26, SH1;
+  `TTheory.lean`). `lake env lean TTheory/Census.lean`: 209 claims, 131 kernel-verified, 41 open, 35 refuted,
+  2 inconsistent (SwarmPropagator's `greens_achieves_minimum_energy` proves False). Each refutation is an
+  ISS-130 box ("found by the Lean model"). OpenCyc native: the generator now writes genlMt links as instance
+  fields (`extends` never finished at UniversalVocabularyMt's scale); the full rebuild runs one module at a
+  time (bld/all.log).
 - **USC (ISS-126).** The chats (349, 6507 prompts, each with an affidavit), ISSUES.md (131 issues, 820
   boxes), the `{{usc:...}}` tags (120, classes IDEA, LOOSE_END, DECISION, QUESTION, written where the
   thing was said, kept across re-exports) and the linker. `python sherlock/chats.py ideas` writes
@@ -69,6 +75,8 @@ audio. Details in ISS-118 and ISS-120 and `registry/studio/standard.yaml`.
 
 ## Next
 
+0. AUTHOR: the overnight findings in ISS-130 (the "found by the Lean model" boxes, P12-P26), the
+   SwarmPropagator axiom first; the census and OpenCyc measurements in ISS-141.
 1. AUTHOR (desk, ISS-081): read the write-up and upload P3's new version; the provisional decisions
    (sign, bulk or brane, the fractions, SQ = λ₂, b, Kramers' γ, "deep"), which unlock ISS-130's edits;
    approve the two app fixes (ISS-127); wire `usc-tags.lua` into the builds.

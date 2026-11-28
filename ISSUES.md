@@ -8455,6 +8455,10 @@ mathlib and physlib ... T-theory, all of it, modelled in lean"):**
       smoothstep; shape and the 45-minute values checked; T1 never fires, T2 not at 0.74, and the file is not the
       appendix: refuted (ISS-130); the listener's experience open. 1 kv, 1 open, 3 refuted. With it every paper
       in Dist/PAPERS.yaml (P1-P26, SH1) has a chapter in TTheory.
+- [x] (28 Nov 07:00) The census: TTheory/Census.lean, every chapter's claims in one #status (lake env lean
+      TTheory/Census.lean, 78 s): 209 claims, 131 kernel-verified, 0 derived, 0 frontier, 41 open, 35 refuted,
+      2 inconsistent (SwarmPropagator's axiom, cited by P12 and P19). With the two dial modules (which cannot
+      share the environment: Physlib against OSforGFF), 211: 132 kernel-verified, 36 refuted.
 - [ ] Step 2, the scale: the whole NextKB taxonomy (103,321 genls; 333,488 isa; 26,154 disjointWith) generated in the
       A + C form, measured (build time, memory, coercion search); then P1 against it. disjointWith and individuals
       with several types still to design.
