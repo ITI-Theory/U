@@ -21,6 +21,7 @@ import TTheory.P14
 import TTheory.P15
 import TTheory.P16
 import TTheory.P17
+import TTheory.P18
 
 /-!
 # [T]-Theory
@@ -76,4 +77,6 @@ import moves the states on the next build. Nothing is set by hand.
   travel); the paper's short-wavelength decay, eq. (1)'s sign (P11) and the swarm scale refuted.
 * `TTheory.P17`: Gestalt field dynamics: Proof 2's Lyapunov descent proved for any number of
   modes; the circulations and the fold checked; "negative semi-definite W bounds H" refuted.
+* `TTheory.P18`: The pre-verbal manifold (N = 1): collapse and return chained to P2 and P17; the
+  reading and the ten cohort predictions open. The case history is not modelled.
 -/

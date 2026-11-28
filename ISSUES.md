@@ -8357,6 +8357,9 @@ mathlib and physlib ... T-theory, all of it, modelled in lean"):**
       the figure's fixed point (13/32, 11/32); the pole's peak; the circulations 2pi and 0 (FTC with an arctan
       antiderivative); the fold at 2/(3 sqrt 3); the semi-definite bound refuted; the G2 impasse open. 4 kv, 1
       open, 1 refuted.
+- [x] (28 Nov 05:32) P18 as a chapter: the case history (N = 1) not modelled; (C3) collapse and return chained to
+      P2's noiseless trap and P17's fold; the reading and the ten cohort predictions open (one claim each, ids
+      computed). 1 kv, 11 open.
 - [ ] Step 2, the scale: the whole NextKB taxonomy (103,321 genls; 333,488 isa; 26,154 disjointWith) generated in the
       A + C form, measured (build time, memory, coercion search); then P1 against it. disjointWith and individuals
       with several types still to design.
