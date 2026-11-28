@@ -7437,6 +7437,14 @@ Plan (each a box; the AUTHOR's are on the desk, ISS-081):
 - [ ] Register The Evolution and Background in Dist/PAPERS.yaml (collections) when drafted, with spine titles
       "[T] The Evolution" and "[T] Background" (never "[T]-Theory" twice on a spine).
 - [x] (27 Nov) Queued here: 20261106_155243 outreach (after the release: comments off, pull requests on, a chat channel).
+- [ ] (author, 28 Nov 01:50: "a neat standalone product, shipped with a gui (USM with some startup flag...), a
+      dev environment (USM) and a test suite (USF)... sneaky me...") USC as the standalone product, the other
+      two in its service: USM started with a flag (a role, as the app's screens have: `role=usc`) as USC's GUI
+      (the claims and their computed states, Sherlock's and Moriarty's findings, the HUD's evidence labels), and
+      as its development environment (ISS-127's queued Engine Room view: SheerLuck, a REPL, the models; ISS-129's
+      Neovim); USF as its test suite (every paper and book a case, the 22 Nov chat's public benchmark: `make
+      clean all`, offline, no AI model, proves it all, and a regression run across versions). For another user,
+      their own corpus is their test suite; [T]-Theory is the one shipped.
 
 ## ISS-133: The Evolution: the chats condensed, what actually happened (public) — IN-PROGRESS
 {{Tags area.sherlock, area.books}}
