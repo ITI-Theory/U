@@ -10,6 +10,8 @@ import TTheory.P3
 import TTheory.P4
 import TTheory.P5
 import TTheory.P6
+import TTheory.P7
+import TTheory.P8
 
 /-!
 # [T]-Theory
@@ -42,4 +44,8 @@ import moves the states on the next build. Nothing is set by hand.
   measured.
 * `TTheory.P6`: The book: the structural fraction and its values, its Lean sketch proved, the
   figures' matrices exactly (one direction refuted).
+* `TTheory.P7`: Field notes from the inside: P1's witnesses carry it; its figure, operators and
+  the antisymmetric coupling checked (a limit cycle open).
+* `TTheory.P8`: The Tensor: the River Film's score as a table; the phases agree, the threshold
+  events and the resonance knob do not.
 -/
