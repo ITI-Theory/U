@@ -8255,6 +8255,11 @@ mathlib and physlib ... T-theory, all of it, modelled in lean"):**
       noise (P7's scale is √(2 T_eff)) from the other chapters; the ADHD reading (the escape factor rises with T);
       the pilot's rate checked and its occupancy refuted (ISS-130); H1 in the pilot's record, H2 and H3 open.
       5 kernel-verified, 2 open, 1 refuted; the abstract 5 of 5.
+- [x] (28 Nov 03:4x) P10 as a chapter, its claims witnessed by the fishing's theorems (Fishing.KleinGordon,
+      Fishing.Kramers): the dispersion relation, the kernel retarded, long memory at small k, Kramers' time rising
+      with the barrier; the memory kernel as "∫d³x G_R" of the paper's own equation refuted (it rings at rest), and
+      the same exponential kernel-verified as the Euclidean correlation (ISS-130's memory-kernel box: the abstract's
+      central new concept needs its setting named). 5 kernel-verified, 1 refuted; the abstract 3 of 4.
 - [ ] Step 2, the scale: the whole NextKB taxonomy (103,321 genls; 333,488 isa; 26,154 disjointWith) generated in the
       A + C form, measured (build time, memory, coercion search); then P1 against it. disjointWith and individuals
       with several types still to design.

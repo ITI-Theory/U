@@ -13,6 +13,7 @@ import TTheory.P6
 import TTheory.P7
 import TTheory.P8
 import TTheory.P9
+import TTheory.P10
 
 /-!
 # [T]-Theory
@@ -51,4 +52,6 @@ import moves the states on the next build. Nothing is set by hand.
   events and the resonance knob do not.
 * `TTheory.P9`: Music-induced affect: energy, threshold and noise from P1, P2 and P7; the pilot's
   figures checked (the occupancy short by 105 samples); H2 and H3 open.
+* `TTheory.P10`: Temporal dynamics: carried by the fishing's Klein-Gordon and Kramers theorems; the
+  memory kernel refuted as the equation's own, kept as its Euclidean correlation.
 -/
