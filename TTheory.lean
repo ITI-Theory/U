@@ -5,6 +5,7 @@ Authors: Alistair Johnson
 -/
 import TTheory.Claims
 import TTheory.P1
+import TTheory.P2
 
 /-!
 # [T]-Theory
@@ -28,4 +29,5 @@ import moves the states on the next build. Nothing is set by hand.
 `Dist/PAPERS.yaml`. The plan and its state: ISSUES.md, ISS-141.
 
 * `TTheory.P1`: The Soma-Field, a wave-based model of emotional dynamics.
+* `TTheory.P2`: Quantum topology and trauma, attractor reachability (QUANT-EXP-1).
 -/
