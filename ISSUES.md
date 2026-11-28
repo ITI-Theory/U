@@ -8137,6 +8137,19 @@ mathlib and physlib ... T-theory, all of it, modelled in lean"):**
 - [x] (28 Nov 00:4x) Sanity check asked by the author ("this is getting more complicated ... in the right
       direction?"). Offered: one full P1 slice first, new ideas parked. The author's decision: keep going broadly
       as now; all of it (USC in Lean) in the December release.
+- [x] (28 Nov 01:4x; the author: "for the documentation of usc/sherlock/etc ... does this now change? (yes)
+      and is it still neuro symbolic ... i think yes, maybe for new reasons") docs/SHERLOCK.md points here
+      ("Where it is going"). Still neuro-symbolic, for sharper reasons: the neural part only proposes (claims
+      from prose, facts, theory candidates, the generators' code), never decides; what is kept is Lean, checked
+      by the kernel, rebuilt offline (a neural-into-symbolic pipeline, and symbolic calling neural in the
+      generation loop; not neural networks trained under logical constraints). The new reason is adequacy (the
+      author, 18 Nov: Lean says a file is valid, not that it models what it claims): #covers, the controlled
+      English read-back and Moriarty put the one judgement left, prose against controlled English, in one
+      explicit place.
+- [ ] SH1's next version, after the evidence (native OpenCyc measured, P1 through it): the back end as above;
+      the abstract's "1,366,193 ground facts ... loaded into Lean" restated for the native form; and its
+      subtitle made one: the affidavit says "for Free-Form Text", papers.yaml and Dist/PAPERS.yaml "for
+      Natural Language".
 - [ ] Step 2, the scale: the whole NextKB taxonomy (103,321 genls; 333,488 isa; 26,154 disjointWith) generated in the
       A + C form, measured (build time, memory, coercion search); then P1 against it. disjointWith and individuals
       with several types still to design.

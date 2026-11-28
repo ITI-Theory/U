@@ -11,6 +11,15 @@ and an edit re-checks what it touches. Method and results: paper SH1
 decisions D1-D12: ISS-055, `prj/.adm/issues/ISS-055-sherlock.md`. Commands:
 `make -C sherlock help`.
 
+**Where it is going (ISS-141, from 27 Nov).** All of [T]-Theory becomes one Lean model, and Lean the
+source of truth: OpenCyc generated whole as native Lean (`lake exe cyc-native`: collections as sets,
+argument types as types, microtheories as classes, no Cyc words such as `genls`); a claim's state
+computed from its witnesses, never typed (`TTheory/Claims.lean`); controlled English as the readable
+layer between prose and Lean (`TTheory/Experiments/ControlledEnglish.lean`); the Python tools and YAML
+affidavits retired as their Lean replacements land. It stays neuro-symbolic, with the boundary in one
+place: a language model only proposes (claims, facts, candidates, code); what is kept is Lean, checked by
+the kernel and rebuilt offline. The commands below are today's; ISS-141 says which are replaced.
+
 ## When to run Sherlock: the writing loop
 
 Write and improve with a language model first, compile with Sherlock, let the
