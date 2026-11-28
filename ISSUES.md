@@ -8158,6 +8158,32 @@ mathlib and physlib ... T-theory, all of it, modelled in lean"):**
       the abstract's "1,366,193 ground facts ... loaded into Lean" restated for the native form; and its
       subtitle made one: the affidavit says "for Free-Form Text", papers.yaml and Dist/PAPERS.yaml "for
       Natural Language".
+- [x] (28 Nov 02:xx, overnight; the author: "model [T]-theory ... for the morning") P2 as a chapter
+      (TTheory/P2.lean, afd0dd3): 12 claims, all kernel-verified, 6 of them in a context; the abstract 6 of 6.
+      Arithmetic and analysis the paper states, proved: its recap Hamiltonian is P1's eq. (3); the barrier
+      (+1.025 at 0.45, 2.025 above Fear, Awe below); the Arrhenius factors (cold below 10^-43, hot above a
+      quarter); the noiseless trap (LimbicTunnel's classical_trapped); the 2 x 2 block (x^2 - 1.16, +-1.077);
+      the schedule; the 64/256 baseline of limitation 6; the Wilson bound for 0 of 200 (0.01885 < 0.019); T*
+      rising; the adiabatic time of order 10^4. The run's numbers are the fields of P2.Record and THERAPY-2 a
+      field of P2.Assumptions (decision (a): no global axioms). Finding: LimbicTunnel's quant_exp_1 axiom
+      states what the same file proves (0 < wkbAmplitude W); it carries no empirical content (proved in P2 as
+      quant_exp_1_is_a_theorem). For the author: retire the axiom, or give it the run's content.
+- [x] (28 Nov 03:xx) The method at the type level (TTheory/Method.lean, 784241f; the author's tip: keep it
+      usable for the 1905 backtest): a co-identification is a relabelling; an import a source theorem with
+      its target check as a class (Verified); a registered row carries premises, conclusion, transfer and
+      negative control as proofs, so a row without a control does not compile; #status computes its S1
+      claim, the claim itself (open until the premises are checked in the target, Row.Holds) and the
+      control. P3 as a chapter (TTheory/P3.lean) runs it on the paper's own row COID-ENG-2: Hopfield's
+      descent proved (the exact energy change of one update), its premises checked on P1's companion W8
+      (symmetric, diagonal 6/5), and its disconfirmation criterion met by a two-node asymmetric
+      counterexample (energy -1/2 to +1/2), which is P1's C-PTSD case. 6 claims kernel-verified; abstract 4/4.
+- [ ] The Einstein backtest (sherlock/backtests/Einstein1905.lean) as a TTheory.Method.Row: Emission and
+      Relativistic (Planck's lemma) the premises, mass_drop_exact the transfer, gap the control, the 1932
+      and 2005 measurements a record; then retire Method.Row (sherlock/Method) once nothing uses it.
+- [ ] P3's other registered rows: COID-BS-HEAT-1 (Black-Scholes to the heat equation, the worked external
+      example: the transform proved), COID-PROP-1, COID-RG-5.
+- [ ] Building: `lake build TTheory` runs modules in parallel (it does not honour LEAN_NUM_THREADS for
+      jobs), so with another Lean build running it exceeds two processes; build one module per command.
 - [ ] Step 2, the scale: the whole NextKB taxonomy (103,321 genls; 333,488 isa; 26,154 disjointWith) generated in the
       A + C form, measured (build time, memory, coercion search); then P1 against it. disjointWith and individuals
       with several types still to design.
