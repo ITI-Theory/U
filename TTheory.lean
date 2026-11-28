@@ -23,6 +23,7 @@ import TTheory.P16
 import TTheory.P17
 import TTheory.P18
 import TTheory.P19
+import TTheory.P20
 
 /-!
 # [T]-Theory
@@ -82,4 +83,6 @@ import moves the states on the next build. Nothing is set by hand.
   reading and the ten cohort predictions open. The case history is not modelled.
 * `TTheory.P19`: The swarm propagator: costs, table and eigenvalues checked; one-step consensus
   forces the averaging matrix; the Gram diagonal and the CEMI scale refuted; P12's axiom inconsistent.
+* `TTheory.P20`: The Universal Somatic Field: the 1D SHO and the radial equation proved; the 3D G
+  as the oscillator, characteristicLength and the equation-free FieldEquation refuted.
 -/

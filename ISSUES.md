@@ -7473,6 +7473,18 @@ and their verdicts change: that is the witness.
       Swarms, 8 organism, 9 societal, 10 geological. The Lean dial (ScaleUniverse.ScaleStep): 5 Cellular, 6 Axon,
       7 Brain/CEMI, 8 Organism, 9 Swarm, 10 City, 11 Geological, 12 Planetary, 13 Solar system. One dial, in Lean
       (ScaleStep), and every paper and the app read it (the YAML generated from it).
+- [ ] (28 Nov, found by the Lean model, TTheory/P20.lean: refuted) The Universal Somatic Field (P20) and its Lean:
+      (1) "For fixed x, x' -> G(x, x') [= e^{ik|x-x'|}/(4pi|x-x'|)] satisfies the SHO equation d2G/dx'2 + k^2 G =
+      delta(x' - x)": the 3D G satisfies the radial equation G'' + k^2 G = -(2/r) G' (proved), not the
+      oscillator's (refuted at k = 1, r = pi). The oscillator is the 1D sin(k|x|)/(2k), which greens_fn_is_SHO
+      proves honestly; the text should switch to it explicitly (or use u = rG, which is an oscillator). (2)
+      UniversalSomaticField.characteristicLength n = 10^{3n-35} gives 10^-8 m at Scale 9 and 10^25 at 20, against
+      its own docstring (10^26) and scaleNames in the same file (10^1 m, 10^26): derive it from the dial. (3)
+      FieldEquation n is a wavenumber and any function G, with no equation; scale_invariance_inhabited inhabits it
+      with G = 0, so it, field_at_every_scale, universal_field_theory and sft_encapsulates_cemi assert no field
+      equation (refuted: FieldEquation's G can be 0). Put the equation in the structure (as greens_fn_is_SHO's
+      conclusions), or say these are type-inhabitation facts. (4) universe_is_11D_organism ("conscious by
+      definition") is ⟨11, rfl⟩ of a structure holding only dim = 11.
 
 ## ISS-131: Writing up USC: what it did, how it works, how to use it — IN-PROGRESS
 {{Tags area.sherlock, area.papers, area.books}}
@@ -8380,6 +8392,10 @@ mathlib and physlib ... T-theory, all of it, modelled in lean"):**
       TTheory.P19.Dial: ScaleUniverse imports Physlib, whose SpaceTime clashes with OSforGFF's (P14, P15), so the
       two cannot share an environment and TTheory does not import it (as TTheory.P1.Cyc). 3 kv, 2 refuted, 1
       inconsistent.
+- [x] (28 Nov 06:01) P20 as a chapter: greens_fn_is_SHO chained; the 3D G's radial equation proved; the dimensions
+      (P11), the well and drift, consciousness and volitional theorems chained; the 3D G as oscillator,
+      characteristicLength and FieldEquation's field equation refuted (ISS-130); modal HoTT open. The table
+      against the Lean dial agrees (TTheory.P20.Dial). 6 kv, 1 open, 3 refuted.
 - [ ] Step 2, the scale: the whole NextKB taxonomy (103,321 genls; 333,488 isa; 26,154 disjointWith) generated in the
       A + C form, measured (build time, memory, coercion search); then P1 against it. disjointWith and individuals
       with several types still to design.
