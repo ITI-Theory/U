@@ -7459,6 +7459,20 @@ and their verdicts change: that is the witness.
       b = 1 give H(e) = -e. Negative definite W bounds it (H >= -|b|^2/(2 lambda) mode by mode), or b in the
       range of W. Also "W symmetric ensures the gradient is well-defined": the gradient always exists; symmetry
       makes -grad H equal We + b. The Lyapunov step itself is proved for any number of modes.
+- [ ] (28 Nov, found by the Lean model, TTheory/P19.lean: refuted) The swarm propagator (P19): (1) "G in R^{NxN}
+      is the Gram matrix of the field's Green's function: G_ij = G(p_i, p_j)" with G = e^{ik|x-x'|}/(4pi|x-x'|):
+      that G diverges at x = x', so the matrix has no diagonal, and it is complex. Say which regularised kernel
+      (a self-term, a smoothed G, or the figure's e^{-d}) the protocol uses. (2) What the protocol asks of G (every
+      state to consensus in one step, the total kept) forces G = 11^T/N, the dense average, whatever the field
+      (proved): the Green's-function geometry plays no part in correct consensus. (3) The scale table: "5
+      (biological): Neural EMF (CEMI)"; the dial it cites (ScaleUniverse, EffectSpec.stepIndex) has BrainCEMI at
+      7, and "from MTheoryIsomorphism.lean" should be ScaleUniverse.lean. (4) "For any N, K with K > N: N^2 < NK"
+      needs N > 0, as the Lean has it.
+- [ ] (28 Nov, found by the Lean model: P11, P16, P19) The scale dial is numbered three ways. P11's catalogue: 6
+      Brain, 7 Organism, 8 Swarms, 9 Society, 10 Geological, 11 Planetary, 12 Orbital, 13 Stellar. P16: 7 Animal
+      Swarms, 8 organism, 9 societal, 10 geological. The Lean dial (ScaleUniverse.ScaleStep): 5 Cellular, 6 Axon,
+      7 Brain/CEMI, 8 Organism, 9 Swarm, 10 City, 11 Geological, 12 Planetary, 13 Solar system. One dial, in Lean
+      (ScaleStep), and every paper and the app read it (the YAML generated from it).
 
 ## ISS-131: Writing up USC: what it did, how it works, how to use it — IN-PROGRESS
 {{Tags area.sherlock, area.papers, area.books}}
@@ -8360,6 +8374,12 @@ mathlib and physlib ... T-theory, all of it, modelled in lean"):**
 - [x] (28 Nov 05:32) P18 as a chapter: the case history (N = 1) not modelled; (C3) collapse and return chained to
       P2's noiseless trap and P17's fold; the reading and the ten cohort predictions open (one claim each, ids
       computed). 1 kv, 11 open.
+- [x] (28 Nov 05:49) P19 as a chapter: costs chained, the table (= speedupDemo) and figures (row sums, the ring
+      doubly stochastic, det(M - l I) = 0 at 1/2, 3/5, 1); one-step consensus forces 11^T/N (proved); the Gram
+      diagonal (green diverges) and the CEMI scale refuted; P12's axiom inconsistent. The dial claim is in
+      TTheory.P19.Dial: ScaleUniverse imports Physlib, whose SpaceTime clashes with OSforGFF's (P14, P15), so the
+      two cannot share an environment and TTheory does not import it (as TTheory.P1.Cyc). 3 kv, 2 refuted, 1
+      inconsistent.
 - [ ] Step 2, the scale: the whole NextKB taxonomy (103,321 genls; 333,488 isa; 26,154 disjointWith) generated in the
       A + C form, measured (build time, memory, coercion search); then P1 against it. disjointWith and individuals
       with several types still to design.

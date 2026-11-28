@@ -22,6 +22,7 @@ import TTheory.P15
 import TTheory.P16
 import TTheory.P17
 import TTheory.P18
+import TTheory.P19
 
 /-!
 # [T]-Theory
@@ -79,4 +80,6 @@ import moves the states on the next build. Nothing is set by hand.
   modes; the circulations and the fold checked; "negative semi-definite W bounds H" refuted.
 * `TTheory.P18`: The pre-verbal manifold (N = 1): collapse and return chained to P2 and P17; the
   reading and the ten cohort predictions open. The case history is not modelled.
+* `TTheory.P19`: The swarm propagator: costs, table and eigenvalues checked; one-step consensus
+  forces the averaging matrix; the Gram diagonal and the CEMI scale refuted; P12's axiom inconsistent.
 -/
