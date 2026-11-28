@@ -7,6 +7,7 @@ import TTheory.Claims
 import TTheory.P1
 import TTheory.P2
 import TTheory.P3
+import TTheory.P4
 
 /-!
 # [T]-Theory
@@ -33,4 +34,6 @@ import moves the states on the next build. Nothing is set by hand.
 * `TTheory.P2`: Quantum topology and trauma, attractor reachability (QUANT-EXP-1).
 * `TTheory.P3`: Mathematical co-identification, run on its own row COID-ENG-2 (`TTheory.Method`
   is the method itself: rows, the target check, the negative control).
+* `TTheory.P4`: The research programme's synthesis: its claims chained to P1, P2 and P3, its
+  numbers checked against P2's.
 -/

@@ -188,6 +188,16 @@ def tStar : List ℕ := [94, 101, 107, 112, 117, 120, 124, 127, 129]
 /-- "`T*` rises monotonically with barrier strength": strictly, at every step of the table. -/
 theorem tStar_rises : tStar.Pairwise (· < ·) := by decide
 
+/-- The noise-equivalence table's quantum peak occupancy, barrier strengths 6 to 14, in
+    thousandths. -/
+def sweepPeak : ℕ → ℕ
+  | 6 => 416 | 7 => 417 | 8 => 416 | 9 => 412 | 10 => 408 | 11 => 403 | 12 => 398 | 13 => 393
+  | 14 => 390 | _ => 0
+
+/-- The bootstrap table's quantum peak, B8, B10 and B12, in thousandths. -/
+def bootstrapPeak : ℕ → ℕ
+  | 8 => 410 | 10 => 408 | 12 => 409 | _ => 0
+
 /-- The Wilson score interval's upper end for `k` successes in `n` trials, at `z`. -/
 noncomputable def wilsonUpper (k n z : ℝ) : ℝ :=
   let p := k / n
@@ -368,6 +378,18 @@ def cTopology : Claim where
 
 instance : Witness cTopology := .of fun [h : Assumptions] => h.therapy2
 
+def cTables : Claim where
+  id := "P2.tables"
+  text := "Quantum occupancy is stable at 0.408-0.410 across B8/B10/B12 (the bootstrap table); \
+    the noise-equivalence table gives the quantum peak at each barrier: the two agree where both \
+    report."
+  statement := ∀ b ∈ [8, 10, 12], sweepPeak b = bootstrapPeak b
+
+/-- Refuted by the paper's own tables: at B8 the sweep gives 0.416 and the bootstrap 0.410; at B12,
+    0.398 and 0.409. Unless the two measure different runs, which the paper does not say. -/
+instance : Refutation cTables :=
+  .of (by show ¬ ∀ b ∈ [8, 10, 12], sweepPeak b = bootstrapPeak b; decide)
+
 def cAdiabatic : Claim where
   id := "P2.adiabatic"
   text := "With a smallest gap of about 0.009, a slow, adiabatic anneal would need a total time of \
@@ -379,7 +401,7 @@ instance : Witness cAdiabatic := .of adiabatic_time
 /-- P2's claims, in the paper's order. -/
 def claims : List Claim :=
   [cRecap, cTopology, cBlock, cSchedule, cBarrier, cArrhenius, cNoiseless, cColdRun, cShift,
-    cControls, cBounded, cAdiabatic]
+    cControls, cTables, cBounded, cAdiabatic]
 
 /-- P2's abstract, phrase by phrase, each with the claim of the body that carries it. -/
 def abstract : List (String × Claim) :=
