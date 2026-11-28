@@ -25,6 +25,7 @@ import TTheory.P18
 import TTheory.P19
 import TTheory.P20
 import TTheory.P21
+import TTheory.P22
 
 /-!
 # [T]-Theory
@@ -88,4 +89,6 @@ import moves the states on the next build. Nothing is set by hand.
   as the oscillator, characteristicLength and the equation-free FieldEquation refuted.
 * `TTheory.P21`: The cosmological constant: the arithmetic and 7/11 checked; "consistent with
   Planck" refuted (more than 6.5σ); the caption's H₀/c rounding refuted; w = -1 and the correction open.
+* `TTheory.P22`: Dark matter as 3/11: fractions, budget, chance (about 20%) and the KK scales
+  checked; the shortfall is not curvature; w = 0 and the corrections open.
 -/

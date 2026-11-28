@@ -8409,6 +8409,10 @@ mathlib and physlib ... T-theory, all of it, modelled in lean"):**
       0.929, 0.49, sqrt(3 Omega) = 1.43, 3.207, the DESI sigmas) and omega_lambda_fraction checked; consistency
       with Planck refuted via Fishing.Cosmology; H0/c = 7.29e-27 refuted; w = -1 and the correction open
       (RenormalisationGroup not imported: Physlib). 2 kv, 2 open, 2 refuted.
+- [x] (28 Nov 06:16) P22 as a chapter: 3/11, 1/22 and their percentages, 7:3:1/2, 21/22, the observed 0.9996, the
+      look-elsewhere chance (about 20%, as the paper says), the KK and Hubble energy scales checked; the 1/22
+      shortfall is not curvature (Fishing.Cosmology, which the paper does not claim); EM neutrality kernel-
+      verified but by definition (gaugeCoupling := 0); w = 0 and the corrections open. 5 kv, 2 open.
 - [ ] Step 2, the scale: the whole NextKB taxonomy (103,321 genls; 333,488 isa; 26,154 disjointWith) generated in the
       A + C form, measured (build time, memory, coercion search); then P1 against it. disjointWith and individuals
       with several types still to design.
