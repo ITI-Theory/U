@@ -8470,6 +8470,9 @@ mathlib and physlib ... T-theory, all of it, modelled in lean"):**
       writes genlMt links and parts as instance fields («genlMt P», «part j», ttribute [instance]): 20 of 500
       in 17 s, 145 parts in 10 s, and a fact resolves through the chain ([Child] : P.fact). Full rebuild started
       (one sequential loop, bld/all.log).
+      (28 Nov 07:23) Measured: the vocabulary (35 modules) and all 201 fact parts rebuilt clean (05:08-07:20,
+      about 35 s a module); UniversalVocabularyMt, the aggregate that never finished under `extends`, built in 14 s
+      (543 jobs). Phase 2 (the other 674 microtheories) continues in the same loop.
 - [ ] The chats' threads: a thread's state (implemented, queued) from a witness in the model, not routed by hand.
 - [ ] (author, 27 Nov: "in the chats there was talk of external data sets to compare against etc. for the FMHN ...
       so the idea would be that discussion has the lean for that, and is then available somewhere else") A dataset
