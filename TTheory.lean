@@ -20,6 +20,7 @@ import TTheory.P13
 import TTheory.P14
 import TTheory.P15
 import TTheory.P16
+import TTheory.P17
 
 /-!
 # [T]-Theory
@@ -73,4 +74,6 @@ import moves the states on the next build. Nothing is set by hand.
   proposed below-critical OS theorem proved; V quartic and the trauma phase's attractor refuted.
 * `TTheory.P16`: The geographic field: the wave-guide's modes proved (above the cutoff they
   travel); the paper's short-wavelength decay, eq. (1)'s sign (P11) and the swarm scale refuted.
+* `TTheory.P17`: Gestalt field dynamics: Proof 2's Lyapunov descent proved for any number of
+  modes; the circulations and the fold checked; "negative semi-definite W bounds H" refuted.
 -/

@@ -7454,6 +7454,11 @@ and their verdicts change: that is the witness.
       (10^0-10^1), the 3 km lake at Scale 10 (10^5). (3) Eq. (1) with P11's sign (the plotted Re G gives -delta).
       (4) The conclusion's "seismic counterpart records a ten-million-year wave" against section 3's "This is
       not a literal seismic wave".
+- [ ] (28 Nov, found by the Lean model, TTheory/P17.lean: refuted) Gestalt field dynamics (P17), Proof 2: "when
+      W is additionally negative semi-definite, H(e) is bounded from below". Not with the linear term: W = 0 and
+      b = 1 give H(e) = -e. Negative definite W bounds it (H >= -|b|^2/(2 lambda) mode by mode), or b in the
+      range of W. Also "W symmetric ensures the gradient is well-defined": the gradient always exists; symmetry
+      makes -grad H equal We + b. The Lyapunov step itself is proved for any number of modes.
 
 ## ISS-131: Writing up USC: what it did, how it works, how to use it — IN-PROGRESS
 {{Tags area.sherlock, area.papers, area.books}}
@@ -8348,6 +8353,10 @@ mathlib and physlib ... T-theory, all of it, modelled in lean"):**
 - [x] (28 Nov 05:15) P16 as a chapter: the wave-guide's lowest mode, its ODEs (cos, exp, sin by HasDerivAt),
       travel above the cutoff and decay below proved; the acoustic k = 1.848; the paper's short-wavelength decay,
       its swarm scale and eq. (1) (P11) refuted (ISS-130); substrate equivalence open. 2 kv, 1 open, 3 refuted.
+- [x] (28 Nov 05:26) P17 as a chapter: dH/dt = -|We + b|^2 along the flow, for any n (HasDerivAt.fun_sum);
+      the figure's fixed point (13/32, 11/32); the pole's peak; the circulations 2pi and 0 (FTC with an arctan
+      antiderivative); the fold at 2/(3 sqrt 3); the semi-definite bound refuted; the G2 impasse open. 4 kv, 1
+      open, 1 refuted.
 - [ ] Step 2, the scale: the whole NextKB taxonomy (103,321 genls; 333,488 isa; 26,154 disjointWith) generated in the
       A + C form, measured (build time, memory, coercion search); then P1 against it. disjointWith and individuals
       with several types still to design.
