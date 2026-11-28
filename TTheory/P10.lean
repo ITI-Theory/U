@@ -21,8 +21,8 @@ as its retarded Green's function integrated over space, `K(τ) = K₀ e^{-τ/τ�
 uses Kramers' escape time for the asymmetry of trauma formation and dissolution. The fishing of
 27 Nov (`Fishing.KleinGordon`, `Fishing.Kramers`) already proved what this needs, and the chapter's
 claims are witnessed by those theorems. One of them does not hold as written: the equation rings at
-rest (`ω = kv`), so a decaying exponential is not its kernel; it is the field's Euclidean correlation,
-which is P14's setting (ISS-130, "the memory kernel").
+rest (`ω = kv`), so a decaying exponential is not its kernel; it is the field's Euclidean
+correlation, which is P14's setting (ISS-130, "the memory kernel").
 -/
 
 namespace TTheory.P10
@@ -53,8 +53,8 @@ theorem smaller_k_longer {k k' v t : ℝ} (hv : 0 < v) (ht : 0 < t) (h : k' < k)
 /-! ## Transition rates
 
 "`⟨T⟩ = (2π/ω_A ω_B) e^{ΔV/D}`": the fishing's `Fishing.Kramers.kramers`. Dissolution (from inside
-the well, the full barrier) grows exponentially with the barrier; formation, driven from above by the
-event's forcing, does not have to climb it. -/
+the well, the full barrier) grows exponentially with the barrier; formation, driven from above by
+the event's forcing, does not have to climb it. -/
 
 /-- The escape time rises strictly with the barrier. -/
 theorem kramers_rises {ωA ωB ΔV ΔV' D : ℝ} (hA : 0 < ωA) (hB : 0 < ωB) (hD : 0 < D)
@@ -67,8 +67,8 @@ theorem kramers_rises {ωA ωB ΔV ΔV' D : ℝ} (hA : 0 < ωA) (hB : 0 < ωB) (
 
 def cDispersion : Claim where
   id := "P10.dispersion"
-  text := "The time-dependent field equation: a plane wave solves it exactly when ω² = v²(p² + k²); \
-    at rest it rings at ω = kv."
+  text := "The time-dependent field equation: a plane wave solves it exactly when \
+    ω² = v²(p² + k²); at rest it rings at ω = kv."
   statement := ∀ v : ℝ, v ≠ 0 → ∀ k p ω : ℝ,
     ((∀ x t, (p ^ 2 + k ^ 2 - ω ^ 2 / v ^ 2) * Real.cos (p * x - ω * t) = 0) ↔
       ω ^ 2 = v ^ 2 * (p ^ 2 + k ^ 2))
@@ -96,8 +96,8 @@ instance : Refutation cKernel :=
 
 def cEuclidean : Claim where
   id := "P10.euclidean"
-  text := "What the kernel is: the field's Euclidean correlation, which e^{-kvτ} solves in imaginary \
-    time (P14's setting)."
+  text := "What the kernel is: the field's Euclidean correlation, which e^{-kvτ} solves in \
+    imaginary time (P14's setting)."
   statement := ∀ v : ℝ, v ≠ 0 → ∀ k t : ℝ,
     -((k * v) ^ 2 * kernel k v t / v ^ 2) + k ^ 2 * kernel k v t = 0
 
@@ -132,8 +132,8 @@ def claims : List Claim :=
 def abstract : List (String × Claim) :=
   [("We derive a model retarded Green's function", cRetarded),
    ("give a Wentzel-Kramers-Brillouin (WKB) estimate for temporal barriers", cKramers),
-   ("We introduce the Somatic Memory Kernel K(t - t'), the exponentially decaying influence of past \
-      field configurations on present dynamics", cKernel),
+   ("We introduce the Somatic Memory Kernel K(t - t'), the exponentially decaying influence of \
+      past field configurations on present dynamics", cKernel),
    ("the paper models why trauma processing may be slower than trauma formation", cKramers)]
 
 #status claims
