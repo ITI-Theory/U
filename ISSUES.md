@@ -8177,9 +8177,12 @@ mathlib and physlib ... T-theory, all of it, modelled in lean"):**
       descent proved (the exact energy change of one update), its premises checked on P1's companion W8
       (symmetric, diagonal 6/5), and its disconfirmation criterion met by a two-node asymmetric
       counterexample (energy -1/2 to +1/2), which is P1's C-PTSD case. 6 claims kernel-verified; abstract 4/4.
-- [ ] The Einstein backtest (sherlock/backtests/Einstein1905.lean) as a TTheory.Method.Row: Emission and
-      Relativistic (Planck's lemma) the premises, mass_drop_exact the transfer, gap the control, the 1932
-      and 2005 measurements a record; then retire Method.Row (sherlock/Method) once nothing uses it.
+- [x] (28 Nov 03:xx) The Einstein backtest as a TTheory.Method.Row (row1905, beside the old Method.Row):
+      over all reals the conclusion is false (that is `gap`), so the row speaks of one radiating body as
+      measured (opaque quantities); #status: the transfer (S1, mass_drop_exact) kernel-verified, the
+      control (gap) kernel-verified, the claim itself open (physics, not a theorem), Rainville 2005 in its
+      record (Tests1905).
+- [ ] Retire Method.Row (sherlock/Method, MethodQueries, the fishing rows) once nothing uses it.
 - [ ] P3's other registered rows: COID-BS-HEAT-1 (Black-Scholes to the heat equation, the worked external
       example: the transform proved), COID-PROP-1, COID-RG-5.
 - [ ] Building: `lake build TTheory` runs modules in parallel (it does not honour LEAN_NUM_THREADS for

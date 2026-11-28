@@ -1,5 +1,6 @@
 import Mathlib
 import Method
+import TTheory.Method
 
 /-!
 # The Einstein backtest, 1905 (USC; ISS-126)
@@ -154,6 +155,57 @@ def row : Method.Row where
     ("Rainville et al., Nature 438 (2005): ΔE = Δm c² to 4 parts in 10⁷", true)]
 
 #guard row.wellFormed
+
+/-! ## The same row, at the type level (TTheory.Method, ISS-141)
+
+Over all real numbers the conclusion is false: that is `gap`. The law is about bodies, so the row
+speaks of one radiating body as measured: its quantities are `opaque` (Lean knows nothing of their
+values), its premises (conservation in both frames, and Planck's lemma) are the physics, neither
+provable nor refutable here. So `#status` gives: the transfer (S1) kernel-verified, the control
+kernel-verified, the claim itself open, and the measurement in its record. -/
+
+/-- One radiating body, as an experiment would measure it. -/
+opaque cB : ℝ
+opaque vB : ℝ
+opaque LB : ℝ
+opaque E0B : ℝ
+opaque E1B : ℝ
+opaque H0B : ℝ
+opaque H1B : ℝ
+opaque m0B : ℝ
+opaque m1B : ℝ
+opaque CB : ℝ
+
+/-- The backtest as a `TTheory.Method.Row`. -/
+def row1905 : TTheory.Method.Row where
+  id := "COID-EINSTEIN-1905"
+  source := "the relativistic kinetic energy m c² (γ - 1), Planck's lemma (1907)"
+  target := "a body emitting light L (Einstein, November 1905)"
+  prediction := "A body that emits energy L loses mass L/c²."
+  disconfirmation := "Conservation alone: the premises without Planck's lemma say nothing of mass."
+  premises := cB ≠ 0 ∧ γ cB vB ≠ 1 ∧ Emission cB vB LB E0B E1B H0B H1B ∧
+    Relativistic cB vB m0B m1B E0B E1B H0B H1B CB
+  conclusion := m0B - m1B = LB / cB ^ 2
+  transfer := fun ⟨hc, hγ, h, r⟩ => mass_drop_exact hc hγ h r
+  control := ¬ ∀ (c v L E0 E1 H0 H1 m0 m1 : ℝ),
+    Emission c v L E0 E1 H0 H1 → m0 - m1 = L / c ^ 2
+  controlHolds := gap
+
+/-- The measured ratio ΔE / (Δm c²) (Rainville et al., Nature 438, 2005). -/
+opaque massEnergyRatio : ℝ
+
+/-- The test, as reported: equal to 4 parts in 10⁷. -/
+class Tests1905 : Prop where
+  rainville2005 : |massEnergyRatio - 1| < 4e-7
+
+def cTested : TTheory.Claim where
+  id := "COID-EINSTEIN-1905.test"
+  text := "Rainville et al. (2005): ΔE = Δm c² to 4 parts in 10⁷."
+  statement := ∀ [Tests1905], |massEnergyRatio - 1| < 4e-7
+
+instance : TTheory.Witness cTested := .of fun [h : Tests1905] => h.rainville2005
+
+#status row1905.claims ++ [cTested]
 
 #print axioms kinetic_drop
 #print axioms gap
