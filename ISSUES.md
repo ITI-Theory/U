@@ -8337,6 +8337,14 @@ mathlib and physlib ... T-theory, all of it, modelled in lean"):**
 - [ ] Step 2, the scale: the whole NextKB taxonomy (103,321 genls; 333,488 isa; 26,154 disjointWith) generated in the
       A + C form, measured (build time, memory, coercion search); then P1 against it. disjointWith and individuals
       with several types still to design.
+      (28 Nov 05:08) The native build, measured: generation 17 s (681 microtheories, 434,072 facts, 9,394
+      inherited, 38 genlMt links dropped for cycles). Phase 1 (201 fact parts, 2,000 facts each) built clean in about
+      2 h with two sequential loops (20-55 s a part). Phase 2 stalled on UniversalVocabularyMt, which xtends its
+      145 parts (about 290,000 fields): 54 CPU minutes at 2.7 GB without finishing. xtends copies every inherited
+      field, superlinearly: 10 parents of 500 fields 73 s; 20 of 500 a heartbeat timeout at 183 s. The generator now
+      writes genlMt links and parts as instance fields («genlMt P», «part j», ttribute [instance]): 20 of 500
+      in 17 s, 145 parts in 10 s, and a fact resolves through the chain ([Child] : P.fact). Full rebuild started
+      (one sequential loop, bld/all.log).
 - [ ] The chats' threads: a thread's state (implemented, queued) from a witness in the model, not routed by hand.
 - [ ] (author, 27 Nov: "in the chats there was talk of external data sets to compare against etc. for the FMHN ...
       so the idea would be that discussion has the lean for that, and is then available somewhere else") A dataset

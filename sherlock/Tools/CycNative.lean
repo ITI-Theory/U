@@ -17,8 +17,11 @@ Writes the whole of NextKB's taxonomy as Lean (docs/LEAN.md):
 * `Vocabulary`: every collection a set of things, every individual a thing, all `opaque` (they assert
   nothing);
 * `Mt/...`: every microtheory a class of assumptions (`Prop`), its facts the fields (`A ⊑ B`,
-  `x ∈ C`, `A ∩ B = ∅`), its `genlMt` links `extends`. A contradiction stays inside the
-  microtheory: an inconsistent one has no instance.
+  `x ∈ C`, `A ∩ B = ∅`), its `genlMt` links fields that are instances (`«genlMt P»`), and so
+  are the parts of a large one (`«part j»`). Not `extends`: that copies every inherited field into
+  the class, which at OpenCyc's scale (UniversalVocabularyMt's 290,000 facts below hundreds of
+  microtheories) never finishes. A contradiction stays inside the microtheory: an inconsistent one
+  has no instance.
 
 Run from `sherlock/`: `lake exe cyc-native ../bld/sherlock/raw/nextkb ../bld/opencyc`. The output is
 NextKB's data under CC BY 4.0, and every generated file says so (NextKB's `license.txt`).
@@ -59,7 +62,7 @@ Source: nextkb_files_20190107.zip, SHA-256
 5489856b64c9db1c69965ecb6a9a82382ddffd3fdf76c571b8bbde97405d7b79.
 Changes: translated from CycL into Lean 4 by sherlock/Tools/CycNative.lean (ISS-141): collections as
 sets of things, individuals as things, genls, isa and disjointWith as the fields of microtheory
-classes, genlMt as extends; rules and the other predicates are not translated yet.
+classes, genlMt as instance fields; rules and the other predicates are not translated yet.
 -/
 "
 
@@ -122,8 +125,8 @@ partial def visit (parents : Std.HashMap String (Array String)) (m : String) :
       met := met.push p
   modify fun s => { s with mark := s.mark.insert m true, out := s.out.push m, kept := s.kept.insert m met }
 
-/-- The microtheories in an order where every one comes after those it extends. Every microtheory
-    also extends `BaseKB`, except `BaseKB`'s own ancestors; the `genlMt` links that close a cycle
+/-- The microtheories in an order where every one comes after its parents. Every microtheory also
+    has `BaseKB` as a parent, except `BaseKB`'s own ancestors; the `genlMt` links that close a cycle
     are dropped (and counted). -/
 def order (mts : Array String) (genlMt : Array (String × String)) :
     Array String × Std.HashMap String (Array String) × Nat := Id.run do
@@ -221,7 +224,7 @@ end OpenCyc
   let mut mtMods : Array String := #[]
   let mut nFacts := 0
   -- each microtheory's fact names, so that one an ancestor already asserts is inherited, not
-  -- declared again (Lean refuses a field a parent class declares)
+  -- asserted again
   let mut own : Std.HashMap String (Std.HashSet String) := {}
   let mut inherited := 0
   for m in ordered do
@@ -268,15 +271,19 @@ end OpenCyc
         partNames := partNames.push pn
         partImports := partImports.push s!"import OpenCycNative.Mt.{fm}_P{j + 1}"
         j := j + 1
-    let supers := (ps.toList.map ident) ++ partNames.toList
-    let ext := if supers.isEmpty then "" else " extends " ++ ", ".intercalate supers
-    let body :=
-      if facts.size > partSize || facts.isEmpty then ""
-      else " where\n" ++ "\n".intercalate (facts.toList.map (fun f => s!"  {f.name} : {f.stmt}"))
+    let instFields : List (String × String) :=
+      (ps.toList.map (fun p => (s!"«genlMt {p}»", ident p))) ++
+        (partNames.toList.zipIdx.map (fun (pn, j) => (s!"«part {j + 1}»", pn)))
+    let fieldLines := instFields.map (fun (n, t) => s!"  {n} : {t}") ++
+      (if facts.size > partSize then [] else facts.toList.map (fun f => s!"  {f.name} : {f.stmt}"))
+    let body := if fieldLines.isEmpty then "" else " where\n" ++ "\n".intercalate fieldLines
+    let attr := if instFields.isEmpty then "" else
+      "\n\nattribute [instance] " ++
+        " ".intercalate (instFields.map (fun (n, _) => s!"{ident m}.{n}"))
     IO.FS.writeFile (base / "Mt" / s!"{fm}.lean") (header ++
       "\n".intercalate (["import OpenCycNative.Vocabulary"] ++ parentImports ++ partImports.toList) ++
       "\n\nnamespace OpenCycMt\n\n" ++ s!"/-- Microtheory {m} ({facts.size} facts). -/\n" ++
-      s!"class {ident m} : Prop{ext}{body}\n\nend OpenCycMt\n")
+      s!"class {ident m} : Prop{body}{attr}\n\nend OpenCycMt\n")
     mtMods := mtMods.push s!"OpenCycNative.Mt.{fm}"
   IO.FS.writeFile (out / "OpenCycNative.lean") (header ++
     "\n".intercalate ((["OpenCycNative.Carrier", "OpenCycNative.Vocabulary"] ++
