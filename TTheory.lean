@@ -9,6 +9,7 @@ import TTheory.P2
 import TTheory.P3
 import TTheory.P4
 import TTheory.P5
+import TTheory.P6
 
 /-!
 # [T]-Theory
@@ -39,4 +40,6 @@ import moves the states on the next build. Nothing is set by hand.
   numbers checked against P2's.
 * `TTheory.P5`: The physical substrate: the bridges' logic checked, the predictions open until
   measured.
+* `TTheory.P6`: The book: the structural fraction and its values, its Lean sketch proved, the
+  figures' matrices exactly (one direction refuted).
 -/

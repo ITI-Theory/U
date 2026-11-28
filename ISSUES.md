@@ -7366,6 +7366,13 @@ and their verdicts change: that is the witness.
       domains, `TTheory.Method`) and P5's Bridge 3 ("the observer's soma-field ... modified by contact with
       another's", registry/papers.yaml's P3 title "A Formal Model of Therapeutic Attunement"). For the author: one
       sense per word, or name the second (attunement); titles from Dist/PAPERS.yaml at the next versions.
+- [ ] (28 Nov, found by the Lean model, TTheory/P6.lean: P6.direction refuted) The book's figures draw the C-PTSD
+      asymmetry in opposite directions. The text (soma-field-book 710): "fear activates shame more strongly than shame
+      activates fear"; by A.2 (ė = We + θ) entry W[i][j] is how strongly j drives i. "The Modification" (796) raises
+      Shame-from-Fear to 0.6 against 0.3, as the text says; Appendix A.3's figure has Fear-from-Shame 0.5 and
+      Shame-from-Fear 0.1, the other way, and A.5's and "The Interpolation"'s blends inherit it (0.3477 / 0.2523,
+      0.4192 / 0.2762). For the author: which way, then the figures' parameters at the next version (they are
+      AI-written figure parameters, as the Calm-Shame slip was, ISSUES 4804).
 
 ## ISS-131: Writing up USC: what it did, how it works, how to use it — IN-PROGRESS
 {{Tags area.sherlock, area.papers, area.books}}
@@ -8216,6 +8223,11 @@ mathlib and physlib ... T-theory, all of it, modelled in lean"):**
       higher factor), P5's worked example bounded by P2's noise curve (W -12 to -6 lowers T* from 0.124 to 0.094,
       both far above the cold 0.02), the four predictions open over named observables until a study records them.
       4 kernel-verified, 4 open; the abstract 2 of 4 (its predictions are untested, as they should read).
+- [x] (28 Nov 04:xx) P6, the book, as a chapter: the structural fraction's values proved from e's bounds (tanh 1 in
+      (0.7615, 0.7617), tanh 0.5 in (0.4621, 0.4622)); the book's own Lean sketch proved (below τ_c the fraction is
+      below tanh 1); A.5's blend entries from A.3's matrices; the figures' matrices exactly (sum -0.6, Calm-Shame -0.3
+      throughout, ΔW asymmetric); the direction of the asymmetry refuted across figures (ISS-130). 5 kernel-verified,
+      1 refuted.
 - [ ] Step 2, the scale: the whole NextKB taxonomy (103,321 genls; 333,488 isa; 26,154 disjointWith) generated in the
       A + C form, measured (build time, memory, coercion search); then P1 against it. disjointWith and individuals
       with several types still to design.
