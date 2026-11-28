@@ -83,13 +83,14 @@ private partial def contextsIn (stmt : Expr) : MetaM (List Name) :=
     for x in xs do
       let d ← x.fvarId!.getDecl
       if d.binderInfo.isInstImplicit then
-        if let some n := (← whnfR d.type).getAppFn.constName? then out := out ++ [n]
+        if let some n := (← whnfR d.type).getAppFn.constName? then
+          if n != `Fact then out := out ++ [n]
     match (← whnf body).getAppFnArgs with
     | (``And, #[a, b]) => return (out ++ (← contextsIn a) ++ (← contextsIn b)).eraseDups
     | _ => return out
 
 /-- The microtheories a claim's statement quantifies over: its instance-implicit binders' classes,
-    through conjunctions. -/
+    through conjunctions. `Fact` is not one: it is a hypothesis (`0 < k`) passed as an instance. -/
 private def contextOf (c : Expr) : MetaM (List Name) := do
   contextsIn (← whnf (mkApp (mkConst ``TTheory.Claim.statement) c))
 

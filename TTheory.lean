@@ -17,6 +17,7 @@ import TTheory.P10
 import TTheory.P11
 import TTheory.P12
 import TTheory.P13
+import TTheory.P14
 
 /-!
 # [T]-Theory
@@ -63,4 +64,6 @@ import moves the states on the next build. Nothing is set by hand.
   proved; the gate exp(-W) refuted; the swarm module's variational axiom inconsistent.
 * `TTheory.P13`: The missing limbic layer: the coupling equations and figures checked; the cold
   limit proved (one-step retrieval of the nearest pattern); the 1982 limit and strict descent refuted.
+* `TTheory.P14`: The USF as a Euclidean QFT: the OS axioms derived under the identification m = k;
+  the propagators matched; decay at the library's rate k/2, rate k open; the cited G_R refuted.
 -/

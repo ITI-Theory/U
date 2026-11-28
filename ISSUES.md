@@ -7420,6 +7420,16 @@ and their verdicts change: that is the witness.
       for each step: strict, so false at every fixed point (one pattern 1, state 1). Ramsauer et al. prove <=.
       P13 also asks for Phi_min ~ sigma^-1 (T_WKB - T0) with T_WKB defined nowhere, and cites wkbAmplitude_pos
       (Theta(W) > 0) for an escape probability bounded below by Theta(W), which it does not give.
+- [ ] (28 Nov, found by the Lean model, TTheory/P14.lean) The USF as a Euclidean QFT (P14): (1) Section 5.2 cites
+      TemporalDynamics.lean for a theorem on G_R(t) = theta(t) e^{-gamma t} sin(omega t)/omega; the theorem there
+      (somaticRetardedPropagator_isRetarded) is about theta(tau) e^{-k v_s tau}, which never changes sign (refuted
+      at omega tau = 3pi/2). Cite the right function, or prove causality for the oscillating one. (2) OS4 is
+      described as "exponential decay" (the table, 5.3) and USF_OSAxioms.lean's docstring ties OS4_Clustering
+      to K(tau) = K0 e^{-tau/tau_m}: OSforGFF's OS4_Clustering has no rate (factorisation at large separation).
+      The library's decayBound gives the covariance rate k/2; the paper's e^{-k|x|} is true for the 4D free
+      field but unproved (P14.rate, open). Say "clustering" for OS4, and cite decayBound for the decay.
+      (3) OSforGFF's propagator is 1/((2pi)^2|xi|^2 + m^2) (momentum as frequency): "the formal covariance
+      kernels coincide" at p = 2pi xi; say so in 4.1.
 
 ## ISS-131: Writing up USC: what it did, how it works, how to use it — IN-PROGRESS
 {{Tags area.sherlock, area.papers, area.books}}
@@ -8302,6 +8312,11 @@ mathlib and physlib ... T-theory, all of it, modelled in lean"):**
 - [x] (28 Nov 04:02) P13 as a chapter: the coupling equations (beta falls as Phi rises) and the figures'
       numbers (beta 4 and 0.8, the matrix sums, 0.6225, Theta(12) between 2.1 and 2.2e-6) proved; the cold limit
       proved, the 1982 limit and strict descent refuted (ISS-130); escape bound open. 7 kv, 1 open, 2 refuted.
+- [x] (28 Nov 04:43) P14 as a chapter: the USF measure opaque and the identification m = k a context, so the
+      master OS claim is kernel-verified in [Identification], as the paper says; the propagators matched (2pi),
+      peaks, the GFF master theorem, causality, decay at rate k/2, the memory kernel (P10) as the Euclidean
+      correlation; rate k and the phi^4 class open; the cited G_R refuted. 6 kv, 2 open, 1 refuted. Claims:
+      Fact binders are hypotheses, not contexts (contextsIn skips them). USF_OSAxioms built with one process.
 - [ ] Step 2, the scale: the whole NextKB taxonomy (103,321 genls; 333,488 isa; 26,154 disjointWith) generated in the
       A + C form, measured (build time, memory, coercion search); then P1 against it. disjointWith and individuals
       with several types still to design.
