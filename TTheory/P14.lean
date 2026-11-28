@@ -21,7 +21,8 @@ library's momentum convention (`(2π)²‖k‖²`) is written out. Two things th
 proofs are not in them: OS4 as formalised is clustering without a rate (the library proves the
 covariance decays at rate `k/2`; the paper's `e^{-k|x|}` is open), and the retarded propagator
 `θ(t) e^{-γt} sin(ωt)/ω` it cites `TemporalDynamics.lean` for is not the one proved causal there,
-which never changes sign.
+which never changes sign. Nor is the Hopfield interaction quartic: as P15 writes it, it is a
+quadratic form.
 
 This is also the home P10's memory kernel needed: `e^{-kvτ}` is the field's correlation in
 imaginary time (P10's `cEuclidean`).
@@ -168,15 +169,27 @@ def cCausal : Claim where
 
 instance : Witness cCausal := .of SomaField.Temporal.somaticRetardedPropagator_isRetarded
 
-/-- That the Hopfield coupling is quartic in the field and so in the φ⁴ universality class
-    (P15's question). -/
-opaque quarticClass : Prop
+/-- The Hopfield interaction at a point, `V = -½ Σ_{a,b} W_ab φᵃ φᵇ` (P15's eq. for `V`). -/
+noncomputable def hopfieldV {n : ℕ} (W : Matrix (Fin n) (Fin n) ℝ) (φ : Fin n → ℝ) : ℝ :=
+  -(1 / 2) * ∑ a, ∑ b, W a b * φ a * φ b
+
+/-- It is homogeneous of degree two, in any number of components. -/
+theorem hopfieldV_quadratic {n : ℕ} (W : Matrix (Fin n) (Fin n) ℝ) (φ : Fin n → ℝ) (t : ℝ) :
+    hopfieldV W (t • φ) = t ^ 2 * hopfieldV W φ := by
+  have h : ∀ a b, W a b * (t * φ a) * (t * φ b) = t ^ 2 * (W a b * φ a * φ b) := by
+    intros; ring
+  simp only [hopfieldV, Pi.smul_apply, smul_eq_mul, h, ← Finset.mul_sum]
+  ring
 
 def cInteracting : Claim where
   id := "P14.interacting"
   text := "The Hopfield interaction is quartic in field space, placing it in the same universality \
     class as φ⁴."
-  statement := quarticClass
+  statement := ∃ (n : ℕ) (W : Matrix (Fin n) (Fin n) ℝ) (φ : Fin n → ℝ) (t : ℝ),
+    hopfieldV W (t • φ) ≠ t ^ 2 * hopfieldV W φ
+
+/-- `V` is a quadratic form (P15 writes it out): the interacting theory it defines is Gaussian. -/
+instance : Refutation cInteracting := .of fun ⟨_, W, φ, t, h⟩ => h (hopfieldV_quadratic W φ t)
 
 /-- P14's claims, in the paper's order. -/
 def claims : List Claim :=

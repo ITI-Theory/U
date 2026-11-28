@@ -7430,6 +7430,19 @@ and their verdicts change: that is the witness.
       field but unproved (P14.rate, open). Say "clustering" for OS4, and cite decayBound for the decay.
       (3) OSforGFF's propagator is 1/((2pi)^2|xi|^2 + m^2) (momentum as frequency): "the formal covariance
       kernels coincide" at p = 2pi xi; say so in 4.1.
+- [ ] (28 Nov, found by the Lean model, TTheory/P14.lean and P15.lean: refuted) The interacting USF. P15 writes
+      V = -1/2 sum_ab W_ab phi^a phi^b: a quadratic form in any number of components (V(t phi) = t^2 V(phi)). So
+      (1) P15 2.2 "quadratic in single-component fields but quartic in multi-component fields" and P14 6 "the
+      Hopfield interaction is quartic ..., the same universality class as phi^4" are false for this V; the
+      multi-component theory is Gaussian too (diagonalise W: free fields of mass^2 k^2 - kappa lambda_i), so it
+      needs no Glimm-Jaffe, and section 5's "Open" item is not open for this V. (2) Section 4: above kappa_c
+      "the symmetry breaks and the field settles into an attractor (trauma basin)": a quadratic action with
+      negative mass^2 is unbounded below, no minimum (refuted mode by mode). The trauma phase needs a quartic
+      term, e.g. the double well of LimbicTunnel; say which lift supplies it (section 1 hints at one), and
+      that is then the phi^4 programme. (3) The proposed Lean in section 3 does not compile as written (mu_GFF
+      takes the dimension first; k_eff's positivity must be an instance); TTheory/P15.lean proves it.
+      (4) dmu_kappa ~ e^{-kappa V} dmu_0 for the quadratic V is not a density in infinite volume (Gaussian
+      measures of different mass are mutually singular); define mu_kappa as the GFF at k_eff instead.
 
 ## ISS-131: Writing up USC: what it did, how it works, how to use it — IN-PROGRESS
 {{Tags area.sherlock, area.papers, area.books}}
@@ -8317,6 +8330,10 @@ mathlib and physlib ... T-theory, all of it, modelled in lean"):**
       peaks, the GFF master theorem, causality, decay at rate k/2, the memory kernel (P10) as the Euclidean
       correlation; rate k and the phi^4 class open; the cited G_R refuted. 6 kv, 2 open, 1 refuted. Claims:
       Fact binders are hypotheses, not contexts (contextsIn skips them). USF_OSAxioms built with one process.
+- [x] (28 Nov 04:54) P15 as a chapter: mass renormalisation; Conjecture 1 mode by mode (c = min(1, k_eff^2));
+      the proposed below-critical theorem proved (kernel-verified in [Reduction]); figures; V quartic and the
+      attractor above kappa_c refuted (ISS-130), and P14's quartic claim with them; Conjecture 2, UV and
+      infinite volume open. 4 kv, 3 open, 2 refuted.
 - [ ] Step 2, the scale: the whole NextKB taxonomy (103,321 genls; 333,488 isa; 26,154 disjointWith) generated in the
       A + C form, measured (build time, memory, coercion search); then P1 against it. disjointWith and individuals
       with several types still to design.

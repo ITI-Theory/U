@@ -18,6 +18,7 @@ import TTheory.P11
 import TTheory.P12
 import TTheory.P13
 import TTheory.P14
+import TTheory.P15
 
 /-!
 # [T]-Theory
@@ -65,5 +66,8 @@ import moves the states on the next build. Nothing is set by hand.
 * `TTheory.P13`: The missing limbic layer: the coupling equations and figures checked; the cold
   limit proved (one-step retrieval of the nearest pattern); the 1982 limit and strict descent refuted.
 * `TTheory.P14`: The USF as a Euclidean QFT: the OS axioms derived under the identification m = k;
-  the propagators matched; decay at the library's rate k/2, rate k open; the cited G_R refuted.
+  the propagators matched; decay at the library's rate k/2, rate k open; the cited G_R and the
+  quartic interaction refuted.
+* `TTheory.P15`: The interacting USF: mass renormalisation, Conjecture 1 mode by mode and the
+  proposed below-critical OS theorem proved; V quartic and the trauma phase's attractor refuted.
 -/
