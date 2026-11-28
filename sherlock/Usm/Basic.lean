@@ -24,6 +24,10 @@ structure Row where
 structure Options where
   dim : Nat
   on : List String
+  /-- The eye (the app's eye.js): "human", an aperture while a zoom is under way, or "pinhole". -/
+  eye : String := "human"
+  /-- The HUD's instruments: "scale", "flight", "both" or "off". -/
+  hud : String := "scale"
   deriving Repr, Inhabited
 
 def visible (o : Options) (r : Row) : Bool := r.dim ≤ o.dim && (r.gate.isEmpty || o.on.contains r.gate)
@@ -40,6 +44,10 @@ theorem visible_mono {a b : Options} (h : a.le b) (r : Row) (hv : visible a r = 
   rcases hg with hg | hg
   · exact Or.inl hg
   · exact Or.inr (h.2 _ hg)
+
+/-- The eye and the HUD are display options: whatever they are set to, a level shows the same rows. -/
+theorem visible_display (o : Options) (e h : String) (r : Row) :
+    visible { o with eye := e, hud := h } r = visible o r := rfl
 
 /-- The start the author asks for: the 4D world, no switch on. -/
 def start4D : Options := { dim := 4, on := [] }
