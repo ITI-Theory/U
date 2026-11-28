@@ -7503,6 +7503,15 @@ and their verdicts change: that is the witness.
       never applies to the model's matrix. (4) delta_W_dof's docstring, "dW has 7 independent degrees of
       freedom": traceless symmetric 8x8 matrices have 35; the paper's "seven independent eigenvalue
       directions" is the right statement.
+- [ ] (28 Nov, found by the Lean model, TTheory/P26.lean: refuted) Compose once, play live (P26), and the score
+      file registry/scores/river-film.yaml it plays: (1) T1 "when fear exceeds 0.7 while awe rises": the file's
+      largest fear is 0.70 (t = 0.5), and score.js's smoothstep stays between keyframes, so fear never exceeds
+      0.7 and T1's condition never holds (the threshold fires only because it is scheduled at 0.52). (2) T2 "at
+      t = 0.74, when language falls below 0.1 and the pre-verbal exceeds 0.85": true at the keyframe t = 0.7,
+      false at 0.74 (language 0.1028, pre-verbal 0.7944). (3) "transcribed from The Tensor's appendix": the file
+      differs from the appendix's table (P8) in safety (t = 0.7-0.9: 0.1, 0.2, 0.5 against 2, 4, 7), curiosity
+      (0.8, 0.9), fear (0.8) and language (0.7: 0.05 against 1). Decide which is the score, and generate the
+      other from it (ISS-141: the YAML from the model). Same family as P8's threshold items.
 
 ## ISS-131: Writing up USC: what it did, how it works, how to use it — IN-PROGRESS
 {{Tags area.sherlock, area.papers, area.books}}
@@ -8442,6 +8451,10 @@ mathlib and physlib ... T-theory, all of it, modelled in lean"):**
       Method still describes OpenCyc as xiom ... : Holds mt phi facts with a Holds semantics file; the
       model is now native classes (this issue): its next revision should say so (and docs/SHERLOCK.md's
       "Where it is going").
+- [x] (28 Nov 06:53) P26 as a chapter, the last paper: the registry's keyframes (hundredths) and the renderer's
+      smoothstep; shape and the 45-minute values checked; T1 never fires, T2 not at 0.74, and the file is not the
+      appendix: refuted (ISS-130); the listener's experience open. 1 kv, 1 open, 3 refuted. With it every paper
+      in Dist/PAPERS.yaml (P1-P26, SH1) has a chapter in TTheory.
 - [ ] Step 2, the scale: the whole NextKB taxonomy (103,321 genls; 333,488 isa; 26,154 disjointWith) generated in the
       A + C form, measured (build time, memory, coercion search); then P1 against it. disjointWith and individuals
       with several types still to design.

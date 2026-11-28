@@ -30,6 +30,7 @@ import TTheory.P23
 import TTheory.P24
 import TTheory.P25
 import TTheory.SH1
+import TTheory.P26
 
 /-!
 # [T]-Theory
@@ -103,4 +104,6 @@ import moves the states on the next build. Nothing is set by hand.
   as the soft-maximum's limit, same barrier at different cost, hysteresis); its signatures open.
 * `TTheory.SH1`: Sherlock: its counts and examples checked; containment of a contradiction and
   the category error shown in the native form that replaces the design it describes.
+* `TTheory.P26`: Compose once, play live: the registry score's shape checked; T1 never fires,
+  T2 not at 0.74, and the file is not the appendix (P8): refuted; the listener's experience open.
 -/
