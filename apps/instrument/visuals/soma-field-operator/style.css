@@ -1156,3 +1156,20 @@ body.screen-poked::after { content: ''; position: fixed; inset: 0; z-index: 9999
 .f1__pad { height: 34px; font-size: 7.5px; }
 .f1__faders { grid-template-columns: repeat(4, 34px); gap: 4px; padding: 6px 0 0; }
 .f1__fader .console__fader { height: 118px; }
+
+/* The eye and the HUD (eye.js, ISS-127): the aperture closes in while a zoom is under way; the HUD
+   says where you are and what size you are. */
+.eye-aperture { position: fixed; inset: 0; z-index: 1; pointer-events: none; opacity: 0; --eye-open: 70%;
+  background: radial-gradient(circle at 50% 50%, transparent calc(var(--eye-open) - 12%), rgba(5,7,14,.92) var(--eye-open)); }
+.eye-hud { position: fixed; z-index: 4; left: 12px; bottom: 56px; width: 300px; padding: 8px 12px; color: var(--text);
+  border: 1px solid rgba(94,231,255,.35); background: rgba(5,7,14,.72); backdrop-filter: blur(6px);
+  font: 11px/1.45 'Space Mono', monospace; font-variant-numeric: tabular-nums; }
+.eye-hud dl { margin: 0; }
+.eye-hud dl + dl:not([hidden]) { margin-top: 6px; padding-top: 6px; border-top: 1px solid rgba(94,231,255,.2); }
+.eye-hud dl > div { display: grid; grid-template-columns: 52px 1fr; gap: 8px; }
+.eye-hud dt { color: #5ee7ff; letter-spacing: .1em; }
+.eye-hud dd { margin: 0; color: #eaf5ff; overflow-wrap: anywhere; }
+.eye-hud small { color: rgba(234,245,255,.55); font-size: 9px; letter-spacing: .06em; }
+.eye-settings { display: contents; }
+.levels-shell .eye-hud { left: 384px; bottom: 96px; }
+.atlas-capture .eye-aperture { display: none; }

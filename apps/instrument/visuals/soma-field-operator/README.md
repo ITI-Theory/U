@@ -133,7 +133,8 @@ The `EXPORT FRAME` control writes a PNG from the current canvas state for a
 paper or social derivative. Keep the procedural scene as the source of truth.
 
 Deep-link hash keys include `level`, `path`, `lens`, `dim`, `model`, `reader`,
-`compare`, `contours`, `styleoff`, `q`, `demo`, `era`, `ui`, and `labels`.
+`compare`, `contours`, `styleoff`, `q`, `demo`, `era`, `ui`, `labels`, `eye`
+and `hud` (the last two only when not the default).
 
 ## The overview: how it fits together
 
@@ -255,6 +256,22 @@ restore panels; `RESET LAYOUT` clears saved positions from local storage.
 
 `npm run capture -- --clean` appends `ui=clean&labels=off` to captured URLs
 without changing normal capture defaults.
+
+## The eye and the HUD
+
+`eye.js` (ISS-127). The author: "I have climbed, but my eyes are still the size they were ... when we
+change the zoom, we should feel that we *are* that size" (20 Oct), and "is the zooming different to
+just putting myself somewhere" (21 Nov). A point camera has no size, so a zoom and a move look the
+same. Two settings in FIELD CONTROLS, saved, and in the hash when not the default:
+
+- **EYE**: `human` (default): while a zoom is under way the viewer is still the old size, peering at
+  the new scale through an aperture (a microscope going down, a telescope going up): the field of
+  view narrows to 40% and a round vignette closes over the 3D view; both open as the zoom arrives.
+  `pinhole`: the plain point camera. Only a zoom (the ZOOM OPERATOR, the elevator, the transport)
+  peers; a link jumps, like putting yourself somewhere.
+- **HUD**: a panel, SpaceEngine-style: `scale` (default: the level and its evidence label, σ, ℓ, its
+  NOW, the level's response time said as a person would, and the eye's mode, REMOTE APERTURE or
+  CO-MOVING), `flight` (the camera's heading, pitch, roll and field of view), `both`, or `off`.
 
 ## Atlas anchor API
 

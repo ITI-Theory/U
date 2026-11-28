@@ -94,6 +94,10 @@
         </section>
         <div class="control select-control"><label for="implementation">USF MODEL</label><select id="implementation" aria-label="USF model"></select></div>
         <div class="control select-control"><label for="reader-register">READER</label><select id="reader-register" aria-label="Reader explanation register"></select></div>
+        <div id="eye-settings" class="eye-settings" title="The eye: HUMAN feels the zoom as a change of size (an aperture while zooming, wide on arrival); PINHOLE is a point camera. The HUD's instruments: the scale, the camera's flight, both, or none.">
+          <div class="control select-control"><label for="eye-mode">EYE</label><select id="eye-mode" aria-label="The eye"></select></div>
+          <div class="control select-control"><label for="hud-mode">HUD</label><select id="hud-mode" aria-label="The HUD's instruments"></select></div>
+        </div>
         <button id="library-toggle" class="mode-button" type="button" aria-pressed="false">MORE INFORMATION</button>
         <section id="library-panel" class="library-panel" aria-label="More information" hidden>
           <p class="inspector-kicker">RESOLVED LIBRARY</p>

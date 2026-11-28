@@ -28,6 +28,7 @@ let elevatorVeil = null;
 import { createGallery } from './gallery.js';
 import { createScribe } from './scribe.js';
 import { createQuestionTours } from './questions.js';
+import { createEye, EYE_CHOICES, HUD_CHOICES, loadChoice } from './eye.js';
 import { createTimeAxis } from './time-axis.js';
 import { createDimensionDynamics } from './dynamics.js';
 import { createPanelManager } from './panels.js';
@@ -1272,6 +1273,8 @@ function readHashState() {
     led: params.get('led'),
     glass: params.get('glass'),
     art: params.get('art'),
+    eye: params.get('eye'),
+    hud: params.get('hud'),
   };
 }
 
@@ -1294,6 +1297,9 @@ const state = {
   visualScale: 0,
   level: 11,
   reader: loadReaderRegister(),
+  // The eye and the HUD's instruments (eye.js, ISS-127): settings, saved, and in the hash when not the default.
+  eye: loadChoice('usm-eye', EYE_CHOICES, 'human'),
+  hud: loadChoice('usm-hud', HUD_CHOICES, 'scale'),
   developerSources: false,
   libraryOpen: false,
   viewMode: '3d',
@@ -1333,6 +1339,7 @@ const state = {
 let suppressHashWrite = false;
 let timeAxis = null;
 let panelManager = null;
+let eye = null;
 let screens = null;
 const explorer = createExplorer({
   getDim: () => state.level,
@@ -1711,6 +1718,8 @@ function applyHashState({ render = true } = {}) {
   if (hashState.hasReader && readerRegisters.some(registerEntry => registerEntry.id === hashState.reader)) {
     state.reader = hashState.reader;
   }
+  if (EYE_CHOICES.some(choice => choice.id === hashState.eye)) state.eye = hashState.eye;
+  if (HUD_CHOICES.some(choice => choice.id === hashState.hud)) state.hud = hashState.hud;
   if (hashState.hasDim && ['4', '8', '11'].includes(hashState.dim)) {
     state.level = Number(hashState.dim);
   }
@@ -2236,7 +2245,7 @@ function renderBodyGrid(time = 0) {
 // the reading (the floor's mathematics and evidence) to the card.
 const LENT = {
   poke: ['#somatic', '#cognitive', '#response-time', '#time-readout', '#audio-toggle', '#brecvema-inspector .mechanism-detail', '#appraisal-panel', '#body-map-panel'],
-  look: ['#t-theory-toggle', '.lens-layers', '.style-layers', '#implementation', '#reader-register', '.settings-panel', '#thought-sparks-panel'],
+  look: ['#t-theory-toggle', '.lens-layers', '.style-layers', '#implementation', '#reader-register', '#eye-settings', '.settings-panel', '#thought-sparks-panel'],
   read: ['.math-readout', '.zoom-equation', '.cheat-sheet', '#library-toggle', '#library-panel'],
 };
 let lentToExplorer = false;
@@ -2379,6 +2388,8 @@ function hashForState() {
   params.set('dim', String(state.voyage ? state.level : activeDimensionLevel()));
   params.set('model', state.implementation);
   params.set('reader', state.reader);
+  if (state.eye !== 'human') params.set('eye', state.eye);
+  if (state.hud !== 'scale') params.set('hud', state.hud);
   if (state.eraId) params.set('era', state.eraId);
   if (state.questionId) params.set('q', state.questionId);
   if (state.compare) params.set('compare', '1');
@@ -2693,6 +2704,21 @@ displayPreset.addEventListener('change', () => {
   persistDisplaySections();
   updateScaleReadout();
 });
+for (const [id, key, choices, storage] of [['#eye-mode', 'eye', EYE_CHOICES, 'usm-eye'], ['#hud-mode', 'hud', HUD_CHOICES, 'usm-hud']]) {
+  const select = document.querySelector(id);
+  for (const choice of choices) select.add(new Option(choice.label, choice.id));
+  select.value = state[key];
+  select.addEventListener('change', () => {
+    state[key] = select.value;
+    try {
+      localStorage.setItem(storage, state[key]);
+    } catch {
+      // localStorage can be unavailable in strict browser modes.
+    }
+    writeHashState();
+  });
+  addEventListener('hashchange', () => { select.value = state[key]; });
+}
 readerRegisterSelect.addEventListener('change', () => {
   state.reader = readerRegisterSelect.value;
   try {
@@ -2926,6 +2952,9 @@ sherlockPanel.className = 'sherlock-panel';
 sherlockPanel.innerHTML = '<p class="sherlock-panel__tally"></p><details class="sherlock-panel__more"><summary>CONCEPTS</summary><ul class="sherlock-panel__list"></ul></details>';
 document.body.append(sherlockPanel);
 panelManager.registerPanel(sherlockPanel, { id: 'sherlock', title: 'SHERLOCK', dockLabel: 'SHERLOCK', minWidth: 260, minHeight: 70 });
+// The eye and the HUD (eye.js, ISS-127): the zoom felt as a change of size; where you are, and what size.
+eye = createEye({ camera, getState: () => state, level: activeLevel, badge: badgeForLevel });
+panelManager.registerPanel(eye.panel, { id: 'eye-hud', title: 'HUD', dockLabel: 'HUD', minWidth: 240, minHeight: 90 });
 // The elevator (elevator.js, ISS-052): the zoom as floors; STEP OUT into the explorer.
 document.body.append(elevator.element);
 panelManager.registerPanel(elevator.element, { id: 'elevator', title: 'ELEVATOR', dockLabel: 'LIFT', minWidth: 300, minHeight: 160 });
@@ -3271,14 +3300,17 @@ function updateWorldLabelVisibility(viewCamera, viewport = { left: 0, top: 0, wi
   });
 }
 
+// The camera's field of view at the scale shown; the eye narrows it while a zoom is under way.
+let nativeFov = CAMERA_FOV;
 function resize() {
   renderer.setSize(innerWidth, innerHeight, false);
   renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
   backgroundMaterial.uniforms.uResolution.value.set(renderer.domElement.width, renderer.domElement.height);
   const halfWidthEye = (state.stereoSbs && state.sbsLayout !== 'half') || (state.compare && !state.stereoSbs);
   camera.aspect = (halfWidthEye ? innerWidth / 2 : innerWidth) / innerHeight;
-  camera.fov = camera.aspect >= CAMERA_REFERENCE_ASPECT ? CAMERA_FOV
+  nativeFov = camera.aspect >= CAMERA_REFERENCE_ASPECT ? CAMERA_FOV
     : THREE.MathUtils.radToDeg(2 * Math.atan(Math.tan(THREE.MathUtils.degToRad(CAMERA_FOV / 2)) * CAMERA_REFERENCE_ASPECT / camera.aspect));
+  camera.fov = nativeFov;
   camera.updateProjectionMatrix();
   const aspect = (state.compare && !state.stereoSbs ? innerWidth / 2 : innerWidth) / innerHeight;
   overheadCamera.left = -5 * aspect;
@@ -3380,6 +3412,8 @@ function frame() {
   const delta = Math.min(clock.getDelta(), 0.1);
   const time = clock.elapsedTime;
   state.visualScale += (state.scale - state.visualScale) * 0.075;
+  eye?.apply(nativeFov);
+  eye?.update();
   updateElevator();
   if (state.transport.playing && Math.abs(state.visualScale - state.scale) < 0.035) {
     const secondsPerStep = 60 / state.transport.bpm * state.transport.quantization;

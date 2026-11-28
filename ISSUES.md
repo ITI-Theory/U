@@ -7172,6 +7172,51 @@ the body's vessels by the Televator); 26 Nov (the visual audit: USC on the app's
       axState (20261120_140700 usc-in-sm). Each becomes an option in the USM model first (`make -C sherlock usm`).
 - [x] (27 Nov) Also queued here: 20261006_190130 app-explorer, 20261008_190711 app-design, 20261027_221653
       wireframe-terrain.
+- [x] (28 Nov 01:xx; the author: "read that in detail ... make sure you get the chats on zooming and the
+      perspective of human eye ... it relates to human perception of zooming"; "we can add any fractals there
+      too") Read in full: 20261121_220226 (Fantastic Voyage), 20261006_190130 at 20 Oct 13:17 ("be the size"),
+      and the fractal threads. What it adds to the trace above:
+      (1) The eye stays human-sized (the author, 20 Oct: "I have climbed, but my eyes are still the size they
+          were ... we have to *be* the crowd"). Built since: the scenes and the film "Be the size" (each level's
+          "now", its neighbour; registry/scenes.yaml). Not built: the camera. Zooming and moving look the same
+          to a point camera; the 21 Nov answer (prompt 10, "is the zooming different to just putting myself
+          somewhere") couples the camera to sigma: peering across scales is a narrow field of view and an
+          aperture vignette (telescope or microscope), arriving at the native scale widens it; a HUD line
+          OBSERVATION: REMOTE APERTURE or CO-MOVING; an Inhabited stance (INTERPRETIVE, by register, off when
+          T-THEORY is off). main.js has a fixed field of view (it follows only the aspect).
+      (2) Time as perceived: a dual clock, the true period per level shown as a number, the visual tempo
+          compressed into what an eye can follow (0.08 to 3.5 Hz, 1.15 Hz at the human level), one waveform
+          shape per level (spark, integrate-and-fire, Windkessel, lub-dub with breath, sawtooth, standing wave,
+          Alfven train, cosine breath); a live trace (SomaticScope), the quantum foam as shimmer, not strobe.
+      (3) The body: the 80,000 km of vessels need not be modelled; 5 to 7 landmark hubs on a spine (lungs,
+          cochlea, vagus, thymus, gut, eye) and, at the dead ends, procedural capillary clouds; fluorescence
+          channels (DAPI, GFP, RFP); BioVisions' motifs (cobblestone wall, bilayer sea, microtubules, kinesin).
+          Copilot's suggestion, not the chats': the vascular tree as a fractal (Murray's law, already a chapter
+          of the fractal programme's Trees/Rivers/Lungs), grown to any depth as the zoom goes in, so the vessels
+          never end and are never stored.
+      (4) Zoomable somatic lenses, from the body scan: 12 anchors (MBSR/Gestalt), a Green's-function heat map,
+          the throb dive; the Polyvagal ladder, Focusing's felt sense, biotensegrity, heart-brain coherence, the
+          craniosacral tide, cymatics (Chladni modes driven by the music), interoceptive active inference.
+      (5) Fractals in the chats: the Mandelbulb as the deep attractor (Rosetta, 12 Jul), fractal zoom as scale
+          traversal ("fractals are attractor maps", MS Copilot, 19 Jul), the impulse response across zoom levels
+          as self-similarity (quantum_intelligence, 9 Jun); the cosmic web against the neural web, magma plumes
+          against arteries (21 Nov).
+      (6) sigma 9, flying over terrain abstractly: fBm noise, neon contour lines, rivers as energy splines.
+- [x] (28 Nov 01:xx; the author chose "the eye" first, and the HUD's instruments as a setting: "add to
+      settings and let the user decide? i bet there could be loads more options here") eye.js: EYE `human`
+      (default; while a zoom is under way the field of view narrows to 40% with a round aperture over the 3D
+      view, MICROSCOPE going down, TELESCOPE going up; native on arrival) or `pinhole`; HUD `scale` (level,
+      evidence label, sigma, length, NOW said as a person would, the eye's mode), `flight` (heading, pitch,
+      roll, field of view), `both`, `off`; a panel like the others, in FIELD CONTROLS, saved, in the hash
+      when not the default. A link still jumps (putting yourself somewhere); only a zoom peers. Checked with
+      Playwright: no console errors; Human to Whole Brain reads MICROSCOPE, 34 to 15 degrees; Human to Animal
+      Swarm TELESCOPE, 13.6 degrees; panels stay clear of the aperture.
+- [ ] More options, as the author expects: the eye's narrowest field and the aperture's look; the HUD's
+      other blocks (the left rail, the bottom bar of SpaceEngine and Pilot2ATC v2, the route drawer); each
+      first an option in the USM model (sherlock/Usm), with the theorem that a display option never changes
+      what the levels show.
+- [ ] The dual clock (21 Nov): the level's true period beside a visual tempo an eye can follow, one
+      waveform shape per level, the live trace in the HUD.
 
 ## ISS-128: Equations: every Pandoc equation matched to its Lean — OPEN
 {{Tags area.sherlock, area.proofs, area.papers}}
