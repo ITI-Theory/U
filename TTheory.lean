@@ -29,6 +29,7 @@ import TTheory.P22
 import TTheory.P23
 import TTheory.P24
 import TTheory.P25
+import TTheory.SH1
 
 /-!
 # [T]-Theory
@@ -100,4 +101,6 @@ import moves the states on the next build. Nothing is set by hand.
   ‖W₈‖ = 3.877, "relaxes toward 6/5" and the holonomy axiom's fit to W₈ refuted.
 * `TTheory.P25`: Path-sensitive transitions: the paper's three toy targets proved (the barrier
   as the soft-maximum's limit, same barrier at different cost, hysteresis); its signatures open.
+* `TTheory.SH1`: Sherlock: its counts and examples checked; containment of a contradiction and
+  the category error shown in the native form that replaces the design it describes.
 -/

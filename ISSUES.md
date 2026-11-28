@@ -8436,6 +8436,12 @@ mathlib and physlib ... T-theory, all of it, modelled in lean"):**
       maximum with different cumulative costs; hysteresis (a one-way edge: onset and recovery by different
       routes at different cost). The four observable signatures and the comparison of accounts open. 3 kv, 5
       open.
+- [x] (28 Nov 06:43) SH1 as a chapter: its counts (251 = 237+9+4+1 = 129+69+4+5+44; 42 in the table) and two
+      examples (1 - tanh 1 < 0.24 via P6; Fin 21) checked; a contradiction contained (an inconsistent
+      microtheory has no instance) and the percept/pole category error, both in the native form. 4 kv. SH1's
+      Method still describes OpenCyc as xiom ... : Holds mt phi facts with a Holds semantics file; the
+      model is now native classes (this issue): its next revision should say so (and docs/SHERLOCK.md's
+      "Where it is going").
 - [ ] Step 2, the scale: the whole NextKB taxonomy (103,321 genls; 333,488 isa; 26,154 disjointWith) generated in the
       A + C form, measured (build time, memory, coercion search); then P1 against it. disjointWith and individuals
       with several types still to design.
