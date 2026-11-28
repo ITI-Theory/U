@@ -7443,6 +7443,17 @@ and their verdicts change: that is the witness.
       takes the dimension first; k_eff's positivity must be an instance); TTheory/P15.lean proves it.
       (4) dmu_kappa ~ e^{-kappa V} dmu_0 for the quadratic V is not a density in infinite volume (Gaussian
       measures of different mass are mutually singular); define mu_kappa as the GFF at k_eff instead.
+- [ ] (28 Nov, found by the Lean model, TTheory/P16.lean: refuted) The geographic field (P16): (1) 2.1 "Patterns
+      with a characteristic wavelength shorter than the corridor width decay within a few kilometres. Patterns
+      with a wavelength matched to the corridor geometry propagate": backwards. In a corridor of width a the n-th
+      transverse mode travels when k > n pi/a (wavelength below 2a/n) and is cut off, decaying, above; a short
+      wavelength travels (refuted with wavelength a/2: cos(sqrt15 pi x) never dies away). Long patterns (more
+      than twice the width) are the ones that decay; the corridor channels the short ones. (2) Its scales:
+      "Scale 7 (Animal Swarms)", "Scale 8 (organism)"; P11's catalogue has 7 Organism, 8 Swarms. Its lengths
+      also sit outside its scales: the corridor's ~30 km at Scale 9 (10^3 m), the formation's ~100 m at Scale 7
+      (10^0-10^1), the 3 km lake at Scale 10 (10^5). (3) Eq. (1) with P11's sign (the plotted Re G gives -delta).
+      (4) The conclusion's "seismic counterpart records a ten-million-year wave" against section 3's "This is
+      not a literal seismic wave".
 
 ## ISS-131: Writing up USC: what it did, how it works, how to use it — IN-PROGRESS
 {{Tags area.sherlock, area.papers, area.books}}
@@ -8334,6 +8345,9 @@ mathlib and physlib ... T-theory, all of it, modelled in lean"):**
       the proposed below-critical theorem proved (kernel-verified in [Reduction]); figures; V quartic and the
       attractor above kappa_c refuted (ISS-130), and P14's quartic claim with them; Conjecture 2, UV and
       infinite volume open. 4 kv, 3 open, 2 refuted.
+- [x] (28 Nov 05:15) P16 as a chapter: the wave-guide's lowest mode, its ODEs (cos, exp, sin by HasDerivAt),
+      travel above the cutoff and decay below proved; the acoustic k = 1.848; the paper's short-wavelength decay,
+      its swarm scale and eq. (1) (P11) refuted (ISS-130); substrate equivalence open. 2 kv, 1 open, 3 refuted.
 - [ ] Step 2, the scale: the whole NextKB taxonomy (103,321 genls; 333,488 isa; 26,154 disjointWith) generated in the
       A + C form, measured (build time, memory, coercion search); then P1 against it. disjointWith and individuals
       with several types still to design.

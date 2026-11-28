@@ -19,6 +19,7 @@ import TTheory.P12
 import TTheory.P13
 import TTheory.P14
 import TTheory.P15
+import TTheory.P16
 
 /-!
 # [T]-Theory
@@ -70,4 +71,6 @@ import moves the states on the next build. Nothing is set by hand.
   quartic interaction refuted.
 * `TTheory.P15`: The interacting USF: mass renormalisation, Conjecture 1 mode by mode and the
   proposed below-critical OS theorem proved; V quartic and the trauma phase's attractor refuted.
+* `TTheory.P16`: The geographic field: the wave-guide's modes proved (above the cutoff they
+  travel); the paper's short-wavelength decay, eq. (1)'s sign (P11) and the swarm scale refuted.
 -/
