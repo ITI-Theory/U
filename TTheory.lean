@@ -15,6 +15,7 @@ import TTheory.P8
 import TTheory.P9
 import TTheory.P10
 import TTheory.P11
+import TTheory.P12
 
 /-!
 # [T]-Theory
@@ -57,4 +58,6 @@ import moves the states on the next build. Nothing is set by hand.
   memory kernel refuted as the equation's own, kept as its Euclidean correlation.
 * `TTheory.P11`: The zoomable field: the correspondence limit, FM-HN, the eleven dimensions and the
   well proved or chained; eq. (1)-(2)'s sign and the catalogue's order refuted.
+* `TTheory.P12`: Experimental benchmarks: the cited theorems chained, Britain 1939 and Kuramoto
+  proved; the gate exp(-W) refuted; the swarm module's variational axiom inconsistent.
 -/

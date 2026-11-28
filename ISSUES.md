@@ -7395,6 +7395,18 @@ and their verdicts change: that is the witness.
       same in every document that copies them (the equations census, bld/sherlock/equations.md). (2) The
       twenty-scale catalogue puts Scale 14, Black Holes and Compact Objects (10^3-10^10 m), after Scale 13,
       Stellar (10^11 m): the only step where the length falls. Move it, or say why compact objects sit there.
+- [ ] (28 Nov, found by the Lean model, TTheory/P12.lean: CRITICAL) paper/proofs/SwarmPropagator.lean, the module
+      P12 cites for its cost comparison, has xiom greens_achieves_minimum_energy (G) (s) (E : SwarmState n -> R) :
+      forall s', E (propagatorStep G s) <= E s': for every function E at once. That is false (one agent, G = 0,
+      E(x) = x0, s' = -1 gives 0 <= -1), so the module proves False and everything that imports it proves anything.
+      #status shows the claim inconsistent (the axiom's witness beside a counterexample proved without it). Fix: E
+      must be the propagator's own energy (a hypothesis tying E to G), or drop the axiom.
+- [ ] (28 Nov, TTheory/P12.lean) P12 states the tunnelling gate as T = exp(-W) and cites QuantumSim.lean, whose
+      wkbGate turns by wkbAmplitude W = exp(-8 sqrt(2W)/3) (its docstring says about exp(-W/2)): three gates.
+      At W = 8: exp(-8) against exp(-32/3). One formula, in the paper, the docstring and the code.
+- [ ] (28 Nov, TTheory/P12.lean) UniversalSomaticField.lean has xiom sft_iso_modal_hott : True and
+      xiom sft_grounds_hoffman : True: vacuous, they assert nothing; the names suggest results that are not
+      there. State them, or mark them as placeholders where they are cited.
 
 ## ISS-131: Writing up USC: what it did, how it works, how to use it — IN-PROGRESS
 {{Tags area.sherlock, area.papers, area.books}}
@@ -8270,6 +8282,10 @@ mathlib and physlib ... T-theory, all of it, modelled in lean"):**
       bounded by e^{β(z_i - z_max)}); FM-HN's correspondence principle (LimbicHopfield) and the eleven dimensions
       (MTheoryIsomorphism) chained; the trauma flow and Θ(W) = LimbicTunnel's WKB amplitude proved; the ledger's
       3/11; eq. (1)-(2)'s sign and the catalogue's order refuted (ISS-130). 5 kernel-verified, 2 refuted.
+- [x] (28 Nov 03:50) P12 as a chapter: the benchmarks' cited theorems chained (cost under N < K, awe reachable,
+      jellyfish step, gradient trap, QUANT-EXP-1 via P2's record); Britain 1939 and the Kuramoto bound proved; the
+      gate exp(-W) refuted against QuantumSim's; hysteresis open; SwarmPropagator's variational axiom inconsistent
+      (ISS-130). 7 kernel-verified, 1 open, 1 refuted, 1 inconsistent.
 - [ ] Step 2, the scale: the whole NextKB taxonomy (103,321 genls; 333,488 isa; 26,154 disjointWith) generated in the
       A + C form, measured (build time, memory, coercion search); then P1 against it. disjointWith and individuals
       with several types still to design.
