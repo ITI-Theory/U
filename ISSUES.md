@@ -7385,6 +7385,10 @@ and their verdicts change: that is the witness.
       antisymmetric component of W". The antisymmetric part does no work (proved: eᵀAe = 0), so the state circles
       rather than descends; but on its own (linear) it gives neutral circles, not an isolated limit cycle, which needs
       nonlinear terms. Say "circling" or "rotational flow", or name the nonlinearity that makes it a limit cycle.
+- [ ] (28 Nov, found by the Lean model, TTheory/P9.lean: P9.pilot-occupancy refuted) The music paper's pilot: "duration
+      114.88 s ... nearest-attractor occupancy: regulated_calm 5594 samples, grief 45 samples" at 50 Hz: 5639 samples
+      of 5744, so 105 (2.1 s) are not accounted for. Either a third state, or samples excluded (the exclusion policy
+      allows dropouts), which the pilot should then say. (Its 7.31 transitions/min checks: 14 in 114.88 s.)
 
 ## ISS-131: Writing up USC: what it did, how it works, how to use it — IN-PROGRESS
 {{Tags area.sherlock, area.papers, area.books}}
@@ -8247,6 +8251,10 @@ mathlib and physlib ... T-theory, all of it, modelled in lean"):**
       P8: the River Film's score as a table; the phases agree with it; both thresholds' conditions, threshold 2's
       time and the projection knob refuted against the table and the paper's own equation (ISS-130). 4 kernel-verified,
       4 refuted.
+- [x] (28 Nov 03:2x) P9 as a chapter: its energy (P2's recap), threshold (P1's eq. 12 on the larger channel) and
+      noise (P7's scale is √(2 T_eff)) from the other chapters; the ADHD reading (the escape factor rises with T);
+      the pilot's rate checked and its occupancy refuted (ISS-130); H1 in the pilot's record, H2 and H3 open.
+      5 kernel-verified, 2 open, 1 refuted; the abstract 5 of 5.
 - [ ] Step 2, the scale: the whole NextKB taxonomy (103,321 genls; 333,488 isa; 26,154 disjointWith) generated in the
       A + C form, measured (build time, memory, coercion search); then P1 against it. disjointWith and individuals
       with several types still to design.
