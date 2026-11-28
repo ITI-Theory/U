@@ -14,6 +14,7 @@ import TTheory.P7
 import TTheory.P8
 import TTheory.P9
 import TTheory.P10
+import TTheory.P11
 
 /-!
 # [T]-Theory
@@ -54,4 +55,6 @@ import moves the states on the next build. Nothing is set by hand.
   figures checked (the occupancy short by 105 samples); H2 and H3 open.
 * `TTheory.P10`: Temporal dynamics: carried by the fishing's Klein-Gordon and Kramers theorems; the
   memory kernel refuted as the equation's own, kept as its Euclidean correlation.
+* `TTheory.P11`: The zoomable field: the correspondence limit, FM-HN, the eleven dimensions and the
+  well proved or chained; eq. (1)-(2)'s sign and the catalogue's order refuted.
 -/

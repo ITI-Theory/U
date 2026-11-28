@@ -7389,6 +7389,12 @@ and their verdicts change: that is the witness.
       114.88 s ... nearest-attractor occupancy: regulated_calm 5594 samples, grief 45 samples" at 50 Hz: 5639 samples
       of 5744, so 105 (2.1 s) are not accounted for. Either a third state, or samples excluded (the exclusion policy
       allows dropouts), which the pilot should then say. (Its 7.31 transitions/min checks: 14 in 114.88 s.)
+- [ ] (28 Nov, found by the Lean model, TTheory/P11.lean: two refuted claims) The zoomable field (P11): (1) eq. (1)
+      "(∇² + k²) G = δ" with eq. (2) "G = e^{ik|x-x'|}/(4π|x-x'|)": that G gives a flux of -1 out of a small sphere,
+      so it solves (1) with -δ (P10 writes the source as -J, consistent with it). One sign in (1) or (2), and the
+      same in every document that copies them (the equations census, bld/sherlock/equations.md). (2) The
+      twenty-scale catalogue puts Scale 14, Black Holes and Compact Objects (10^3-10^10 m), after Scale 13,
+      Stellar (10^11 m): the only step where the length falls. Move it, or say why compact objects sit there.
 
 ## ISS-131: Writing up USC: what it did, how it works, how to use it — IN-PROGRESS
 {{Tags area.sherlock, area.papers, area.books}}
@@ -8260,6 +8266,10 @@ mathlib and physlib ... T-theory, all of it, modelled in lean"):**
       with the barrier; the memory kernel as "∫d³x G_R" of the paper's own equation refuted (it rings at rest), and
       the same exponential kernel-verified as the Euclidean correlation (ISS-130's memory-kernel box: the abstract's
       central new concept needs its setting named). 5 kernel-verified, 1 refuted; the abstract 3 of 4.
+- [x] (28 Nov 04:0x) P11 as a chapter: the correspondence limit (4) proved (each entry below the maximum vanishes,
+      bounded by e^{β(z_i - z_max)}); FM-HN's correspondence principle (LimbicHopfield) and the eleven dimensions
+      (MTheoryIsomorphism) chained; the trauma flow and Θ(W) = LimbicTunnel's WKB amplitude proved; the ledger's
+      3/11; eq. (1)-(2)'s sign and the catalogue's order refuted (ISS-130). 5 kernel-verified, 2 refuted.
 - [ ] Step 2, the scale: the whole NextKB taxonomy (103,321 genls; 333,488 isa; 26,154 disjointWith) generated in the
       A + C form, measured (build time, memory, coercion search); then P1 against it. disjointWith and individuals
       with several types still to design.
