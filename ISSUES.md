@@ -7407,6 +7407,19 @@ and their verdicts change: that is the witness.
 - [ ] (28 Nov, TTheory/P12.lean) UniversalSomaticField.lean has xiom sft_iso_modal_hott : True and
       xiom sft_grounds_hoffman : True: vacuous, they assert nothing; the names suggest results that are not
       there. State them, or mark them as placeholders where they are cited.
+- [ ] (28 Nov, found by the Lean model, TTheory/P13.lean: refuted) The missing limbic layer (P13), Corollary
+      (Classical Limit): "as beta -> infinity, the 2020 update converges pointwise to the 1982 sign update" and
+      "the 1982 Hopfield Network is the cold limit of the FM-HN". The cold limit is proved (softmax_limit_argmax,
+      listed as pending): the 2020 update retrieves the stored pattern nearest the state, in one step. The 1982
+      sign update is not that: one pattern (1,1,1,1), state (1,-1,-1,-1), and the 2020 update gives the pattern
+      at every beta, the 1982 update (Hebbian, zero diagonal, or not) its mirror (-1,-1,-1,-1). The 1982 energy
+      is even and stores both; the 2020 one does not. "argmax z = sign(z)" mixes an index with a vector. Say
+      "limit: nearest-pattern retrieval, which the 1982 network also reaches from inside a basin", and the same
+      in the Discussion ("provably identical to the 1982 network") and P11, which repeats it.
+- [ ] (28 Nov, TTheory/P13.lean) LimbicHopfield.lean lists energy_descent_modern as E20(xi_{t+1}) < E20(xi_t)
+      for each step: strict, so false at every fixed point (one pattern 1, state 1). Ramsauer et al. prove <=.
+      P13 also asks for Phi_min ~ sigma^-1 (T_WKB - T0) with T_WKB defined nowhere, and cites wkbAmplitude_pos
+      (Theta(W) > 0) for an escape probability bounded below by Theta(W), which it does not give.
 
 ## ISS-131: Writing up USC: what it did, how it works, how to use it — IN-PROGRESS
 {{Tags area.sherlock, area.papers, area.books}}
@@ -8286,6 +8299,9 @@ mathlib and physlib ... T-theory, all of it, modelled in lean"):**
       jellyfish step, gradient trap, QUANT-EXP-1 via P2's record); Britain 1939 and the Kuramoto bound proved; the
       gate exp(-W) refuted against QuantumSim's; hysteresis open; SwarmPropagator's variational axiom inconsistent
       (ISS-130). 7 kernel-verified, 1 open, 1 refuted, 1 inconsistent.
+- [x] (28 Nov 04:02) P13 as a chapter: the coupling equations (beta falls as Phi rises) and the figures'
+      numbers (beta 4 and 0.8, the matrix sums, 0.6225, Theta(12) between 2.1 and 2.2e-6) proved; the cold limit
+      proved, the 1982 limit and strict descent refuted (ISS-130); escape bound open. 7 kv, 1 open, 2 refuted.
 - [ ] Step 2, the scale: the whole NextKB taxonomy (103,321 genls; 333,488 isa; 26,154 disjointWith) generated in the
       A + C form, measured (build time, memory, coercion search); then P1 against it. disjointWith and individuals
       with several types still to design.

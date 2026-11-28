@@ -16,6 +16,7 @@ import TTheory.P9
 import TTheory.P10
 import TTheory.P11
 import TTheory.P12
+import TTheory.P13
 
 /-!
 # [T]-Theory
@@ -60,4 +61,6 @@ import moves the states on the next build. Nothing is set by hand.
   well proved or chained; eq. (1)-(2)'s sign and the catalogue's order refuted.
 * `TTheory.P12`: Experimental benchmarks: the cited theorems chained, Britain 1939 and Kuramoto
   proved; the gate exp(-W) refuted; the swarm module's variational axiom inconsistent.
+* `TTheory.P13`: The missing limbic layer: the coupling equations and figures checked; the cold
+  limit proved (one-step retrieval of the nearest pattern); the 1982 limit and strict descent refuted.
 -/
