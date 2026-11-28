@@ -8413,6 +8413,10 @@ mathlib and physlib ... T-theory, all of it, modelled in lean"):**
       look-elsewhere chance (about 20%, as the paper says), the KK and Hubble energy scales checked; the 1/22
       shortfall is not curvature (Fishing.Cosmology, which the paper does not claim); EM neutrality kernel-
       verified but by definition (gaugeCoupling := 0); w = 0 and the corrections open. 5 kv, 2 open.
+- [x] (28 Nov 06:23) P23 as a chapter: the fixed-point hypothesis open (as the paper states it); the seeds
+      (usf_is_fixed_point, usf_all_scales_inhabited) kernel-verified as type inhabitation (P20's G = 0); the
+      therapeutic lens's laws; a merged dominant mode that is neither pattern (two modes, one coupling). 3 kv,
+      1 open.
 - [ ] Step 2, the scale: the whole NextKB taxonomy (103,321 genls; 333,488 isa; 26,154 disjointWith) generated in the
       A + C form, measured (build time, memory, coercion search); then P1 against it. disjointWith and individuals
       with several types still to design.
