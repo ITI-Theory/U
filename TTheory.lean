@@ -6,6 +6,7 @@ Authors: Alistair Johnson
 import TTheory.Claims
 import TTheory.P1
 import TTheory.P2
+import TTheory.P3
 
 /-!
 # [T]-Theory
@@ -30,4 +31,6 @@ import moves the states on the next build. Nothing is set by hand.
 
 * `TTheory.P1`: The Soma-Field, a wave-based model of emotional dynamics.
 * `TTheory.P2`: Quantum topology and trauma, attractor reachability (QUANT-EXP-1).
+* `TTheory.P3`: Mathematical co-identification, run on its own row COID-ENG-2 (`TTheory.Method`
+  is the method itself: rows, the target check, the negative control).
 -/

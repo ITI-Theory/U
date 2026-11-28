@@ -87,10 +87,17 @@ private def contextOf (c : Expr) : MetaM (List Name) := do
         if let some n := (← whnfR d.type).getAppFn.constName? then out := out ++ [n]
     return out
 
+private unsafe def evalStringUnsafe (e : Expr) : MetaM String :=
+  Meta.evalExpr String (mkConst ``String) e
+
+/-- A string computed rather than written (a row's id with a suffix): evaluated, for display. -/
+@[implemented_by evalStringUnsafe] private opaque evalString (e : Expr) : MetaM String
+
 private def strField (field : Name) (c : Expr) : MetaM String := do
-  match ← whnf (mkApp (mkConst field) c) with
+  let e := mkApp (mkConst field) c
+  match ← whnf e with
   | .lit (.strVal s) => return s
-  | e => throwError "#status: {field} is not a string literal: {e}"
+  | w => try evalString e catch _ => throwError "#status: {field} is not a string: {w}"
 
 /-- A claim's state, computed from its witness or refutation: an index (0 kernel-verified,
     1 derived under assumptions, 2 frontier, 3 open, 4 refuted, 5 inconsistent) and the words. -/
