@@ -28,6 +28,7 @@ import TTheory.P21
 import TTheory.P22
 import TTheory.P23
 import TTheory.P24
+import TTheory.P25
 
 /-!
 # [T]-Theory
@@ -97,4 +98,6 @@ import moves the states on the next build. Nothing is set by hand.
   the lens laws and a merged dominant mode proved.
 * `TTheory.P24`: G₂ symmetry breaking: W8ℝ is the table; the unique split and its norms checked;
   ‖W₈‖ = 3.877, "relaxes toward 6/5" and the holonomy axiom's fit to W₈ refuted.
+* `TTheory.P25`: Path-sensitive transitions: the paper's three toy targets proved (the barrier
+  as the soft-maximum's limit, same barrier at different cost, hysteresis); its signatures open.
 -/

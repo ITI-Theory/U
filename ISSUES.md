@@ -8430,6 +8430,12 @@ mathlib and physlib ... T-theory, all of it, modelled in lean"):**
       split unique (trace fixes the multiple of I); ||dW||^2 = 3.52, ||W8||^2 = 15.04, 1.876, 0.484, the listed
       eigenvalues' sum and squares checked; 3.877, "relaxes toward 6/5" and the holonomy axiom's fit refuted
       (ISS-130); Schur open. 2 kv, 1 open, 3 refuted.
+- [x] (28 Nov 06:38) P25 as a chapter: the paper claims no Lean theorem and names three first targets; all three
+      proved on a toy model: the soft-maximum action (1/beta) log sum e^{beta V} lies between max V and
+      max V + log n/beta and tends to the barrier (the landscape account as a limit); two routes over the same
+      maximum with different cumulative costs; hysteresis (a one-way edge: onset and recovery by different
+      routes at different cost). The four observable signatures and the comparison of accounts open. 3 kv, 5
+      open.
 - [ ] Step 2, the scale: the whole NextKB taxonomy (103,321 genls; 333,488 isa; 26,154 disjointWith) generated in the
       A + C form, measured (build time, memory, coercion search); then P1 against it. disjointWith and individuals
       with several types still to design.
