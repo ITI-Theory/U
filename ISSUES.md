@@ -8473,6 +8473,12 @@ mathlib and physlib ... T-theory, all of it, modelled in lean"):**
       (28 Nov 07:23) Measured: the vocabulary (35 modules) and all 201 fact parts rebuilt clean (05:08-07:20,
       about 35 s a module); UniversalVocabularyMt, the aggregate that never finished under `extends`, built in 14 s
       (543 jobs). Phase 2 (the other 674 microtheories) continues in the same loop.
+      (28 Nov 10:06) Phase 2 stopped at microtheory 748 of 918: NextKB has MetaEngineeringEventsMt and
+      MetaengineeringEventsMt, two microtheories whose files collide on a case-insensitive file system (Windows),
+      so one overwrote the other and the parent name fell to an auto-bound implicit ("universe level
+      metavariables"). The generator now makes file names unique ignoring case (the later gets `_2`) and turns
+      autoImplicit off in microtheory files, so an unknown parent is an error. Parts unchanged (cached). Phase 2
+      restarted from the generated import order (bld/mts2.log).
 - [ ] The chats' threads: a thread's state (implemented, queued) from a witness in the model, not routed by hand.
 - [ ] (author, 27 Nov: "in the chats there was talk of external data sets to compare against etc. for the FMHN ...
       so the idea would be that discussion has the lean for that, and is then available somewhere else") A dataset

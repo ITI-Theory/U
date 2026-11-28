@@ -221,6 +221,20 @@ end OpenCyc
   -- microtheories
   let mtList := (kb.mts.toArray.qsort (· < ·))
   let (ordered, parents, dropped) := order mtList kb.genlMt
+  -- file names unique ignoring case: NextKB has MetaEngineeringEventsMt and
+  -- MetaengineeringEventsMt, one file on a case-insensitive file system (Windows, macOS), so
+  -- the later one gets a suffix
+  let mut fileName : Std.HashMap String String := {}
+  let mut taken : Std.HashSet String := {}
+  for m in mtList do
+    let mut f := fileOf m
+    let mut suffix := 2
+    while taken.contains f.toLower || taken.contains (f ++ "_P1").toLower do
+      f := s!"{fileOf m}_{suffix}"
+      suffix := suffix + 1
+    taken := taken.insert f.toLower
+    fileName := fileName.insert m f
+  let fileOfMt := fun (m : String) => fileName.getD m (fileOf m)
   let mut mtMods : Array String := #[]
   let mut nFacts := 0
   -- each microtheory's fact names, so that one an ancestor already asserts is inherited, not
@@ -253,9 +267,9 @@ end OpenCyc
         else facts := facts.push f
     own := own.insert m seen
     nFacts := nFacts + facts.size
-    let fm := fileOf m
+    let fm := fileOfMt m
     let ps := parents.getD m #[]
-    let parentImports := ps.toList.map (fun p => s!"import OpenCycNative.Mt.{fileOf p}")
+    let parentImports := ps.toList.map (fun p => s!"import OpenCycNative.Mt.{fileOfMt p}")
     let mut partNames : Array String := #[]
     let mut partImports : Array String := #[]
     if facts.size > partSize then
@@ -282,7 +296,8 @@ end OpenCyc
         " ".intercalate (instFields.map (fun (n, _) => s!"{ident m}.{n}"))
     IO.FS.writeFile (base / "Mt" / s!"{fm}.lean") (header ++
       "\n".intercalate (["import OpenCycNative.Vocabulary"] ++ parentImports ++ partImports.toList) ++
-      "\n\nnamespace OpenCycMt\n\n" ++ s!"/-- Microtheory {m} ({facts.size} facts). -/\n" ++
+      "\n\nset_option autoImplicit false\n\nnamespace OpenCycMt\n\n" ++
+      s!"/-- Microtheory {m} ({facts.size} facts). -/\n" ++
       s!"class {ident m} : Prop{body}{attr}\n\nend OpenCycMt\n")
     mtMods := mtMods.push s!"OpenCycNative.Mt.{fm}"
   IO.FS.writeFile (out / "OpenCycNative.lean") (header ++
