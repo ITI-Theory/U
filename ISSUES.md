@@ -7346,6 +7346,19 @@ and their verdicts change: that is the witness.
 - [ ] The documents that count levels name their model: the course (ch. 1, 4: the Atlas's 31), the papers ("twenty"
       = the catalogue's named 01 to 20, "twenty-one" = sigma 0 to 20 with the foam; the USF-ScaleLevelCount DIFFER),
       the books. Papers at their next version only.
+- [ ] (28 Nov, found by the Lean model, ISS-141: TTheory/P2.lean and P4.lean, each a refuted claim) QUANT-EXP-1's
+      numbers across P2 and P4. (1) P4 (soma-field-synthesis, "The Experiment") gives the classical baseline as
+      T_eff = 0.01; P2, the experiment's own paper, T = 0.02 (P4.baseline). (2) P4's results table gives the quantum
+      peak 0.389 at W = -6 and 0.416 at W = -14, "stable at 0.389-0.416"; P2's noise-equivalence table gives 0.416
+      and 0.390: the ends are swapped, and P4's middle values (0.408, 0.408, 0.409) are P2's bootstrap table's
+      (P4.peaks). (3) P2's own two tables disagree where both report: the sweep gives 0.416 at B8 and 0.398 at B12,
+      the bootstrap 0.410 and 0.409, and limitation 3 says "stable at 0.408-0.410 across B8/B10/B12" (P2.tables);
+      unless they are different runs, which P2 should then say. P4 also names four modes (Fear, Calm, Awe, Grief)
+      where P2 has eight (Safety, Fear, Curiosity, Awe, Grief, Language, Preverbal, Shame). The papers at their
+      next versions; then the chapters' tables follow the corrected text and the claims' states change.
+- [ ] (28 Nov, ISS-141) LimbicTunnel.lean's axiom quant_exp_1 states `0 < wkbAmplitude W`, which the same file
+      proves; its comment says the axiom carries the empirical rate, which it does not. Retire it, or give it the
+      run's content (P2.Record has the numbers).
 
 ## ISS-131: Writing up USC: what it did, how it works, how to use it — IN-PROGRESS
 {{Tags area.sherlock, area.papers, area.books}}
@@ -8187,6 +8200,10 @@ mathlib and physlib ... T-theory, all of it, modelled in lean"):**
       example: the transform proved), COID-PROP-1, COID-RG-5.
 - [ ] Building: `lake build TTheory` runs modules in parallel (it does not honour LEAN_NUM_THREADS for
       jobs), so with another Lean build running it exceeds two processes; build one module per command.
+- [x] (28 Nov 03:xx) P4 as a chapter (5f7d40f): its three movements are P3's, P1's and P2's claims, witnessed by
+      their witnesses (a chain: they stand or fall with them); two of its numbers refuted against P2 (ISS-130).
+      P2 gained its two tables as data, and its claim that they agree is refuted. #status names the contexts of a
+      claim built from conjuncts (P4.prediction-2: in P2.Assumptions and P2.Record).
 - [ ] Step 2, the scale: the whole NextKB taxonomy (103,321 genls; 333,488 isa; 26,154 disjointWith) generated in the
       A + C form, measured (build time, memory, coercion search); then P1 against it. disjointWith and individuals
       with several types still to design.
